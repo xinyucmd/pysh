@@ -1,0 +1,76 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package namespace="/jsp/system" name="product" extends="default">
+      	
+		<!-- 产品配置*************************************************** -->		
+      	<action name="listProductConfigurationFull" class="listProductConfigurationAction" method="listFull">
+    	  <result name="success" type="json"></result>
+        </action>    
+            
+        <action name="listProductConfigurationPage">
+    	  <result type="redirect">/jsp/system/listProductConfiguration.jsp</result>
+        </action>
+ 
+ 		<!-- 产品配置添加界面 -->
+ 		 <action name="editProductConfiguration" class="editProductConfigurationAction" method="get">
+			<result>/jsp/system/editProductConfiguration.jsp</result>
+        </action>	
+        
+         <action name="saveProductConfiguration" class="editProductConfigurationAction" method="save">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/system/editProductConfiguration.jsp</result>          
+    	    <result type="redirectAction">editProductConfiguration.action?id=${id}</result>
+        </action>
+           
+        
+           
+        <action name="massUpdateProductConfiguration" class="editProductConfigurationAction" method="massUpdate">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/system/editProductConfiguration.jsp</result>          
+    	    <result>/jsp/system/editProductConfiguration.jsp</result>
+        </action> 
+        
+          
+        <!-- 產品配置刪除 -->
+         <action name="deleteProductConfiguration" class="listProductConfigurationAction" method="delete">
+        	<result name="input">/jsp/system/listProductConfiguration.jsp</result>
+			<result type="redirect">/jsp/system/listProductConfiguration.jsp</result>
+        </action>
+        <!-- copy -->
+         <action name="copyProductConfiguration" class="listProductConfigurationAction" method="copy">
+        	<result name="input">/jsp/system/listProductConfiguration.jsp</result>
+			<result>/jsp/system/listProductConfiguration.jsp</result>            	  
+        </action>
+        <!-- import -->
+         <action name="importProductConfiguration" class="listProductConfigurationAction" method="importCSV">
+        	<result name="input">/jsp/system/uploadProductConfiguration.jsp</result>
+			<result>/jsp/financing/upload-success.jsp</result>            	  
+        </action>
+        <!-- export -->
+            <action name="exportProductConfiguration" class="listProductConfigurationAction">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="stream">
+                <param name="contentType">application/x-msdownload;charset=ISO8859-1</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>            	  
+        </action>
+	<!-- export -->
+         <action name="exportTemplateProductConfiguration" class="listProductConfigurationAction">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="stream">
+                <param name="contentType">application/x-msdownload;charset=ISO8859-1</param>
+                <param name="inputName">templateStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>            	  
+        </action>
+        
+        
+  </package>      
+    
+</struts>

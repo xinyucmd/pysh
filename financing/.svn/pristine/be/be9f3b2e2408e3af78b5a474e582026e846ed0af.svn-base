@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<!-- 产品配置 -->
+	<bean id="listProdAction" class="com.jiangchuanbanking.prod.action.ListProdAction" >
+		<property name="baseService" ref="baseService" />		
+		<property name="prodService" ref="prodService" />	
+		<property name="selectService" ref="selectService" />
+	</bean>
+	
+	<bean id="listProAction" class="com.jiangchuanbanking.prod.action.ListProAction" >
+		<property name="baseService" ref="baseService" />		
+	</bean>
+	
+	<bean id="editProdAction" class="com.jiangchuanbanking.prod.action.EditProdAction" >
+		<property name="baseService" ref="baseService" />		
+		<property name="prodService" ref="prodService" />	
+		<property name="prodChargePolicyService" ref="prodChargePolicyService"></property>
+	</bean>
+	<bean id="prodService" class="com.jiangchuanbanking.prod.service.impl.ProdService">
+		<property name="baseDao" ref="baseDao" />
+		<property name="prodDao" ref="prodDao" />
+	</bean>
+	<bean id="prodDao" class="com.jiangchuanbanking.prod.dao.impl.ProdDao">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 定价策略 -->
+	<bean id="listProdChargePolicyAction" class=" com.jiangchuanbanking.prod.action.ListProdChargePolicyAction" >
+		<property name="baseService" ref="baseService" />		
+		<property name="prodChargePolicyService" ref="prodChargePolicyService" />	
+	</bean>
+	<bean id="prodChargePolicyService" class=" com.jiangchuanbanking.prod.service.impl.ProdChargePolicyService">
+		<property name="baseDao" ref="baseDao" />
+		<property name="prodChargePolicyDao" ref="prodChargePolicyDao" />
+	</bean>
+	<bean id="prodChargePolicyDao" class="com.jiangchuanbanking.prod.dao.impl.ProdChargePolicyDao">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>

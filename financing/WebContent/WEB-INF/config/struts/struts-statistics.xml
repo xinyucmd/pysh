@@ -1,0 +1,20 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+     <package namespace="/jsp/statistics" name="statistics" extends="default">    
+	    
+        
+      	<action name="monthPaySum" class="reportAction" method="monthPaySum">
+    	  <result name="monthPaySum" >/jsp/statistics/monthPaySum.jsp</result>
+        </action>
+        <action name="liabilitySum" class="reportAction" method="liabilitySum">
+    	  <result name="liabilitySum" >/jsp/statistics/liabilitySum.jsp</result>
+        </action>
+        <action name="percentCalcul" class="reportAction" method="percentCalcul">
+    	  <result name="percentCalcul" >/jsp/statistics/percentCalcul.jsp</result>
+        </action>
+  </package>      
+    
+</struts>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<bean id="listCusAction" class="com.jiangchuanbanking.investor.action.ListCusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="selectService" ref="selectService" />
+	</bean>
+
+	<bean id="editInvestorAction" class="com.jiangchuanbanking.investor.action.EditInvestorAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountTypeService" ref="optionService" />
+		<property name="accountLevelService" ref="optionService" />
+		<property name="capitalService" ref="optionService" />
+		<property name="annualRevenueService" ref="optionService" />
+		<property name="companySizeService" ref="optionService" />
+		<property name="accountNatureService" ref="optionService" />
+		<property name="industryService" ref="optionService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+     <bean id="listInvestorAction" class="com.jiangchuanbanking.investor.action.ListInvestorAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountTypeService" ref="optionService" />
+		<property name="accountLevelService" ref="optionService" />
+		<property name="capitalService" ref="optionService" />
+		<property name="annualRevenueService" ref="optionService" />
+		<property name="companySizeService" ref="optionService" />
+		<property name="accountNatureService" ref="optionService" />
+		<property name="industryService" ref="optionService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+	</bean>
+	
+</beans>

@@ -1,0 +1,134 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+     <package namespace="/jsp/investor" name="investor" extends="default">    
+	    
+              	
+      	<action name="listInvestor" class="listCusAction" method="list">
+    	  <result name="success" type="json"></result>
+        </action>
+
+      	<action name="listInvestorFull" class="listInvestorAction" method="listFull">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+    	<action name="listInvestorPage">
+    	  <result type="redirect">/jsp/investor/listInvestor.jsp</result>
+        </action>
+
+    	<action name="selectInvestor" class="listInvestorAction" method="select">
+    	  <result type="redirect">/jsp/investor/listInvestor.jsp</result>
+        </action>
+        
+    	<action name="unselectInvestor" class="listInvestorAction" method="unselect">
+    	  <result type="redirect">/jsp/investor/listInvestor.jsp</result>
+        </action>
+
+    	<action name="selectInvestorPage" class="listInvestorAction" method="selectPage">
+    	  <result>/jsp/investor/selectInvestor.jsp</result>
+        </action>
+        
+      	<action name="filterInvestor" class="listInvestorAction" method="filter">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+    	<action name="filterInvestorPage" class="listInvestorAction" method="filterPage">
+    	  <result>/jsp/investor/filterInvestor.jsp</result>
+        </action>
+        
+      	<action name="relateInvestorDocument" class="listInvestorAction" method="relateAccountDocument">
+    	  <result name="success" type="json"></result>
+        </action>
+                
+    	<action name="relateInvestorDocumentPage" class="listInvestorAction" method="filterPage">
+    	  <result>/jsp/investor/relateDocument.jsp</result>
+        </action>
+                
+         <action name="exportInvestor" class="listInvestorAction">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="stream">
+                <param name="contentType">application/x-msdownload;charset=ISO8859-1</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result> 
+            <result name="input">/jsp/investor/listInvestor.jsp</result>
+        </action>  
+
+         <action name="exportTemplateInvestor" class="listInvestorAction">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="stream">
+                <param name="contentType">application/x-msdownload;charset=ISO8859-1</param>
+                <param name="inputName">templateStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>            	  
+        </action>
+        
+         <action name="deleteInvestor" class="listInvestorAction" method="delete">
+        	<result name="input">/jsp/investor/listInvestor.jsp</result>
+			<result type="redirect">/jsp/investor/listInvestor.jsp</result>            	  
+        </action>
+        
+        <action name="removeInvestor" class="listInvestorAction" method="remove">
+			<result type="redirect">/jsp/investor/listInvestor.jsp</result>
+        </action>         
+        
+         <action name="copyInvestor" class="listInvestorAction" method="copy">
+        	<result name="input">/jsp/investor/listInvestor.jsp</result>
+			<result>/jsp/investor/listInvestor.jsp</result>            	  
+        </action>
+        
+         <action name="importInvestor" class="listInvestorAction" method="importCSV">
+        	<result name="input">/jsp/investor/uploadInvestor.jsp</result>
+			<result>/jsp/investor/upload-success.jsp</result>            	  
+        </action>
+                                
+        <action name="editInvestor" class="editInvestorAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/investor/editInvestor.jsp</result>
+			<result>/jsp/investor/editInvestor.jsp</result>
+        </action>
+
+        <action name="saveInvestor" class="editInvestorAction" method="save">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/investor/editInvestor.jsp</result>          
+    	    <result type="redirectAction">editInvestor.action?id=${id}&amp;saveFlag=${saveFlag}</result>
+        </action>
+        
+        <action name="saveCloseInvestor" class="editInvestorAction" method="save">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/investor/editInvestor.jsp</result>          
+    	  <result type="redirect">/jsp/investor/listInvestor.jsp</result>
+        </action>            
+        
+        <action name="massUpdateCloseInvestor" class="editInvestorAction" method="massUpdate">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/investor/editInvestor.jsp</result>          
+    	  <result type="redirect">/jsp/investor/listInvestor.jsp</result>
+        </action>
+        
+        <action name="massUpdateInvestor" class="editInvestorAction" method="massUpdate">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/investor/editInvestor.jsp</result>          
+    	    <result>/jsp/investor/editInvestor.jsp</result>
+        </action>   
+        
+      	<action name="getInvestorRelationCounts" class="editInvestorAction" method="getAccountRelationCounts">
+    	  <result name="success" type="json"></result>
+        </action>    
+        
+        
+        <action name="listCustomerPage">
+    	  <result type="redirect">/jsp/investor/listCustomer.jsp</result>
+        </action>  
+        
+        
+        
+       
+          
+  </package>      
+    
+</struts>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.account.domain">
+  <class dynamic-insert="false" dynamic-update="false" name="MainAccount" table="wealth_main_account">
+   <id column="account_no" name="account_no" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+    <property name="cif_no" column="cif_no" type="java.lang.Integer" /> 
+    <property name="cif_name" column="cif_name" type="string" />
+    <property name="account_type" column="account_type" type="string" />
+    <property name="status" column="status" type="string" />
+    <property name="open_date" column="open_date" type="string" />
+    <property name="open_op" column="open_op" type="string" />
+    <property name="close_date" column="close_date"     type="string" />
+    <property name="close_op" column="close_op" type="string" />
+    <property name="cmt" column="cmt" type="string" />
+    <property name="open_id" column="open_id" type="java.lang.Integer"/>
+     <set cascade="all" name="subAccountLists" table="wealth_sub_account">
+      <key column="account_no" />
+      <one-to-many class="com.jiangchuanbanking.account.domain.SubAccount"  />
+    </set>
+  </class>
+</hibernate-mapping>

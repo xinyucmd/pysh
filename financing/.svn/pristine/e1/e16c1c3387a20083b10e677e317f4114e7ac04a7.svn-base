@@ -1,0 +1,864 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<bean id="SpringContextUtil" class="com.jiangchuanbanking.util.spring.SpringContextUtil" />
+
+	
+	<!-- Oracle Data Source -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> 
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"> 
+		</property> 
+	<!--<property name="url" value="jdbc:oracle:thin:@192.168.2.85:1521:orcl">  -->
+ 			<property name="url" value="jdbc:oracle:thin:@192.168.2.227:1521:orcl11g"> 
+		</property> 
+		<property name="username" value="jclc"></property> 
+		<property name="password" value="jclc"></property> 
+	</bean> 
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
+		lazy-init="false">
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>WEB-INF/classes/com/jiangchuanbanking/system/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/changelog/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/dict/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/mail/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/financing/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/investor/domain/hbm</value>
+			 	<value>WEB-INF/classes/com/jiangchuanbanking/select/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/subscription/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/investor/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/prod/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/process/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/account/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/flowdetails/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/redeem/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/plan/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/alert/domain/hbm</value>
+				<value>WEB-INF/classes/com/jiangchuanbanking/contract/domain/hbm</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!--  <prop key="hibernate.hbm2ddl.auto">update</prop>-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.c3p0.max_size">130</prop>
+				<prop key="hibernate.c3p0.min_size">10</prop>
+				<prop key="hibernate.c3p0.timeout">120</prop>
+				<prop key="hibernate.c3p0.max_statements">100</prop>
+				<prop key="hibernate.c3p0.idle_test_period">120</prop>
+				<prop key="hibernate.c3p0.acquire_increment">5</prop>
+				<prop key="hibernate.c3p0.validate">true</prop>
+				<prop key="hibernate.connection.SetBigStringTryClob">true</prop>
+			</props>
+		</property>
+		<property name="lobHandler">
+			<ref local="lobHandler" />
+		</property>
+	</bean>
+
+	<!-- hibernateTransactionManager -->
+	<bean id="jcTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+
+	<!-- Annotation -->
+	<tx:annotation-driven transaction-manager="jcTransactionManager" />
+
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="30" />
+	</bean>
+
+	<bean id="mailService" class="com.jiangchuanbanking.mail.service.MailService">
+		<property name="taskExecutor" ref="taskExecutor" />
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<!-- Schedule -->
+	<bean id="repeatTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="jobtask" />
+		<property name="startDelay" value="20000" />
+		<property name="repeatInterval" value="3600000" />
+	</bean>
+
+	<bean id="scheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="repeatTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="mailRemind" />
+		</property>
+		<property name="targetMethod">
+			<value>getRemindInstances</value>
+		</property>
+	</bean>
+
+	<bean id="mailRemind" class="com.jiangchuanbanking.schedule.MailRemind">
+		<property name="callService" ref="callService" />
+		<property name="meetingService" ref="meetingService" />
+		<property name="mailService" ref="mailService" />
+		<property name="emailTemplateService" ref="baseService" />
+	</bean>
+
+	<!-- Dao Config -->
+	<bean id="baseDao" class="com.jiangchuanbanking.base.dao.impl.BaseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="callDao" class="com.jiangchuanbanking.financing.dao.impl.CallDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="meetingDao" class="com.jiangchuanbanking.financing.dao.impl.MeetingDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="userDao" class="com.jiangchuanbanking.system.dao.impl.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="subscripDao" class="com.jiangchuanbanking.subscription.dao.impl.SubscripDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="subAccountDao" class="com.jiangchuanbanking.account.dao.impl.SubAccountDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="selectDao" class="com.jiangchuanbanking.select.dao.impl.SelectDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="redeemDao" class="com.jiangchuanbanking.redeem.dao.impl.RedeemDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	
+	<!-- Services -->
+	<bean id="baseService" class="com.jiangchuanbanking.base.service.impl.BaseService">
+		<property name="baseDao" ref="baseDao" />
+	</bean>
+
+	<bean id="callService" class="com.jiangchuanbanking.financing.service.impl.CallService">
+		<property name="baseDao" ref="callDao" />
+		<property name="callDao" ref="callDao" />
+	</bean>
+
+	<bean id="leadService" class="com.jiangchuanbanking.financing.service.impl.LeadService">
+		<property name="baseDao" ref="baseDao" />
+		<property name="accountService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="leadStatusService" ref="optionService" />
+	</bean>
+
+	<bean id="meetingService" class="com.jiangchuanbanking.financing.service.impl.MeetingService">
+		<property name="baseDao" ref="meetingDao" />
+		<property name="meetingDao" ref="meetingDao" />
+	</bean>
+
+	<bean id="optionService" class="com.jiangchuanbanking.dict.service.impl.OptionService">
+		<property name="baseDao" ref="baseDao" />
+	</bean>
+
+	<bean id="targetService" class="com.jiangchuanbanking.financing.service.impl.TargetService">
+		<property name="baseDao" ref="baseDao" />
+		<property name="leadService" ref="baseService" />
+		<property name="leadStatusService" ref="baseService" />
+	</bean>
+
+	<bean id="userService" class="com.jiangchuanbanking.system.service.impl.UserService">
+		<property name="baseDao" ref="baseDao" />
+		<property name="userDao" ref="userDao" />
+		<property name="mailService" ref="mailService" />
+	</bean>
+
+
+    <!-- add by wangyuqi -->
+    <bean id="selectService" class="com.jiangchuanbanking.select.service.impl.SelectService">
+		<property name="baseDao" ref="baseDao" />
+		<property name="selectDao" ref="selectDao" />
+	</bean>
+	
+	<bean id="subscripService" class="com.jiangchuanbanking.subscription.service.impl.SubscripService">
+	    <property name="subscripDao" ref="subscripDao" />
+		<property name="baseDao" ref="baseDao" />
+	</bean>
+	
+	<bean id="processService" class="com.jiangchuanbanking.process.service.impl.ProcessService">
+		<property name="baseDao" ref="baseDao" />
+	</bean>
+	
+	
+	<bean id="subAccountService" class="com.jiangchuanbanking.account.service.impl.SubAccountService">
+		<property name="baseService" ref="baseService" />
+		<property name="baseDao" ref="baseDao" />
+		<property name="subAccountDao" ref="subAccountDao" />
+	</bean>
+	
+	<!-- add by guxinyu -->
+	<bean id="redeemService" class="com.jiangchuanbanking.redeem.service.impl.RedeemService">
+		<property name="baseDao" ref="baseDao" />
+		<property name="redeemDao" ref="redeemDao" />
+	</bean>
+    <!-- end -->
+
+	<!-- Actions -->
+	<bean id="homeAction" class="com.jiangchuanbanking.financing.action.HomeAction"
+		scope="prototype">
+	</bean>
+
+	<bean id="accountReportAction" class="com.jiangchuanbanking.report.action.AccountReportAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="accountByIndustryReportAction" class="com.jiangchuanbanking.report.action.AccountByIndustryReportAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="contactAddressReportAction" class="com.jiangchuanbanking.report.action.ContactAddressReportAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="opportunityByStageReportAction" class="com.jiangchuanbanking.report.action.OpportunityByStageReportAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="opportunityByLeadReportAction" class="com.jiangchuanbanking.report.action.OpportunityByLeadReportAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="leadByStatusReportAction" class="com.jiangchuanbanking.report.action.LeadByStatusReportAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="leadBySourceReportAction" class="com.jiangchuanbanking.report.action.LeadBySourceReportAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="totalfilterAction" class="com.jiangchuanbanking.financing.action.TotalFilter"
+		scope="prototype">
+	</bean>
+
+	<bean id="listAccountAction" class="com.jiangchuanbanking.financing.action.ListAccountAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountTypeService" ref="optionService" />
+		<property name="accountLevelService" ref="optionService" />
+		<property name="capitalService" ref="optionService" />
+		<property name="annualRevenueService" ref="optionService" />
+		<property name="companySizeService" ref="optionService" />
+		<property name="accountNatureService" ref="optionService" />
+		<property name="industryService" ref="optionService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+	</bean>
+
+	<bean id="editAccountAction" class="com.jiangchuanbanking.financing.action.EditAccountAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountTypeService" ref="optionService" />
+		<property name="accountLevelService" ref="optionService" />
+		<property name="capitalService" ref="optionService" />
+		<property name="annualRevenueService" ref="optionService" />
+		<property name="companySizeService" ref="optionService" />
+		<property name="accountNatureService" ref="optionService" />
+		<property name="industryService" ref="optionService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listCampaignAction" class="com.jiangchuanbanking.financing.action.ListCampaignAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="campaignTypeService" ref="baseService" />
+		<property name="campaignStatusService" ref="baseService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+	</bean>
+
+	<bean id="editCampaignAction" class="com.jiangchuanbanking.financing.action.EditCampaignAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="campaignTypeService" ref="optionService" />
+		<property name="campaignStatusService" ref="optionService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="mailService" ref="mailService" />
+		<property name="emailTemplateService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listCallAction" class="com.jiangchuanbanking.financing.action.ListCallAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="callStatusService" ref="baseService" />
+		<property name="callDirectionService" ref="baseService" />
+		<property name="reminderOptionService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+	</bean>
+
+	<bean id="editCallAction" class="com.jiangchuanbanking.financing.action.EditCallAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="callStatusService" ref="optionService" />
+		<property name="callDirectionService" ref="optionService" />
+		<property name="reminderOptionService" ref="optionService" />
+		<property name="userService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="caseService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="leadService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="targetService" ref="baseService" />
+		<property name="taskService" ref="baseService" />
+		<property name="mailService" ref="mailService" />
+		<property name="emailTemplateService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listCaseAction" class="com.jiangchuanbanking.financing.action.ListCaseAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="caseStatusService" ref="baseService" />
+		<property name="casePriorityService" ref="baseService" />
+		<property name="caseTypeService" ref="baseService" />
+		<property name="caseOriginService" ref="baseService" />
+		<property name="caseReasonService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+	</bean>
+
+	<bean id="editCaseAction" class="com.jiangchuanbanking.financing.action.EditCaseAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="caseStatusService" ref="optionService" />
+		<property name="casePriorityService" ref="optionService" />
+		<property name="caseTypeService" ref="optionService" />
+		<property name="caseOriginService" ref="optionService" />
+		<property name="caseReasonService" ref="optionService" />
+		<property name="accountService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listChangeLogAction" class="com.jiangchuanbanking.financing.action.ListChangeLogAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+	</bean>
+
+	<bean id="listContactAction" class="com.jiangchuanbanking.financing.action.ListContactAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="leadSourceService" ref="optionService" />
+		<property name="salutationService" ref="optionService" />
+		<property name="religiousService" ref="optionService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="callService" ref="baseService" />
+		<property name="meetingService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+		<property name="caseService" ref="baseService" />
+	</bean>
+
+	<bean id="editContactAction" class="com.jiangchuanbanking.financing.action.EditContactAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="leadSourceService" ref="optionService" />
+		<property name="salutationService" ref="optionService" />
+		<property name="religiousService" ref="optionService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="callService" ref="baseService" />
+		<property name="meetingService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+		<property name="caseService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listDocumentAction" class="com.jiangchuanbanking.financing.action.ListDocumentAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="documentStatusService" ref="baseService" />
+		<property name="documentCategoryService" ref="baseService" />
+		<property name="documentSubCategoryService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="caseService" ref="baseService" />
+	</bean>
+
+	<bean id="editDocumentAction" class="com.jiangchuanbanking.financing.action.EditDocumentAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="documentStatusService" ref="optionService" />
+		<property name="documentCategoryService" ref="optionService" />
+		<property name="documentSubCategoryService" ref="optionService" />
+		<property name="userService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="caseService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listLeadAction" class="com.jiangchuanbanking.financing.action.ListLeadAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="leadStatusService" ref="baseService" />
+		<property name="leadSourceService" ref="baseService" />
+		<property name="salutationService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="callService" ref="baseService" />
+		<property name="meetingService" ref="baseService" />
+	</bean>
+
+	<bean id="editLeadAction" class="com.jiangchuanbanking.financing.action.EditLeadAction"
+		scope="prototype">
+		<property name="baseService" ref="leadService" />
+		<property name="accountService" ref="baseService" />
+		<property name="leadStatusService" ref="optionService" />
+		<property name="leadSourceService" ref="optionService" />
+		<property name="salutationService" ref="optionService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="callService" ref="baseService" />
+		<property name="meetingService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listMeetingAction" class="com.jiangchuanbanking.financing.action.ListMeetingAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="meetingStatusService" ref="baseService" />
+		<property name="reminderOptionService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+	</bean>
+
+	<bean id="editMeetingAction" class="com.jiangchuanbanking.financing.action.EditMeetingAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="meetingStatusService" ref="optionService" />
+		<property name="reminderOptionService" ref="optionService" />
+		<property name="userService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="caseService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="leadService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="targetService" ref="baseService" />
+		<property name="taskService" ref="baseService" />
+		<property name="mailService" ref="mailService" />
+		<property name="emailTemplateService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listOpportunityAction" class="com.jiangchuanbanking.financing.action.ListOpportunityAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="opportunityTypeService" ref="baseService" />
+		<property name="salesStageService" ref="baseService" />
+		<property name="leadSourceService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+	</bean>
+
+	<bean id="editOpportunityAction" class="com.jiangchuanbanking.financing.action.EditOpportunityAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="currencyService" ref="baseService" />
+		<property name="opportunityTypeService" ref="optionService" />
+		<property name="salesStageService" ref="optionService" />
+		<property name="leadSourceService" ref="optionService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="documentService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listTargetAction" class="com.jiangchuanbanking.financing.action.ListTargetAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="salutationService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+	</bean>
+
+	<bean id="editTargetAction" class="com.jiangchuanbanking.financing.action.EditTargetAction"
+		scope="prototype">
+		<property name="baseService" ref="targetService" />
+		<property name="accountService" ref="baseService" />
+		<property name="salutationService" ref="optionService" />
+		<property name="leadService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listTargetListAction" class="com.jiangchuanbanking.financing.action.ListTargetListAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+	</bean>
+
+	<bean id="editTargetListAction" class="com.jiangchuanbanking.financing.action.EditTargetListAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+		<property name="campaignService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listTaskAction" class="com.jiangchuanbanking.financing.action.ListTaskAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="taskStatusService" ref="baseService" />
+		<property name="contactService" ref="baseService" />
+		<property name="taskPriorityService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+	</bean>
+
+	<bean id="editTaskAction" class="com.jiangchuanbanking.financing.action.EditTaskAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="taskStatusService" ref="optionService" />
+		<property name="contactService" ref="baseService" />
+		<property name="taskPriorityService" ref="optionService" />
+		<property name="userService" ref="baseService" />
+		<property name="accountService" ref="baseService" />
+		<property name="caseService" ref="baseService" />
+		<property name="leadService" ref="baseService" />
+		<property name="opportunityService" ref="baseService" />
+		<property name="targetService" ref="baseService" />
+		<property name="taskService" ref="baseService" />
+		<property name="changeLogService" ref="baseService" />
+		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="listUserAction" class="com.jiangchuanbanking.system.action.ListUserAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userStatusService" ref="baseService" />
+		<property name="targetListService" ref="baseService" />
+		<property name="callService" ref="baseService" />
+		<property name="meetingService" ref="baseService" />
+		<property name="selectService" ref="selectService" />
+	</bean>
+
+	<bean id="editUserAction" class="com.jiangchuanbanking.system.action.EditUserAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userStatusService" ref="optionService" />
+		<property name="roleService" ref="baseService" />
+	</bean>
+
+	<bean id="listEmailTemplateAction" class="com.jiangchuanbanking.mail.action.ListEmailTemplateAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="editEmailTemplateAction" class="com.jiangchuanbanking.mail.action.EditEmailTemplateAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="listRoleAction" class="com.jiangchuanbanking.system.action.ListRoleAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+	</bean>
+	
+	<!--  合同生成 acntion-->
+	<bean id="lnpactAction" class="com.jiangchuanbanking.contract.action.LnpactAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="subscripService" ref="subscripService" />
+		<property name="redeemService" ref="redeemService" />
+	</bean>
+
+	<bean id="editRoleAction" class="com.jiangchuanbanking.system.action.EditRoleAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userService" ref="baseService" />
+	</bean>
+
+	<bean id="emailSettingAction" class="com.jiangchuanbanking.mail.action.EmailSettingAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="mailService" ref="mailService" />
+	</bean>
+
+	<bean id="accountLevelAction" class="com.jiangchuanbanking.dict.action.AccountLevelAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="accountNatureAction" class="com.jiangchuanbanking.dict.action.AccountNatureAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="accountTypeAction" class="com.jiangchuanbanking.dict.action.AccountTypeAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="annualRevenueAction" class="com.jiangchuanbanking.dict.action.AnnualRevenueAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="callStatusAction" class="com.jiangchuanbanking.dict.action.CallStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="callDirectionAction" class="com.jiangchuanbanking.dict.action.CallDirectionAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="campaignStatusAction" class="com.jiangchuanbanking.dict.action.CampaignStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="campaignTypeAction" class="com.jiangchuanbanking.dict.action.CampaignTypeAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="capitalAction" class="com.jiangchuanbanking.dict.action.CapitalAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="caseOriginAction" class="com.jiangchuanbanking.dict.action.CaseOriginAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="casePriorityAction" class="com.jiangchuanbanking.dict.action.CasePriorityAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="caseReasonAction" class="com.jiangchuanbanking.dict.action.CaseReasonAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="caseStatusAction" class="com.jiangchuanbanking.dict.action.CaseStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="caseTypeAction" class="com.jiangchuanbanking.dict.action.CaseTypeAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="companySizeAction" class="com.jiangchuanbanking.dict.action.CompanySizeAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="currencyAction" class="com.jiangchuanbanking.dict.action.CurrencyAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="documentCategoryAction" class="com.jiangchuanbanking.dict.action.DocumentCategoryAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="documentStatusAction" class="com.jiangchuanbanking.dict.action.DocumentStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="documentSubCategoryAction" class="com.jiangchuanbanking.dict.action.DocumentSubCategoryAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="documentTypeAction" class="com.jiangchuanbanking.dict.action.DocumentTypeAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="industryAction" class="com.jiangchuanbanking.dict.action.IndustryAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="leadSourceAction" class="com.jiangchuanbanking.dict.action.LeadSourceAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="leadStatusAction" class="com.jiangchuanbanking.dict.action.LeadStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="meetingStatusAction" class="com.jiangchuanbanking.dict.action.MeetingStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="opportunityTypeAction" class="com.jiangchuanbanking.dict.action.OpportunityTypeAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="reminderOptionAction" class="com.jiangchuanbanking.dict.action.ReminderOptionAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="religiousAction" class="com.jiangchuanbanking.dict.action.ReligiousAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="salesStageAction" class="com.jiangchuanbanking.dict.action.SalesStageAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="salutationAction" class="com.jiangchuanbanking.dict.action.SalutationAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="taskPriorityAction" class="com.jiangchuanbanking.dict.action.TaskPriorityAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="taskStatusAction" class="com.jiangchuanbanking.dict.action.TaskStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="userStatusAction" class="com.jiangchuanbanking.dict.action.UserStatusAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+
+	<bean id="forgetPasswordAction" class="com.jiangchuanbanking.system.action.ForgetPasswordAction"
+		scope="prototype">
+		<property name="baseService" ref="userService" />
+	</bean>
+
+	<bean id="changePasswordAction" class="com.jiangchuanbanking.system.action.ChangePasswordAction"
+		scope="prototype">
+		<property name="baseService" ref="userService" />
+	</bean>
+
+	<bean id="calendarAction" class="com.jiangchuanbanking.financing.action.CalendarAction"
+		scope="prototype">
+		<property name="callService" ref="baseService" />
+		<property name="meetingService" ref="baseService" />
+		<property name="taskService" ref="baseService" />
+	</bean>
+	
+	<!-- add by wangyuqi -->
+	<bean id="selectAction" class="com.jiangchuanbanking.select.action.SelectAction" >
+		<property name="selectService">
+			<ref local="selectService"/>
+		</property>
+	</bean>
+	
+	<bean id="DictionaryAction" class="com.jiangchuanbanking.dict.action.DictionaryAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="selectService" ref="selectService" />
+	</bean>
+	
+	<bean id="SubscripAction" class="com.jiangchuanbanking.subscription.action.SubscripAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+	</bean>
+	<!-- end -->
+	
+</beans>

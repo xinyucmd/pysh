@@ -1,0 +1,29 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+     <package namespace="/jsp/subAccount" name="subaccount" extends="default">    
+     
+	    <action name="listSubAccountFull" class="listSubAccountAction" method="listFull">
+			<result name="success" type="json"></result>
+		</action>
+		 <action name="listCustMainAccountFull" class="listMainAccountAction" method="listCustMainAccount">
+    	  <result name="success" type="json"></result>
+        </action>   
+         <action name="listSubAccountPage"  class="listSubAccountAction" method="getSub">
+			<result >/jsp/subAccount/listSubAccount.jsp</result>
+		</action> 
+		 <action name="listTurnMainAccountPage"  >
+			<result >/jsp/mainAccount/listMainAccount.jsp</result>
+		</action>    
+		 <action name="listCustSubAccount" class="listSubAccountAction" method="listCustSubAccount">
+    	  <result name="success" type="json"></result>
+         </action>
+         
+         <action name="listDetailsAccount" class="listSubAccountAction" method="listDetailsAccount">
+    	  <result name="success" type="json"></result>
+         </action>
+  </package>      
+    
+</struts>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.flowdetails.domain">
+  <class dynamic-insert="false" dynamic-update="false" name="FinancingDetails" table="WEALTH_FINANCE_DETAILS">
+   <id column="flow_no" name="flow_no" type="java.lang.Integer">
+			<generator class="native" />
+		</id>
+    <property name="account_no" column="account_no" type="string" />
+    <property name="sub_no" column="sub_no" type="string" />
+    <property name="flow_type" column="flow_type" type="string" />
+    <property name="flow_abstract" column="flow_abstract" type="string" />
+    <property name="flow_amt" column="flow_amt" type="string" />
+    <property name="flow_date" column="flow_date" type="string" />
+    <property name="op_no" column="op_no"     type="string" />
+    <property name="cmt" column="cmt" type="string" />
+    <property name="open_id" column="open_id" type="java.lang.Integer"/>
+    <property name="transfer_op" column="TRANSFER_OP" type="string" />
+    <property name="transfer_acc" column="TRANSFER_ACC" type="string"/>
+  </class>
+</hibernate-mapping>

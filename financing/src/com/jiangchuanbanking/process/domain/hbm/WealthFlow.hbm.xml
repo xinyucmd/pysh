@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.process.domain">
+ <class dynamic-insert="true" dynamic-update="true"
+  name="WealthFlow" table="WEALTH_FLOW">
+  
+  <id column="workflow_no" name="pact_no" type="java.lang.String">
+   <generator class="assigned"/>
+  </id>
+  <property column="cif_no" generated="never" insert="true" lazy="false"
+   length="50" name="cif_no" type="java.lang.Integer" update="true"/>
+
+  <property column="cif_name" generated="never" insert="true" lazy="false"
+   length="50" name="cif_name" type="java.lang.String" update="true"/>
+  <property column="claims_pact_no" generated="never" insert="true" lazy="false"
+   length="50" name="claims_pact_no" type="java.lang.String" update="true"/>   
+  <property column="prdt_no" generated="never" insert="true"
+   lazy="false" name="prdt_no" type="java.lang.String" update="true"/>
+   <property column="prdt_name" generated="never" insert="true"
+   lazy="false" name="prdt_name" type="java.lang.String" update="true"/>
+   <property column="workflow_type" generated="never" insert="true"
+   lazy="false" name="workflow_type" type="java.lang.String" update="true"/>
+   <property column="status" generated="never" insert="true"
+   lazy="false" name="status" type="java.lang.String" update="true"/> 
+   <property column="op_no" generated="never" insert="true"
+   lazy="false" name="op_no" type="java.lang.Integer" update="true"/> 
+   <property column="op_name" generated="never" insert="true"
+   lazy="false" name="op_name" type="java.lang.String" update="true"/> 
+   <property column="create_time" generated="never" insert="true"
+   lazy="false" name="create_time" type="java.util.Date" update="true"/> 
+   <property column="update_time" generated="never" insert="true"
+   lazy="false" name="update_time" type="java.util.Date" update="true"/> 
+   <property column="cmt" generated="never" insert="true"
+   lazy="false" name="cmt" type="java.lang.String" update="true"/> 
+   
+    <set name="flowIdeaSet" cascade="save-update" inverse="false"> 
+     <key column="workflow_no"></key> 
+     <one-to-many class="com.jiangchuanbanking.process.domain.FlowIdea"/> 
+  </set> 
+  
+ </class>
+</hibernate-mapping>

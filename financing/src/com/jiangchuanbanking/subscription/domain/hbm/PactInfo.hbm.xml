@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.subscription.domain">
+ <class dynamic-insert="true" dynamic-update="true"
+  name="PactInfo" table="WEALTH_PACT_INFO">
+  
+  <id column="id" name="id" type="java.lang.Integer">
+   <generator class="native"/>
+  </id>
+  <property column="pact_no" generated="never" insert="true" lazy="false"
+   length="50" name="pact_no" type="java.lang.String" update="true"/>
+   <!-- 新加的 -->
+ <property column="old_pactno" generated="never" insert="true" lazy="false"
+   length="50" name="old_pactno" type="java.lang.String" update="true"/>
+   
+   
+  <property column="claims_pact_no" generated="never" insert="true" lazy="false"
+   length="50" name="claims_pact_no" type="java.lang.String" update="true"/>
+  
+  <property column="account_name" generated="never" insert="true" lazy="false"
+   length="50" name="account_name" type="java.lang.String" update="true"/>   
+ 
+  <property column="account_no" generated="never" insert="true"
+   lazy="false" name="account_no" type="java.lang.String" update="true"/>
+  
+   <property column="account_bank" generated="never" insert="true"
+   lazy="false" name="account_bank" type="java.lang.String" update="true"/>
+   
+   <property column="if_wxd" generated="never" insert="true"
+   lazy="false" name="if_wxd" type="java.lang.String" update="true"/>
+   
+   <property column="prdt_name" generated="never" insert="true"
+   lazy="false" name="prdt_name" type="java.lang.String" update="true"/> 
+   
+   <property column="prdt_no" generated="never" insert="true"
+   lazy="false" name="prdt_no" type="java.lang.String" update="true"/> 
+   
+   <property column="term_range" generated="never" insert="true"
+   lazy="false" name="term_range" type="java.lang.String" update="true"/> 
+   <property column="rate" generated="never" insert="true"
+   lazy="false" name="rate" type="java.lang.String" update="true"/> 
+   <property column="pact_amt" generated="never" insert="true"
+   lazy="false" name="pact_amt" type="java.lang.Double" update="true"/> 
+   <property column="cash_amt" generated="never" insert="true"
+   lazy="false" name="cash_amt" type="java.lang.Double" update="true"/> 
+   <property column="income_amt" generated="never" insert="true"
+   lazy="false" name="income_amt" type="java.lang.Double" update="true"/> 
+   <property column="fund_sources" generated="never" insert="true"
+   lazy="false" name="fund_sources" type="java.lang.String" update="true"/> 
+   <property column="payment_type" generated="never" insert="true"
+   lazy="false" name="payment_type" type="java.lang.String" update="true"/> 
+   <property column="start_date" generated="never" insert="true"
+   lazy="false" name="start_date" type="java.util.Date" update="true"/> 
+   <property column="end_date" generated="never" insert="true"
+   lazy="false" name="end_date" type="java.util.Date" update="true"/> 
+   <property column="if_continue" generated="never" insert="true"
+   lazy="false" name="if_continue" type="java.lang.String" update="true"/> 
+   <property column="sts" generated="never" insert="true"
+   lazy="false" name="sts" type="java.lang.String" update="true"/> 
+   <property column="pact_type" generated="never" insert="true"
+   lazy="false" name="pact_type" type="java.lang.String" update="true"/> 
+   <property column="me_adult" generated="never" insert="true"
+   lazy="false" name="me_adult" type="java.lang.String" update="true"/> 
+   <property column="open_date" generated="never" insert="true"
+   lazy="false" name="open_date" type="java.lang.String" update="true"/> 
+    <property column="open_op" generated="never" insert="true"
+   lazy="false" name="open_op" type="java.lang.String" update="true"/> 
+   
+    <property column="open_id" generated="never" insert="true"
+   lazy="false" name="open_id" type="java.lang.Integer" update="true"/> 
+   
+    <property column="cmt" generated="never" insert="true"
+   lazy="false" name="cmt" type="java.lang.String" update="true"/> 
+
+   <property column="sub_no" generated="never" insert="true"
+   lazy="false" name="sub_no" type="java.lang.Integer" update="true"/> 
+   
+   <!-- 
+	<property column="cif_no" generated="never" insert="true"
+   lazy="false" name="cif_no" type="java.lang.Integer" update="true"/> 
+    -->
+   <property column="cif_name" generated="never" insert="true"
+   lazy="false" name="cif_name" type="java.lang.String" update="true"/> 
+   
+    <property column="CONTINUE_AMT" generated="never" insert="true"
+   lazy="false" name="continue_amt" type="java.lang.String" update="true"/> 
+   
+    <property column="IF_ALREADY_CONTI" generated="never" insert="true"
+   lazy="false" name="if_already_conti" type="java.lang.String" update="true"/>
+   
+   <property column="IF_EXPORT_HT" generated="never" insert="true"
+   lazy="false" name="if_export_ht" type="java.lang.String" update="true"/>
+   
+   <property column="if_export_sj" generated="never" insert="true"
+   lazy="false" name="if_export_sj" type="java.lang.String" update="true"/>
+   
+   <property column="CONTINUEFLG" generated="never" insert="true"
+   lazy="false" name="continueflg" type="java.lang.String" update="true"/> 
+   <many-to-one name="customer" column="cif_no" class="com.jiangchuanbanking.investor.domain.Customer" ></many-to-one>
+ </class>
+</hibernate-mapping>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.prod.domain">
+  <class dynamic-insert="false" dynamic-update="false" name="ProdBaseEntity" table="WEALTH_PRDT_BASE">
+   <id column="prdt_no" name="prdtNo" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+    <property name="prdtName" column="prdt_name" type="string" />
+    <property name="standardAmt" column="standard_amt" type="string" />
+    <property name="advanceRedeem" column="advance_redeem" type="string" />
+    <property name="delFlg" column="del_flg" type="string" />
+    <property name="sts" column="sts" type="string" />
+    <property name="startDate" column="start_date" type="string" />
+    <property name="endDate" column="end_date"     type="string" />
+    <property name="createOp" column="create_op" type="string" />
+    <property name="createDate" column="create_date" type="string" />
+    <property name="cmt" column="cmt" type="string" />
+    <property name="approveOp" column="APPROVE_OP" type="string" />
+    <property name="approveDate" column="APPROVE_DATE" type="string" />
+    <property name="approveIdea" column="APPROVE_IDEA" type="string" />
+    
+     <set cascade="all" name="chargeLists" table="WEALTH_PRDT_CHARGE_POLICY">
+      <key column="prdt_no" />
+      <one-to-many class="com.jiangchuanbanking.prod.domain.ProdChargePolicy"  />
+    </set>
+  
+  </class>
+</hibernate-mapping>

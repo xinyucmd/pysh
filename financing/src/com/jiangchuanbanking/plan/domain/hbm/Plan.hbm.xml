@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jiangchuanbanking.plan.domain" >
+ <class dynamic-insert="true" dynamic-update="true"  lazy="false" name="PlanBean" table="WEALTH_PLAN">
+  
+  <id column="id" name="id" type="java.lang.Integer" >
+   <generator class="native" />
+  </id>
+  
+  <property name="pact_no" type="java.lang.String" column="pact_no "
+  length="10">
+  </property>
+  
+  <property name="term" type="java.lang.String" column="term "
+  length="20">
+  </property>
+  
+  <property name="beg_date" type="java.lang.String" column="beg_date"
+  length="10">
+  </property>
+  
+  <property name="end_date" type="java.lang.String" column="end_date"
+  length="10">
+  </property>
+  
+  <property name="if_settle" type="java.lang.String" column="if_settle"
+  length="20">
+  </property>
+  
+  <property name="settle_date" type="java.lang.String" column="settle_date"
+  length="20">
+  </property>
+
+  <property name="if_alarm" type="java.lang.String" column="if_alarm"
+  length="20">
+  </property>
+
+ <property name="should_amt" type="java.lang.String" column="should_amt"
+  length="20">
+  </property>
+  
+  <property name="return_amt" type="java.lang.String" column="return_amt"
+  length="20">
+  </property>  
+
+ <property name="interest" type="java.lang.String" column="INTEREST"
+  length="20">
+  </property>
+  
+  <property name="capital" type="java.lang.String" column="CAPITAL"
+  length="20">
+  </property>  
+ </class>
+</hibernate-mapping>

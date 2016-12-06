@@ -1,0 +1,53 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package namespace="/jsp/financing" name="bankAccount" extends="default">
+      	
+	
+      	<action name="listBankAccountFull" class="listBankAccountAction" method="listFull">
+    	  <result name="success" type="json"></result>
+        </action>    
+        
+        <action name="listOddBankAccount" class="listBankAccountAction" method="listOddFull">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listBankAccountSts" class="listBankAccountAction" method="listStsFull">
+    	  <result name="success" type="json"></result>
+        </action>
+          
+       <action name="listOddDelectNewBankAccount" class="listBankAccountAction" method="listOddDeletNewBank">
+    	  <result name="success" type="json"></result>
+        </action> 
+          
+        <action name="listBankAccountPage">
+    	  <result type="redirect">/jsp/financing/listBankAccount.jsp</result>
+        </action>
+
+		<action name="editBankAccount" class="editBankAccountAction" method="get">
+			<result name ="editUpataBankAccountPage" >/jsp/financing/editBankAccount.jsp</result>
+			<result name ="editBankAccountPage" >/jsp/financing/editUpdataBankAccount.jsp</result>
+        </action>	
+        
+        
+ 		<action name="saveBankAccount" class="editBankAccountAction" method="save">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/financing/listBankAccount.jsp</result>          
+    	    <result type="redirectAction">editBankAccount.action?id=${id}</result>
+   	  </action>
+                 
+   	  <action name="massUpdateCustomer" class="editBankAccountAction" method="massUpdate">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/financing/editBankAccount.jsp</result>          
+    	    <result>/jsp/investor/editBankAccount.jsp</result>
+   	 </action>
+   	 <!-- 删除 -->
+	 <action name="deleteBankAccount" class="listBankAccountAction" method="delete">
+	        	<result name="input">/jsp/financing/listBankAccount.jsp</result>
+				<result type="redirect">/jsp/financing/listBankAccount.jsp</result>
+	        </action>	 
+	  </package>  
+     
+</struts>

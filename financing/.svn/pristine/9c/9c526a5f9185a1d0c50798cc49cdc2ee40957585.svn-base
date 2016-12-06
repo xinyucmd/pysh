@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jiangchuanbanking.investor.domain">
+ <class dynamic-insert="false" dynamic-update="false" name="Contacts" table="WEALTH_CIF_OTHER_CONTACTS">
+ 	 <id column="contact_id" name="contact_id" type="java.lang.Integer">
+			<generator class="assigned" />
+	 </id>
+	<property name="contact_name" column="contact_name" type="string" />
+    <property name="cif_no" column="cif_no" type="java.lang.Integer" /> 
+    <property name="cif_name" column="cif_name" type="string" />
+    <property name="contact_sex" column="contact_sex" type="string" />
+    <property name="contact_id_type" column="contact_id_type" type="string" />
+    <property name="contact_id_no" column="contact_id_no" type="string" />
+    <property name="contact_tel" column="contact_tel" type="string" />
+    <property name="contact_phone" column="contact_phone"     type="string" />
+    <property name="contact_mail" column="contact_mail" type="string" />
+    <property name="contact_addr" column="contact_addr" type="string" />
+ 	<property name="contact_postcode" column="contact_postcode" type="string" />
+    <property name="cmt" column="cmt" type="string" /> 
+    <property name="yuliu_1" column="yuliu_1" type="string" /> 
+    <property name="yuliu_2" column="yuliu_2" type="string" /> 
+    <property name="yuliu_3" column="yuliu_3" type="string" /> 
+    <property name="yuliu_4" column="yuliu_4" type="string" /> 
+    <property name="yuliu_5" column="yuliu_5" type="string" /> 
+    <property name="yuliu_6" column="yuliu_6" type="string" /> 
+    <property name="yuliu_7" column="yuliu_7" type="string" /> 
+ </class>
+</hibernate-mapping>

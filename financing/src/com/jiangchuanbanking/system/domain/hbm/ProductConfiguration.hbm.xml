@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jiangchuanbanking.system.domain">
+ <class dynamic-insert="true" dynamic-update="true" lazy="true" name="ProductConfiguration" table="WHALTH_PADT_BASE">
+  
+  <id column="id" name="id" type="java.lang.Integer">
+   <generator class="native"/>
+  </id>
+  
+  <property name="productNo" type="java.lang.String" column="PADT_NO"
+  length="10">
+  </property>
+  
+  <property name="productName" type="java.lang.String" column="PADT_NAME"
+  length="10">
+  </property>
+  
+  <property name="standardAMT" type="java.lang.Integer" column="STANDARD_AMT"
+  length="8">
+  </property>
+  
+  <property name="advanceRedeem" type="java.lang.String" column="ADVANCE_REDEEM"
+  length="10">
+  </property>
+  
+  <property name="prymentType" type="java.lang.String" column="PRYMENT_TYPE"
+  length="10">
+  </property>
+  
+  <property name="stageDays" type="java.lang.String" column="STAGE_DAYS"
+  length="10">
+  </property>
+  
+  <property name="returnRate" type="java.lang.String" column="RETURN_RATE"
+  length="10">
+  </property>
+
+  <property name="redeemDays" type="java.lang.String" column="REDEEM_DAYS"
+  length="10">
+  </property>
+
+ <property name="isRedeemBefore" type="java.lang.String" column="IS_REDEEM_BEFORE"
+  length="10">
+  </property>
+  
+  <property name="rates" type="java.lang.String" column="RATES"
+  length="10">
+  </property>
+  
+ </class>
+</hibernate-mapping>

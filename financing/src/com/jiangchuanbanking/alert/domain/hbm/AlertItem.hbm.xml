@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.alert.domain">
+  <class dynamic-insert="false" dynamic-update="false" name="AlertItem" table="WEALTH_ALERTS_ITEM">
+   <id column="id" name="id" type="java.lang.Integer">
+			<generator class="native" />
+		</id>
+    <property name="alert_method" column="alert_method" type="string" />
+    <property name="alert_type" column="alert_type" type="string" />
+    <property name="adv_days" column="adv_days" type="string" />
+    <property name="alert_content" column="alert_content" type="string" />
+    <property name="del_flg" column="del_flg" type="string" />
+    <property name="create_op" column="create_op" type="string" />
+    <property name="create_date" column="create_date"     type="string" />
+    <property name="cmt" column="cmt" type="string" />
+     <property name="type" column="type" type="string" />
+  
+  </class>
+</hibernate-mapping>

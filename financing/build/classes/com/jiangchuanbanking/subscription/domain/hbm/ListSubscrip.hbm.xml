@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jiangchuanbanking.subscription.domain">
+ <class dynamic-insert="true" dynamic-update="true" lazy="true" name="ListSubscrip" table="list_subscrip">
+  
+  <id column="id" name="id" type="java.lang.Integer">
+   <generator class="assigned"/>
+  </id>
+  
+  <property name="prdt_name" type="java.lang.String" column="prdt_name"
+  length="20">
+  </property>
+  
+  <property name="cif_name" type="java.lang.String" column="cif_name"
+  length="20">
+  </property>
+  
+  <property name="id_no" type="java.lang.String" column="id_no"
+  length="10">
+  </property>
+  
+  <property name="sex" type="java.lang.String" column="sex"
+  length="10">
+  </property>
+  
+  <property name="sts" type="java.lang.String" column="sts"
+  length="10">
+  </property>
+  
+  <property name="contact_phone" type="java.lang.String" column="contact_phone"
+  length="10">
+  </property>
+  
+  <property name="pact_amt" type="java.lang.Double" column="pact_amt"
+  length="10">
+  </property>
+  
+  <property name="term_range" type="java.lang.String" column="term_range"
+  length="10">
+  </property>
+  
+  <property name="rate" type="java.lang.String" column="rate"
+  length="10">
+  </property>
+  
+
+  <property name="pact_no" type="java.lang.String" column="pact_no"
+  length="10">
+  </property>
+  
+
+  <property name="start_date" type="java.util.Date" column="start_date"
+  length="10">
+  </property>
+  <property name="end_date" type="java.util.Date" column="end_date"
+  length="10">
+  </property>
+    <property name="continueflg" type="java.lang.String" column="continueflg"
+  length="10">
+  </property>
+  
+  <property column="CONTINUE_AMT" generated="never" insert="true"
+   lazy="false" name="continue_amt" type="java.lang.String" update="true"/> 
+
+ </class>
+</hibernate-mapping>

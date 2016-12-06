@@ -1,0 +1,34 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package namespace="/jsp/subscription" name="pactInfo" extends="default">
+       
+        <action name="listPactInfoPage">
+    	  <result type="redirect">/jsp/subscription/listPactInfo.jsp</result>
+        </action>
+        
+        <action name="listPactInfoFull" class="listPactInfoAction" method="listFull">
+    	  <result name="success" type="json"></result>
+        </action>   
+        
+        <action name="editPactInfo" class="editPactInfoAction" method="get">
+			<result>/jsp/subscription/editPactInfo.jsp</result>
+        </action>
+        
+         <action name="listOpportunityPage">
+    	  <result type="redirect">/jsp/subscription/printSouju.jsp</result>
+        </action>
+        
+        <action name="getShouju" class="listPactInfoAction" method="getShouJuInfomation">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+      <action name="printShouJu" class="listPactInfoAction" method="printShouJu">
+    	  <result name="success" type="json"></result>
+        </action> 
+        
+	</package>
+</struts>
+

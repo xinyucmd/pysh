@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.contract.domain">
+  <class dynamic-insert="false" dynamic-update="false" name="TemplatePackage" table="TEMPLATE_PACKAGE">
+   <id column="id" name="id" type="java.lang.Integer">
+			<generator class="native" />
+		</id>
+    <property name="prdtNo" column="prdt_no" type="string" />
+    
+    <property name="name" column="name" type="string" />
+ 
+    <property name="path" column="path" type="string" />
+    <property name="defaultFlg" column="default_flg" type="string" />
+    <property name="status" column="status" type="string" />
+    <property name="createDate" column="update_time" type="string" />
+    <property name="updateDate" column="CREATE_TIME"     type="string" />
+  </class>
+</hibernate-mapping>

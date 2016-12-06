@@ -1,0 +1,120 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package namespace="/jsp/redeem" name="redeem" extends="default">
+
+		<action name="listRedemConfirmPage">
+			<result type="redirect">/jsp/redeem/listRedemConfirm.jsp</result>
+		</action>
+		<action name="listUndoApplyPage">
+			<result type="redirect">/jsp/redeem/listUndoApply.jsp</result>
+		</action>
+		<action name="listRedemPayPage">
+			<result type="redirect">/jsp/redeem/listRedemPay.jsp</result>
+		</action>
+		<action name="listCancelAdvanceRedemPage">
+			<result type="redirect">/jsp/redeem/listCancelAdvRedem.jsp</result>
+		</action>
+		<action name="listCancelUndoPage">
+			<result type="redirect">/jsp/redeem/listCancelUndo.jsp</result>
+		</action>
+		
+		<action name="editCancelUndo" class="editRedeemAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/editCancelUndo.jsp</result>
+			<result>/jsp/redeem/editCancelUndo.jsp</result>
+		</action>
+		<action name="listUndoApply" class="listRedeemAction" method="listUndoApply">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="listCancelUndo" class="listRedeemAction" method="listCancelUndo">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="listCancelAdvRedem" class="listRedeemAction"
+			method="listCancelAdvRedem">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="listRedemConfirm" class="listRedeemAction"
+			method="listRedemConfirm1">
+			<result name="success" type="json"></result>
+		</action>
+		
+       <action name="listClaimsInfo" class="subscripAction"
+			method="listClaimsInfo">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="listRedemPay" class="listRedeemAction" method="listRedemPay">
+    	  <result name="success" type="json"></result>
+        </action>
+
+		<action name="editRedemConfirm" class="editRedeemAction" method="get">
+
+
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/redemConfirm.jsp</result>
+			<result>/jsp/redeem/redemConfirm.jsp</result>
+		</action>
+		<action name="editUndoConfirm" class="editRedeemAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/undoApply.jsp</result>
+			<result>/jsp/redeem/undoApply.jsp</result>
+		</action>
+				<action name="cancelFinancing" class="editRedeemAction" method="cancelFinancing">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/undoApply.jsp</result>
+				<result type="redirectAction">listUndoApplyPage.action</result>
+		</action>
+		
+		<action name="cancelSubcript" class="editRedeemAction" method="cancelSubcript">
+			<interceptor-ref name="prepareInterceptor" />
+				<result type="redirectAction">listCancelUndoPage.action</result>
+		</action>
+		<action name="editRedemPay" class="editRedeemAction" method="getRedemPay">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/redemPay.jsp</result>
+			<result>/jsp/redeem/redemPay.jsp</result>
+		</action>
+		
+		<action name="editCancelAdvRedem" class="editRedeemAction"
+			method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/cancelAdvRedem.jsp</result>
+			<result>/jsp/redeem/cancelAdvRedem.jsp</result>
+		</action>
+		<action name="cancelAdvRedem" class="editRedeemAction" method="cancelAdvRedem">
+			<interceptor-ref name="prepareInterceptor" />
+			<result type="redirectAction">listCancelAdvanceRedemPage.action</result>
+		</action>
+		<action name="saveRedemConfirm" class="editRedeemAction"
+			method="saveRedemConfirm">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/redemConfirm.jsp</result>
+			<result type="redirectAction">editRedemConfirm.action?id=${id}</result>
+		</action>
+		<action name="undoRedem" class="editRedeemAction" method="undoRedem">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/redemConfirm.jsp</result>
+			<result type="redirectAction">listRedemConfirmPage.action</result>
+		</action>
+		<action name="redemConfirm" class="editRedeemAction" method="redemConfirm">
+			<result name="input">/jsp/redeem/redemConfirm.jsp</result>
+			<result type="redirectAction">listRedemConfirmPage.action</result>
+		</action>
+
+		<action name="redemPay" class="editRedeemAction" method="redemPay">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/redeem/redemPay.jsp</result>
+			<result type="redirectAction">listRedemPayPage.action</result>
+		</action>
+		
+		<action name="listPayHis" class="listRedeemAction" method="listPayHis">
+    	  <result name="success" type="json"></result>
+        </action>
+		
+	</package>
+
+</struts>

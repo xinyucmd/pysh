@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<!-- rengou -->
+	<bean id="subscripAction" class="com.jiangchuanbanking.subscription.action.SubscripAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="subscripService" ref="subscripService" />
+	</bean>
+	
+	<bean id="editSubscripAction" class="com.jiangchuanbanking.subscription.action.EditSubscripAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="subscripService" ref="subscripService" />
+		<property name="processService" ref="processService" />
+		<property name="subAccountService" ref="subAccountService" />
+		<property name="mainAccountService" ref="mainAccountService" />	
+		<property name="financingDetailsService" ref="financingDetailsService" />
+		<property name="planServicesImpl" ref="planServicesImpl" />
+	</bean>
+	
+	
+	<!-- 
+	<bean id="editUserAction" class="com.jiangchuanbanking.system.action.EditUserAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="userStatusService" ref="optionService" />
+		<property name="roleService" ref="baseService" />
+	</bean>
+
+	 -->
+	<!-- he tong -->
+	<bean id="listPactInfoAction" class="com.jiangchuanbanking.subscription.action.ListPactInfoAction">
+		<property name="baseService" ref="baseService" />
+		<property name="selectService" ref="selectService" />
+	</bean>
+	
+	 <bean id="editPactInfoAction" class="com.jiangchuanbanking.subscription.action.EditPactInfoAction"
+		scope="prototype">
+		<property name="baseService" ref="baseService" />
+		<property name="selectService" ref="selectService" />
+	</bean>
+	
+</beans>

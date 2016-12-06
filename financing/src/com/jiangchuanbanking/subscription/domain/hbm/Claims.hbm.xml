@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true"
+	package="com.jiangchuanbanking.subscription.domain">
+	<class dynamic-insert="true" dynamic-update="true" name="Claims"
+		table="WEALTH_CLAIMS">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="native" />
+		</id>
+		<property column="pact_no" generated="never" insert="true"
+			lazy="false" length="50" name="pact_no" type="java.lang.String"
+			update="true" />
+
+		<property column="claims_no" generated="never" insert="true"
+			lazy="false" length="50" name="claims_no" type="java.lang.String"
+			update="true" />
+		<property column="cif_no" generated="never" insert="true"
+			lazy="false" name="cif_no" type="java.lang.Integer" update="true" />
+		<property column="cif_name" generated="never" insert="true"
+			lazy="false" name="cif_name" type="java.lang.String" update="true" />
+
+		<property column="claims_name" generated="never" insert="true"
+			lazy="false" name="claims_name" type="java.lang.String" update="true" />
+		<property column="claims_amt" generated="never" insert="true"
+			lazy="false" name="claims_amt" type="java.lang.String" update="true" />
+		<property column="create_time" generated="never" insert="true"
+			lazy="false" name="create_time" type="java.lang.String" update="true" />
+
+		<property column="create_op" generated="never" insert="true"
+			lazy="false" name="create_op" type="java.lang.String" update="true" />
+		<property column="cmt" generated="never" insert="true"
+			lazy="false" name="cmt" type="java.lang.String" update="true" />	
+	</class>
+</hibernate-mapping>

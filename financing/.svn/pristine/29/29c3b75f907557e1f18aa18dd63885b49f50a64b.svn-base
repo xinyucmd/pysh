@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jiangchuanbanking.financing.domain">
+ <class dynamic-insert="true" dynamic-update="true" lazy="true" name="BankAccount" table="WEALTH_BANK_ACCOUNT">
+  
+  <id  name="bank_account_id" type="java.lang.Integer" column="BANK_ACCOUNT_ID">
+   <generator class="native"/>
+  </id>
+  
+  <property name="bank_account_name" type="java.lang.String" column="BANK_ACCOUNT_NAME"
+  length="20">
+  </property>
+  
+  <property name="bank_account_no" type="java.lang.String" column="BANK_ACCOUNT_NO"
+  length="20">
+  </property>
+  
+  <property name="bank_account_addr" type="java.lang.String" column="BANK_ACCOUNT_ADDR"
+  length="20">
+  </property>
+  
+  <property name="sts" type="java.lang.String" column="STS"
+  length="8">
+  </property>
+  
+  <property name="updata_time" type="java.lang.String" column="UPDATA_TIME"
+  length="20">
+  </property>
+  
+  <property name="op_no" type="java.lang.String" column="OP_NO"
+  length="20">
+  </property>
+   <property name="open_id" type="java.lang.Integer" column="OPEN_ID"
+  >
+  </property>
+  <many-to-one name="customer" class="com.jiangchuanbanking.investor.domain.Customer" column="id" />
+  
+ </class>
+</hibernate-mapping>

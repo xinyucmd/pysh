@@ -1,0 +1,227 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package namespace="/jsp/contract" name="contract" extends="default">
+
+      	<action name="listTemplatePackageFull" class="listTemplateAction" method="listFull">
+    	  <result name="success" type="json"></result>
+        </action>
+       <action name="listTemplatePackage">
+    	  <result type="redirect">/jsp/contract/listTemplatePackage.jsp</result>
+        </action>
+        
+        <action name="listContractGenPage">
+    	  <result type="redirect">/jsp/contract/listContractGen.jsp</result>
+        </action>
+        
+        <action name="listRedeemGenPage">
+    	  <result type="redirect">/jsp/contract/listRedeem.jsp</result>
+        </action>
+        
+         <action name="listPrintRedeemPage">
+    	  <result type="redirect">/jsp/contract/listPrintRedeem.jsp</result>
+        </action>
+        
+        <action name="listReceiptPage">
+    	  <result type="redirect">/jsp/contract/listReceipt.jsp</result>
+        </action>
+
+        
+         <action name="listPrintPactPage">
+    	  <result type="redirect">/jsp/contract/listPrintPact.jsp</result>
+        </action>
+        
+        <action name="listContractGen" class="listTemplateAction" method="listContractGen">
+    	  <result name="success" type="json"></result>
+        </action>
+        <action name="listRedeemGen" class="listTemplateAction" method="listRedeemGen">
+    	  <result name="success" type="json"></result>
+        </action>
+        <action name="listPrintPact" class="listTemplateAction" method="listPrintPact">
+    	  <result name="success" type="json"></result>
+        </action>
+        <action name="listPrintRedeem" class="listTemplateAction" method="listPrintRedeem">
+    	  <result name="success" type="json"></result>
+        </action>
+        <action name="listReceipt" class="listTemplateAction" method="listReceipt">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+  
+        <action name="editContractGen" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/contract/contractGen.jsp</result>
+			<result>/jsp/contract/contractGen.jsp</result>
+        </action>
+         <action name="editRedeemGen" class="editRedeemAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/contract/redeemGen.jsp</result>
+			<result>/jsp/contract/redeemGen.jsp</result>
+        </action>
+        
+        <action name="contractGen" class="lnpactAction" method="contractGen">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/contract/contractGen.jsp</result>
+			<result name="success">/jsp/contract/listContractGen.jsp</result>
+        </action>
+        <action name="redeemGen" class="lnpactAction" method="redeemGen">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/contract/redeemGen.jsp</result>
+			<result name="success">/jsp/contract/listRedeem.jsp</result>
+        </action>
+        
+        <action name="printPact" class="lnpactAction" method="printPact">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">printPact.jsp</result>
+			<result name="success">printPact.jsp</result>
+        </action>
+         <action name="printRedeem" class="lnpactAction" method="printRedeem">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">printRedeem.jsp</result>
+			<result name="success">printRedeem.jsp</result>
+        </action>
+        
+        <action name="receiptInfo" class="lnpactAction" method="receiptInfo">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">receiptInfo.jsp</result>
+			<result name="success">receiptInfo.jsp</result>
+        </action>
+        
+    
+		<action name="listTemplatePackageFull" class="listTemplateAction"
+			method="listFull">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="listTemplateFull" class="listTemplateAction"
+			method="listTemplateFull">
+			<result name="success" type="json"></result>
+		</action>
+		
+		
+		<action name="listMerPact" class="subscripAction" method="listMerPact">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+		<action name="listClaimsInfo" class="subscripAction"
+			method="listClaimsInfo">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="listTemplatePackage">
+			<result>/jsp/contract/listTemplatePackage.jsp</result>
+		</action>
+		<action name="listTemplate" class="listTemplateAction"
+			method="listTemplate">
+			<result>/jsp/contract/listTemplate.jsp</result>
+		</action>
+		<action name="templatePackageList" class="listTemplateAction"
+			method="list">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="addPackage" class="editTemplateAction" method="addPackage">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/contract/addPackage.jsp</result>
+			<result>/jsp/contract/addPackage.jsp</result>
+		</action>
+		<action name="addTemplate" class="editTemplateAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/contract/addTemplate.jsp</result>
+			<result>/jsp/contract/addTemplate.jsp</result>
+		</action>
+		<action name="savePackage" class="editTemplateAction" method="save">
+			<result type="redirectAction">listTemplatePackage.action</result>
+		</action>
+		<action name="editPackage" class="editTemplateAction" method="editPackage">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/contract/editPackage.jsp</result>
+			<result>/jsp/contract/editPackage.jsp</result>
+		</action>
+		<action name="deletePackage" class="editTemplateAction" method="deletePackage">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/contract/listTemplatePackage.jsp</result>
+			<result type="redirect">/jsp/contract/listTemplatePackage.jsp</result>
+		</action>
+		<action name="deleteTemplate" class="editTemplateAction"
+			method="deleteTemplate">
+			<interceptor-ref name="prepareInterceptor" />
+			<result type="redirectAction">listTemplate.action?id=${id}</result>
+		</action>
+		<action name="modifyTemplate" class="editTemplateAction"
+			method="modifyTemplate">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/contract/editTemplate.jsp</result>
+			<result>/jsp/contract/editTemplate.jsp</result>
+		</action>
+		<action name="updateTemplate" class="editTemplateAction"
+			method="updateTemplate">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/contract/listTemplatePackage.jsp</result>
+			<result type="redirectAction">listTemplate.action?id=${id}</result>
+		</action>
+		<action name="templateDetail" class="editTemplateAction" method="templateDetail">
+		<result name="templateDetail" type="stream">
+				<param name="contentType">application/octet-stream</param>
+			　　    <param name="inputName">targetFile</param>
+			　　	<param name="contentDisposition">
+					attachment;filename="${fileName}"
+				</param>
+			　    　<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="saveTemplate" class="editTemplateAction" method="saveTemplate">
+			<result type="redirectAction">listTemplate.action?id=${id}</result>
+			
+			<interceptor-ref name="fileUpload">
+				<!--大家可以设置成自己的配置，想文件类型和大小等限制			-->
+				<param name="maximumSize">99999999</param>
+				<!--单位是字节	8M	（2097152B）		-->
+				<param name="allowedTypes">
+					image/bmp,image/x-png,image/png,image/gif,image/jpeg,image/jpg,image/pjpeg,
+					application/msword,application/msword,
+					application/vnd.ms-powerpoint,application/x-ppt,
+					text/plain,
+					application/vnd.ms-excel,application/x-xls,
+					application/pdf,
+					application/x-shockwave-flash,
+					application/x-zip-compressed,application/octet-stream,application/x-gzip,application/zip
+				</param>
+
+				<!--	容许文件类型为doc,ppt,xls,pdf,txt,java-->
+
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		
+		<action name="downloadPact" class="lnpactAction" method="downloadPact">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">targetFile</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>                 
+        </action> 
+        <action name="downloadRedeem" class="lnpactAction" method="downloadRedeem">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">targetFile</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>                 
+        </action> 
+        
+        <action name="downloadReceipt" class="lnpactAction" method="downloadReceipt">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">targetFile</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>                 
+        </action> 
+		
+	</package>
+
+</struts>

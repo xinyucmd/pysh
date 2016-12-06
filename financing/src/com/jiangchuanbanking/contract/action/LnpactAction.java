@@ -1,0 +1,716 @@
+package com.jiangchuanbanking.contract.action;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.struts2.ServletActionContext;
+
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
+import com.jiangchuanbanking.account.domain.MergerInfo;
+import com.jiangchuanbanking.account.domain.SubAccount;
+import com.jiangchuanbanking.base.action.BaseEditAction;
+import com.jiangchuanbanking.base.service.IBaseService;
+import com.jiangchuanbanking.contract.domain.PactFile;
+import com.jiangchuanbanking.contract.domain.Template;
+import com.jiangchuanbanking.contract.domain.TemplatePackage;
+import com.jiangchuanbanking.contract.vo.GenerateContracts;
+import com.jiangchuanbanking.redeem.domain.RedeemEntity;
+import com.jiangchuanbanking.redeem.service.IRedeemService;
+import com.jiangchuanbanking.subscription.domain.Claims;
+import com.jiangchuanbanking.subscription.domain.PactInfo;
+import com.jiangchuanbanking.subscription.service.ISubscripService;
+import com.jiangchuanbanking.system.domain.User;
+import com.jiangchuanbanking.util.BigNumberUtil;
+import com.jiangchuanbanking.util.CommonUtil;
+import com.jiangchuanbanking.util.DateTimeUtil;
+import com.jiangchuanbanking.util.MoneyUtils;
+import com.jiangchuanbanking.util.WordBean;
+
+
+public class LnpactAction extends BaseEditAction {
+	
+	
+	private IBaseService baseService;
+	private IRedeemService redeemService;
+
+	
+	private ISubscripService subscripService;
+		
+	private PactInfo pactInfo;
+	
+	private String message;
+	
+	private String fileName;
+	
+	private String pactNo;
+	
+	private String amtCN;
+	
+	private String startDate;
+	
+	private String endDate;
+	
+	private String dzDate;
+	
+	private String oldPactNos;
+	
+	private String loginUserName;
+	
+	private String jlName;
+	
+	private static final int environment = 1;// 环境 1：windows 2:linux
+	private static final String SWF_TOOL_PATH = "C:/Program Files (x86)/SWFTools/pdf2swf.exe ";
+	//private static final String SWF_TOOL_PATH = "E:/SOFT/SWFTools/pdf2swf.exe ";
+	private static final String ROOT = "contracts";// swf文件根目录
+	
+	
+	private static final long serialVersionUID = 1L;
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	
+	
+	
+	public String createContract(PactInfo pactInfo) throws Exception {
+		//获取合同信息
+		pactInfo=(PactInfo) baseService.getEntityById(PactInfo.class, pactInfo.getId());	
+		//获取合同模板包
+		TemplatePackage templatePackage=(TemplatePackage) baseService.findVOByHQL("from TemplatePackage where PRDT_NO='"+pactInfo.getPrdt_no()+"'").get(0);
+		//得到合同模板路径
+		String packagePath=templatePackage.getPath();
+		//拼接生成合同路径
+        String path=makeContractPath(pactInfo.getPact_no());
+        System.out.println(path+"===================================================");
+        //=======生成一套合同=====
+        List<Template> templates=baseService.findByHQL(" from Template where packageId="+templatePackage.getId());
+        for (Template template : templates) {
+        	GenerateContracts gc=new GenerateContracts();
+            path=gc.generateht(pactInfo, path, packagePath, template.getType());
+		}
+        System.out.println(pactInfo.getPact_no());
+        System.out.println(path+"=======================================================");
+        //=======================
+        
+		PactFile pf=new PactFile();
+		pf.setName("lcht");
+		pf.setPact_no(pactInfo.getPact_no());
+		pf.setPath(path);
+		pf.setCreate_time(DateTimeUtil.getDateString(new Date()));
+		pf.setCreate_op(CommonUtil.getLoginUserId());
+		baseService.makePersistent(pf);
+		
+		//填写合同表格中的债权匹配信息
+		WordBean wordBean = new WordBean();
+		wordBean.setVisible(false); // 是否前台打开word 程序，或者后台运行
+		wordBean.openFile(path);
+		wordBean.setLocation();
+		List<Claims> list=baseService.findByHQL("from Claims where PACT_NO ='"+pactInfo.getPact_no()+"'");
+		int j=0;
+		try {
+			for (int i = 0; i < list.size(); i++) {
+				wordBean.test();
+				j++;
+				wordBean.putTxtToCell(2, i+9, 1, j+"");
+				wordBean.putTxtToCell(2, i+9, 2, list.get(i).getClaims_name());
+				wordBean.putTxtToCell(2, i+9, 3, list.get(i).getClaims_no());
+				wordBean.putTxtToCell(2, i+9, 4, list.get(i).getClaims_amt());
+				wordBean.putTxtToCell(2, i+9, 5, pactInfo.getRate()+"%");
+				wordBean.putTxtToCell(2, i+9, 6, DateTimeUtil.getDateString(pactInfo.getStart_date())+"--"+DateTimeUtil.getDateString(pactInfo.getEnd_date()));
+				wordBean.putTxtToCell(2, i+9, 7, MoneyUtils.toChinese(list.get(i).getClaims_amt().trim())+"\n"+"(￥"+MoneyUtils.moneyFormat(Double.parseDouble(list.get(i).getClaims_amt().trim()))+")");
+				wordBean.putTxtToCell(2, i+9, 8, DateTimeUtil.getCnDateString1(pactInfo.getEnd_date())+"\n"+MoneyUtils.toChinese(getClamsSum(pactInfo,list.get(i).getClaims_amt().trim()))
+						         +"\n"+"(￥"+MoneyUtils.moneyFormat(Double.parseDouble(getClamsSum(pactInfo,list.get(i).getClaims_amt().trim())))+")");
+			}
+			wordBean.save();
+		} catch (Exception e) {                                                                                                                         
+			throw e;
+		}finally{
+			wordBean.closeDocument();
+			wordBean.closeWord();
+		}
+		return null;
+	}
+	public String createRedeem(PactInfo pactInfo) throws Exception {
+		//获取合同信息
+		pactInfo=(PactInfo) baseService.getEntityById(PactInfo.class, pactInfo.getId());	
+		//获取合同模板包
+		TemplatePackage templatePackage=(TemplatePackage) baseService.findVOByHQL("from TemplatePackage where PRDT_NO='HG'").get(0);
+		//得到合同模板路径
+		String packagePath=templatePackage.getPath();
+		//拼接生成合同路径
+        String path=makeContractPath(pactInfo.getPact_no());
+        System.out.println(path+"===================================================");
+        //=======生成一套合同=====
+        List<Template> templates=baseService.findByHQL(" from Template where packageId="+templatePackage.getId());
+        for (Template template : templates) {
+        	GenerateContracts gc=new GenerateContracts();
+    		RedeemEntity redeemEntity=(RedeemEntity) baseService.findVOByHQL("from RedeemEntity where PACT_NO ='"+pactInfo.getPact_no()+"'").get(0);
+            path=gc.generateredeem(pactInfo,path, packagePath, template.getType(),redeemEntity);
+		}
+        System.out.println(path+"=======================================================");
+        //=======================
+        
+		PactFile pf=new PactFile();
+		pf.setName("hg");
+		pf.setPact_no(pactInfo.getPact_no());
+		pf.setPath(path);
+		pf.setCreate_time(DateTimeUtil.getDateString(new Date()));
+		pf.setCreate_op(CommonUtil.getLoginUserId());
+		baseService.makePersistent(pf);
+		return null;
+	}
+	
+	private String getClamsSum(PactInfo pactInfo,String amt){
+		String interestTall = BigNumberUtil.Multiply(amt, BigNumberUtil.Divide3(pactInfo.getRate(), "100"));
+		//12个月除以实际期数
+		String n=BigNumberUtil.Divide2("12",pactInfo.getTerm_range());
+		//实际收益
+		String interest=BigNumberUtil.Divide2(interestTall, n);
+		
+		return BigNumberUtil.add2String(amt, interest);		
+	}
+	
+	
+
+	/**
+	 * 拼接合同路径
+	 * 
+	 * @param location
+	 * @param app_no
+	 * @return
+	 */
+	private String makeContractPath(String pact_no) {
+		
+		//String path="D:"+ File.separator+"jclcContracts"+ File.separator+"contracts" + File.separator + sdf.format(new Date()) + File.separator + pact_no;
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getSession().getServletContext().getRealPath("") + File.separator+"contracts" + File.separator + sdf.format(new Date()) + File.separator + pact_no; 	
+		//String path="E:"+ File.separator+"jclcContracts"+ File.separator+"contracts" + File.separator + sdf.format(new Date()) + File.separator + pact_no;
+		
+		return this.createUrlFolder(path);
+	}
+
+	/**
+	 * 拼接合同路径，生成文件夹
+	 * 
+	 * @param location
+	 * @param app_no
+	 * @return
+	 */
+	public String createUrlFolder(String url) {
+		File folder = new File(url);
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+		return url;
+	}
+	
+	
+	
+	/**
+	 * 生成合同
+	 * 
+	 * @param 
+	 * @param 
+	 * @return
+	 */
+	
+	public String contractGen(){	
+		try {
+			//1.生成合同
+			createContract(pactInfo);
+			
+			//2.生成收据
+			createReceipt(pactInfo);
+			
+		    //2.修改合同状态
+			subscripService.updatePact1(pactInfo, "6", null,"");
+			
+			message="生成合同成功！";
+		    return SUCCESS;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			message="生成失败："+e.getStackTrace();
+			return INPUT;		
+		}
+	
+	}
+	/**
+	 * 生成回购申请
+	 * 
+	 * @param 
+	 * @param 
+	 * @return
+	 */
+	
+	public String redeemGen(){	
+		try {
+			createRedeem(pactInfo);
+			
+		    //2.修改回购表状态为22
+			redeemService.updateRedeem1("22", pactInfo.getPact_no());
+			//修改合同状态为22
+			subscripService.updatePact1(pactInfo, "22", null,"");
+
+			message="生成回购申请成功！";
+		    return SUCCESS;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			message="生成失败："+e.getStackTrace();
+			return INPUT;		
+		}
+	
+	}
+	
+	public String createReceipt(PactInfo pactInfo) throws Exception{
+		//获取合同信息
+		pactInfo=(PactInfo) baseService.getEntityById(PactInfo.class, pactInfo.getId());
+		String pactNo=pactInfo.getPact_no();
+		String srcXlsPath = "E:\\jclcContracts\\contractTemplate\\SJ\\sj.xls";   // // excel模板路径  
+		String desXlsPath = makeContractPath(pactInfo.getPact_no())+File.separator+"sj_"+pactNo+".xls";  
+		POIFSFileSystem fs          = null;  
+		HSSFWorkbook    wb          = null;  
+		HSSFSheet       sheet       = null; 
+
+		try {  
+			  File fi = new File(srcXlsPath);  
+			  if (!fi.exists()) {  
+			      System.out.println("模板文件:" + srcXlsPath + "不存在!");  
+			      return null;  
+			  }  
+			  fs = new POIFSFileSystem(new FileInputStream(fi));  
+			  wb = new HSSFWorkbook(fs);  
+			  sheet = wb.getSheetAt(0);  
+			  this.setCellValue(sheet, 2, 1, pactNo);
+			  
+			  this.setCellValue(sheet, 3, 1, pactInfo.getCif_name());
+			  this.setCellValue(sheet, 4, 1, pactInfo.getCustomer().getId_no());
+			  if ("1".equals(pactInfo.getFund_sources())) {
+				  this.setCellValue(sheet, 5, 1, "现金");
+				  this.setCellValue(sheet, 9, 0, "");
+			  }else if("2".equals(pactInfo.getFund_sources())){
+				  this.setCellValue(sheet, 5, 1, "续购");
+				  if(("").equals(pactInfo.getOld_pactno())){
+					  this.setCellValue(sheet, 9, 0,getOldPactNos());
+				  }else{
+					  this.setCellValue(sheet, 9, 0, pactInfo.getOld_pactno());
+				  }
+			  }else if("3".equals(pactInfo.getFund_sources())){
+				  this.setCellValue(sheet, 5, 1, "现金加续购");
+				  if(("").equals(pactInfo.getOld_pactno())){
+					  this.setCellValue(sheet, 9, 0,getOldPactNos());
+				  }else{
+					  this.setCellValue(sheet, 9, 0, pactInfo.getOld_pactno());
+				  }
+				 
+				  
+			  }
+			  
+			  this.setCellValue(sheet, 5, 5, MoneyUtils.toChinese(pactInfo.getPact_amt().toString()));
+			  this.setCellValue(sheet, 6, 1, pactInfo.getStart_date());
+			  this.setCellValue(sheet, 6, 5, pactInfo.getEnd_date());
+			  this.setCellValue(sheet, 7, 1, pactInfo.getAccount_no());
+		
+
+				  
+			  this.setCellValue(sheet, 7, 5, DateTimeUtil.getLastDate(pactInfo.getStart_date()));
+			  this.setCellValue(sheet, 8, 1, pactInfo.getAccount_bank());
+			  User user=(User) baseService.getEntityById(User.class,pactInfo.getOpen_id());
+			  if(pactInfo.getPact_no().substring(0, 2).equals("HB")||pactInfo.getPact_no().substring(0, 2).equals("XT")){
+				  this.setCellValue(sheet, 13, 1, "");
+			  }else{
+				  this.setCellValue(sheet, 13, 1, user.getFirst_name());
+			  }
+			 
+			  FileOutputStream out;  
+			  try {  
+			              out = new FileOutputStream(desXlsPath);  
+			              wb.write(out);  
+			              out.close();  
+			  } catch (FileNotFoundException e) {  
+			         e.printStackTrace();  
+			   } catch (IOException e) {  
+			          e.printStackTrace();  
+			   }
+		} catch (FileNotFoundException e) {  
+			   e.printStackTrace();  
+		} catch (IOException e) {  
+			   e.printStackTrace();  
+		}  
+		
+		
+		PactFile pf=new PactFile();
+		pf.setName("sj");
+		pf.setPact_no(pactInfo.getPact_no());
+		pf.setPath(desXlsPath);
+		pf.setCreate_time(DateTimeUtil.getDateString(new Date()));
+		pf.setCreate_op(CommonUtil.getLoginUserId());
+		pf.setIf_export("1");
+		baseService.makePersistent(pf);
+    
+		return null;
+	}
+	
+	
+	private void setCellValue(HSSFSheet sheet,int rowIndex,int cellIndex,String value){
+		HSSFCell cell = sheet.getRow(rowIndex).getCell(cellIndex);  
+		cell.setCellValue(value); 
+	}
+	
+	private void setCellValue(HSSFSheet sheet,int rowIndex,int cellIndex,Date value){
+		HSSFCell cell = sheet.getRow(rowIndex).getCell(cellIndex);  
+		cell.setCellValue(value); 
+	}
+	
+	 
+	public String printPact() throws Exception{
+		PactFile pf=(PactFile) baseService.getEntityById(PactFile.class, this.getId());
+		String filePath = pf.getPath();
+
+		// word转pdf
+		wordToPdf(filePath);
+		// pdf转swf
+		pdfToSwf(filePath);
+
+		return SUCCESS;
+		
+	}
+	public String printRedeem() throws Exception{
+		PactFile pf=(PactFile) baseService.getEntityById(PactFile.class, this.getId());
+		String filePath = pf.getPath();
+
+		// word转pdf
+		wordToPdf(filePath);
+		// pdf转swf
+		pdfToSwf(filePath);
+
+		return SUCCESS;
+		
+	}
+	
+	//收据信息
+	public String receiptInfo() throws Exception{
+		pactInfo=(PactInfo) baseService.findByHQL("from PactInfo where PACT_NO='"+pactNo+"'").get(0);
+		amtCN=MoneyUtils.toChinese(pactInfo.getPact_amt().toString());
+		startDate=DateTimeUtil.getDateString(pactInfo.getStart_date());
+		endDate=DateTimeUtil.getDateString(pactInfo.getEnd_date());	
+		dzDate=DateTimeUtil.getDateString(DateTimeUtil.getLastDate(pactInfo.getStart_date()));
+		if (!"1".equals(pactInfo.getFund_sources())) {
+			oldPactNos=getOldPact(pactInfo.getPact_no());
+		}
+		
+		User user=(User) baseService.getEntityById(User.class,pactInfo.getOpen_id());
+		jlName=user.getFirst_name();
+		loginUserName=CommonUtil.getLoginUser().getFirst_name();
+		return SUCCESS;	
+	}
+	
+
+	private void pdfToSwf(String sfileName) throws Exception {
+		Runtime r = Runtime.getRuntime();
+		sfileName = sfileName.replace("\\", "/");
+		File file = new File(sfileName.substring(0, sfileName.lastIndexOf("/"))); 
+		String[] filelist = file.list();
+		for (String f : filelist) {
+			if (f.endsWith(".swf")) {
+				File delfile = new File(sfileName.substring(0, sfileName.lastIndexOf("/"))+ "/" + f);
+				delfile.delete();//删除旧swf文件
+			}
+		}
+		
+		String pdfPath = sfileName.substring(0, sfileName.lastIndexOf("."))
+				+ ".pdf";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsssss");//时间戳
+		String swfPath = sfileName.substring(0, sfileName.lastIndexOf(".")) + sdf.format(new Date())
+				+ ".swf";
+		if (environment == 1) {// windows环境处理
+			try {
+				Process p = r.exec(SWF_TOOL_PATH + pdfPath + " -o " + swfPath
+						+ " -T 9");
+				System.out.print(loadStream(p.getInputStream()));
+				System.err.print(loadStream(p.getErrorStream()));
+				System.out.print(loadStream(p.getInputStream()));
+				System.err.println("****swf转换成功，文件输出：" + swfPath + "****");
+				File pdfFile = new File(pdfPath);
+				if (pdfFile.exists()) {
+					pdfFile.delete();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw e;
+			}
+		} else if (environment == 2) {// linux环境处理
+			try {
+				Process p = r.exec("pdf2swf " + pdfPath + " -o " + swfPath
+						+ " -T 9");
+				System.out.print(loadStream(p.getInputStream()));
+				System.err.print(loadStream(p.getErrorStream()));
+				System.err.println("****swf转换成功，文件输出：" + swfPath + "****");
+				File pdfFile = new File(pdfPath);
+				if (pdfFile.exists()) {
+					pdfFile.delete();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
+
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		session.setAttribute("swfpath", swfPath
+				.substring(swfPath.indexOf(ROOT)).replace("\\", "/"));
+	}
+
+	private void wordToPdf(String sfileName) {
+
+		String toFileName = sfileName.substring(0, sfileName.lastIndexOf(".")) + ".pdf";
+		int wdFormatPDF = 17;
+		ActiveXComponent app = null;
+		Dispatch doc = null;
+		try {
+			app = new ActiveXComponent("Word.Application");
+			app.setProperty("Visible", new Variant(false));
+			Dispatch docs = app.getProperty("Documents").toDispatch();
+			doc = Dispatch.call(docs, "Open", sfileName, new Variant(false),
+					new Variant(true)).toDispatch();
+			System.out.println("打开文档..." + sfileName);
+			System.out.println("转换文档到PDF..." + toFileName);
+			File tofile = new File(toFileName);
+			if (tofile.exists()) {
+				tofile.delete();
+			}
+			Dispatch.call(doc, "SaveAs", toFileName, wdFormatPDF);
+		} catch (Exception e) {
+			System.out.println("========Error:文档转换失败：" + e.getMessage());
+		} finally {
+			Dispatch.call(doc, "Close", false);
+			System.out.println("关闭文档");
+			if (app != null)
+				app.invoke("Quit", new Variant[] {});
+		}
+		// 如果没有这句话,winword.exe进程将不会关闭
+		ComThread.Release();
+	
+		
+	}
+
+	
+	private String loadStream(InputStream in) throws IOException {
+		int ptr = 0;
+		in = new BufferedInputStream(in);
+		StringBuffer buffer = new StringBuffer();
+
+		while ((ptr = in.read()) != -1) {
+			buffer.append((char) ptr);
+		}
+
+		return buffer.toString();
+	}
+	
+	
+	public InputStream getTargetFile()  throws Exception {
+		PactFile pf = (PactFile) baseService.getEntityById(PactFile.class, this.getId());
+		String path=pf.getPath();
+		fileName =path.substring(path.lastIndexOf(File.separator)+1, path.length());
+		return new FileInputStream(new File(path));
+	}
+	
+	public String getOldPact(String pactNo){
+		String pactNos="";
+		SubAccount sub=(SubAccount) baseService.findByHQL("from SubAccount where PACT_NO='"+pactNo+"'").get(0);  
+		List<MergerInfo> list=baseService.findByHQL("from MergerInfo where NEW_SUB_NO='"+sub.getSub_no()+"'");
+		if (list!=null&&list.size()>0) {
+			for (MergerInfo mergerInfo : list) {
+				SubAccount s=(SubAccount) baseService.findByHQL("from SubAccount where SUB_NO='"+mergerInfo.getSub_no()+"'").get(0);
+				pactNos+= s.getPact_no()+",";
+			}
+			pactNos="原合同号: "+pactNos.substring(0, pactNos.length()-1);
+		}		
+		return pactNos;
+	}
+	
+	public String downloadPact() throws Exception {	
+		
+        PactFile pf=(PactFile) baseService.getEntityById(PactFile.class, this.getId());
+		
+		PactInfo pi=(PactInfo) baseService.findByHQL("from PactInfo where PACT_NO='"+pf.getPact_no()+"'").get(0);
+		
+		pi.setIf_export_ht("2");
+		
+		baseService.makePersistent(pi);
+		
+		return SUCCESS;
+	}
+	public String downloadRedeem() throws Exception {	
+		
+        PactFile pf=(PactFile) baseService.getEntityById(PactFile.class, this.getId());
+		
+		PactInfo pi=(PactInfo) baseService.findByHQL("from PactInfo where PACT_NO='"+pf.getPact_no()+"'").get(0);
+		
+		pi.setIf_export_ht("2");
+		
+		baseService.makePersistent(pi);
+		
+		return SUCCESS;
+	}
+	
+	public String downloadReceipt() throws Exception {	
+		PactFile pf=(PactFile) baseService.getEntityById(PactFile.class, this.getId());
+		
+		PactInfo pi=(PactInfo) baseService.findByHQL("from PactInfo where PACT_NO='"+pf.getPact_no()+"'").get(0);
+		
+		String path=pf.getPath();
+		File fi = new File(path);  
+		if (!fi.exists()) {  
+		     System.out.println("文件:" + path + "不存在!");  
+		     return null;  
+		}  
+		  
+		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(fi));  
+		HSSFWorkbook wb = new HSSFWorkbook(fs);  
+		HSSFSheet sheet = wb.getSheetAt(0);
+		this.setCellValue(sheet, 13, 3, CommonUtil.getLoginUser().getFirst_name());
+		FileOutputStream out;  
+		out = new FileOutputStream(path);  
+		wb.write(out); 
+		out.close(); 
+		
+		
+		pf.setIf_export("2");
+		baseService.makePersistent(pf);
+		pi.setIf_export_sj("2");
+		baseService.makePersistent(pi);
+		return SUCCESS;
+	}
+	
+	public IBaseService getBaseService() {
+		return baseService;
+	}
+
+	public void setBaseService(IBaseService baseService) {
+		this.baseService = baseService;
+	}
+
+	public ISubscripService getSubscripService() {
+		return subscripService;
+	}
+
+	public void setSubscripService(ISubscripService subscripService) {
+		this.subscripService = subscripService;
+	}
+
+	public PactInfo getPactInfo() {
+		return pactInfo;
+	}
+
+	public void setPactInfo(PactInfo pactInfo) {
+		this.pactInfo = pactInfo;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getPactNo() {
+		return pactNo;
+	}
+
+	public void setPactNo(String pactNo) {
+		this.pactNo = pactNo;
+	}
+
+	public String getAmtCN() {
+		return amtCN;
+	}
+
+	public void setAmtCN(String amtCN) {
+		this.amtCN = amtCN;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getDzDate() {
+		return dzDate;
+	}
+
+	public void setDzDate(String dzDate) {
+		this.dzDate = dzDate;
+	}
+
+	public String getOldPactNos() {
+		return oldPactNos;
+	}
+
+	public void setOldPactNos(String oldPactNos) {
+		this.oldPactNos = oldPactNos;
+	}
+
+	public String getLoginUserName() {
+		return loginUserName;
+	}
+
+	public void setLoginUserName(String loginUserName) {
+		this.loginUserName = loginUserName;
+	}
+
+	public String getJlName() {
+		return jlName;
+	}
+
+	public void setJlName(String jlName) {
+		this.jlName = jlName;
+	}
+	public IRedeemService getRedeemService() {
+		return redeemService;
+	}
+	public void setRedeemService(IRedeemService redeemService) {
+		this.redeemService = redeemService;
+	}
+	
+	
+	
+	
+	
+}

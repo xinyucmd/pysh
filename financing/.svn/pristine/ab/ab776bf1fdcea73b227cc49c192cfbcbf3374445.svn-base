@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.select.domain">
+ <class dynamic-insert="true" dynamic-update="true"
+  name="WealthParnDic" table="WEALTH_PARM_DIC">
+  <id column="id" name="id" type="java.lang.Integer">
+   <generator class="native"/>
+  </id>
+  <property column="PARENTID" generated="never" insert="true" lazy="false"
+   length="50" name="parentId" type="java.lang.String" update="true"/>
+  <property column="KEY_NAME" generated="never" insert="true" lazy="false"
+   length="50" name="keyName" type="java.lang.String" update="true"/>   
+  <property column="KEY_CODE" generated="never" insert="true" lazy="false"
+   length="50" name="keyCode" type="java.lang.String" update="true"/>   
+  <property column="OP_CODE" generated="never" insert="true"
+   lazy="false" name="opCode" type="java.lang.String" update="true"/>
+   <property column="OP_CN_NAME" generated="never" insert="true"
+   lazy="false" name="opCnName" type="java.lang.String" update="true"/>
+   <property column="OP_EN_NAME" generated="never" insert="true"
+   lazy="false" name="opEnName" type="java.lang.String" update="true"/>
+   <property column="STS" generated="never" insert="true"
+   lazy="false" name="sts" type="java.lang.String" update="true"/> 
+ </class>
+</hibernate-mapping>

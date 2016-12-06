@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true"
+	package="com.jiangchuanbanking.prod.domain">
+	<class dynamic-insert="false" dynamic-update="false" name="ProdChargePolicy"
+		table="WEALTH_PRDT_CHARGE_POLICY">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="native"></generator>
+		</id> 
+		<property name="prdtName" column="prdt_name" type="string" />
+		<property name="type" column="type" type="string" />
+		<property name="paymentType" column="payment_type" type="string" />
+		<property name="returnRate" column="return_rate" type="string" />
+		<property name="stageMin" column="stage_min" type="string" />
+		<property name="stageMax" column="stage_max" type="string" />
+		<property name="rate" column="rate" type="string" />
+		<property name="ifRedeem" column="if_redeem" type="string" />
+		<property name="delFlg" column="del_flg" type="string" />
+		<property name="createOp" column="create_op" type="string" />
+		<property name="createDateString" column="create_date" type="string" />
+		<property name="cmt" column="cmt" type="string" />
+
+		<many-to-one name="prodBaseEntity" 
+			class="com.jiangchuanbanking.prod.domain.ProdBaseEntity">
+			<column name="prdt_no" ></column>
+			
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

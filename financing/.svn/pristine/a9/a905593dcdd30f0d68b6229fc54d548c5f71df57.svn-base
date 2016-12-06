@@ -1,0 +1,71 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.configuration.xml.reload" value="false" />
+    <constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.custom.i18n.resources" value="MessageResources" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.il8n.reload" value="true"/>
+	<constant name="struts.ui.theme" value="simple"/>
+	<constant name="struts.action.extension" value="action" />
+    <include file="../config/struts/struts-home.xml"/>    
+    <include file="../config/struts/struts-investor.xml"/>
+    <include file="../config/struts/struts-account.xml"/>
+    <include file="../config/struts/struts-contact.xml"/> 
+    <include file="../config/struts/struts-contract.xml"/>    
+    <include file="../config/struts/struts-lead.xml"/>    
+    <include file="../config/struts/struts-opportunity.xml"/>
+    <include file="../config/struts/struts-security.xml"/>
+    <include file="../config/struts/struts-system.xml"/>  
+    <include file="../config/struts/struts-product.xml"/> 
+    <include file="../config/struts/struts-prod.xml"/> 
+    <include file="../config/struts/struts-report.xml"/>
+ 	<include file="../config/struts/struts-customer.xml"/>
+	<include file="../config/struts/struts-bankAccount.xml"/>
+    <include file="../config/struts/struts-subscription.xml"/>
+    <include file="../config/struts/struts-mainAccount.xml"/>
+    <include file="../config/struts/struts-subAccount.xml"/>
+    <include file="../config/struts/struts-pactInfo.xml"/>
+    <include file="../config/struts/struts-financingDetails.xml"/>
+    <include file="../config/struts/struts-redeem.xml"/>
+     <include file="../config/struts/struts-statistics.xml"/>
+     <include file="../config/struts/struts-contact.xml"/>
+          <include file="../config/struts/struts-contract.xml"/>
+    <package name="default" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor
+                name="exceptionInterceptor"
+                class="com.jiangchuanbanking.util.ExceptionInterceptor">
+            </interceptor>
+            <interceptor-stack name="defaultInterceptor">
+                <interceptor-ref name="exceptionInterceptor" />
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+            <interceptor-stack name="prepareInterceptor">
+                <interceptor-ref name="exceptionInterceptor" />
+                <interceptor-ref name="paramsPrepareParamsStack"/>
+            </interceptor-stack>            
+        </interceptors>
+
+        <default-interceptor-ref name="defaultInterceptor">
+        </default-interceptor-ref>
+        <global-results>
+           <result name="accessDenied">/jsp/403.jsp</result>
+        </global-results> 
+                             
+    </package>
+    
+   <package name="px" namespace="/images" extends="struts-default"> 
+       <action name="px"> 
+           <result>/images/px.gif</result> 
+       </action> 
+   </package>     
+   
+   <package name="global_default" extends="struts-default">    
+      <action name="select" class="selectAction"></action>    
+       
+   </package>
+          
+</struts>

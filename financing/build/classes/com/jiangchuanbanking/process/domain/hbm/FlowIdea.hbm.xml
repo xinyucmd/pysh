@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true" package="com.jiangchuanbanking.process.domain">
+ <class dynamic-insert="true" dynamic-update="true"
+  name="FlowIdea" table="WEALTH_FLOW_IDEA">
+  
+  <id column="id" name="id" type="java.lang.Integer">
+   <generator class="native"/>
+  </id>
+
+  <property column="flow_type" generated="never" insert="true" lazy="false"
+   length="50" name="flow_type" type="java.lang.String" update="true"/>
+  <property column="app_desc" generated="never" insert="true" lazy="false"
+   length="50" name="app_desc" type="java.lang.String" update="true"/>   
+  <property column="app_idea" generated="never" insert="true"
+   lazy="false" name="app_idea" type="java.lang.String" update="true"/>
+   <property column="sts" generated="never" insert="true"
+   lazy="false" name="sts" type="java.lang.String" update="true"/>
+   <property column="op_no" generated="never" insert="true"
+   lazy="false" name="op_no" type="java.lang.Integer" update="true"/>
+   <property column="create_date" generated="never" insert="true"
+   lazy="false" name="create_date" type="java.util.Date" update="true"/> 
+   <property column="cmt" generated="never" insert="true"
+   lazy="false" name="cmt" type="java.lang.String" update="true"/> 
+   
+   <many-to-one name="wealthFlow" column="workflow_no" class="com.jiangchuanbanking.process.domain.WealthFlow" ></many-to-one>
+ 
+  
+ </class>
+</hibernate-mapping>

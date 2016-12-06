@@ -1,0 +1,117 @@
+﻿<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package namespace="/jsp/prod" name="prod" extends="default">
+
+		<!-- 产品配置*************************************************** -->
+		<action name="listProdFull" class="listProdAction" method="listFull">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="listAppProd" class="listProdAction" method="listApp">
+			<result name="success" type="json"></result>
+		</action>
+		
+		
+		<action name="listPro" class="listProAction" method="list">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="listProdPage">
+			<result type="redirect">/jsp/prod/listProd.jsp</result>
+		</action>
+		
+		<action name="listProdAppPage">
+			<result type="redirect">/jsp/prod/listProdApp.jsp</result>
+		</action>
+		
+		<action name="deleteProd" class="listProdAction" method="delete">
+			<result name="list">/jsp/prod/listProd.jsp</result>
+			<result type="redirect">/jsp/prod/listProd.jsp</result>
+		</action>
+		
+		
+		
+		<!-- 产品配置添加、修改界面 -->
+		<action name="addProd" class="editProdAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/prod/editPrdt.jsp</result>
+			<result>/jsp/prod/editPrdt.jsp</result>
+		</action>
+		
+		<action name="editProd" class="editProdAction" method="edit">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/prod/editProd.jsp</result>
+			<result>/jsp/prod/editProd.jsp</result>
+		</action>
+		
+		<action name="appProd" class="editProdAction" method="app">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/prod/appProd.jsp</result>
+			<result>/jsp/prod/appProd.jsp</result>
+		</action>
+		
+		<action name="saveProd" class="editProdAction" method="save">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/prod/editPrdt.jsp</result>          
+    	    <result type="redirectAction">listProdPage.action</result>
+		</action>
+		
+		<action name="saveAppProd" class="editProdAction" method="saveApp">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/prod/appProd.jsp</result>          
+    	    <result type="redirectAction">listProdAppPage.action</result>
+		</action>
+		
+		<action name="saveOnProd" class="editProdAction" method="saveOn">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/prod/appProd.jsp</result>          
+    	    <result type="redirectAction">listProdAppPage.action</result>
+		</action>
+		
+		<action name="refAppProd" class="editProdAction" method="refApp">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/prod/appProd.jsp</result>          
+    	    <result type="redirectAction">listProdAppPage.action</result>
+		</action>
+		
+		<action name="onProd" class="editProdAction" method="on">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/prod/appProd.jsp</result>          
+    	    <result type="redirectAction">listProdAppPage.action</result>
+		</action>
+		
+		<action name="offProd" class="editProdAction" method="off">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/prod/appProd.jsp</result>          
+    	    <result type="redirectAction">listProdAppPage.action</result>
+		</action>
+		
+		<action name="saveSubmitProd" class="editProdAction" method="saveSubmit">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/prod/editPrdt.jsp</result>          
+    	    <result type="redirectAction">listProdPage.action</result>
+		</action>
+		
+		
+		<action name="saveCloseProd" class="editProdAction" method="save">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/prod/editPrdt.jsp</result>
+			<result type="redirect">listProdPage.action</result>
+		</action>
+
+		<action name="massUpdateProd" class="editProdAction" method="massUpdate">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/prod/editProd.jsp</result>
+			<result>/jsp/prod/editProd.jsp</result>
+		</action>
+		<action name="massUpdateCloseProd" class="editProdAction"
+			method="massUpdate">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/prod/editProd.jsp</result>
+			<result type="redirect">/jsp/prod/editProd.jsp</result>
+		</action>
+
+	</package>
+
+</struts>

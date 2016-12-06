@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="true"
+	package="com.jiangchuanbanking.account.domain">
+	<class dynamic-insert="false" dynamic-update="false" name="SubAccount"
+		table="wealth_sub_account">
+		<id column="sub_no" name="sub_no" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="cif_no" column="cif_no" type="java.lang.Integer" />
+		<property name="cif_name" column="cif_name" type="string" />
+		<property name="pact_no" column="pact_no" type="string" />
+		<property name="cash_amt" column="cash_amt" type="string" />
+		<property name="renew_amt" column="renew_amt" type="string" />
+		<property name="rate" column="rate" type="string" />
+		<property name="prdt_no" column="prdt_no" type="string" />
+		<property name="prdt_name" column="prdt_nme" type="string" />
+		<property name="term" column="term" type="string" />
+		<property name="payment_type" column="payment_type" type="string" />
+		<property name="income_amt" column="income_amt" type="string" />
+		<property name="redeem_amt" column="redeem_amt" type="string" />
+		<property name="if_wxd" column="if_wxd" type="string" />
+		<property name="end_date" column="end_date" type="string" />
+		<property name="start_date" column="start_date" type="string" />
+		<property name="sts" column="sts" type="string" />
+		<property name="open_date" column="open_date" type="string" />
+		<property name="open_op" column="open_op" type="string" />
+		<property name="close_date" column="close_date" type="string" />
+		<property name="close_op" column="close_op" type="string" />
+		<property name="cmt" column="cmt" type="string" />
+<property name="open_id" column="open_id" type="java.lang.Integer"/>
+		<many-to-one name="mainAccount"
+			class="com.jiangchuanbanking.account.domain.MainAccount">
+			<column name="account_no"></column>
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

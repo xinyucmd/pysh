@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false" package="com.jiangchuanbanking.redeem.domain">
+  <class dynamic-insert="false" dynamic-update="false" name="RedeemEntity" table="wealth_redem">
+   <id column="id" name="id" type="java.lang.Integer">
+			<generator class="native" />
+		</id>
+    <property name="pact_no" column="pact_no" type="string" />
+    <property name="cif_no" column="cif_no" type="java.lang.Integer" />
+    <property name="cif_name" column="cif_name" type="string" />
+    <property name="sts" column="sts" type="string" />
+    <property name="redem_type" column="redem_type" type="string" />
+    <property name="redem_amount" column="redem_amount"     type="string" />
+    <property name="pay_amt" column="pay_amt" type="string" />
+    <property name="create_date" column="create_date" type="string" />
+    <property name="cmt" column="cmt" type="string" />
+    <property name="create_op" column="create_op" type="string" />
+  <property name="redem_Date" column="redem_Date" type="string" />
+  <property name="open_id" column="open_id" type="java.lang.Integer"/>
+    <property name="redem_capital" column="redem_capital" type="string" />
+  <property name="redem_interest" column="redem_interest" type="string"/>
+  </class>
+</hibernate-mapping>

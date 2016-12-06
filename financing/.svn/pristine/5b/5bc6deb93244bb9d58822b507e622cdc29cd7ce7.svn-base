@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+
+	<!-- 定时任务demo配置 -->
+	<!-- 第一步声明一个定时任务,声明一个JobDetailBean,通过jobClass属性设置一个定时对象 -->
+   <import resource="applicationContext-alertItem.xml"/>
+	<bean id="smsTimeTask" class="com.jiangchuanbanking.SMS.vo.SmsTimeTask">
+	<property name="smsDeal" ref="smsDeal"></property>
+	</bean>
+	<bean id="smsDeal" class="com.jiangchuanbanking.SMS.vo.SmsDeal">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="smsDataService" ref="smsDataService" ></property>
+	</bean>
+
+	<!-- 提前一个月到期提醒 -->
+	<bean id="jobtaskExpire"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="smsTimeTask" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>expireRemind</value>
+		</property>
+	</bean>
+	<bean id="doTimeExpire" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="jobtaskExpire" />
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0 11 08 ? * *</value><!-- 0 35 13 ? * * ||0 0/4 * * * ? -->
+		</property>
+	</bean>
+
+
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="doTimeExpire" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 定时任务demo配置 -->
+
+
+
+
+</beans>

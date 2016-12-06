@@ -1,0 +1,13 @@
+sms.uri=http://sdk4report.eucp.b2m.cn:8080/sdk/SDKService?wsdl
+sms.softwareSerialNo=6SDK-EMY-6688-KKSMP
+sms.key=jclcdx
+#sms switch 1 is on 0 is off
+sms.disjunctor=0
+
+#sms parms 
+sms.repay1=15
+sms.repay2=3
+sms.repay3=1
+
+
+report.url=http\://192.168.2.227\:6666/report4/reportJsp/

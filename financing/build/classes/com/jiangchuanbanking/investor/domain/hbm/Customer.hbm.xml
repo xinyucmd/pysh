@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jiangchuanbanking.investor.domain">
+ <class dynamic-insert="true" dynamic-update="true" lazy="false" name="Customer" table="WEALTH_CIF_INFO">
+  
+  <id column="id" name="id" type="java.lang.Integer" >
+   <generator class="native" />
+  </id>
+  
+  <property name="cif_no" type="java.lang.String" column="CIF_NO "
+  length="10">
+  </property>
+  
+  <property name="cif_name" type="java.lang.String" column="CIF_NAME "
+  length="20">
+  </property>
+  
+  <property name="sex" type="java.lang.String" column="SEX"
+  length="10">
+  </property>
+  
+  <property name="birth" type="java.lang.String" column="BIRTH"
+  length="10">
+  </property>
+  
+  <property name="cif_type" type="java.lang.String" column="CIF_TYPE"
+  length="20">
+  </property>
+  
+  <property name="id_type" type="java.lang.String" column="ID_TYPE"
+  length="20">
+  </property>
+
+  <property name="id_no" type="java.lang.String" column="ID_NO"
+  length="20">
+  </property>
+
+ <property name="contact" type="java.lang.String" column="CONTACT"
+  length="20">
+  </property>
+  
+  <property name="contact_tel" type="java.lang.String" column="CONTACT_TEL"
+  length="20">
+  </property>  
+  <property name="contact_phone" type="java.lang.String" column="CONTACT_PHONE"
+  length="20">
+  </property>
+  
+  <property name="mail" type="java.lang.String" column="MAIL"
+  length="20">
+  </property>
+  
+  <property name="other_contact" type="java.lang.String" column="OTHER_CONTACT"
+  length="20">
+  </property>
+ 
+  <property name="addr" type="java.lang.String" column="ADDR"
+  length="20">
+  </property>
+  
+  <property name="postcode" type="java.lang.String" column="POSTCODE"
+  length="20">
+  </property>
+
+  <property name="open_date" type="java.lang.String" column="OPEN_DATE"
+  length="8">
+  </property>
+
+ <property name="open_op" type="java.lang.String" column="OPEN_OP"
+  length="20">
+  </property>
+  <property name="open_id" type="java.lang.Integer" column="OPEN_ID"
+  >
+  </property>
+ <property name="cmt" type="java.lang.String" column="CMT"
+  length="100">
+  </property>
+
+ </class>
+</hibernate-mapping>

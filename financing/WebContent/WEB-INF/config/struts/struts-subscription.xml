@@ -1,0 +1,288 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+     <package namespace="/jsp/subscription" name="subscription" extends="default">    
+	           
+    	<action name="listsubscripPage">
+    	  <result type="redirect">/jsp/subscription/listSubscrip.jsp</result>
+        </action>
+        
+        <action name="listRenewPage">
+    	  <result type="redirect">/jsp/subscription/listRenew.jsp</result>
+        </action>
+        
+        <action name="listAdvanceRedemPage">
+    	  <result type="redirect">/jsp/subscription/listAdvanceRedem.jsp</result>
+        </action>
+        
+        
+        
+        <action name="listClaimsPage">
+    	  <result type="redirect">/jsp/subscription/listClaims.jsp</result>
+        </action>
+        
+        <action name="listAccConfirmPage">
+    	  <result type="redirect">/jsp/subscription/listAccConfirm.jsp</result>
+        </action>
+        
+         <action name="listAccCheckPage">
+    	  <result type="redirect">/jsp/subscription/listAccCheck.jsp</result>
+        </action>
+        <action name="listAccConfirmedPage">
+    	  <result type="redirect">/jsp/subscription/listAccConfirmed.jsp</result>
+        </action>
+        
+         <action name="listAccCheckedPage">
+    	  <result type="redirect">/jsp/subscription/listAccChecked.jsp</result>
+        </action>
+        
+        <action name="listContinuePage">
+    	  <result type="redirect">/jsp/subscription/listContinue.jsp</result>
+        </action>
+        
+         <action name="listUndoPage">
+    	  <result type="redirect">/jsp/subscription/listUndo.jsp</result>
+        </action>
+        
+
+    	<action name="listsubscripFull" class="subscripAction" method="listFull">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listClaims" class="subscripAction" method="listClaims">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+         <action name="listRenew" class="subscripAction" method="listRenew">
+    	  <result name="success" type="json"></result>
+        </action>
+       <action name="listAdvanceRedem" class="subscripAction" method="listAdvanceRedem">
+    	  <result name="success" type="json"></result>
+        </action>
+        <action name="listUndo" class="subscripAction" method="listUndo">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listAccConfirm" class="subscripAction" method="listAccConfirm">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listAccCheck" class="subscripAction" method="listAccCheck">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+           <action name="listAccConfirmed" class="subscripAction" method="listAccConfirmed">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listAccChecked" class="subscripAction" method="listAccChecked">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listContinue" class="subscripAction" method="listContinue">
+    	  <result name="success" type="json"></result>
+        </action>
+
+		<action name="listPact" class="subscripAction" method="listPact">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listMerPact" class="subscripAction" method="listMerPact">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="listClaimsInfo" class="subscripAction"
+			method="listClaimsInfo">
+			<result name="success" type="json"></result>
+		</action>
+        
+        <action name="getInstallments" class="editSubscripAction" method="getInstallments">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+        <action name="getRate" class="editSubscripAction" method="getRate">
+    	  <result name="success" type="json"></result>
+        </action>
+        <action name="getJsBxhj" class="editSubscripAction" method="getJsBxhj">
+    	  <result name="success" type="json"></result>
+        </action>
+
+          <action name="checkAdvRedem" class="editSubscripAction" method="checkAdvRedem">
+    	  <result name="success" type="json"></result>
+        </action>
+
+        <action name="getIncomeAmt" class="editSubscripAction" method="getIncomeAmt">
+    	  <result name="success" type="json"></result>
+        </action>
+
+         <action name="getBankAcc" class="editSubscripAction" method="getBankAcc">
+    	  <result name="success" type="json"></result>
+        </action>
+        
+         <action name="listPactPayHis" class="listRedeemAction" method="listPayHis">
+    	  <result name="success" type="json"></result>
+        </action>
+ 
+        <action name="editSubscrip" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/subscription/subscription.jsp</result>
+			<result>/jsp/subscription/subscription.jsp</result>
+        </action>
+        
+        <action name="editClaims" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/subscription/claims.jsp</result>
+			<result>/jsp/subscription/claims.jsp</result>
+        </action>
+        
+        <action name="editAccCon" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/subscription/accConfirm.jsp</result>
+			<result>/jsp/subscription/accConfirm.jsp</result>
+        </action>
+        
+        <action name="editAccCheck" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/subscription/accCheck.jsp</result>
+			<result>/jsp/subscription/accCheck.jsp</result>
+        </action>
+         <action name="editAccConed" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/subscription/accConfirmed.jsp</result>
+			<result>/jsp/subscription/accConfirmed.jsp</result>
+        </action>
+        
+        <action name="editAccChecked" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/subscription/accChecked.jsp</result>
+			<result>/jsp/subscription/accChecked.jsp</result>
+        </action>
+        
+        <action name="editContinue" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/subscription/continue.jsp</result>
+			<result>/jsp/subscription/continue.jsp</result>
+        </action>
+        
+        <action name="continueInfo" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" /> 
+			<result name="input">/jsp/subscription/continueInfo.jsp</result>
+			<result>/jsp/subscription/continueInfo.jsp</result>
+        </action>
+        
+        
+         <action name="saveSubscription" class="editSubscripAction" method="save">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/subscription.jsp</result>          
+    	    <result name="success">/jsp/subscription/listSubscrip.jsp</result>
+        </action>
+        
+        <action name="submitSubscription" class="editSubscripAction" method="submit">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/subscription.jsp</result>          
+    	    <result type="redirectAction">listsubscripPage.action</result>
+        </action>
+        
+         <action name="submitClaims" class="editSubscripAction" method="claims">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/claims.jsp</result>          
+    	    <result type="redirectAction">listClaimsPage.action</result>
+        </action>
+        
+         <action name="submitContinue" class="editSubscripAction" method="submitContinue">
+		
+            <result name="input">/jsp/subscription/continue.jsp</result>          
+    	    <result type="redirectAction">listContinuePage.action</result>
+        </action>
+        
+          <action name="failClaims" class="editSubscripAction" method="failClaims">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/claims.jsp</result>          
+    	    <result type="redirectAction">listClaimsPage.action</result>
+        </action>
+        
+        <action name="accConfirm" class="editSubscripAction" method="accConfirm">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/accConfirm.jsp</result>          
+    	    <result type="redirectAction">listAccConfirmPage.action</result>
+        </action>
+        
+        <action name="accCheck" class="editSubscripAction" method="accCheck">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/accCheck.jsp</result>          
+    	    <result type="redirectAction">listAccCheckPage.action</result>
+        </action>
+        <action name="accConfirmed" class="editSubscripAction" method="accConfirmed">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/accConfirmed.jsp</result>          
+    	    <result type="redirectAction">listAccConfirmedPage.action</result>
+        </action>
+        
+        <action name="accChecked" class="editSubscripAction" method="accChecked">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/accChecked.jsp</result>          
+    	    <result type="redirectAction">listAccCheckedPage.action</result>
+        </action>
+        
+        <action name="undo" class="editSubscripAction" method="undo">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/undo.jsp</result>          
+    	    <result type="redirectAction">listAccCheckPage.action</result>
+        </action>
+        <action name="submitUndoApply" class="editSubscripAction" method="submitUndoApply">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/undoApply.jsp</result>          
+    	    <result type="redirectAction">editUndoApply.action?id=${id}</result>
+        </action>
+        <action name="undoAccCheck" class="editSubscripAction" method="undoAccCheck">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/accCheck.jsp</result>          
+    	    <result type="redirectAction">editUndo.action?id=${id}</result>
+        </action>
+        
+        
+        
+         <action name="renewConfirm" class="editSubscripAction" method="renewConfirm">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/renewConfirm.jsp</result>          
+    	    <result type="redirectAction">editRenewConfirm.action?id=${id}</result>
+        </action>
+        
+        <action name="editRenewConfirm" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/subscription/renewConfirm.jsp</result>
+			<result>/jsp/subscription/renewConfirm.jsp</result>
+        </action>
+        
+        <action name="editUndo" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/subscription/undo.jsp</result>
+			<result>/jsp/subscription/undo.jsp</result>
+        </action>
+                <action name="editUndoApply" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/subscription/undoApply.jsp</result>
+			<result>/jsp/subscription/undoApply.jsp</result>
+        </action>
+        
+        
+        <action name="saveRenewConfirm" class="editSubscripAction" method="saveRenewConfirm">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/renewConfirm.jsp</result>          
+    	    <result type="redirectAction">editRenewConfirm.action?id=${id}</result>
+        </action>
+        <action name="editAdvRedemConfirm" class="editSubscripAction" method="get">
+			<interceptor-ref name="prepareInterceptor" />
+			<result name="input">/jsp/subscription/advRedemConfirm.jsp</result>
+			<result>/jsp/subscription/advRedemConfirm.jsp</result>
+        </action>
+        <action name="saveAdvanceRedemConfirm" class="editSubscripAction" method="saveAdvanceRedemConfirm">
+			<interceptor-ref name="prepareInterceptor" /> 
+            <result name="input">/jsp/subscription/advRedemConfirm.jsp</result>          
+    	    <result type="redirectAction">editAdvRedemConfirm.action?id=${id}</result>
+        </action>
+  </package>      
+    
+</struts>
