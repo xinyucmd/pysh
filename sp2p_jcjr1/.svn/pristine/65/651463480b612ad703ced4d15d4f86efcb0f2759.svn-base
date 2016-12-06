@@ -1,0 +1,266 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@include file="/include/taglib.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+   <link id="skin" rel="stylesheet" href="css/jbox/Gray/jbox.css" />
+    <jsp:include page="/include/head.jsp"></jsp:include>
+    <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+    <jsp:include page="/include/common.jsp"></jsp:include>
+	<script>
+		$(document).ready(function(){
+			$("#d_hover").hover(
+			function () {
+			$("#k_box").slideDown(200);
+			},
+			function () {
+			$("#k_box").hide();
+			}
+			);
+		});
+	</script>
+    <style>
+	.p_xq023 ul{ overflow:hidden;  margin-top:20px; line-height:30px;}
+	.p_xq023 ul li{ font-size:14px; color:#333333;}
+</style>
+</head>
+<body>
+<!-- 引用头部公共部分 -->
+<jsp:include page="/include/top.jsp"></jsp:include>	
+<div class="p_xqpicbox">
+    <div class="p_xqpic"><img src="images/p_ico005.png" /></div>
+</div>
+<input type="hidden" id="idStr" value="${idStr}"/>
+<!-------------内容区 begin-------->
+<!--<div id="k_box" style=" padding:5px; border:solid 1px #719dc6; background:#94b9dc; color:#000; font-size:12px; border-radius:5px; display:none; position:absolute; top:700px; left:300px; z-index:9999;">担保公担保公司担保公司担保公司担保<br/>公司担保公司担保公司司</div>-->
+<div class="p_xqmainbox">
+    <div class="p_xq001">
+        <div class="p_xq002"><a href="javascript:history.go(-1);"><img src="images/p_ico006.png" /> 返回</a><span><img src="images/p_ico007.png" /> 发布时间：${borrowMap.createTime}</span></div>
+        <div class="p_xq003">
+        	<s:if test="%{#request.isLogin==0}"></s:if>
+            <s:else>
+	        	<span style="color: red">可用总数：${ableAmount}  份</span>
+            </s:else>
+        </div>
+    </div>
+    <div class="p_xq004" style="height:300px;">
+        <div class="p_xq005" style="height:290px;">
+            <h5>${borrowMap.title_name}</h5>
+            <div class="p_xq006">
+                <div class="p_xq007">
+                    <p>本期份数</p>
+                    <p class="p_xq008"><span>￥</span>${borrowMap.amount_sum}份</p>
+                </div>
+                <div class="p_xq009">
+                    <p>收益率</p>
+                    <p class="p_xq010">${borrowMap.rate}<span>%</span></p>
+                </div>
+                <div class="p_xq011">
+                    <p>投资周期</p>
+                    <p class="p_xq012">${borrowMap.day}<span>天</span></p>
+                </div>
+            </div>
+                <div class="p_xq013">
+                <p class="clearfix"><span class="fl">还款方式：<em class="p_7aa">一次性还款</em></span><span class="fr"><img src="images/p_ico038.png" /> 100%本息保障</span></p>
+                
+                
+				<!--弹框-->
+				<div class="s_diyawubg"></div>
+				<div class="s_diyawu">
+					<span class="close-btn">×</span>
+					<img src="images/pic23.png" width="400" height="400"/>
+				</div>
+
+            </div>
+               <div class="p_xq015">
+                    <p>投标 <span class="p_7aa">xxx</span> 元，到期获得收益 <span id="rate" class="p_xq016"></span> 元</p>
+               </div>
+        </div>
+         <div class="p_xq017">
+            <h5>剩余份数：<span>￥${(borrowMap.amount_sum-borrowMap.amount_able)}</span>份</h5>
+            <p>&nbsp;</p>
+            <p>完成进度 <span class="p_xq018">${borrowMap.amount}%</span></p>
+            <div class="p_xq019">
+                <div style="width:${borrowMap.amount}%"></div>
+            </div>
+            <s:if test="%{#request.borrowMap.amount <100}">
+            <div class="p_xq020" id="codeDiv">
+            <label>投标份数</label><input type="text"  id="fs" title="请输入份数" style="width: 110px"/>
+            <br />
+            <label>验证码</label><input type="text"  id="code" title="请输入验证码" style="width: 110px"/> 
+               <img src="${sitemap.adminUrl}/imageCode.do?pageId=pic_code" title="点击更换验证码" style="cursor: pointer;"
+				id="codeNum" width="100" height="30"  onclick="javascript:switchCode()" />
+		    <a href="javascript:void()" onclick="switchCode()" class = "change"></a>
+            </div>
+            </s:if>
+            <p class="mt5"><span class="p_7aa"></span></p>
+            <div class="p_xq021">
+                 <s:if test="%{#request.borrowMap.amount >=100}">
+                         <a href="javascript:void(0);">还款中</a>
+	      	  	</s:if>
+	      	  	<s:else>
+	      	  	      <span id="investBthSpan">
+	      	  	          <a href="###" onclick="investBth()">立即投资</a>
+	      	  	      </span>
+	      	  	       <span id="investBthSpanIng" style="display: none">
+	      	  	          <a href="###">投资中</a>
+	      	  	      </span>
+	      	  	         
+	      	  	</s:else>
+            </div>
+        </div>
+    </div>
+    <div class="p_xq022">
+         <ul class="p_tabul">
+          <li>投资记录</li>
+          <!--  <li>活动规则</li>  -->
+         
+        </ul>
+        <span><a href="finance.do?m=1&type=4"><img src="images/p_ico008.png" /> 进入更多产品列表</a></span>
+    </div>
+    
+    <div class="p_tab none p_xq028">
+              
+             <ul>
+                <li>
+                目前总投标份数：
+                <span class="red">￥${borrowMap.amount_able }份</span>
+                </li>
+                <li>
+                剩余投标份数：
+                <span class="red">￥${borrowMap.amount_sum-borrowMap.amount_able}份</span>
+                </li>
+        </ul>
+        
+        <form action="queryEmployeeBorrowDetail.do" id="searchForm" method="post">
+            <input type="hidden" name="curPage" id="pageNum" />
+            <input type="hidden" name="borrowId" id="borrowIds" />
+       
+        <table width="95%">
+            <tbody>
+                <tr height="30" bgcolor="#e9e9e9">
+                    <td>序号</td>
+                    <td>投资人</td>
+                    <td>投资份数</td>
+                    <td>投资时间</td>
+                    </tr>
+                             <s:if test="pageBean.page==null || pageBean.page.size==0">
+							   <tr align="center" height="30">
+								  <td colspan="5">暂无数据</td>
+							   </tr>
+							</s:if>
+							<s:else>
+								<s:set name="counts" value="#request.pageNum"/>
+								<s:iterator value="pageBean.page" var="bean" status="s">
+									<tr>
+										<td><s:property value="#s.count+#counts"/></td>
+										<td>${bean.user_name}</td>
+										<td>${bean.amount}  份</td>
+										<td>${bean.create_time}</td>
+									</tr>
+								</s:iterator>
+							</s:else>
+            </tbody>
+        </table>
+         </form>  
+        
+						<div class="wrap" style="margin:20px 0 10px 0">
+							<div class="inwrap">
+								<div  class="page" >
+								     <shove:page url="queryEmployeeBorrowDetail.do" curPage="${pageBean.pageNum}" showPageCount="5" pageSize="${pageBean.pageSize }" theme="number" totalCount="${pageBean.totalNum}">
+								    	<s:param name="borrowId">${borrowId}</s:param>
+								     </shove:page>
+							  	</div>            	
+							</div>
+						</div>
+					
+						 
+						
+					
+    </div>
+    <!--  
+    <div class="p_tab p_xq023" style="display:none;">
+		<ul>
+        	<li>1、活动期间成功注册的用户均可获得一份体验金（8888元）每个ID仅限一次机会</li>
+        	<li>2、新手专享标收益率为8%，8天产品收益，按一次整数投标方式</li>
+            <li>3、体验金属于虚拟货币，客户注册成功后获取体验金进行投标(体验标），体验金到期收回</li>
+            <li>4、8天体验金到期后获取收益，需充值最低200元投资活利宝、定息宝任意产品，投资后体验金收益将可进行提现</li>
+            <li>5、老用户推荐新用户注册可同时获得体验金，可推荐50名注册，老用户推荐资格需在平台年化累计投资1万元以上享有</li>
+            <li>6、体验金有效期时间为30天，过期未投系统自动清零</li>
+            <li>7、恶意刷体验金，冒用他人身份信息使用体验金等行为，一经核实，微信贷有权利立即收回该用户所得体验金及收益</li>
+            <li>8、本次活动最终解释权归微信贷所有，如本次活动变动或调整将在公告栏内公布，并于公布时即时生效</li>
+        </ul>	
+    </div>
+    -->
+</div>
+<!-------------主体 end----------->
+<div id="remainSeconds"  style="display:none;">${borrowDetailMap.remainTime}</div>
+<input type="hidden" id="bid" value="${borrowDetailMap.id}"/>
+
+<!-- 引用底部公共部分 -->     
+<jsp:include page="/include/footer.jsp"></jsp:include>
+<script type="text/javascript" src="script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="script/jquery.shove-1.0.js"></script>
+<script type="text/javascript" src="css/popom.js"></script>
+<script type="text/javascript" src="script/jbox/jquery.jBox-2.3.min.js"></script>
+<script type="text/javascript" src="script/jbox/jquery.jBox-zh-CN.js"></script>
+
+ <script>
+  		//初始化验证码
+		function switchCode(){
+			var timenow = new Date();
+			$("#codeNum").attr("src","${sitemap.adminUrl}/imageCode.do?pageId=pic_code&d="+timenow);
+		}
+  </script>
+<script>
+
+function investBth(){
+	
+	$('#investBthSpan').hide();
+	$('#investBthSpanIng').show();
+	
+    var fs = $('#fs').val();;
+    var borrowId = '${borrowMap.id}';
+	var param = {}
+	
+	param["borrowId"] = borrowId;
+	param["code"] = $('#code').val();
+	param["pageId"] = 'pic_code';
+	param["fs"] = fs;
+	
+	$.shovePost("addEmployeeInvest.do",param,function(data){
+	   alert(data.msg);
+	   if(data.status=='1'){
+		   location.reload();
+	   }else{
+		   $('#investBthSpan').show();
+		   $('#investBthSpanIng').hide();
+	   }
+	   
+	});
+}
+
+
+var rate = '${borrowMap.rate}';
+var day = '${borrowMap.day}';
+var r = 8888*rate/100*day/365;
+var t = r.toFixed(2);
+$('#rate').html(t);
+ 
+$("#jumpPage").click(function(){
+	
+ 	var curPage = $("#curPageText").val();
+  
+ 	if(isNaN(curPage)){
+		alert("输入格式不正确!");
+		return;
+	}
+ 	
+ 	$("#borrowIds").val('${borrowMap.id}');
+ 	$("#pageNum").val(curPage);
+ 	$("#searchForm").submit();
+
+});
+</script>
+</body>
+</html>

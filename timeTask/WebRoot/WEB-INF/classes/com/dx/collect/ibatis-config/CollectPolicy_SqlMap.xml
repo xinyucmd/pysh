@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Collect_Policy" type="com.dx.collect.bean.CollectPolicy" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Collect_Policy" class="Collect_Policy">
+		<result property="id" column="ID" />
+		<result property="prdt_no" column="PRDT_NO" />
+		<result property="overdays" column="OVERDUE_DAYS" />
+		<result property="teldays" column="TEL_DAYS" />
+		<result property="prolong_days" column="PROLONG_DAYS" />
+		<result property="perdays" column="PER_DAYS" />
+		<result property="def_flg" column="DEF_FLG" />
+		<result property="del_flg" column="DEL_FLG" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="updateDate" column="UPDATE_DATE" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="collect_policy.columns">
+		<![CDATA[
+            ID,
+			PRDT_NO,
+			OVERDUE_DAYS,
+			TEL_DAYS,
+			PROLONG_DAYS,
+			PER_DAYS,
+			DEF_FLG,
+			DEL_FLG,
+			CREATE_DATE,
+			UPDATE_DATE
+        ]]>
+	</sql>
+
+	<!-- 新增 -->
+	<insert id="collect_policy.insert">
+		<![CDATA[
+          INSERT INTO COLLECTING_POLICY(
+            ID,
+			PRDT_NO,
+			OVERDUE_DAYS,
+			TEL_DAYS,
+			PROLONG_DAYS,
+			PER_DAYS,
+			DEF_FLG,
+			DEL_FLG,
+			CREATE_DATE
+           )VALUES(
+           	#id#,
+			#prdt_no#,
+			#overdays#,
+			#teldays#,
+			#prolong_days#,
+			#perdays#,
+			#def_flg#,
+			0,
+			#createDate#
+            )
+        ]]>
+		<!-- 查询该表的序列值 -->
+		<selectKey resultClass="java.lang.String" type="pre"
+			keyProperty="id">
+			SELECT COLLECTING_POLICY_SEQ.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+	</insert>
+	<!-- 删除 -->
+	<delete id="collect_policy.del">
+		<![CDATA[
+		UPDATE COLLECTING_POLICY set
+		DEL_FLG = 1
+		WHERE
+		ID = #id#
+		]]>
+	</delete>
+	<!-- 更新 -->
+	<update id="collect_policy.update">
+		<![CDATA[
+		UPDATE COLLECTING_POLICY set
+			OVERDUE_DAYS = #overdays#,
+			TEL_DAYS = #teldays#,
+			PROLONG_DAYS = #prolong_days#,
+			PER_DAYS = #perdays#,
+			UPDATE_DATE=#updateDate#
+		WHERE
+		ID = #id#
+		]]>
+	</update>
+
+	<!-- 表查询ById -->
+	<select id="collect_policy.getById" resultMap="RM.Collect_Policy">
+		SELECT
+		<include refid="collect_policy.columns" />
+			<![CDATA[
+             FROM COLLECTING_POLICY
+         WHERE 
+             ID = #id#
+             AND DEL_FLG = 0
+        ]]>
+	</select>
+
+	<select id="collect_policy.getall" resultMap="RM.Collect_Policy">
+		SELECT
+		<include refid="collect_policy.columns" />
+		FROM COLLECTING_POLICY
+		WHERE DEL_FLG = 0
+	</select>
+	
+</sqlMap>

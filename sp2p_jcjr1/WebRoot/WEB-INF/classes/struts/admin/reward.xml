@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="rewardSetting" extends="admin-default" >
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>	
+        
+        <!-- whb 推广奖励 -->
+        <action name="rewardSettingInit" class="rewardAction" method="rewardSettingInit">
+           <result name="success">/WEB-INF/page/admin/rewardSetting.jsp</result>
+        </action>
+        <action name="rewardSettingInfo" class="rewardAction" method="rewardSettingInfo">
+           <result name="success">/WEB-INF/page/admin/rewardSetting_info.jsp</result>
+        </action>
+        <action name="addRewardSetting" class="rewardAction" method="addRewardSetting">
+        </action>
+        <action name="updateRewardSettingInit" class="rewardAction" method="updateRewardSettingInit">
+        </action>
+        <action name="updateRewardSetting" class="rewardAction" method="updateRewardSetting">
+        </action>
+        <action name="deleteById" class="rewardAction" method="deleteById">
+        </action>
+         <action name="executeReward" class="rewardAction" method="executeReward">
+         </action>
+         <action name="executePlusInterest" class="rewardAction" method="executePlusInterest">
+         </action>
+        
+		<!-- 红包规则 -->
+		<action name="bonusConfigInit" class="bonusAction" method="bonusConfigInit">
+			<result name="success" >/WEB-INF/page/admin/bonus-setting.jsp</result>
+		</action>
+		<action name="updateBonusConfigInit" class="bonusAction" method="updateBonusConfigInit">
+			<result name="success" >/WEB-INF/page/admin/bonus-setting.jsp</result>
+		</action>
+		<action name="updateBonusConfig" class="bonusAction" method="updateBonusConfig"></action>
+		<action name="deleteBonusAmount" class="bonusAction" method="deleteBonusAmount"></action>
+	</package>
+</struts>

@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微信贷-活动推广页面</title>
+
+<style>
+	body { font-size: 14px; color: #666; font-family: "微软雅黑"; background-color:#F3F4F8; }
+	* { margin: 0; padding: 0; }
+	ul, ol { list-style: none; }
+	em, i { font-style: normal; }
+	img { border: none; vertical-align: middle; }
+	.clear { clear: both; }
+	.clearfix { zoom: 1; }
+	.clearfix:after { display: block; visibility: hidden; content: '.'; height: 0; clear: both; }
+	a { font-family: "微软雅黑"; text-decoration: none; color: #666; cursor: pointer; }
+	.activity{width:100%; height:auto; font-family:"微软雅黑";}
+	.activity .banner{ width:100%; height:709px; background:url(/activity_images/201501/banner.jpg) no-repeat center;}
+	.activity .banner1{ width:100%; height:362px; background:url(/activity_images/201501/banner1.jpg) no-repeat center;}
+	.activity .content_a{ width:100%; height:767px; background:url(/activity_images/201501/bg1.jpg) no-repeat center;}
+	.activity .content_a .main_a{ width:980px; margin:0 auto;}
+	.activity .content_a .main_a .top_bg { text-align:center; height:60px;}
+	.activity .content_a .main_a .con_box{  height:580px; background:#bceeff; border-radius:10px; margin-top:85px;}
+	.activity .content_a .main_a .con_box .box_a{ width:220px; height:410px; float:left; margin:0 12px;}
+	.activity .content_a .main_a .con_box .box_a p{ text-align:center;}
+	.font_18{font-size:18px; font-weight:bold; line-height:36px;}
+	.c34{ color:#db3434;}
+	.c35{ color:#1fadff;}
+	.mr_t{ margin-top:5px;}
+	.activity .content_b{ width:100%; height:1047px; background:url(/activity_images/201501/bg2.jpg) no-repeat top center; padding-top:100px;}
+	.activity .content_b .main_b{ width:980px; height:1015px; background:#bceeff; margin:0 auto; border-radius:10px;}
+	.w40{ width:340px; padding:0 30px;}
+	.fl{ float:left;}
+	.fr{ float:right;}
+	.font_20{ font-size:20px; color:#1c7ba9; font-weight:bold; letter-spacing:2px; line-height:36px;}
+	.activity .content_b .main_b em{ font-style:normal; color:#db3434;}
+	.activity .content_c{ width:100%; height:585px; background:url(/activity_images/201501/bg3.jpg) no-repeat top center; padding-top:80px;}
+	.activity .content_c .main_c{ width:980px; margin:0 auto;}
+	.activity .content_c .main_c .box_b{ height:103px; border-radius:8px; background:#bceeff; font-size:22px; color:#1f1f1f; line-height:103px; text-align:center;margin-bottom:240px;}
+	.activity .content_c .main_c .box_b a{ color:#00abea; text-decoration:underline;}
+	.activity .content_c .main_c .con_text{  margin-left:20px;}
+	.activity .content_c .main_c .con_text h4{ font-size:20px; color:#004860;}
+	.activity .content_c .main_c .con_text p{ font-size:18px; color:#004860; line-height:44px;}
+	.activity .content_c .main_c .box_c{height:330px; border-radius:8px; background:#bceeff; font-size:20px; color:#1c7ba9; margin-bottom:50px; }
+	.activity .content_c .main_c .box_c  .box_table{ background:url(/activity_images/201501/bg4.jpg) no-repeat; width:943px; height:119px; margin:40px 0 0 18px;}
+	.activity .content_c .main_c .box_c  .box_table ul{ width:943px; overflow:hidden; height:53px; line-height:53px;}
+	.activity .content_c .main_c .box_c  .box_table ul li{ float:left; width:235px; text-align:center;}
+	.activity .content_c .main_c .box_c p{ padding:20px 0 0 18px;}
+	.theme-popover-mask{z-index: 9998;position:fixed; top:0; left:0;width:100%;height:100%;background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; opacity:0.7;display:none}
+	.login_box{ width:455px; height:485px;  position:fixed;left:30%; top:0; z-index:9999; display:none; }
+	.login_box .login_box_title{ background:url(/activity_images/201501/c_img1.png) no-repeat center; height:247px; position:relative; z-index:10000; top:50px;}
+	.login_box_con{ background:#81e0ff; width:425px; height:295px; border-radius:8px; color:#1c7ba9; padding:30px 0 0 30px;}
+	.login_box_con ul{}
+	.login_box_con ul li{ height:45px; line-height:45px;margin-top:20px}
+	.login_box_con ul li label{ margin-right:20px; font-size:20px;}
+	.login_box_con a{ font-size:16px; color:#1c7ba9; margin-left:5px;}
+	.close{ background:url(/activity_images/201501/close_btn.png) no-repeat; right:-20px;  position:absolute; z-index:10001; height:36px; width:36px; cursor:pointer; margin-top:-10px;}
+	.big_input{ width:237px; height:44px;  border:none;border:solid 2px #19b4e2; font-size:20px; padding-left:10px; color:#1fa2cf; background:#fff;}
+	.center_input{ width:137px; height:44px;  border:none;border:solid 2px #19b4e2; font-size:20px; padding-left:10px; color:#1fa2cf; background:#fff;}
+	.btn_login{ font-size:24px; color:#fff; font-weight:bold; text-align:center; font-family:"微软雅黑"; letter-spacing:4px; line-height:50px;
+	width:272px; height:60px; background:url(/activity_images/201501/btn9.jpg) no-repeat; border:none; cursor:pointer;}
+	/*------------------头部-----------------*/	          
+.p_headerbox{ height:146px; border-top:solid 2px #C70009; width:100%; background-color:#fff;}
+.p_topbox{ height:42px; width:100%; background-color:#484f59;}
+.p_top{ width:980px;  padding-top:8px; margin:0 auto;}
+.p_topleft{ float:left;}
+.p_topleft span{ float:left;}
+.p_topleft span a{ vertical-align:bottom; margin:0 10px;}
+.p_topleft span a:hover{opacity:0.6; filter:alpha(opacity=60);}
+.p_topright{ float:right;}
+.p_topright span{ float:left; margin-left:30px; }
+.p_topright span a img{ vertical-align:text-bottom; *vertical-align:-2px;}
+.p_header{ width:980px; margin:0 auto; padding:30px 0;}
+.p_logo{  float:left;}
+.p_nav{ float:right; line-height:44px;}
+.p_nav a{ margin-left:75px; float:left; font-size:16px;}
+.p_nav a:hover,.p_nav a.hover{color:#bb1b21;}
+.f18{ font-size:18px;}
+</style>
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+
+</head>
+<body>
+<!--头部 begin-->
+<div class="p_headerbox">
+    <div class="p_topbox">
+        <div class="p_top clearfix">
+            <div class="p_topleft"> <span>客服电话：<em class="f18">400-001-6007</em> （9:00-21:00）</span></div>
+            <div class="p_topright">
+            	<span id="span_logind">
+            		<img src="/activity_images/201501/p_ico003.png" width="13" height="16" /><a href="/home.do" style="color:#f90; margin-right:10px;">我的微信贷</a><span></span> <a href="/logout.do">退出</a>
+            	</span> 
+             	
+            	<span id="span_no_login">
+	            <a href="/login.do" style="color:#F90;"><img src="/activity_images/201501/p_ico003.png" /> 登录</a>
+	            <a href="/cellPhoneinit.do" style="color:#ff6960;"><img src="/activity_images/201501/p_ico004.png" /> 注册</a>
+                </span> 
+            </div>
+        </div>
+    </div>
+    <div class="p_header clearfix">
+        <div class="p_logo"><a href="/index.jsp"><img src="/activity_images/201501/logo.png" /></a></div>
+        <div class="p_nav"><a href="/index.jsp">首页</a><a href="/finance.do?m=1&type=4">我要投资</a><a href="/borrow.do">我要借款</a><a href="/capitalEnsure.do">安全中心</a><a href="/getMessageBytypeId.do?typeId=4">关于我们</a></div>
+    </div>
+</div>
+<!--------------------------头部 end--------------------------->
+	<div class="activity">
+    	<div class="banner"></div>
+        <div class="banner1"></div>
+    	<div class="content_a">
+        	<div class="main_a">
+            	<div class="top_bg"><img src="/activity_images/201501/title_img1.jpg" width="281" height="63" /></div>
+                    <div class="con_box">
+                            <p style="padding:40px 0 25px 0;"><img src="/activity_images/201501/title_img2.jpg" width="980" height="26" /></p>
+                            <div class="box_a">
+                                <p><img src="/activity_images/201501/pic01.jpg" width="223" height="268" /></p>
+                                <p style="margin-top:35px;"><img src="/activity_images/201501/btn1.jpg" width="138" height="37" /></p>
+                                <p class="font_18 c34">国内双人往返机票<br/>春节回家最舒适的选择</p>
+                            </div>
+                            <div class="box_a">
+                                <p><img src="/activity_images/201501/pic02.jpg" width="223" height="268" /></p>
+                                <p style="margin-top:35px;"><img src="/activity_images/201501/btn2.jpg" width="141" height="38" /></p>
+                              <p class="font_18 c35">华为mate7 16g标准版 <br/>过年了 多爱自己一点</p>
+                            </div>
+                            <div class="box_a">
+                                <p><img src="/activity_images/201501/pic03.jpg" width="223" height="268" /></p>
+                                <p style="margin-top:35px;"><img src="/activity_images/201501/btn3.jpg" width="146" height="42" /></p>
+                              <p class="font_18 c35">中粮我买网1000元代金券<br/>置办年货好去处</p>
+                            </div>
+                            <div class="box_a">
+                                <p><img src="/activity_images/201501/pic04.jpg" width="223" height="268" /></p>
+                                <p style="margin-top:35px;"><img src="/activity_images/201501/btn4.jpg" width="151" height="42" /></p>
+                              <p class="font_18 c35">品牌拉杆箱<br/>春节旅行好伴侣</p>
+                          </div>
+                    </div>
+      		</div>
+        </div>
+    	<div class="content_b">
+        	<div class="main_b">
+           	  	<p style="padding:45px 0; text-align:center;"><img src="/activity_images/201501/pic06.jpg" width="593" height="101" /></p>
+                <p><img src="/activity_images/201501/pic05.jpg" width="980" height="393" /></p>
+                <div class="box_b">
+               	  <div class="w40 fl font_20" style="margin-top:70px;">
+                    	<p>活动期间，土豪大聪聪投资了100万的定息宝12个月</p>
+                    	<p style="margin-top:35px;">大聪聪累计投资金额=<em>100万</em></p>
+                      	<p style="text-align:center; margin-top:35px;"><a href="javascript:toLogin('just_invest');" class="theme-login">
+                      		<img src="/activity_images/201501/btn5.jpg" width="273" height="74" alt="立即登录"/></a>
+                      	</p>
+                    </div>
+                  <div class="w40 fr font_20" style="margin-top:40px;">
+                    	<p>活动期间，屌丝小米米推荐七大姑八大姨好友同事注册投资微信贷，总计50人，平均每人投资2万</p>
+                   		<p style="margin-top:20px;">小米米累计投资金额=<em>100万</em></p>
+                   	  	<p style="text-align:center; margin-top:40px;">
+                   	  		<a href="javascript:toLogin('call_friend');"><img src="/activity_images/201501/btn6.jpg" width="273" height="74" alt="呼朋唤友"/></a>
+                   	  	</p>
+                    </div>
+                </div>
+      		</div>
+        </div>
+        <div class="content_c">
+        	<div class="main_c">
+            	<div class="box_b" id="div_box_b">
+                	<a href="javascript:toLogin('default');">登陆</a>查看自己的投资排名
+                </div>
+              <div class="box_c" id="div_box_c">
+                	<p><img src="/activity_images/201501/pic07.jpg" width="192" height="92" /></p>
+                    <div class="box_table">
+                    	<ul>
+                        	<li>排名</li>
+                            <li>好友投资金额</li>
+                            <li>个人投资金额</li>
+                            <li>累计投资金额</li>
+                        </ul>
+                        <ul id="ul_ranking">
+                        	
+                        </ul>
+                    </div>
+              </div>
+                <div class="con_text">
+                	<h4>活动规则</h4>
+                    <p>1、实物奖品在活动结束后三天内邮寄发放。</p>
+                    <p>2、特等奖为内地航班往返机票，不包含港澳台地区，限经济舱，截止使用日期：2015年3月6日（正月十六）。若获奖
+     人无出行需求，也可以选择微信贷6000元现金红包。</p>
+                    <p>3、若多名用户累计投资金额相同，按照时间先后排序，先达到一定投资金额的用户排名靠前。</p>
+                    <p>4、本次活动的最终解释权归微信贷所有。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="theme-popover-mask"></div>
+    <div class="login_box">
+    	  <div class="login_box_title"></div>
+          <div class="close"></div>
+          <div class="login_box_con">
+                    <ul>
+                        <li><label>用户名</label>
+                        	<input name="paramMap.email" id="username" name="" type="text" class="big_input" /><a href="/cellPhoneinit.do">立即注册</a></li>
+                        <li><label>密&nbsp;&nbsp;&nbsp;码</label>
+                        <input name="paramMap.password" id="ipt_pwd_value" name="" type="password" class="big_input" /><a href="/forgetpassword.do">忘记密码？</a></li>
+                   		<li><label>验证码</label>
+                   			<input id="code" name="" type="text" class="center_input" />
+                   			<img  title="点击更换验证码"
+											style="cursor: pointer; margin-left:10px;" id="img_code" width="120" height="40"
+											onclick="javascript:flushCode()" />
+                   		<i></i></li>
+                    </ul>
+                    <p style="margin-top:30px; margin-left:75px;">
+                   		<input class="btn_login" type="button" id="btn_login" value="登录" onclick="login();"/>
+                    </p>
+            </div>
+    </div>
+    
+    <script>
+    	var param = {};
+		var user = new MUser(param);
+		var loginTarget = "default";
+		//var userId = "";
+		$(document).ready(function(){
+		    $("form :input").blur(function(){
+		    	var username = $("#username").attr("value");
+		    	user.login_pc_validate($(this), username, processFuc)
+		    });
+			
+			checkLoginOn();
+		});
+		
+		function checkLoginOn(){
+			user.login_pc_check(function(data){
+				if(user.isNotBank(data)){
+					if(data.status == 1){
+						$("#div_box_b").hide();
+						processAfterLogin();
+					}else{
+						$("#div_box_b").show();
+						$("#div_box_c").hide();
+						
+						// 头部控制
+						$("#span_no_login").show();
+						$("#span_logind").hide();
+					}
+				}else{
+					alert('检查登录状态失败！');	
+				}
+			});
+			
+		}
+		
+		function getMyTop(){
+			var _param={};
+			user.httpPost(
+					'/getMyInvestTop.do',
+					_param,
+					function(data){
+						if(user.isNotBank(data)){
+							var map = data.data;
+							var ranking = $("#ul_ranking");
+							ranking.empty();
+							var htmlStr ="";
+							htmlStr+= "<li>第"+map.ranking+"名</li>"
+							htmlStr+= "<li>"+map.friendAmountTotal+"</li>"
+							htmlStr+= "<li>"+map.myAmountTotal+"</li>"
+							htmlStr+= "<li>"+map.amountTotal+"</li>"
+							
+							ranking.append(htmlStr);
+						}
+						
+						$("#div_box_b").hide();
+						$("#div_box_c").show();
+					},
+					function(msg){
+						alert(msg)
+					}
+			);
+		}
+		
+		// 登录
+		function login(){
+			var username = $("#username").attr("value");
+			var password = $("#ipt_pwd_value").attr("value");
+			var code = $("#code").attr("value");
+			var obj_btn_login = $("#btn_login");
+			var obj_img_code = $("#img_code");
+			user.login_pc(username, password, code, obj_btn_login, obj_img_code,function(data){
+				processAfterLogin();
+			},
+			function(data1){
+				clearForm();
+			}
+			);
+		}
+		
+		function processAfterLogin(){
+			$("#div_box_b").hide();
+			$("#div_box_c").show();
+			
+			// 头部控制
+			$("#span_no_login").hide();
+			$("#span_logind").show();
+			
+			closeLogin();
+			
+			if(loginTarget == 'just_invest'){
+				window.location.href = '/finance.do?m=1&type=4';
+			}else if(loginTarget=='call_friend'){
+				getMyTop();
+			}else{
+				getMyTop();
+			}
+		}
+		
+		function flushCode(){
+			var obj_img_code = $("#img_code");
+			user.flushImgCode(obj_img_code);
+		}
+		
+		// 登录框
+		jQuery(document).ready(function($) {
+			$('.close').click(function(){
+				closeLogin();
+			});
+		});
+		
+		function toLogin(login_target){
+			loginTarget = login_target;
+			user.login_pc_check(function(data){
+				if(user.isNotBank(data)){
+					if(data.status == 1){
+						$("#div_box_b").hide();
+						processAfterLogin();
+						return true;
+					}else{
+						showLogin();
+						$("#div_box_b").show();
+						$("#div_box_c").hide();
+						
+						// 头部控制
+						$("#span_no_login").show();
+						$("#span_logind").hide();
+					}
+				}else{
+					alert('检查登录状态失败！');	
+				}
+			});
+		}
+		
+		function clearForm(){
+			$("#code").attr("value","");
+			$("#btn_login").attr("value","");
+			$("#img_code").attr("value","");
+		}
+		
+		function showLogin(){
+			$('.theme-popover-mask').fadeIn(100);
+			$('.login_box').slideDown(200);
+			// 刷新图片验证码
+		    flushCode();
+		}
+		
+		function closeLogin(){
+			$('.theme-popover-mask').fadeOut(100);
+			$('.login_box').slideUp(200);
+		}
+	</script>
+   
+<!-- 百度统计 -->   
+<script type="text/javascript"> 
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://"); 
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5f4e6cc92182a9237eadbebba00f6e33' type='text/javascript'%3E%3C/script%3E")); 
+</script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MyInformation" extends="login-default"
+		namespace="/">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		<action name="owerInformationInit" class="FrontMyInformation"
+			method="queryBaseData">
+			<result name="lianStateNot" type="redirectAction">updateUserBaseDataJbxxrz.do</result>
+			<result name="success">
+				/WEB-INF/page/front/wdzh-grsz-index.jsp
+			</result>
+		</action>
+		<action name="owerInformationInit1" class="FrontMyInformation"
+			method="queryBaseData1">
+			<result name="success">
+				/WEB-INF/page/front/wdzh-grsz-index1.jsp
+			</result>
+		</action>
+		<action name="queryQuestion" class="FrontMyInformation" method="queryAllQuestionList">
+			<result name="index" type="redirectAction">answerPwdQuestion.do</result>
+			<result name="success">/WEB-INF/page/front/wdzh-sqmb-index.jsp</result>
+		</action>
+		<action name="answerPwdQuestion" class="homeInfoSettingAction"
+			method="getUserQuestion">
+			<result name="index" type="redirectAction">owerInformationInit.do</result>
+			<result name="success">/WEB-INF/page/front/wdzh-hdmb-index.jsp</result>
+		</action>
+		
+		<action name="checkUserAnswer" class="homeInfoSettingAction" method="checkUserAnswer">
+			<result name="input">/WEB-INF/page/front/wdzh-hd-index.jsp</result>
+			<result name="success">/WEB-INF/page/front/wdzh-xgmm-index.jsp</result>
+			<result name="404">/404.jsp</result>
+		</action>
+		<action name="checkUserAnswera" class="homeInfoSettingAction" method="checkUserAnswera">
+			<result name="input">/WEB-INF/page/front/wdzh-hdmb-index.jsp</result>
+			<result name="success">/WEB-INF/page/front/wdzh-sqmb-index.jsp</result>
+			<result name="404">/404.jsp</result>
+		</action>
+		<action name="modifiPwdPro" class="FrontMyInformation" method="modifiPwdPro">
+			<result name="success" type="redirectAction">queryQuestion.do</result>
+		</action>
+
+		<action name="addInformationDetail" class="FrontMyInformation"
+			method="updateUserBaseData">
+		</action>
+		<action name="cellphoneOnly" class="FrontMyInformation"
+			method="cellphoneOnly">
+		</action>
+
+		<action name="addWorkDetail" class="FrontMyInformation" method="updateUserWorkData">
+		</action>
+
+		<action name="queryWorkInit" class="FrontMyInformation" method="queryWorkInit">
+			<result name="success">/WEB-INF/page/front/wdzh-gzrz-index.jsp</result>
+		</action>
+
+		<action name="queryBasicInit" class="FrontMyInformation"
+			method="queryBasicInit">
+			<result name="success">/WEB-INF/page/front/user_basicinfo.jsp</result>
+		</action>
+		
+		<action name="getQuestion" class="homeInfoSettingAction"
+			method="getUserQuestion">
+			<result name="index" type="redirectAction">owerInformationInit.do</result>
+			<result name="success">/WEB-INF/page/front/wdzh-hd-index.jsp</result>
+		</action>
+		
+		<action name="setPwd" class="homeInfoSettingAction"
+			method="setPwd">
+			<result name="success">/WEB-INF/page/front/wdzh-xgmm-index.jsp</result>
+			<result name="applyPro" type="redirectAction">queryQuestion.do</result>
+			<result name="answerPro" type="redirectAction">getQuestion.do</result>
+		</action>
+		
+		
+		<!-- 
+		<action name="updatexgmm" class="FrontMyInformation" method="updatePassword">
+			<result name="applyPro" type="redirectAction">queryQuestion.do</result>
+			<result name="answerPro" type="redirectAction">getQuestion.do</result>
+			<result name="success">/WEB-INF/page/front/wdzh-xgmm-index.jsp</result>
+		</action> 
+		-->
+		<action name="boundcellphone" class="FrontMyInformation"
+			method="updatexgmm">
+			<result name="success">/WEB-INF/page/front/wdzh-sjbd-index.jsp</result>
+			<result name="person" type="redirectAction">owerInformationInit.do</result>
+		</action>
+		<action name="szform" class="FrontMyInformation" method="szform">
+			<result name="success">/WEB-INF/page/front/wdzh-tzsz-index.jsp</result>
+		</action>
+		<action name="yhbound" class="FrontMyInformation" method="updatexgmm">
+			<result name="success">/WEB-INF/page/front/wdzh-yhbg-index.jsp</result>
+			<result name="person" type="redirectAction">owerInformationInit.do</result>
+		</action>
+
+		<!-- 添加邮箱 -->
+		<action name="addEmails" class="homeInfoSettingAction" method="addEmails">
+		</action>
+		<!-- 邮箱管理 left menu -->
+		<action name="emailManagerInit" class="homeInfoSettingAction"
+			method="emailManagerInit">
+			<result name="success">
+				/WEB-INF/page/front/wdzh-yxbd-index.jsp
+			</result>
+		</action>
+		<!-- 邮箱管理 left menu -->
+		<action name="SendUserEmailSet" class="homeInfoSettingAction"
+			method="SendUserEmailSet">
+		</action>
+		
+		<action name="updattingUserEmail" class="homeInfoSettingAction"
+			method="updattingUserEmail">
+		</action>
+
+	</package>
+</struts>

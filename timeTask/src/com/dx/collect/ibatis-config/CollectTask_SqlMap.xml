@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Collect_Task" type="com.dx.collect.bean.CollectTask" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Collect_Task" class="Collect_Task">
+		<result property="id" column="ID" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="br_no" column="BR_NO" />
+		<result property="cif_no" column="CIF_NO" />
+		<result property="plan_time" column="PLAN_TIME" />
+		<result property="collect_time" column="COLLECT_TIME" />
+		<result property="status" column="STATUS" />
+		<result property="term_no" column="TERM_NO" />
+		<result property="create_time" column="CREATE_TIME" />
+		<result property="update_time" column="UPDATE_TIME" />
+	</resultMap>
+	
+	<resultMap id="RM.Collect_Task1" class="Collect_Task">
+		<result property="pact_no" column="PACT_NO" />
+	</resultMap>
+	
+	<!-- 表字段 -->
+	<sql id="collect_task">
+        <![CDATA[
+            ID,	
+			PACT_NO	,
+			BR_NO,
+			CIF_NO	,
+			PLAN_TIME,
+			COLLECT_TIME,
+			STATUS	,
+			TERM_NO,
+			CREATE_TIME	,
+			UPDATE_TIME	
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="CollectTask.insert">
+        <![CDATA[
+          INSERT INTO COLLECT_TASK(
+           ID,	
+			PACT_NO	,
+			BR_NO,
+			CIF_NO	,
+			PLAN_TIME,
+			COLLECT_TIME,
+			STATUS	,
+			TERM_NO,
+			CREATE_TIME	,
+			UPDATE_TIME	
+           )VALUES(
+            #id#,
+			#pact_no#,
+			#br_no#,
+			#cif_no#,
+			#plan_time#,
+			#collect_time#,
+			#status#,
+			#term_no#,
+			#create_time#,
+			#update_time#
+            )
+        ]]>
+		<!-- 查询该表的序列值 -->
+		<selectKey resultClass="java.lang.String" type="pre"
+			keyProperty="id">
+			SELECT COLLECT_TASK_SEQ.nextval AS id FROM DUAL
+		</selectKey>
+	</insert>
+	<!-- 表删除 -->
+	<delete id="CollectTask.del">
+        <![CDATA[
+               DELETE FROM COLLECT_TASK
+                 WHERE
+               ID = #id#
+        ]]>
+	</delete>
+	<!-- 表修改 -->
+	<update id="CollectTask.update">
+        <![CDATA[
+            UPDATE COLLECT_TASK set
+               PACT_NO	 =#pact_no#,     		
+					BR_NO	 =#br_no#,       						
+					CIF_NO	 =#cif_no#,      								
+					PLAN_TIME =#plan_time#,   							
+					COLLECT_TIME =#collect_time#,						
+					STATUS	 =#status#,      
+					TERM_NO=		#term_no#,				
+					CREATE_TIME	 =#create_time#, 							
+					UPDATE_TIME  = #update_time#
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="CollectTask.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="id">
+				<isNotEmpty prepend="AND" property="id">
+					ID = #id#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO =#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					CIF_NO =#cif_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="br_no">
+				<isNotEmpty prepend="AND" property="br_no">
+					BR_NO in $br_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="status">
+				<isNotEmpty prepend="AND" property="status">
+					STATUS =#status#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="term_no">
+				<isNotEmpty prepend="AND" property="term_no">
+					TERM_NO= #term_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询条件 -->
+	<sql id="CollectTask.findPage.where1">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="id">
+				<isNotEmpty prepend="AND" property="id">
+					ID = #id#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO =#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					CIF_NO =#cif_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="br_no">
+				<isNotEmpty prepend="AND" property="br_no">
+					BR_NO in $br_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="status">
+				<isNotEmpty prepend="AND" property="status">
+					STATUS =#status#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="term_no">
+				<isNotEmpty prepend="AND" property="term_no">
+					TERM_NO != #term_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="CollectTask.findPage.count" resultClass="int">
+		SELECT count(*) FROM COLLECT_TASK
+		<include refid="CollectTask.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="collecttasklist.findByPage" resultMap="RM.Collect_Task">
+		SELECT
+		<include refid="collect_task" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="collect_task" />
+		FROM COLLECT_TASK
+		<include refid="CollectTask.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="CollectTask.findFirstReport" resultMap="RM.Collect_Task">
+		SELECT
+		<include refid="collect_task" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="collect_task" />
+		FROM COLLECT_TASK
+		<include refid="CollectTask.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="CollectTask.findFollowReport" resultMap="RM.Collect_Task">
+		SELECT
+		<include refid="collect_task" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="collect_task" />
+		FROM COLLECT_TASK
+		<include refid="CollectTask.findPage.where1" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="CollectTask.findPage.getFollowCount" resultClass="int">
+		SELECT count(*) FROM COLLECT_TASK
+		<include refid="CollectTask.findPage.where1" />
+	</select>
+	<update id="CollectTask.setStatus">
+		 <![CDATA[
+            UPDATE COLLECT_TASK set
+					STATUS	 =#status# 
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<select id="CollectTask.findAllReport" resultMap="RM.Collect_Task1">
+		select
+		t.pact_no from collect_task t where t.status=#status# group by
+		t.pact_no
+	</select>
+	<select id="CollectTask.findByPact" resultMap="RM.Collect_Task">
+		select * from
+		collect_task t where t.pact_no=#pact_no# and t.status=#status# order
+		by t.collect_time desc
+	</select>
+	<select id="CollectTask.getById" resultMap="RM.Collect_Task">
+		select * from
+		collect_task t where t.id=#id#
+	</select>
+	<select id="CollectTask.findCountByTermNo" resultClass="int">
+		SELECT count(*) FROM COLLECT_TASK
+		<include refid="CollectTask.findPage.where" />
+	</select>
+	<update id="CollectTask.updateTask">
+		UPDATE COLLECT_TASK
+		<dynamic prepend="SET">
+			<isNotNull prepend="," property="plan_time">
+				PLAN_TIME =#plan_time#
+			</isNotNull>
+			<isNotNull prepend="," property="update_time">
+				UPDATE_TIME = #update_time#
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="pact_no">
+				PACT_NO =#pact_no#
+			</isNotNull>
+			<isNotNull prepend="AND" property="term_no">
+				TERM_NO = #term_no#
+			</isNotNull>
+
+		</dynamic>
+	</update>
+	<update id="CollectTask.UpdateNotDone">
+		update collect_task t set t.status=#status# where
+		#plan_time# >= t.plan_time and t.status='1' and
+		t.collect_time is null
+	</update>
+</sqlMap>

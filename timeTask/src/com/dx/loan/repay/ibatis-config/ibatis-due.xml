@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Ln_Due" type="com.dx.loan.repay.bean.LnDue" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Ln_Due" class="Ln_Due">
+		<result property="ac_no" column="AC_NO" />
+		<result property="acc_hrt" column="ACC_HRT" />
+		<result property="hx_prdt_no" column="HX_PRDT_NO" />
+		<result property="deal_flag" column="DEAL_FLAG" />
+		<result property="vou_type" column="VOU_TYPE" />
+		<result property="pay_ac_no" column="PAY_AC_NO" />
+		<result property="put_ac_no" column="PUT_AC_NO" />
+		<result property="pay_type" column="PAY_TYPE" />
+		<result property="over_days" column="OVER_DAYS" />
+		<result property="tot_over_times" column="TOT_OVER_TIMES" />
+		<result property="five_sts" column="FIVE_STS" />
+		<result property="four_sts" column="FOUR_STS" />
+		<result property="grade" column="GRADE" />
+		<result property="due_sts" column="DUE_STS" />
+		<result property="mang_brno" column="MANG_BRNO" />
+		<result property="mang_no" column="MANG_NO" />
+		<result property="acc_br_no" column="ACC_BR_NO" />
+		<result property="br_no" column="BR_NO" />
+		<result property="op_no" column="OP_NO" />
+		<result property="tx_date" column="TX_DATE" />
+		<result property="up_date" column="UP_DATE" />
+		<result property="filler" column="FILLER" />
+		<result property="old_end_date" column="OLD_END_DATE" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="due_no" column="DUE_NO" />
+		<result property="cif_no" column="CIF_NO" />
+		<result property="cif_name" column="CIF_NAME" />
+		<result property="app_no" column="APP_NO" />
+		<result property="note_no" column="NOTE_NO" />
+		<result property="occur_type" column="OCCUR_TYPE" />
+		<result property="sub_prdt_no" column="SUB_PRDT_NO" />
+		<result property="prdt_no" column="PRDT_NO" />
+		<result property="cur_no" column="CUR_NO" />
+		<result property="time_type" column="TIME_TYPE" />
+		<result property="term_mon" column="TERM_MON" />
+		<result property="term_day" column="TERM_DAY" />
+		<result property="beg_date" column="BEG_DATE" />
+		<result property="end_date" column="END_DATE" />
+		<result property="base_rate_type" column="BASE_RATE_TYPE" />
+		<result property="base_rate" column="BASE_RATE" />
+		<result property="ln_rate" column="LN_RATE" />
+		<result property="float_ratio" column="FLOAT_RATIO" />
+		<result property="over_rate" column="OVER_RATE" />
+		<result property="fine_rate" column="FINE_RATE" />
+		<result property="cmpd_rate" column="CMPD_RATE" />
+		<result property="exp_flag" column="EXP_FLAG" />
+		<result property="exp_rate" column="EXP_RATE" />
+		<result property="inner_intst" column="INNER_INTST" />
+		<result property="outer_intst" column="OUTER_INTST" />
+		<result property="due_amt" column="DUE_AMT" />
+		<result property="bal" column="BAL" />
+		<result property="ic_type" column="IC_TYPE" />
+		<result property="payee_name" column="PAYEE_NAME" />
+		<result property="payee_ac_no" column="PAYEE_AC_NO" />
+		<result property="payee_br_name" column="PAYEE_BR_NAME" />
+		<result property="if_auto" column="if_auto" />
+		<result property="collected" column="COLLECTED" />
+	</resultMap>
+	<resultMap id="RM.Ln_Due2" class="Ln_Due">
+		<result property="due_sts" column="DUE_STS" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="due_no" column="DUE_NO" />
+		<result property="cif_no" column="CIF_NO" />
+		<result property="cif_name" column="CIF_NAME" />
+		<result property="app_no" column="APP_NO" />
+		<result property="note_no" column="NOTE_NO" />
+		<result property="prdt_no" column="PRDT_NO" />
+		<result property="due_amt" column="DUE_AMT" />
+		<result property="bal" column="BAL" />
+		<result property="ic_type" column="IC_TYPE" /><!-- 存储借款人的类别，是担保人，主借款人还是共同借款人 -->
+	</resultMap>
+	<resultMap id="RM.Ln_Due3" class="Ln_Due">
+		<result property="mang_no" column="MANG_NO" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="due_no" column="DUE_NO" />
+		<result property="cif_no" column="CIF_NO" />
+		<result property="cif_name" column="CIF_NAME" />
+		<result property="end_date" column="DUE_END_DATE" />
+		<result property="bal" column="DUE_BAL" />
+		<result property="beg_date" column="PACT_BEG_DATE" />
+		<result property="due_amt" column="DUE_AMT" />
+		<result property="prdt_no" column="PRDT_NO" /><!-- 存储借款人的类别，是担保人，主借款人还是共同借款人 -->
+	</resultMap>
+	<resultMap id="RM.Ln_Due8" class="Ln_Due">
+		<result property="ac_no" column="AC_NO" />
+		<result property="acc_hrt" column="ACC_HRT" />
+		<result property="hx_prdt_no" column="HX_PRDT_NO" />
+		<result property="deal_flag" column="DEAL_FLAG" />
+		<result property="vou_type" column="VOU_TYPE" />
+		<result property="pay_ac_no" column="PAY_AC_NO" />
+		<result property="put_ac_no" column="PUT_AC_NO" />
+		<result property="pay_type" column="PAY_TYPE" />
+		<result property="over_days" column="OVER_DAYS" />
+		<result property="tot_over_times" column="TOT_OVER_TIMES" />
+		<result property="five_sts" column="FIVE_STS" />
+		<result property="four_sts" column="FOUR_STS" />
+		<result property="grade" column="GRADE" />
+		<result property="due_sts" column="DUE_STS" />
+		<result property="mang_brno" column="MANG_BRNO" />
+		<result property="mang_no" column="MANG_NO" />
+		<result property="acc_br_no" column="ACC_BR_NO" />
+		<result property="br_no" column="BR_NO" />
+		<result property="op_no" column="OP_NO" />
+		<result property="tx_date" column="TX_DATE" />
+		<result property="up_date" column="UP_DATE" />
+		<result property="filler" column="FILLER" />
+		<result property="old_end_date" column="OLD_END_DATE" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="due_no" column="DUE_NO" />
+		<result property="cif_no" column="CIF_NO" />
+		<result property="cif_name" column="CIF_NAME" />
+		<result property="app_no" column="APP_NO" />
+		<result property="note_no" column="NOTE_NO" />
+		<result property="occur_type" column="OCCUR_TYPE" />
+		<result property="sub_prdt_no" column="SUB_PRDT_NO" />
+		<result property="prdt_no" column="PRDT_NO" />
+		<result property="cur_no" column="CUR_NO" />
+		<result property="time_type" column="TIME_TYPE" />
+		<result property="term_mon" column="TERM_MON" />
+		<result property="term_day" column="TERM_DAY" />
+		<result property="beg_date" column="BEG_DATE" />
+		<result property="end_date" column="END_DATE" />
+		<result property="base_rate_type" column="BASE_RATE_TYPE" />
+		<result property="base_rate" column="BASE_RATE" />
+		<result property="ln_rate" column="LN_RATE" />
+		<result property="float_ratio" column="FLOAT_RATIO" />
+		<result property="over_rate" column="OVER_RATE" />
+		<result property="fine_rate" column="FINE_RATE" />
+		<result property="cmpd_rate" column="CMPD_RATE" />
+		<result property="exp_flag" column="EXP_FLAG" />
+		<result property="exp_rate" column="EXP_RATE" />
+		<result property="inner_intst" column="INNER_INTST" />
+		<result property="outer_intst" column="OUTER_INTST" />
+		<result property="due_amt" column="DUE_AMT" />
+		<result property="bal" column="BAL" />
+		<result property="ic_type" column="IC_TYPE" />
+		<result property="payee_name" column="PAYEE_NAME" />
+		<result property="payee_ac_no" column="PAYEE_AC_NO" />
+		<result property="payee_br_name" column="PAYEE_BR_NAME" />
+		<result property="cap_type" column="cap_type" />
+		<result property="if_auto" column="IF_AUTO" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="ln_due.columns">
+        <![CDATA[
+            AC_NO,
+            ACC_HRT,
+            HX_PRDT_NO,
+            DEAL_FLAG,
+            VOU_TYPE,
+            PAY_AC_NO,
+            PUT_AC_NO,
+            PAY_TYPE,
+            OVER_DAYS,
+            TOT_OVER_TIMES,
+            FIVE_STS,
+            FOUR_STS,
+            GRADE,
+            DUE_STS,
+            MANG_BRNO,
+            MANG_NO,
+            ACC_BR_NO,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            OLD_END_DATE,
+            PACT_NO,
+            DUE_NO,
+            CIF_NO,
+            CIF_NAME,
+            APP_NO,
+            NOTE_NO,
+            OCCUR_TYPE,
+            SUB_PRDT_NO,
+            PRDT_NO,
+            CUR_NO,
+            TIME_TYPE,
+            TERM_MON,
+            TERM_DAY,
+            BEG_DATE,
+            END_DATE,
+            BASE_RATE_TYPE,
+            BASE_RATE,
+            LN_RATE,
+            FLOAT_RATIO,
+            OVER_RATE,
+            FINE_RATE,
+            CMPD_RATE,
+            EXP_FLAG,
+            EXP_RATE,
+            INNER_INTST,
+            OUTER_INTST,
+            DUE_AMT,
+            BAL,
+            IC_TYPE,
+            PAYEE_NAME,
+            PAYEE_BR_NAME,
+            PAYEE_AC_NO,
+            IF_AUTO,
+            COLLECTED
+        ]]>
+	</sql>
+	<sql id="ln_due.columns2">
+        <![CDATA[
+            distinct(a.DUE_NO),
+            a.DUE_STS,
+            a.PACT_NO,
+            a.CIF_NO,
+            a.CIF_NAME,
+            a.APP_NO,
+            a.NOTE_NO,
+            a.PRDT_NO,
+            a.DUE_AMT,
+            a.BAL,
+        ]]>
+	</sql>
+	<sql id="ln_due.columns3">
+        <![CDATA[
+            DUE_NO,
+            DUE_STS,
+            PACT_NO,
+            CIF_NO,
+            CIF_NAME,
+            APP_NO,
+            NOTE_NO,
+            PRDT_NO,
+            DUE_AMT,
+            BAL,
+        ]]>
+	</sql>
+	<sql id="ln_due.columns4">
+        <![CDATA[
+           DISTINCT A.APP_NO as DUE_NO,
+	       '审批中' AS DUE_STS,
+	       '' AS PACT_NO,
+	       A.CIF_NO,
+	       A.CIF_NAME,
+	       A.APP_NO,
+	       '' AS NOTE_NO,
+	       A.PRDT_NO,
+	       A.APP_AMT AS DUE_AMT,
+	       A.APP_AMT AS BAL,
+        ]]>
+	</sql>
+	<sql id="ln_due.columns5">
+        <![CDATA[
+           a.due_no,
+	       a.pact_no,
+	       a.due_end_date,
+	       a.due_bal,
+	       b.mang_no,
+	       b.prdt_no,
+	       a.pact_beg_date,
+	       b.cif_name,
+	       a.due_amt ,
+	       a.cif_no
+	    ]]>
+	</sql>
+	<sql id="ln_due.columns6">
+        <![CDATA[
+           due_no,
+	       pact_no,
+	       due_end_date,
+	       due_bal,
+	       mang_no,
+	       prdt_no,
+	       pact_beg_date,
+	       cif_name,
+	       due_amt,
+	       cif_no 
+	    ]]>
+	</sql>
+		<sql id="ln_due.columns7">
+        <![CDATA[
+            CAP_TYPE,
+            AC_NO,
+            ACC_HRT,
+            HX_PRDT_NO,
+            DEAL_FLAG,
+            VOU_TYPE,
+            PAY_AC_NO,
+            PUT_AC_NO,
+            PAY_TYPE,
+            OVER_DAYS,
+            TOT_OVER_TIMES,
+            FIVE_STS,
+            FOUR_STS,
+            GRADE,
+            DUE_STS,
+            MANG_BRNO,
+            MANG_NO,
+            ACC_BR_NO,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            OLD_END_DATE,
+            PACT_NO,
+            DUE_NO,
+            CIF_NO,
+            CIF_NAME,
+            APP_NO,
+            NOTE_NO,
+            OCCUR_TYPE,
+            SUB_PRDT_NO,
+            PRDT_NO,
+            CUR_NO,
+            TIME_TYPE,
+            TERM_MON,
+            TERM_DAY,
+            BEG_DATE,
+            END_DATE,
+            BASE_RATE_TYPE,
+            BASE_RATE,
+            LN_RATE,
+            FLOAT_RATIO,
+            OVER_RATE,
+            FINE_RATE,
+            CMPD_RATE,
+            EXP_FLAG,
+            EXP_RATE,
+            INNER_INTST,
+            OUTER_INTST,
+            DUE_AMT,
+            BAL,
+            IC_TYPE,
+            PAYEE_NAME,
+            PAYEE_BR_NAME,
+            PAYEE_AC_NO,
+            IF_AUTO
+        ]]>
+	</sql>
+	
+	<sql id="ln_due.columns9">
+        <![CDATA[
+            CAP_TYPE,
+            AC_NO,
+            ACC_HRT,
+            HX_PRDT_NO,
+            DEAL_FLAG,
+            VOU_TYPE,
+            PAY_AC_NO,
+            PUT_AC_NO,
+            PAY_TYPE,
+            OVER_DAYS,
+            TOT_OVER_TIMES,
+            FIVE_STS,
+            FOUR_STS,
+            GRADE,
+            DUE_STS,
+            MANG_BRNO,
+            MANG_NO,
+            ACC_BR_NO,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            OLD_END_DATE,
+            PACT_NO,
+            DUE_NO,
+            CIF_NO,
+            CIF_NAME,
+            APP_NO,
+            NOTE_NO,
+            OCCUR_TYPE,
+            SUB_PRDT_NO,
+            PRDT_NO,
+            CUR_NO,
+            TIME_TYPE,
+            TERM_MON,
+            TERM_DAY,
+            BEG_DATE,
+            END_DATE,
+            BASE_RATE_TYPE,
+            BASE_RATE,
+            LN_RATE,
+            FLOAT_RATIO,
+            OVER_RATE,
+            FINE_RATE,
+            CMPD_RATE,
+            EXP_FLAG,
+            EXP_RATE,
+            INNER_INTST,
+            OUTER_INTST,
+            DUE_AMT,
+            BAL,
+            IC_TYPE,
+            PAYEE_NAME,
+            PAYEE_BR_NAME,
+            PAYEE_AC_NO,
+            IF_AUTO
+        ]]>
+	</sql>
+	
+	<!-- 表新增 -->
+	<insert id="LnDue.insert">
+        <![CDATA[
+          INSERT INTO LN_DUE(
+            AC_NO,
+            ACC_HRT,
+            HX_PRDT_NO,
+            DEAL_FLAG,
+            VOU_TYPE,
+            PAY_AC_NO,
+            PUT_AC_NO,
+            PAY_TYPE,
+            OVER_DAYS,
+            TOT_OVER_TIMES,
+            FIVE_STS,
+            FOUR_STS,
+            GRADE,
+            DUE_STS,
+            MANG_BRNO,
+            MANG_NO,
+            ACC_BR_NO,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            OLD_END_DATE,
+            PACT_NO,
+            DUE_NO,
+            CIF_NO,
+            CIF_NAME,
+            APP_NO,
+            NOTE_NO,
+            OCCUR_TYPE,
+            SUB_PRDT_NO,
+            PRDT_NO,
+            CUR_NO,
+            TIME_TYPE,
+            TERM_MON,
+            TERM_DAY,
+            BEG_DATE,
+            END_DATE,
+            BASE_RATE_TYPE,
+            BASE_RATE,
+            LN_RATE,
+            FLOAT_RATIO,
+            OVER_RATE,
+            FINE_RATE,
+            CMPD_RATE,
+            EXP_FLAG,
+            EXP_RATE,
+            INNER_INTST,
+            OUTER_INTST,
+            DUE_AMT,
+            BAL
+           )VALUES(
+            #ac_no#,
+            #acc_hrt#,
+            #hx_prdt_no#,
+            #deal_flag#,
+            #vou_type#,
+            #pay_ac_no#,
+            #put_ac_no#,
+            #pay_type#,
+            #over_days#,
+            #tot_over_times#,
+            #five_sts#,
+            #four_sts#,
+            #grade#,
+            #due_sts#,
+            #mang_brno#,
+            #mang_no#,
+            #acc_br_no#,
+            #br_no#,
+            #op_no#,
+            #tx_date#,
+            #up_date#,
+            #filler#,
+            #old_end_date#,
+            #pact_no#,
+            #due_no#,
+            #cif_no#,
+            #cif_name#,
+            #app_no#,
+            #note_no#,
+            #occur_type#,
+            #sub_prdt_no#,
+            #prdt_no#,
+            #cur_no#,
+            #time_type#,
+            #term_mon#,
+            #term_day#,
+            #beg_date#,
+            #end_date#,
+            #base_rate_type#,
+            #base_rate#,
+            #ln_rate#,
+            #float_ratio#,
+            #over_rate#,
+            #fine_rate#,
+            #cmpd_rate#,
+            #exp_flag#,
+            #exp_rate#,
+            #inner_intst#,
+            #outer_intst#,
+            #due_amt#,
+            #bal#
+            )
+        ]]>
+	</insert>
+	<!-- 表删除 -->
+	<delete id="LnDue.del">
+        <![CDATA[
+               DELETE FROM LN_DUE
+                 WHERE
+               DUE_NO=#due_no#
+        ]]>
+	</delete>
+	<!-- 表修改 -->
+	<update id="LnDue.update">
+        <![CDATA[
+            UPDATE LN_DUE set
+               AC_NO=#ac_no#,
+               ACC_HRT=#acc_hrt#,
+               HX_PRDT_NO=#hx_prdt_no#,
+               DEAL_FLAG=#deal_flag#,
+               VOU_TYPE=#vou_type#,
+               PAY_AC_NO=#pay_ac_no#,
+               PUT_AC_NO=#put_ac_no#,
+               PAY_TYPE=#pay_type#,
+               OVER_DAYS=#over_days#,
+               TOT_OVER_TIMES=#tot_over_times#,
+               FIVE_STS=#five_sts#,
+               FOUR_STS=#four_sts#,
+               GRADE=#grade#,
+               DUE_STS=#due_sts#,
+               MANG_BRNO=#mang_brno#,
+               MANG_NO=#mang_no#,
+               ACC_BR_NO=#acc_br_no#,
+               BR_NO=#br_no#,
+               OP_NO=#op_no#,
+               TX_DATE=#tx_date#,
+               UP_DATE=#up_date#,
+               FILLER=#filler#,
+               OLD_END_DATE=#old_end_date#,
+               PACT_NO=#pact_no#,
+               DUE_NO=#due_no#,
+               CIF_NO=#cif_no#,
+               CIF_NAME=#cif_name#,
+               APP_NO=#app_no#,
+               NOTE_NO=#note_no#,
+               OCCUR_TYPE=#occur_type#,
+               SUB_PRDT_NO=#sub_prdt_no#,
+               PRDT_NO=#prdt_no#,
+               CUR_NO=#cur_no#,
+               TIME_TYPE=#time_type#,
+               TERM_MON=#term_mon#,
+               TERM_DAY=#term_day#,
+               BEG_DATE=#beg_date#,
+               END_DATE=#end_date#,
+               BASE_RATE_TYPE=#base_rate_type#,
+               BASE_RATE=#base_rate#,
+               LN_RATE=#ln_rate#,
+               FLOAT_RATIO=#float_ratio#,
+               OVER_RATE=#over_rate#,
+               FINE_RATE=#fine_rate#,
+               CMPD_RATE=#cmpd_rate#,
+               EXP_FLAG=#exp_flag#,
+               EXP_RATE=#exp_rate#,
+               INNER_INTST=#inner_intst#,
+               OUTER_INTST=#outer_intst#,
+               DUE_AMT=#due_amt#,
+               BAL=#bal#
+            WHERE
+                DUE_NO=#due_no#
+        ]]>
+	</update>
+	<!-- 财务放款审核时更新借据起始日,实际放款金额修改 -->
+	<update id="LnDue.updatefromnote">
+        <![CDATA[
+            UPDATE LN_DUE set
+               BEG_DATE=#beg_date#
+            WHERE
+                DUE_NO=#due_no#
+        ]]>
+	</update>
+	<!-- 表查询ById -->
+	<select id="LnDue.getById" resultMap="RM.Ln_Due">
+		SELECT
+		<include refid="ln_due.columns" />
+        <![CDATA[
+             FROM Ln_Due
+         WHERE 
+            DUE_NO=#due_no#
+        ]]>
+	</select>
+	<!-- 表查询ById -->
+	<select id="LnDueByApplyNo.getById" resultMap="RM.Ln_Due">
+		SELECT
+		<include refid="ln_due.columns" />
+        <![CDATA[
+             FROM Ln_Due
+         WHERE 
+            APP_NO=#app_no# AND ROWNUM=1
+        ]]>
+	</select>
+	<!-- 表查询 -->
+	<select id="LnDue.getBydue" resultMap="RM.Ln_Due">
+		SELECT
+		<include refid="ln_due.columns" />
+        <![CDATA[
+             FROM Ln_Due
+         WHERE 
+            CIF_NO=#cif_no#
+        ]]>
+	</select>
+	<!-- 分页查询条件 -->
+	<sql id="LnDue.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="due_no">
+				<isNotEmpty prepend="AND" property="due_no">
+					DUE_NO=#due_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					CIF_NO=#cif_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME LIKE '%'||#cif_name#||'%'
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="five_sts">
+				<isNotEmpty prepend="AND" property="five_sts">
+					five_sts >= #five_sts# 
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO=#prdt_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="op_no">
+				<isNotEmpty prepend="AND" property="op_no">
+					OP_NO=#op_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<sql id="LnDue.findPageAdv.where">
+		<dynamic prepend="AND">
+			<isPropertyAvailable property="due_no">
+				<isNotEmpty prepend="AND" property="due_no">
+					A.DUE_NO=#due_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					A.CIF_NO=#cif_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					B.CIF_NAME LIKE '%'||#cif_name#||'%'
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					A.PACT_NO=#pact_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="br_no">
+				<isNotEmpty prepend="AND" property="br_no">
+					B.BR_NO=#br_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="bal">
+				<isNotEmpty prepend="AND" property="bal">
+					A.BAL > 0
+                </isNotEmpty>
+			</isPropertyAvailable>
+
+		</dynamic>
+	</sql>
+	<sql id="LnDue.findPage.where2">
+		<dynamic prepend="">
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					B.CIF_NO=#cif_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="id_no">
+				<isNotEmpty prepend="AND" property="id_no">
+					B.ID_NO=#id_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="bal">
+				<isNotEmpty prepend="AND" property="bal">
+					A.BAL > 0
+                      </isNotEmpty>
+			</isPropertyAvailable>
+
+		</dynamic>
+	</sql>
+	<sql id="LnDue.findPage.where3">
+		<dynamic prepend="">
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					B.CIF_NO=#cif_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="id_no">
+				<isNotEmpty prepend="AND" property="id_no">
+					C.ID_NO=#id_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="bal">
+				<isNotEmpty prepend="AND" property="bal">
+					A.BAL > 0
+                      </isNotEmpty>
+			</isPropertyAvailable>
+
+		</dynamic>
+	</sql>
+	<sql id="LnDue.findPage.where4">
+		<dynamic prepend="">
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					B.VOU_CIF_NO=#cif_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="id_no">
+				<isNotEmpty prepend="AND" property="id_no">
+					B.ID_NO=#id_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="bal">
+				<isNotEmpty prepend="AND" property="bal">
+					A.BAL > 0
+                      </isNotEmpty>
+			</isPropertyAvailable>
+
+		</dynamic>
+	</sql>
+	<sql id="LnDue.findPage.where5">
+		<dynamic prepend="">
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					A.CIF_NO=#cif_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="id_no">
+				<isNotEmpty prepend="AND" property="id_no">
+					B.ID_NO=#id_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+
+		</dynamic>
+	</sql>
+	<sql id="LnDue.findPage.where6">
+		<dynamic prepend="">
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					B.CIF_NO=#cif_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="id_no">
+				<isNotEmpty prepend="AND" property="id_no">
+					B.ID_NO=#id_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+
+		</dynamic>
+	</sql>
+	
+	
+	<sql id="LnDue.findPage.where7">
+		<dynamic prepend="and">
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO=#prdt_no#
+                      </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="over_days">
+				<isNotEmpty prepend="AND" property="over_days">
+					OVER_DAYS > #over_days#
+                </isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="collected">
+				<isNotEmpty prepend="AND" property="collected">
+					(COLLECTED = #collected# OR COLLECTED IS NULL)
+                </isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	
+	
+	
+	<!-- 分页查询记录数 -->
+	<select id="LnDue.findPage.count" resultClass="int">
+		SELECT count(*) FROM LN_DUE
+		<include refid="LnDue.findPage.where" />
+	</select>
+	<!-- 分页查询记录数 -->
+	<select id="LnDue.findPage.count3" resultClass="int">
+		SELECT count(*) FROM LOAN_AC_LN_MST A, LN_DUE B WHERE A.DUE_NO=B.DUE_NO AND A.DUE_BAL>0
+		<include refid="LnDue.findPageAdv.where" />
+	</select>
+	<!-- 分页查询记录数 -->
+	<select id="LnDue.findPage.count2" resultClass="int">
+		SELECT count(1) FROM (
+		SELECT
+		<include refid="ln_due.columns4" />
+		'共同借款人' AS IC_TYPE
+		FROM APPLY_BASE A ,APPLY_CIF_UNION B WHERE A.APP_NO=B.APP_NO AND A.APP_STS
+		IN('1','2')
+		<include refid="LnDue.findPage.where6" />
+		UNION ALL
+		SELECT
+		<include refid="ln_due.columns4" />
+		'主借款人' AS IC_TYPE
+		FROM APPLY_BASE A,CIF_BASE B WHERE B.CIF_NO=A.CIF_NO AND A.APP_STS
+		IN('1','2')
+		<include refid="LnDue.findPage.where5" />
+		UNION ALL
+		SELECT
+		<include refid="ln_due.columns4" />
+		'担保人' AS IC_TYPE
+		FROM APPLY_BASE A,APPLY_ASSURE_INF B WHERE A.APP_NO=B.APP_NO AND A.APP_STS
+		IN('1','2')
+		<include refid="LnDue.findPage.where5" />
+		)
+	</select>
+
+	<select id="LnDue.getBalByCifNo" resultClass="Double">
+		SELECT SUM(BAL) FROM LN_DUE WHERE CIF_NO = #cif_no# AND 
+         <![CDATA[ PRDT_NO <> 'H101'
+             ]]>
+	</select>
+	<!-- 分页查询 -->
+	<select id="lnduelistAdv.findByPage" resultMap="RM.Ln_Due3">
+		SELECT
+		<include refid="ln_due.columns6" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="ln_due.columns5" />
+		FROM LOAN_AC_LN_MST A, LN_DUE B WHERE A.DUE_NO=B.DUE_NO  AND A.DUE_BAL>0
+		<include refid="LnDue.findPageAdv.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<!-- 分页查询 -->
+	<select id="lnduelist.findByPage2" resultMap="RM.Ln_Due2">
+		SELECT
+		<include refid="ln_due.columns3" />
+		IC_TYPE
+		FROM(
+		SELECT m.*, rownum as rnum
+		FROM
+		(
+		
+		SELECT
+		<include refid="ln_due.columns4" />
+		'共同借款人' AS IC_TYPE
+		FROM APPLY_BASE A ,APPLY_CIF_UNION B WHERE A.APP_NO=B.APP_NO AND A.APP_STS
+		IN('1','2')
+		<include refid="LnDue.findPage.where6" />
+		UNION ALL
+		SELECT
+		<include refid="ln_due.columns4" />
+		'主借款人' AS IC_TYPE
+		FROM APPLY_BASE A,CIF_BASE B WHERE B.CIF_NO=A.CIF_NO AND A.APP_STS
+		IN('1','2')
+		<include refid="LnDue.findPage.where5" />
+		UNION ALL
+		SELECT
+		<include refid="ln_due.columns4" />
+		'担保人' AS IC_TYPE
+		FROM APPLY_BASE A,APPLY_ASSURE_INF B WHERE A.APP_NO=B.APP_NO AND A.APP_STS
+		IN('1','2')
+		<include refid="LnDue.findPage.where5" />
+		)m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<!-- -->
+	<select id="lnduelist.findByPage" resultMap="RM.Ln_Due">
+		SELECT
+		<include refid="ln_due.columns" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="ln_due.columns" />
+		FROM LN_DUE
+		<include refid="LnDue.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<!-- 分页查询记录数for垫款申请客户号查询 -->
+	<select id="LnDue.findByPageForDk.count" resultClass="int">
+    	 <![CDATA[
+    		SELECT count(*)FROM LN_DUE WHERE PRDT_NO IN
+    		(SELECT PRDT_NO FROM PROD_BASE WHERE LN_TYPE=#ln_type#)
+    	]]>
+	</select>
+	<select id="lnduelist.findByPageForDk" resultMap="RM.Ln_Due">
+		SELECT
+		<include refid="ln_due.columns" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM(SELECT
+		<include refid="ln_due.columns" />
+		FROM LN_DUE WHERE PRDT_NO IN(SELECT PRDT_NO FROM PROD_BASE WHERE
+		LN_TYPE=#ln_type#)
+		)m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+
+	</select>
+		<!-- 表查询ById -->
+	<select id="LnDueByApplyNo.getByPactId" resultMap="RM.Ln_Due8">
+		SELECT
+		<include refid="ln_due.columns9" />
+        <![CDATA[
+             FROM Ln_Due
+         WHERE  
+            PACT_NO=#pact_no#
+        ]]>
+	</select>
+	
+	<select id="lnduelist.getallforcollect" resultMap="RM.Ln_Due">
+		SELECT
+		<include refid="ln_due.columns" />
+		FROM LN_DUE where 1=1
+		<include refid="LnDue.findPage.where7" />
+	</select>
+	
+	<update id="upLnDue1">
+    	update  ln_due   
+    	set  COLLECTED=#collected#
+    	where  due_no=#due_no#  
+    </update>
+	
+	<!-- 财务放款审核时更新借据起始日,实际放款金额修改 -->
+	<update id="LnDue.updatedata">
+        <![CDATA[
+            UPDATE LN_DUE set
+               payee_name=#payee_name#,
+               payee_ac_no=#payee_ac_no#,
+               payee_br_name=#payee_br_name#,
+               put_name=#put_name#,
+               if_auto=#if_auto#,
+               beg_date=#beg_date#,
+               end_date=#end_date#,
+               pay_ac_no=#pay_ac_no#,
+               put_ac_no=#put_ac_no#
+               
+            WHERE
+                PACT_NO=#pact_no#
+        ]]>
+	</update>
+</sqlMap>

@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <package name="borrowmanage" extends="admin-default" >
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+        <!-- 初审中的借款 -->
+        <action name="borrowf" class="borrowManageAction" method="borrowManageFistAuditInit">
+			<result name="success">/WEB-INF/page/admin/borrow-f-index.jsp</result>
+		</action>
+		<action name="borrowflist" class="borrowManageAction" method="borrowManageFistAuditList">
+			<result name="success">/WEB-INF/page/admin/borrow-f-list.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<!-- add by houli -->
+		<action name="borroww" class="borrowManageAction" method="borrowManageFistAuditInit">
+			<result name="success">/WEB-INF/page/admin/borrow-f-waiting-index.jsp</result>
+		</action>
+		<action name="borrowwlist" class="borrowManageAction" method="borrowManageWaitingAuditList">
+			<result name="success">/WEB-INF/page/admin/borrow-f-waiting-list.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<!-- end -->
+		
+		<action name="borrowfdetail" class="borrowManageAction" method="borrowManageFistAuditDetail">
+			<result name="success">/WEB-INF/page/admin/borrow-f-detail.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="404">404.jsp</result>
+		</action>
+		
+		<!-- add by houli -->
+		<action name="borrowwdetail" class="borrowManageAction" method="borrowManageFistAuditDetail">
+			<result name="success">/WEB-INF/page/admin/borrow-f-waiting-detail.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="404">404.jsp</result>
+		</action>
+		<!-- end -->
+		
+		<action name="updateBorrowF" class="borrowManageAction" method="updateBorrowF">
+			<result name="input">/WEB-INF/page/admin/borrow-f-detail-submit.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			
+		</action>
+		<action name="reBackBorrowFistAudit" class="borrowManageAction" method="reBackBorrowFistAudit"/>
+		
+		<!-- whb 推送标的给希财网 -->
+		<action name="dataToCsai" class="borrowManageAction" method="dataToCsai"></action>
+		<!-- 招标中的借款 -->
+		<action name="borrowTenderIn" class="borrowManageAction" method="borrowManageTenderInInit">
+			<result name="success">/WEB-INF/page/admin/borrow-tenderin-index.jsp</result>
+		</action>
+		<action name="borrowTenderInList" class="borrowManageAction" method="borrowManageTenderInList">
+			<result name="success">/WEB-INF/page/admin/borrow-tenderin-list.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<action name="borrowTenderInDetail" class="borrowManageAction" method="borrowManageTenderInDetail">
+			<result name="success">/WEB-INF/page/admin/borrow-tenderin-detail.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="404">404.jsp</result>
+		</action>
+		
+		<action name="updateBorrowTenderIn" class="borrowManageAction" method="updateBorrowTenderIn">
+			<result name="input">/WEB-INF/page/admin/borrow-tenderin-detail-submit.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<action name="reBackBorrowTenderIn" class="borrowManageAction" method="reBackBorrowTenderIn"/>
+		
+		<!-- 满标的借款 -->
+		<action name="borrowFullScale" class="borrowManageAction" method="borrowManageFullScaleInit">
+			<result name="success">/WEB-INF/page/admin/borrow-fullscale-index.jsp</result>
+		</action>
+		<action name="borrowFullScaleList" class="borrowManageAction" method="borrowManageFullScaleList">
+			<result name="success">/WEB-INF/page/admin/borrow-fullscale-list.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<action name="borrowFullScaleDetail" class="borrowManageAction" method="borrowManageFullScaleDetail">
+			<result name="success">/WEB-INF/page/admin/borrow-fullscale-detail.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="404">404.jsp</result>
+		</action>
+		
+		<action name="updateBorrowFullScale" class="borrowManageAction" method="updateBorrowFullScale">
+			<result name="input">/WEB-INF/page/admin/borrow-fullscale-detail-submit.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			
+		</action>
+		
+		<!-- 流标的借款 -->
+		<action name="borrowFlowMark" class="borrowManageAction" method="borrowManageFlowMarkInit">
+			<result name="success">/WEB-INF/page/admin/borrow-flowmark-index.jsp</result>
+		</action>
+		<action name="borrowFlowMarkList" class="borrowManageAction" method="borrowManageFlowMarkList">
+			<result name="success">/WEB-INF/page/admin/borrow-flowmark-list.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<action name="borrowFlowMarkDetail" class="borrowManageAction" method="borrowManageFlowMarkDetail">
+			<result name="success">/WEB-INF/page/admin/borrow-flowmark-detail.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="404">404.jsp</result>
+		</action>
+		
+		<action name="updateBorrowFlowMark" class="borrowManageAction" method="updateBorrowFlowMark">
+			<result name="input">/WEB-INF/page/admin/borrow-flowmark-detail-submit.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			
+		</action>
+		
+		<!-- 所有的借款 -->
+		<action name="borrowAll" class="borrowManageAction" method="borrowManageAllInit">
+			<result name="success">/WEB-INF/page/admin/borrow-index.jsp</result>
+		</action>
+		<action name="borrowAllList" class="borrowManageAction" method="borrowManageAllList">
+			<result name="success">/WEB-INF/page/admin/borrow-list.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<action name="borrowAllDetail" class="borrowManageAction" method="borrowManageAllDetail">
+			<result name="success">/WEB-INF/page/admin/borrow-detail.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+			<result name="404">404.jsp</result>
+		</action>
+		
+		<action name="updateBorrowAll" class="borrowManageAction" method="updateBorrowAll">
+			<result name="input">/WEB-INF/page/admin/borrow-detail-submit.jsp</result>
+			<result name="nologin">/WEB-INF/page/admin/frame/login.jsp</result>
+		</action>
+		<!-- 流转标借款 -->
+        <action name="circulationBorrowInit" class="borrowManageAction" method="circulationBorrowInit">
+			<result name="success">/WEB-INF/page/admin/borrow-circulation-index.jsp</result>
+		</action>
+		<action name="circulationBorrowList" class="borrowManageAction" method="circulationBorrowList">
+			<result name="success">/WEB-INF/page/admin/borrow-circulation-list.jsp</result>
+		</action>
+		<action name="borrowCirculationDetail" class="borrowManageAction" method="borrowCirculationDetail">
+			<result name="success">/WEB-INF/page/admin/borrow-circulation-detail.jsp</result>
+		</action>
+		<action name="updateBorrowCirculation" class="borrowManageAction" method="updateBorrowCirculation">
+			<result name="input">/WEB-INF/page/admin/borrow-circulation-detail.jsp</result>
+		</action>
+		
+		<!-- 代发流转标 -->
+	    <action name="underCirculationBorrow" class="borrowManageAction" method="underCirculationBorrow">
+			<result name="success">/WEB-INF/page/admin/borrow-circulation-submit.jsp</result>
+	    </action>
+	    <action name="addCirculationBorrow" class="borrowManageAction" method="addCirculationBorrow">
+			<result name="input">/WEB-INF/page/admin/borrow-circulation-submit.jsp</result>
+			<result name="fail" type="redirect">fail.jsp</result>
+			<result name="success" type="redirectAction">borrowBackstages.do</result>
+	    </action>
+	        <action name="isNotBorrow" class="borrowManageAction" method="isNotUnderCoirculationBorrow">
+	    </action>
+	    
+	    
+	    <!-- 流转标还款记录 -->
+	    <action name="circulationRepayRecordInit" class="borrowManageAction" method="circulationRepayRecordInit">
+			<result name="success">/WEB-INF/page/admin/circulation-repayrecord-index.jsp</result>
+	    </action>
+	    <action name="circulationRepayRecordList" class="borrowManageAction" method="circulationRepayRecordList">
+			<result name="success">/WEB-INF/page/admin/circulation-repayrecord-list.jsp</result>
+	    </action>
+	    <action name="circulationRepayDetail" class="borrowManageAction" method="circulationRepayDetail">
+			<result name="404">404.jsp</result>
+			<result name="success">/WEB-INF/page/admin/circulation-repay-detail.jsp</result>
+	    </action>
+	    <action name="circulationRepayForAdd" class="borrowManageAction" method="circulationRepayForAdd">
+			<result name="success">/WEB-INF/page/admin/circulation-repay-add.jsp</result>
+	    </action>
+	    <action name="circulationRepayAdd" class="borrowManageAction" method="circulationRepayAdd">
+			<result name="input">/WEB-INF/page/admin/circulation-repay-add.jsp</result>
+			<result name="success" type="redirectAction">
+			   <param name="borrowmanage">/admin</param>
+			   <param name="actionName">circulationRepayDetail</param>
+			   <param name="id">${borrowId}</param>
+		    </result>
+	    </action>
+	    <action name="markBorrow" class="borrowManageAction" method="markBorrow">
+	    </action>
+	    
+	    <!-- 后台发布借款模块 -->
+	    
+	    <!-- 发布借款初始化 -->
+	    <action name="publishBorrowInit" class="borrowManageAction" method="publishBorrowInit">
+			<result name="success">/WEB-INF/page/admin/publishBorrow.jsp</result>
+			<result name="seconds">/WEB-INF/page/admin/publishSecondsBorrow.jsp</result>
+		</action>
+	    <!-- 选择借款类型 -->
+	    <action name="publishBorrow" class="borrowManageAction" method="publishBorrow">
+			<result name="success">/WEB-INF/page/admin/publishBorrow.jsp</result>
+			<result name="success_user">/WEB-INF/page/admin/frame/borrow-Backstage-publishBorrow.jsp</result>
+			<result name="seconds">/WEB-INF/page/admin/publishSecondsBorrow.jsp</result>
+		</action>
+		
+		<!-- 发布借款 -->
+		<action name="bgAddBorrow" class="borrowManageAction" method="bgAddBorrow">
+		    <result name="input">/WEB-INF/page/admin/publishBorrow.jsp</result>
+			<result name="fail" type="redirect">fail.jsp</result>
+			<result name="nologin" type="redirect">/index.jsp</result>
+		</action>
+		
+		<action name="bgAddBorrowSeconds" class="borrowManageAction" method="bgAddBorrowSeconds">
+		    <result name="input">/WEB-INF/page/admin/publishSecondsBorrow.jsp</result>
+			<result name="fail" type="redirect">fail.jsp</result>
+			<result name="nologin" type="redirect">/index.jsp</result>
+		</action>
+		
+		<!-- 个人申请后台发布借款列表初始化 -->
+		<action name="personageAddBorrowInit" class="borrowManageAction" method="personageAddBorrowInit">
+			<result name="success">/WEB-INF/page/admin/personage-apply-index.jsp</result>
+		</action>
+        <!-- 加载列表 -->
+		<action name="queryPersonageApplyList" class="borrowManageAction" method="queryPersonageApplyList">
+			<result name="success">/WEB-INF/page/admin/personage-apply-list.jsp</result>
+		</action>
+		<!-- 填写基本资料 -->
+		<action name="userBaseInfoInit" class="borrowManageAction" method="userBaseInfoInit">
+			<result name="success">/WEB-INF/page/admin/personage-addborrow-jbzl-index.jsp</result>
+		</action>
+		<!-- 保存资料 -->
+		<action name="updateUserBaseInfoAdmin" class="borrowManageAction"
+			method="updateUserBaseInfoAdmin">
+		</action>
+		<!-- 上传资料 -->
+		<action name="userUploadInit" class="borrowManageAction" method="userUploadInit">
+			<result name="success">/WEB-INF/page/admin/personage-addborrow-sczl-index.jsp</result>
+		</action>
+		
+		<!-- 企业申请后台发布借款列表 -->
+		<action name="enterpriseAddBorrowInit" class="borrowManageAction" method="enterpriseAddBorrowInit">
+			<result name="success">/WEB-INF/page/admin/enterprise-apply-index.jsp</result>
+		</action>
+		
+		<action name="queryEnterpriseApplyList" class="borrowManageAction" method="queryEnterpriseApplyList">
+			<result name="success">/WEB-INF/page/admin/enterprise-apply-list.jsp</result>
+		</action>
+		
+		<!-- 后台添加投标意向 -->
+		<action name="addApplyInit" class="borrowManageAction" method="addApplyInit">
+			<result name="success">/WEB-INF/page/admin/enterprise-apply-add.jsp</result>
+		</action>
+		
+		<action name="addApplyAction" class="borrowManageAction" method="addApplyAction">
+		</action>
+		
+		<!-- 填写基本资料 -->
+		<action name="enterpriseUserBaseInfoInit" class="borrowManageAction" method="enterpriseUserBaseInfoInit">
+			<result name="success">/WEB-INF/page/admin/enterprise-addborrow-jbzl-index.jsp</result>
+		</action>
+		
+		<action name="updateEnterpriseUserBaseInfo" class="borrowManageAction"
+			method="updateEnterpriseUserBaseInfo">
+		</action>
+		
+		<action name="enterpriseUserUploadInit" class="borrowManageAction" method="enterpriseUserUploadInit">
+			<result name="success">/WEB-INF/page/admin/enterprise-addborrow-sczl-index.jsp</result>
+		</action>
+		
+		<!--后台上传资料弹出框 -->
+		<action name="queryUserPicturAdmin" class="userAction" method="queryUserPicturAdmin">
+		   <result>/WEB-INF/page/usercenter/user-pastpictur-admin.jsp</result>
+		</action>
+		
+		<!-- 后台发标保存用户上传的图片到数据库 -->
+		<action name="addpastPicturdateAdmin" class="userAction" method="addpastPicturdateAdmin">
+		</action>
+		
+		<!-- 导出申请记录表 -->
+		<action name="exportApplyList" class="borrowManageAction"
+			method="exportApplyList">
+		</action>
+		
+		<action name="deleteEnterpriseApplyById" class="borrowManageAction" method="deleteApplyById">             
+			<result name="success" type="redirect">enterpriseAddBorrowInit.do</result>
+        </action>
+        
+        <action name="deletePersonageApplyById" class="borrowManageAction" method="deleteApplyById">             
+			<result name="success" type="redirect">personageAddBorrowInit.do</result>
+        </action>
+        
+        
+        <!-- 后台还款模块 --> 
+           <!-- 成功借款 -->
+        <action name="adminSuccessBorrowInit" class="borrowManageAction" method="adminSuccessBorrowInit">
+			<result name="success" >/WEB-INF/page/admin/successBorrow-admin-index.jsp</result>
+		</action>
+		
+        <action name="queryAdminSuccessBorrowList" class="borrowManageAction" method="queryAdminSuccessBorrowList">
+			<result name="success" >/WEB-INF/page/admin/successBorrow-admin-list.jsp</result>
+		</action>
+        
+        <!-- 正在还款的借款 -->
+         <action name="adminPaymentInit" class="borrowManageAction" method="adminPaymentInit">
+			<result name="success" >/WEB-INF/page/admin/payment-admin-index.jsp</result>
+		</action>
+		
+        <action name="queryAdminPayingBorrowList" class="borrowManageAction" method="queryAdminPayingBorrowList">
+			<result name="success" >/WEB-INF/page/admin/payment-admin-list.jsp</result>
+		</action>
+		
+		
+		<action name="queryAdminPayingDetails" class="borrowManageAction" method="queryAdminPayingDetails">
+			<result name="success" >/WEB-INF/page/admin/admin-borrow-success-paying-detail.jsp</result>
+		</action>
+		
+		
+		<action name="queryAdminPayData" class="borrowManageAction" method="queryAdminPayData">
+			<result name="success" >/WEB-INF/page/admin/admin-borrow-pay-index.jsp</result>
+		</action>
+		
+		
+		<action name="adminSubmitPay" class="borrowManageAction" method="adminSubmitPay">
+		</action>
+		
+		
+		<!-- 还款明细账 -->
+		  <action name="adminAllDetailsInit" class="borrowManageAction" method="adminAllDetailsInit">
+			<result name="success" >/WEB-INF/page/admin/allDetails-admin-index.jsp</result>
+		</action>
+		
+        <action name="queryAdminAllDetailsList" class="borrowManageAction" method="queryAdminAllDetailsList">
+			<result name="success" >/WEB-INF/page/admin/allDetails-admin-list.jsp</result>
+		</action>
+		
+		<!-- 借款明细账 -->
+		  <action name="adminBorrowInvestorInit" class="borrowManageAction" method="adminBorrowInvestorInit">
+			<result name="success" >/WEB-INF/page/admin/borrowInvestorInfo-admin-index.jsp</result>
+		</action>
+		
+        <action name="queryAdminBorrowInvestorList" class="borrowManageAction" method="queryAdminBorrowInvestorList">
+			<result name="success" >/WEB-INF/page/admin/borrowInvestorInfo-admin-list.jsp</result>
+		</action>
+		
+		<!-- 借已还完的借款 -->
+		  <action name="adminPayoffBorrowInit" class="borrowManageAction" method="adminPayoffBorrowInit">
+			<result name="success" >/WEB-INF/page/admin/Payoff-admin-index.jsp</result>
+		</action>
+		
+        <action name="queryAdminPayoffBorrowList" class="borrowManageAction" method="queryAdminPayoffBorrowList">
+			<result name="success" >/WEB-INF/page/admin/Payoff-admin-list.jsp</result>
+		</action>
+		
+		
+		<action name="exportSuccessBorrowAdmin" class="borrowManageAction" method="exportSuccessBorrowAdmin">
+			
+		</action>
+		
+		 <action name="exportrepaymentAdmin" class="borrowManageAction" method="exportrepaymentAdmin">
+			
+		</action>
+		
+		<!-- 即时验证身份证有效性 --> 
+ 		<action name="isIDNOAdmin" class="beVipAction"
+			method="isIDNO"></action>
+		
+		<action name="queryBorrowTyjListInit" class="borrowManageAction" method="queryBorrowTyjListInit">
+			<result name="success">
+				/WEB-INF/page/admin/admin_publish_tyjborrow.jsp
+			</result>
+		</action>
+		
+		<!-- 配置员工体验金开始 -->
+		<action name="queryEmployeeConfigInit" class="borrowManageAction" method="queryEmployeeConfigInit">
+			<result name="success">
+				/WEB-INF/page/admin/admin_employee_configInit.jsp
+			</result>
+		</action>
+		<action name="queryEmployeeConfigList" class="borrowManageAction" method="queryEmployeeConfigList"/>	 
+		<action name="updateEmployeeConfig" class="borrowManageAction" method="updateEmployeeConfig"/>
+		<action name="exportEmployeeConfigListExcel" class="borrowManageAction" method="exportEmployeeConfigListExcel"/>	 
+		<!-- 配置员工体验金结束 -->
+		
+		<!-- 员工体验标开始 -->
+		<action name="queryEmployeeBorrowInit" class="borrowManageAction" method="queryEmployeeBorrowInit">
+			<result name="success">
+				/WEB-INF/page/admin/admin_employee_borrowInit.jsp
+			</result>
+		</action>
+		<action name="queryEmployeeBorrowList" class="borrowManageAction" method="queryEmployeeBorrowList"/>	 
+		<action name="addEmployeeBorrow" class="borrowManageAction" method="addEmployeeBorrow"/>	 
+		<!-- 员工体验标结束 -->
+		
+		<action name="queryBorrowTyjList" class="borrowManageAction" method="queryBorrowTyjList">
+		</action>
+		<action name="addBorrowNew" class="borrowManageAction" method="addBorrowNew">
+		</action>
+		
+		
+		<action name="borrowBackstages">
+			<result>
+				/WEB-INF/page/admin/frame/borrow-Backstage-index.jsp
+			</result>
+		</action>
+		<action name="querAllUser" class="borrowManageAction" method="querAllUser">
+			<result name="success">
+				/WEB-INF/page/admin/frame/borrow-Backstage-info.jsp
+			</result>
+		</action>
+		<action name="persioninfo" class="borrowManageAction" method="persioninfo">
+			<result name="success">
+				/WEB-INF/page/admin/frame/borrow-Backstage-personinfo.jsp
+			</result>
+		</action>
+		<action name="updatepersoninfo" class="borrowManageAction" method="updatepersoninfo"></action>
+		<action name="persionData" class="borrowManageAction" method="persionData">
+			<result name="success">
+				/WEB-INF/page/admin/frame/borrow-Backstage-persondata.jsp
+			</result>
+		</action>
+		<action name="personbgAddBorrow" class="borrowManageAction" method="bgAddBorrow">
+			<result name="input">/WEB-INF/page/admin/frame/borrow-Backstage-publishBorrow.jsp</result>
+			<result name="fail" type="redirect">fail.jsp</result>
+			<result name="nologin" type="redirect">/index.jsp</result>
+		</action>
+		
+		<action name="personpublishBorrowInit" class="borrowManageAction" method="personpublishBorrowInit">
+			<result name="success">
+				/WEB-INF/page/admin/frame/borrow-Backstage-publishBorrow.jsp
+			</result>
+		</action>
+		
+    </package>
+</struts>

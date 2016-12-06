@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!--还款实体  -->
+	<typeAlias alias="repayBean" type="com.dx.loan.repay.bean.RepayBean"/> 
+	
+	<!-- 客户 最终要去掉放到客户模块 -->
+	<typeAlias alias="cifBean" type="com.dx.loan.repay.bean.CifBean"/> 
+	
+	<!-- 还款列表结果集 -->
+	<resultMap class="repayBean" id="repayListResult">
+		<!-- 借据号 -->
+		<result column="DUE_NO" property="dueNo" />
+		<!-- 客户号-->
+		<result column="CIF_NO" property="cifNo" />
+		<!-- 客户姓名 -->
+		<result column="CIF_NAME" property="cifName" />
+		<!-- 借据金额 -->
+		<result column="DUE_AMT" property="dueAmt" />
+		<!-- 应还本金 -->
+		<result column="RETURN_CAPITAL" property="returnCapital" />
+		<!-- 应还利息 -->
+		<result column="RETURN_INTEREST" property="returnInterest" />
+		<!-- 还款计划开始日期 -->
+		<result column="BEG_DATE" property="begDate" />
+		<!-- 还款计划结束日期 -->
+		<result column="END_DATE" property="endDate" />
+		<!-- 期号 -->
+		<result column="TERM_NO" property="termNo" />
+		<!-- 账户管理费 -->
+		<result column="OTHER_FEE" property="otherFee" />
+		
+		<!-- 提前还款违约金
+		<result column="ADVICE_DEDIT" property="adviceDedit" />
+		 -->
+		
+	</resultMap>
+	
+	<resultMap  class="repayBean" id="repayBeanResult">
+		<!-- 借据号 -->
+		<result column="DUE_NO" property="dueNo" />
+		<!-- 借据金额 -->
+		<result column="DUE_AMT" property="dueAmt" />
+		<!-- 客户姓名 -->
+		<result column="CIF_NAME" property="cifName" />
+		<!-- 客户号-->
+		<result column="CIF_NO" property="cifNo" />
+		<!--借据金额-->
+		<result column="DUE_AMT" property="dueAmt" />
+		<!-- 应还本金 -->
+		<result column="RETURN_CAPITAL" property="returnCapital" />
+		<!-- 应还利息 -->
+		<result column="RETURN_INTEREST" property="returnInterest" />
+		<!-- 还款计划开始日期 -->
+		<result column="BEG_DATE" property="begDate" />
+		<!-- 还款计划结束日期 -->
+		<result column="END_DATE" property="endDate" />
+		<!-- 优惠金额 -->
+		<result column="PRIVILEGE" property="privilege" />
+		<!--其他费用 -->
+		<result column="OTHER_FEE" property="otherFee" />
+		<!-- 逾期利息 -->
+		<result column="OVER_INTEREST" property="overInterest" />
+		<!-- 复利利息 -->
+		<result column="CMPD_INTEREST" property="cmpdInterest" />
+		<!-- 还款日期 -->
+		<result column="OCC_DATE" property="occDate" />
+		<!-- 还款类型(现金 银行装张) -->
+		<result column="PAY_TYPE" property="payType" />
+		<!-- 记账标识 -->
+		<result column="ACC_FLAG" property="accFlag" />
+		<!-- 还款次数 -->
+		<result column="COUNTS" property="counts" />
+		<!-- 银行代码 -->
+		<result column="BANK_NO" property="bankNo" />
+		<!--期数 -->
+		<result column="TERM_NO" property="termNo" />
+		<!-- 提前还款本金 -->
+		<result column="ADVACE_AMT" property="advaceAmt" />
+		<!-- 履约保证金 -->
+		<result column="PERF_AMOUNT" property="perfAmount" />
+			<!-- 主键 -->
+		<result column="REPAY_ID" property="repayId" />
+		<!-- 提前还款违约金 -->
+		<result column="ADVICE_DEDIT" property="adviceDedit" />
+		<!-- 上期结余 -->
+		<result column="LAST_BALANCE" property="lastBalance" />
+		<!-- 本期结余 -->
+		<result column="BALANCE" property="balance" />
+		<result column="BJBALANCE" property="bjbalance" />
+		<result column="RATECOMEBALANCE" property="ratecomebalance" />
+		
+	</resultMap>
+	<resultMap  class="repayBean" id="repayBeanResultbjlx">
+		<!-- 借据号 -->
+		<result column="DUE_NO" property="dueNo" />
+		<!-- 借据金额 -->
+		<result column="DUE_AMT" property="dueAmt" />
+		<!-- 客户姓名 -->
+		<result column="CIF_NAME" property="cifName" />
+		<!-- 客户号-->
+		<result column="CIF_NO" property="cifNo" />
+		<!--借据金额-->
+		<result column="DUE_AMT" property="dueAmt" />
+		<!-- 应还本金 -->
+		<result column="RETURN_CAPITAL" property="returnCapital" />
+		<!-- 应还利息 -->
+		<result column="RETURN_INTEREST" property="returnInterest" />
+		<!-- 还款计划开始日期 -->
+		<result column="BEG_DATE" property="begDate" />
+		<!-- 还款计划结束日期 -->
+		<result column="END_DATE" property="endDate" />
+		<!-- 优惠金额 -->
+		<result column="PRIVILEGE" property="privilege" />
+		<!--其他费用 -->
+		<result column="OTHER_FEE" property="otherFee" />
+		<!-- 逾期利息 -->
+		<result column="OVER_INTEREST" property="overInterest" />
+		<!-- 复利利息 -->
+		<result column="CMPD_INTEREST" property="cmpdInterest" />
+		<!-- 还款日期 -->
+		<result column="OCC_DATE" property="occDate" />
+		<!-- 还款类型(现金 银行装张) -->
+		<result column="PAY_TYPE" property="payType" />
+		<!-- 记账标识 -->
+		<result column="ACC_FLAG" property="accFlag" />
+		<!-- 还款次数 -->
+		<result column="COUNTS" property="counts" />
+		<!-- 银行代码 -->
+		<result column="BANK_NO" property="bankNo" />
+		<!--期数 -->
+		<result column="TERM_NO" property="termNo" />
+		<!-- 提前还款本金 -->
+		<result column="ADVACE_AMT" property="advaceAmt" />
+		<!-- 履约保证金 -->
+		<result column="PERF_AMOUNT" property="perfAmount" />
+			<!-- 主键 -->
+		<result column="REPAY_ID" property="repayId" />
+		<!-- 提前还款违约金 -->
+		<result column="ADVICE_DEDIT" property="adviceDedit" />
+		<!-- 上期结余 -->
+		<result column="LAST_BALANCE" property="lastBalance" />
+		<!-- 本期结余 -->
+		<result column="BALANCE" property="balance" />
+		<result column="BJBALANCE" property="bjbalance" />
+		<result column="RATECOMEBALANCE" property="ratecomebalance" />
+	</resultMap>
+	<resultMap  class="repayBean" id="repayBeanResultss">
+		<!-- 借据号 -->
+		<result column="DUE_NO" property="dueNo" />
+	</resultMap>
+	<sql id="repayBean_column">
+		<![CDATA[DUE_NO,
+				 DUE_AMT, 
+				 CIF_NO, 
+				 CIF_NAME, 
+				 TERM_NO, 
+				 RETURN_CAPITAL, 
+				 RETURN_INTEREST, 
+				 OVER_INTEREST, 
+				 CMPD_INTEREST,
+				 PRIVILEGE, 
+				 END_DATE, 
+				 BEG_DATE, 
+				 OCC_DATE, 
+				 ACC_FLAG, 
+				 PAY_TYPE, 
+				 COUNTS, 
+				 BANK_NO, 
+				 OTHER_FEE,
+				 ADVACE_AMT,
+				 PERF_AMOUNT,
+				 REPAY_ID,
+				 ADVICE_DEDIT,
+				 LAST_BALANCE,
+				 BALANCE,
+				 BJBALANCE,
+				 RATECOMEBALANCE
+				]]>
+	</sql>
+	<sql id="repayBeanss_column">
+		<![CDATA[DUE_NO,
+				 DUE_AMT, 
+				 CIF_NO, 
+				 CIF_NAME, 
+				 TERM_NO, 
+				 RETURN_CAPITAL, 
+				 RETURN_INTEREST, 
+				 OVER_INTEREST, 
+				 CMPD_INTEREST,
+				 PRIVILEGE, 
+				 END_DATE, 
+				 BEG_DATE, 
+				 OCC_DATE, 
+				 ACC_FLAG, 
+				 PAY_TYPE, 
+				 COUNTS, 
+				 BANK_NO, 
+				 OTHER_FEE,
+				 ADVACE_AMT,
+				 PERF_AMOUNT,
+				 REPAY_ID,
+				 ADVICE_DEDIT,
+				 LAST_BALANCE,
+				 BALANCE,
+				 BJBALANCE,
+				 RATECOMEBALANCE
+				]]>
+	</sql>
+	<sql id="cifBean_column">
+		<![CDATA[
+			CIF_NAME,
+			CIF_No,
+			ID_TYPE,
+			Column_4
+		]]>
+	</sql>
+	
+
+    <resultMap id="cifResult" class="cifBean">
+        <result column="CIF_NAME" property="cifName" />
+        <result column="CIF_No" property="cifNo" />
+        <result column="ID_TYPE" property="idType" />
+    </resultMap>
+   
+	<select id="getRepayList" resultMap="repayListResult">
+		<![CDATA[SELECT
+					d.DUE_NO,
+					d.DUE_AMT,
+					c.CIF_NAME,
+					c.CIF_NO,
+					p.TERM_NO,
+					p.RETURN_CAPITAL,
+					p.RETURN_INTEREST,
+					p.BEG_Date,
+					p.END_Date,
+					p.ACC_FEE  as OTHER_FEE
+				FROM
+					loan_cif c,
+					loan_due d,
+					loan_plan p
+				WHERE
+				d.DUE_STATE !='2'
+				AND d.DUE_NO = p.DUE_NO
+				AND d.CIF_NO = c.CIF_NO
+				AND p.state!='3'
+				]]>
+	
+    	    <isNotNull prepend="AND" property="parm1" >
+				<![CDATA[
+        		  p.BEG_DATE<#parm1#  AND p.END_Date>=#parm1#
+        		]]>
+      		</isNotNull>
+    		OR P.STATE='2'  
+    	
+    	<![CDATA[
+	 		   and  rownum>$pageSizeStart$ and  rownum<$pageSize$     order by $orderByCol$  $orderByVal$ 
+		]]>
+	</select>
+	
+	<select id="getRepayListSize" resultClass="java.lang.String"> 
+    	<![CDATA[SELECT  COUNT(d.DUE_NO)
+				FROM
+					loan_cif c,
+					loan_due d,
+					loan_plan p
+				WHERE
+				d.DUE_STATE !='2'
+				AND d.DUE_NO = p.DUE_NO
+				AND d.CIF_NO = c.CIF_NO
+				AND p.state!='3'
+				]]>
+			<isNotNull prepend="AND" property="parm1" >
+				<![CDATA[
+        		 p.BEG_DATE<#parm1#  AND p.END_Date>=#parm1#
+        		]]>
+      		</isNotNull>
+      		OR P.STATE='2'
+    </select>     
+	
+	
+
+	 <select id="getCifByNo" resultMap="cifResult" parameterClass="String">
+        select <include refid="cifBean_column" /> 
+        <![CDATA[ from loan_cif  where CIF_NO = #cifno# ]]>
+    </select>
+    
+    <!-- 获得还款历史  具体参数自己根据业务设定-->
+    <select  id="getRepayBeans"  resultMap="repayBeanResult">
+    	SELECT 
+        <include refid="repayBean_column" /> 
+        FROM   LOAN_REPAY 
+        <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="dueNo" >
+			<![CDATA[
+        	 DUE_NO=#dueNo#
+        	]]>
+      	</isNotEmpty>
+    
+    	<isNotEmpty prepend="AND" property="cifNo" >
+			<![CDATA[
+        	 CIF_NO=#cifNo#
+        	]]>
+      	</isNotEmpty>
+      	
+      	<isNotEmpty prepend="AND" property="dueAmt" >
+			<![CDATA[
+        	 DUE_AMT=#dueAmt#
+        	]]>
+      	</isNotEmpty>
+      	
+      	<isNotEmpty prepend="AND" property="termNo" >
+			<![CDATA[
+        	 TERM_NO=#termNo#
+        	]]>
+      	</isNotEmpty>
+      	
+      	<isNotEmpty prepend="AND" property="accFlag" >
+			<![CDATA[
+        	 ACC_FLAG=#accFlag#
+        	]]>
+      	</isNotEmpty>
+      	
+      	<isNotEmpty prepend="AND" property="occDate" >
+			<![CDATA[
+        	 OCC_DATE=#occDate#
+        	]]>
+      	</isNotEmpty>
+      	
+      	<isNotEmpty prepend="AND" property="payType" >
+			<![CDATA[
+        	 PAY_TYPE=#payType#
+        	]]>
+      	</isNotEmpty>
+
+      	<isNotEmpty prepend="AND" property="adviceDedit" >
+			<![CDATA[
+        	 ADVICE_DEDIT= #adviceDedit#
+        	]]>
+      	</isNotEmpty>
+      	
+      	<isNotEmpty prepend="AND" property="lastBalance" >
+			<![CDATA[
+        	 LAST_BALANCE= #lastBalance#
+        	]]>
+      	</isNotEmpty>
+      	
+      	<isNotEmpty prepend="AND" property="balance" >
+			<![CDATA[
+        	 BALANCE= #balance#
+        	]]>
+      	</isNotEmpty>
+      	
+      	</dynamic>
+      	
+      	order  by  occ_date desc
+      	
+    </select>
+    
+      <!-- 获得还款历史  具体参数自己根据业务设定-->
+    <select  id="getRepayBeanss"  resultMap="repayBeanResultbjlx" parameterClass="com.dx.loan.repay.bean.RepayBean">
+    	SELECT 
+        <include refid="repayBeanss_column" /> 
+        FROM   LOAN_REPAY where  DUE_NO=#dueNo#
+      	order  by  occ_date asc
+      	
+    </select>
+    
+    
+    <!-- 获得还款实体参数根据业务而定 -->
+    <select id="getRepayBean"  resultMap="repayBeanResult"  parameterClass="repayBean">
+    	SELECT 
+    	<include refid="repayBean_column" /> 
+    	 FROM   LOAN_REPAY 
+    	<dynamic prepend="WHERE"> 
+    		<isNotEmpty  prepend="AND" property="dueNo">
+    			DUE_NO = #dueNo#
+    		</isNotEmpty>
+    	
+    		<isNotEmpty  prepend="AND" property="payType">
+    			PAY_TYPE = #payType#
+    		</isNotEmpty>
+    		
+    		<isNotEmpty prepend="AND" property="occDate" >
+        	 	OCC_DATE=#occDate#
+      		</isNotEmpty>
+    	
+    		 <isNotEmpty prepend="AND" property="accFlag" >
+        	 	ACC_FLAG=#accFlag#
+      		</isNotEmpty>
+    	
+    		<isNotEmpty prepend="AND" property="termNo" >
+        	 	TERM_NO=#termNo#
+      		</isNotEmpty>
+      		
+      		<isNotEmpty prepend="AND" property="cifNo" >
+        	 	CIF_NO=#cifNo#
+      		</isNotEmpty>
+      		
+      		<isNotEmpty prepend="AND" property="dueAmt" >
+        	 	DUE_AMT=#dueAmt#
+      		</isNotEmpty>
+      			
+      			<isNotEmpty prepend="AND" property="repayId" >
+        	 	REPAY_ID=#repayId#
+      		</isNotEmpty>
+      		
+      		<isNotEmpty prepend="AND" property="adviceDedit" >
+			<![CDATA[
+        	 ADVICE_DEDIT= #adviceDedit#
+        	]]>
+      	</isNotEmpty>
+    	
+    	</dynamic> 
+    
+    </select>
+    
+    
+    
+    <!-- 保存还款 -->
+    <insert id="saveRepay" parameterClass="repayBean" >
+   		<![CDATA[INSERT INTO LOAN_REPAY (DUE_NO, 
+   										 DUE_AMT,
+   										 CIF_NO, 
+   										 TERM_NO, 
+   										 RETURN_CAPITAL, 
+   										 RETURN_INTEREST,
+      									 OVER_INTEREST, 
+      									 CMPD_INTEREST, 
+      									 END_DATE, 
+      									 BEG_DATE, 
+      									 OCC_DATE, 
+      									 ACC_FLAG, 
+      									 PRIVILEGE, 
+      									 PAY_TYPE,
+      									 COUNTS, 
+      									 BANK_NO, 
+      									 OTHER_FEE, 
+      									 CIF_NAME,
+      									 ADVACE_AMT,
+      									 PERF_AMOUNT,
+      									 REPAY_ID,
+      									 ADVICE_DEDIT,
+      									 LAST_BALANCE,
+      									 BALANCE
+      									 ) VALUES(
+      									 #dueNo#,
+      									 #dueAmt#,
+      									 #cifNo#,
+      									 #termNo#,
+      									 #returnCapital#, 
+      									 #returnInterest#, 
+      									 #overInterest#,
+      									 #cmpdInterest#, 
+      									 #endDate#, 
+      									 #begDate#, 
+      									 #occDate#,
+      									 #accFlag#, 
+      									 #privilege#, 
+      									 #payType#, 
+      									 #counts#, 
+      									 #bankNo#, 
+      									 #otherFee#, 
+      									 #cifName#,
+      									 #advaceAmt#,
+      									 #perfAmount#,
+      									 #repayId#,
+      									 #adviceDedit#
+      									 #lastBalance#,
+      									 #balance#
+      									 )
+      	]]>
+  </insert>
+  
+  
+    <!-- 批量插入还款实体 -->
+    <insert id="saveRepayList" parameterClass="repayBean">
+      	         INSERT INTO LOAN_REPAY (DUE_NO, 
+   										 DUE_AMT,
+   										 CIF_NO, 
+   										 TERM_NO, 
+   										 RETURN_CAPITAL, 
+   										 RETURN_INTEREST,
+      									 OVER_INTEREST, 
+      									 CMPD_INTEREST, 
+      									 END_DATE, 
+      									 BEG_DATE, 
+      									 OCC_DATE, 
+      									 ACC_FLAG, 
+      									 PRIVILEGE, 
+      									 PAY_TYPE,
+      									 COUNTS, 
+      									 BANK_NO, 
+      									 OTHER_FEE, 
+      									 CIF_NAME,
+      									 ADVACE_AMT,
+      									 PERF_AMOUNT,
+      									 REPAY_ID,
+      									 ADVICE_DEDIT, 
+      									 LAST_BALANCE,
+      									 BALANCE) VALUES(
+      	   		<![CDATA[ 
+          								 #dueNo#,
+      									 #dueAmt#,
+      									 #cifNo#,
+      									 #termNo#,
+      									 #returnCapital#, 
+      									 #returnInterest#, 
+      									 #overInterest#,
+      									 #cmpdInterest#, 
+      									 #endDate#, 
+      									 #begDate#, 
+      									 #occDate#,
+      									 #accFlag#, 
+      									 #privilege#, 
+      									 #payType#, 
+      									 #counts#, 
+      									 #bankNo#, 
+      									 #otherFee#, 
+      									 #advaceAmt#,
+      									 #cifName#,
+      									 #perfAmount#,
+      									 #repayId#,
+      									 #adviceDedit#,
+      									 #lastBalance#,
+      									 #balance#)
+      		]]> 
+	</insert>
+	<select id="getOverduePeriod" resultMap="repayBeanResult" parameterClass="String">
+      <![CDATA[ SELECT DUE_NO,null as DUE_AMT,null as CIF_NO,null as CIF_NAME,TERM_NO,null as  RETURN_CAPITAL,null as  RETURN_INTEREST, null as OVER_INTEREST, null as CMPD_INTEREST,null as PRIVILEGE,null as END_DATE,null as BEG_DATE,null as  OCC_DATE,null as  ACC_FLAG,null as  PAY_TYPE, count(1) as COUNTS, null as BANK_NO, null as OTHER_FEE,null as ADVACE_AMT,null as PERF_AMOUNT,null as REPAY_ID,null as ADVICE_DEDIT,null as LAST_BALANCE,null as BALANCE 
+		 from loan_rateday where  
+       	due_no =#dueno# and to_number(over_interest)>0  group by  due_no,term_no order by to_number(term_no)]]>
+    </select> 
+    <select id="getDistinctRepayBeans" resultMap="repayBeanResultss" >
+      <![CDATA[ 
+    	 select t.due_no from loan_repay t group by t.due_no
+     ]]>
+    </select>
+   <select id="getLastRepayList"  resultMap="repayBeanResult">
+select due_no,
+	       max(term_no) term_no,
+	       max(t.return_capital) return_capital,
+	       max(t.return_interest) return_interest,
+	       max(t.bjbalance) bjbalance,
+	       max(t.ratecomebalance)ratecomebalance,
+			max(t.due_amt) due_amt,
+			max(t.CIF_NAME) CIF_NAME,
+			max(t.CIF_No) CIF_No,
+			max(t.BEG_DATE) BEG_DATE,
+			max(t.END_DATE) END_DATE,
+			max(t.PRIVILEGE) PRIVILEGE,
+			max(t.OTHER_FEE) OTHER_FEE,
+			max(t.OVER_INTEREST) OVER_INTEREST,
+			max(t.CMPD_INTEREST) CMPD_INTEREST,
+			max(t.OCC_DATE) OCC_DATE,
+			max(t.PAY_TYPE) PAY_TYPE,
+			max(t.ACC_FLAG) ACC_FLAG,
+			max(t.COUNTS) COUNTS,
+			max(t.BANK_NO) BANK_NO,
+			max(t.ADVACE_AMT) ADVACE_AMT,
+			max(t.PERF_AMOUNT) PERF_AMOUNT,
+			max(t.REPAY_ID) REPAY_ID,
+			max(t.ADVICE_DEDIT) ADVICE_DEDIT,
+			max(t.LAST_BALANCE) LAST_BALANCE,
+			max(t.BALANCE) BALANCE
+
+  from loan_repay t
+ group by term_no, due_no, occ_date
+having (select max(t1.term_no)
+          from loan_repay t1
+         where t.due_no = t1.due_no
+         group by t1.due_no) = max(t.term_no)
+ order by due_no asc
+    </select>
+    
+    
+    <update id="upLnDue">
+    	update  ln_due   
+    	set  OVER_DAYS=#overDays#
+    	where  due_no=#dueNo#  
+    </update>
+    
+</sqlMap>

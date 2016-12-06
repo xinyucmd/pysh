@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="setActivity" extends="admin-default" >
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+				
+		<action name="querySetActivityInit" class="setActivityAction" method="querySetActivityInit">
+			<result name="success">/WEB-INF/page/admin/setActivity-index.jsp</result>
+		</action>
+		<action name="querySetActivityList" class="setActivityAction" method="querySetActivityList">
+			<result name="success">/WEB-INF/page/admin/setActivity-list.jsp</result>
+		</action>
+		<action name="querySettingActivityById" class="setActivityAction" method="querySettingActivityById">
+			<result name="success">/WEB-INF/page/admin/setActivity-update.jsp</result>
+		</action>
+		<action name="updateSettingActivity" class="setActivityAction" method="updateSettingActivity">
+			<result name="input">/WEB-INF/page/admin/setActivity-update.jsp</result>
+			<result name="success" type="redirect">querySetActivityInit.do</result>
+		</action>
+	</package>
+</struts>

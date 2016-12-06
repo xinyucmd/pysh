@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<!-- 不使用namespace是由于sql搜索定位会比较方便 -->
+<sqlMap>  
+     <typeAlias alias="loginBean" type="com.dx.login.bean.LoginBean"/>
+     <typeAlias alias="tlrctBean" type="com.dx.login.bean.TlrctBean"/> 
+     <typeAlias alias="pageBean" type="com.dx.common.bean.PageBean"/>
+     
+      <resultMap id="mybean" class="loginBean">
+      	<result property="userName" column="name"/>
+      	<result property="tlrno" column="tlrno"/>
+      </resultMap>
+      
+      <resultMap id="tBean" class="tlrctBean">
+      	<result property="BRNO" column="BRNO"/>
+      	<result property="TLRNO" column="TLRNO"/>
+      	<result property="NAME" column="NAME"/>
+      	<result property="ROLENAME" column="ROLENAME"/>
+      	<result property="TXDATE" column="TXDATE"/>
+      </resultMap>
+      
+      <sql id="tBean_columns">
+	      <![CDATA[
+	    	BRNO,
+	    	TLRNO,
+	    	NAME,
+	    	ROLENAME,
+	    	TXDATE 
+	    	]]>
+      </sql>
+      
+    <select id="getUserByTlrno" parameterClass="java.lang.String"   resultMap="mybean">  
+        select name, tlrno 
+        from   cms_tlrctl
+        where TLRNO=#TLRNO#  
+    </select>
+    
+    <select id="getTlrctlList" resultMap="tBean" parameterClass="pageBean"> 
+    	SELECT <include refid="tBean_columns"/>
+    	<![CDATA[
+ 			FROM CMS_TLRCTL
+    	]]>	
+    	<dynamic prepend="WHERE">
+    		<isNotEmpty prepend="AND" property="searchByVal">
+    			$searchByCol$ $searchOperator$ concat('%',#searchByVal#,'%')
+    		</isNotEmpty>
+    	</dynamic>
+    	order by $orderByCol$ $orderByVal$ 
+ 		limit $pageSizeStart$,$pageSize$
+    </select> 
+    
+     <select id="getTlrctlListSize" resultClass="java.lang.String"> 
+    	<![CDATA[
+    	SELECT count(brno) FROM CMS_TLRCTL
+    	]]>	
+    </select>      
+</sqlMap>  

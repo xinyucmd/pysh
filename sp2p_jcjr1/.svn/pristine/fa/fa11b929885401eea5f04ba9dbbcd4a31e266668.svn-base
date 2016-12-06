@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微信贷-11月加息活动</title>
+<link rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet"  href="/new_css/bootstrap.css"/>
+<link type="text/css" rel="stylesheet"  href="/new_css/style.css"/>
+<script type="text/javascript" src="js/jquery-1.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+<style>
+.content { margin: 15px auto 0px;}
+.content { width: 100%; background: #314769 none repeat scroll 0% 0%;}
+.ui-nav-item{ font-size:15px; color:#ccc;  float:left;}
+.icon_app{ background:url(/images/app/ip.png) no-repeat; width:15px; height:15px; display:inline-block; position:relative; top:1px;}
+.fl{ float:left;}
+.mt{ margin-top:25px; padding-left:375px;}
+.mr{ margin-top:25px; padding-left:257px;}
+</style>
+</head>
+<body>
+<!--头部 begin-->
+<div class="header-top">
+	<div class="container-top">
+        	<div class="header-time">
+            	<i class="top-iphone"><span style="margin-left:22px;">客服电话：400-001-6007</span></i>
+               
+            </div>
+            <div class="header-app">
+            	<ul>
+                	<li><a href="/page/app/download.html" class="drop">移动客户端</a>
+                    	<div class="dropdown">
+                        	<div class="erweima"></div>
+                            <div class="web-app">
+                            	<a href="/page/app/download.html" class="ios"></a>
+                                <a href="/page/app/download.html" class="android"></a>
+                                <p>一机在手，相投就投</p>
+                            </div>
+                        </div>
+                    </li>
+            	<span id="span_logind">
+            		<input type="hidden" id="islogin" value="ok"/>
+                    <li style="margin:0 15px;">
+	                    <a href="/home.do" style="color:#4dbeff; text-decoration:none; font-size:15px;">
+	                    <img src="/new_images/s-people.jpg" style="position:relative; top:-2px; margin-right:1px;">我的微信贷</a>
+                    </li>                   
+                    <li><a href="/logout.do">退出</a> </li>
+            		
+            	</span>
+            
+            	<span id="span_no_login">
+            		<li style=" margin:0 15px;"><a href="/login.do">立即登录</a></li>
+                       <li><a href="/cellPhonereginit.do">我要注册</a></li> 
+                </span> 
+                
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+    </div>
+</div>
+    <div class="navbar-wrapper stuckMenu">
+    <div class="navbar">
+       <div class="logo fl"  onclick="loadPage()"><a href="###" title="微信贷"></a></div>
+             <div class="top_nav fr">
+                <ul class="group" id="example-one">
+                     <li id="index_li"><a href="/index.jsp?nav=index_li">首 页</a></li>
+                     <li id="finance_li"><a href="/finance.do?m=1&type=4&nav=finance_li">我要投资</a></li>
+                     <li id="borrow_li"><a href="/borrow.do?nav=borrow_li">我要借款</a></li>
+                     <li id="newPerson_li"><a href="/newPerson.do?nav=newPerson_li">新手指引</a></li>
+                     <li id="abount_li"><a href="/getMessageBytypeId.do?typeId=4&nav=abount_li">关于我们</a>
+                     </li>  
+                     <li style="left: 10px;" id="magic-line"></li>                  
+                 </ul>             
+              </div>         
+         </div>             
+     </div>
+<!--------------------------头部 end--------------------------->
+    <div class="content">
+            <div class="banner">
+                <div class="banner1"></div>
+                <div class="banner2"></div>
+                <div class="banner3"></div>
+                <div class="banner4"></div>
+                <div class="banner5"></div>
+            </div>
+            <div class="play-one">
+            	<div class="content1"></div>
+                <div class="content2"></div>
+                <div class="content3"></div>
+                <div class="content4"></div>
+            </div>
+            <div class="play-two">
+            	<div class="contentone1"></div>
+            	<div class="play-two-content">
+                	<div class="contentone">
+                    	<div class="contentone-character">
+                        活动期间:<br/>
+						针对定息宝、交易宝全系列产品 ,&nbsp;定时发布返息<b>0.5-1%</b>的产品。	
+                        </div>
+                        <div class="contentone-character1">
+                        活动规则：<br/>
+						1、投标到期后一次性发放加息奖励。<br/>
+						2、定时加息标发标时间为活动期间每天上午10点，下午3点；
+                        </div>
+					</div>
+					
+                    <div class="contentone2"></div>
+            	<div class="play-two-content">
+                	<div class="contenttwo">
+                    	<div class="contentone-character">
+                        活动期间，投标年化满额奖励现金红包如下：<br/>
+                        	<div class="contentone-ct"> 
+                            	1、单笔投资年化满&nbsp;<b>3</b>&nbsp;万以上，奖励&nbsp;<b>80</b>&nbsp;元现金红包；<br/>
+                                2、累计投资年化满&nbsp;<b>10</b>&nbsp;万，奖励&nbsp;<b>800</b>&nbsp;元现金红包；<br/>
+                                3、累计投资年化满&nbsp;<b>20</b>&nbsp;万，奖励&nbsp;<b>1800</b>&nbsp;元现金红包；<br/>
+                                4、累计投资年化满&nbsp;<b>30</b>&nbsp;万，奖励&nbsp;<b>2800</b>&nbsp;元现金红包；<br/>
+                                5、累计投资年化满&nbsp;<b>50</b>&nbsp;万，奖励&nbsp;<b>3800</b>&nbsp;元现金红包；<br/>
+                                6、累计投资年化满&nbsp;<b>80</b>&nbsp;万以上，奖励&nbsp;<b>6800</b>&nbsp;元现金红包；<br/>
+                                7、累计投资年化满&nbsp;<b>100</b>&nbsp;万以上，奖励&nbsp;<b>8800</b>&nbsp;元现金红包；<br/>	
+                            </div>         
+                        </div>
+                        <div class="contentone-character1">
+                        活动规则：<br/>
+						1、现金红包不可直接提现，满额投标获取奖励（现金红包）到账后，需再次投资平台任意产品（用户投资红包可按1：100的比例）。<br/>
+   						  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到期后方可提现。<br/>
+						2、现金红包将分金额四批以12月、 1月、3月、4月发放客户使用，过期作废。
+                        </div>
+					</div>
+                    
+                    <div class="contentone3"></div>
+            	<div class="play-two-content">
+                	<div class="contentthree">
+                    	<div class="contentone-character">
+                        活动期间:<br/>
+						投资年化累计最高用户，可获得豪车开回家奖励神州租车价值<b>5000</b>元礼品卡。	
+                        </div>
+                        <div class="contentone-character1">
+                        活动规则：<br/>
+						投资年化60万起可参加活动
+                        </div>
+					</div>
+                    
+                    
+                </div>
+            </div>    
+                   
+      </div> 
+              
+            <div class="play-three">
+            	<div class="play-one-content">
+                	<div class="mt" style="margin-top:30px; margin-bottom:13px;"><img src="image/guide.png"></div>
+                    <div class="end">
+                    	1、	活动期间可累计参与享受；<br/>
+                        2、	推荐投资返利与此次活动不可同时享受；<br/>
+                        3、	投资1万元半年期产品，年化投资金额算作5000元；<br/>
+                        4、本活动规则解释权归微信贷所有，微信贷有权根据运营实际情况做出调整；<br/>
+                    </div>
+                </div>
+            </div> 
+ </div>
+ </div>
+<script type="text/javascript">
+var user;
+user = new MUser(param);
+jQuery(document).ready(function($) {
+	user.login_pc_check(function(data){
+		if(user.isNotBank(data)){
+			if(data.status == 1){
+				$("#span_no_login").hide();
+				$("#span_logind").show();
+			}else{
+				// 头部控制
+				$("#span_no_login").show();
+				$("#span_logind").hide();
+			}
+		}else{
+			alert('检查登录状态失败！');	
+		}
+	});
+	
+});
+</script>
+</body>
+</html>

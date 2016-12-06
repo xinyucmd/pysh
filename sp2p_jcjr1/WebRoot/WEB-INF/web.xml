@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+		classpath:beans_all.xml,
+		classpath:beans_datasource.xml,
+		classpath:beans_dao.xml,
+		classpath:beans_service.xml,
+		classpath:beans_actions.xml,
+		classpath:beans_app_actions.xml,
+		classpath:job.xml
+	</param-value>
+  </context-param>
+  
+  <listener>
+    <listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+  </listener>
+  <listener>
+    <listener-class>
+			com.sp2p.system.listener.CloseNetWorkConfigiListener
+		</listener-class>
+  </listener>
+  <listener>
+    <listener-class>
+			com.sp2p.system.listener.ApplicationListener
+		</listener-class>
+  </listener>
+  <!-- 
+  <servlet>
+	<servlet-name>spring</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<init-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:job.xml
+		</param-value>
+	</init-param>
+	<load-on-startup>-1</load-on-startup>
+  </servlet>
+   -->
+  
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <!-- <url-pattern>/*</url-pattern> -->
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+  <error-page>
+    <error-code>500</error-code>
+    <location>/500.jsp</location>
+  </error-page>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 此段用于配置SSL，如果不用https,则注释此段代码，如果使用https，则使用此段代码 -->
+  <!-- 
+  <security-constraint> 
+        <web-resource-collection> 
+            <web-resource-name>https</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint> 
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+  </security-constraint>
+   -->
+   
+</web-app>

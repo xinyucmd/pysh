@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Check_Report_Policy" type="com.dx.collect.bean.CheckReportPolicy" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Check_Report_Policy" class="Check_Report_Policy">
+			<result property="id" column="ID" />				           
+			<result property="vou_type" column="VOU_TYPE" />				  
+			<result property="report_type" column="REPORT_TYPE" />			  
+			<result property="aft_classify" column="AFT_CLASSIFY" />		    
+			<result property="amt_min" column="AMT_MIN" />					   
+			<result property="amt_max" column="AMT_MAX" />					
+			<result property="days_ahead" column="DAYS_AHEAD" />			  
+			<result property="time_interval" column="TIME_INTERVAL" />		         
+			<result property="create_time" column="CREATE_TIME" />			         
+			<result property="update_time" column="UPDATE_TIME" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="check_report_policy">
+        <![CDATA[
+           ID				          ,
+			VOU_TYPE						,						
+			REPORT_TYPE					,							
+			AFT_CLASSIFY				,								
+			AMT_MIN							,							
+			AMT_MAX							,						
+			DAYS_AHEAD					,								
+			TIME_INTERVAL				,							
+			CREATE_TIME					,								
+			UPDATE_TIME					
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="CheckReportPolicy.insert">
+        <![CDATA[
+          INSERT INTO CHECK_REPORT_POLICY(
+           ID				          ,
+			VOU_TYPE						,						
+			REPORT_TYPE					,							
+			AFT_CLASSIFY				,								
+			AMT_MIN							,							
+			AMT_MAX							,						
+			DAYS_AHEAD					,								
+			TIME_INTERVAL				,							
+			CREATE_TIME					,								
+			UPDATE_TIME		
+           )VALUES(
+         	#id#,
+			#vou_type#,
+			#report_type#,
+			#aft_classify#,
+			#amt_min#,
+			#amt_max#,
+			#days_ahead#,
+			#time_interval#,    
+			#create_time#,
+			#update_time#
+            )
+        ]]>
+          <!-- 查询该表的序列值 -->
+        <selectKey resultClass="java.lang.String" type="pre" keyProperty="id" >
+			SELECT check_report_policy_seq.nextval AS id FROM DUAL
+      	</selectKey>
+	</insert>
+	<!-- 表删除 -->
+	<delete id="CheckReportPolicy.del">
+        <![CDATA[
+               DELETE FROM CHECK_REPORT_POLICY
+                 WHERE
+               ID = #id#
+        ]]>
+	</delete>
+	<!-- 表修改 -->
+	<update id="CheckReportPolicy.update">
+        <![CDATA[
+            UPDATE CHECK_REPORT_POLICY set
+           		 VOU_TYPE				=#vou_type#,        								
+				AFT_CLASSIFY		=#aft_classify#,     										
+				AMT_MIN					=#amt_min#,          									
+				AMT_MAX					=#amt_max#,          								
+				DAYS_AHEAD			=#days_ahead#,       										
+				TIME_INTERVAL		=#time_interval#,    									
+				UPDATE_TIME			=#update_time#
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="CheckReportPolicy.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="id">
+				<isNotEmpty prepend="AND" property="id">
+					ID = #id#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="report_type">
+				<isNotEmpty prepend="AND" property="report_type">
+					REPORT_TYPE = #report_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="aft_classify">
+				<isNotEmpty prepend="AND" property="aft_classify">
+					AFT_CLASSIFY		=#aft_classify#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="vou_type">
+				<isNotEmpty prepend="AND" property="vou_type">
+					 VOU_TYPE				=#vou_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="CheckReportPolicy.findPage.count" resultClass="int">
+		SELECT count(*) FROM CHECK_REPORT_POLICY
+		<include refid="CheckReportPolicy.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="collectreportpolicylist.findByPage" resultMap="RM.Check_Report_Policy">
+		SELECT
+		<include refid="check_report_policy" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="check_report_policy" />
+		FROM CHECK_REPORT_POLICY
+		<include refid="CheckReportPolicy.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="CheckReportPolicy.getById" resultMap="RM.Check_Report_Policy">
+		SELECT 
+		<include refid="check_report_policy" />
+ 		FROM CHECK_REPORT_POLICY
+		<include refid="CheckReportPolicy.findPage.where" />
+	</select>
+	<select id="collectreportpolicylist.getReportPolicy" resultMap="RM.Check_Report_Policy">
+		 SELECT
+		<include refid="check_report_policy" />
+		FROM CHECK_REPORT_POLICY
+		<include refid="CheckReportPolicy.findPage.where" />
+		 
+	</select>
+</sqlMap>

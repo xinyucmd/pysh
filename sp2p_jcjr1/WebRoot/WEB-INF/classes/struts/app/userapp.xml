@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="myuserapp" extends="injectionInterceptor-0" namespace="/app">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		<action name="login" class="userAppAction" method="login">
+		</action>
+		
+		<!-- whb 帮助中心 -->
+		<action name="callcenterNew" class="userAppAction" method="callcenter">
+			<result name="wytz">/WEB-INF/page/app/index.html</result>
+			<result name="zhgl">/WEB-INF/page/app/safe.html</result>
+			<result name="aqbz">/WEB-INF/page/app/admin_person.html</result>
+		</action>
+
+		<action name="sendSMSMP" class="userAppAction" method="sendSMSMP">
+		</action>
+		
+		<action name="sendSMS" class="userAppAction" method="sendSMS">
+		</action>
+
+		<action name="register" class="userAppAction" method="register">
+		</action>
+		<action name="registerForM" class="userAppAction" method="registerForM">
+		</action>
+		<action name="getSessionUserId" class="userAppAction" method="getSessionUserId">
+		</action>
+		<action name="myTyj" class="userAppAction" method="myTyj">
+		</action>
+		
+		
+		<action name="resetLoginPwd" class="userAppAction" method="resetLoginPwd">
+		</action>
+		
+		<action name="authentication" class="userAppAction" method="authentication"></action>
+		<action name="queryReconmmendInfo" class="userAppAction" method="queryReconmmendInfo"></action>
+		
+		<action name="sendMsgByUserName" class="userAppAction" method="sendMsgByUserName"></action>
+		<action name="modifyPwdByPhoneMsg" class="userAppAction" method="modifyPwdByPhoneMsg"></action>
+		
+	</package>
+
+	<package name="userapp" extends="app-default" namespace="/app">
+
+		<!-- whb 用户意见反馈 -->
+		<action name="addOptions" class="userAppAction" method="addOptions">
+		</action>
+		
+		<action name="updateLoginPwd" class="userAppAction" method="updateLoginPwd">
+		</action>
+		
+		<action name="updateDeal" class="userAppAction" method="updateDeal">
+		</action>
+
+		<action name="updateDealPwd" class="userAppAction" method="updateDealPwd">
+		</action>
+
+		<action name="resetDealPwd" class="userAppAction" method="resetDealPwd">
+		</action>
+
+		<action name="updateUserBaseData" class="userAppAction"
+			method="updateUserBaseDataCheck">
+		</action>
+
+		<action name="addImages" class="userAppAction" method="addImage">
+		</action>
+
+		<action name="jumpPassDatapage" class="userAppAction" method="jumpPassDatapage">
+		</action>
+
+		<action name="addpastPicturdate" class="userAppAction" method="addpastPicturdate">
+		</action>
+
+		<action name="queryAllQuestionList" class="userAppAction"
+			method="queryAllQuestionList">
+		</action>
+		<action name="checkUserAnswer" class="userAppAction" method="checkUserAnswer">
+		</action>
+		<action name="getUserQuestion" class="userAppAction" method="getUserQuestion">
+		</action>
+		<action name="saveOrUpdatePwdAnswer" class="userAppAction" method="saveOrUpdatePwdAnswer">
+		</action>
+	</package>
+</struts>

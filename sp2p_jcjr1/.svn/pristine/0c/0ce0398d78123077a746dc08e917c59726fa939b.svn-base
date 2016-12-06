@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>微信贷-公告</title>
+<meta content="target-densitydpi=device-dpi,width=640, maximum-scale=1, user-scalable=0" name="viewport" id="viewport">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+</head>
+<body style="background:#e4f9ff;">
+<div id="wrap">
+	<div class="reg" style="background:#fff; padding-bottom:120px;">
+    	  <div class="succes_reg"></div>
+          <div class="logo"></div>
+          <div class="Ando"></div>
+          <div class="Ando-one"></div>
+          <div class="iphone"></div>
+    </div> 
+ </div>

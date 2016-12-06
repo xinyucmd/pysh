@@ -1,0 +1,339 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/include/taglib.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>标的组成图表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
+<meta http-equiv="description" content="This is my page" />
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/js/echarts.min.js"></script>
+<link href="/../css/admin/admin_css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/script/jquery.shove-1.0.js"></script>
+<script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
+<link href="/script/pagination.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/script/jquery.pagination.js"></script>
+<style>
+	body { font-size: 14px;  font-family: "微软雅黑";}
+	* { margin: 0; padding: 0; }
+	ul, ol { list-style: none; }
+	em, i { font-style: normal; }
+	img { border: none; vertical-align: middle; }
+	.clear { clear: both; }
+	.clearfix { zoom: 1; }
+	.clearfix:after { display: block; visibility: hidden; content: '.'; height: 0; clear: both; }
+	a { font-family: "微软雅黑"; text-decoration: none; color: #666; cursor: pointer; }
+	#right{ overflow:hidden; width:auto; margin-top:10px;}
+	.right_title{}
+	.right_title .cen_input{border: 1px solid #d9d9d9; height: 22px; line-height: 22px;}
+	.right_title .cen_btn{border: 1px solid #d9d9d9; height: 24px; line-height: 22px; width:60px; margin:0 10px; cursor:pointer;}
+	.right_title span{ margin-left:10px;}
+   .zh_table td {border: 1px solid #ddd;text-align: center; width:12.5%; height:22px; line-height:22px;}
+   .zh_table1_1 td {border: 1px solid #ddd;text-align: center; width:10%; height:40px; line-height:40px;}
+   .zh_table1_1 th {background-color: #e8ecef;border: 1px solid #ddd;font-weight: normal;height: 40px;text-align: center; width:10%;}
+</style>
+</head>
+<body>
+<div id="right">
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1200px;height:400px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        // 显示标题，图例和空的坐标轴
+        myChart.setOption({
+            noDataLoadingOption: {
+                text: '暂无数据',
+            },
+            title: {
+                text: '产品类型投标额'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data:['活利宝','定息宝','2个月','3个月','6个月','12个月']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    axisLabel: {
+                        interval:0,
+                        rotate: 60
+                    },
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'活利宝',
+                    type:'bar',
+                    data:[]
+                },
+                {
+                    name:'定息宝',
+                    type:'bar',
+                    data:[]
+                },
+                {
+                    name:'2个月',
+                    type:'bar',
+                    stack: '定息宝',
+                    data:[]
+                },
+                {
+                    name:'3个月',
+                    type:'bar',
+                    stack: '定息宝',
+                    data:[]
+                },
+                {
+                    name:'6个月',
+                    type:'bar',
+                    stack: '定息宝',
+                    data:[]
+                },
+                {
+                    name:'12个月',
+                    type:'bar',
+                    stack: '定息宝',
+                    data:[]
+                }
+            ]
+        });
+        myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "borrowChart1s.do",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",
+            //返回数据形式为json
+            success : function(result) {
+                myChart.hideLoading();    //隐藏加载动画
+                var cmonth= [];//x轴日期
+                for(var i in result[0].cmonth){
+                    cmonth.push(result[0].cmonth[i].cmonth);
+                }
+                /*活利宝*/
+                var huoli_all=[];/*接收解析好的数组，给series[1].data*/
+                var huoli_all_obj={};/*接收 解析data1拼装成的一个对象。*/
+                var _ary1;/*接收 (data1中与x轴相等的月份)*/
+                for(var i in cmonth){
+                    var flag=false;
+                    if(result[0].data1.length>0){
+                        for(var all in result[0].data1){
+                            if(cmonth[i]==result[0].data1[all].cmonth){
+                                flag=true;
+                                _ary1=cmonth[i];
+                                break;
+                            }
+                        }
+                        if(flag){
+                            huoli_all_obj[_ary1]=result[0].data1[all].allinvest1;
+                        }else{
+                            huoli_all_obj[cmonth[i]]="0";
+                        }
+                        huoli_all.push(huoli_all_obj[cmonth[i]]);
+                    }else{
+                        huoli_all.push("0");
+                    }
+                }
+                /*定息宝*/
+                var dingxi_all=[];
+                var dingxiCountOver={};
+                var _ary3;
+                for(var i in cmonth){
+                    var flag=false;
+                    if(result[0].data2.length>0) {
+                        for (var all in result[0].data2) {
+                            if (cmonth[i] == result[0].data2[all].cmonth) {
+                                flag = true;
+                                _ary3 = cmonth[i];
+                                break;
+                            }
+                        }
+                        if (flag) {
+                            dingxiCountOver[_ary3] = result[0].data2[all].allinvest2;
+                        } else {
+                            dingxiCountOver[cmonth[i]] = "0";
+                        }
+                        dingxi_all.push(dingxiCountOver[cmonth[i]]);
+                    }else{
+                        dingxi_all.push("0");
+                    }
+                }
+                /*定息宝两个月*/
+                var dingxi2_all=[];
+                var dingxi2Over={};
+                var _ary2;
+                for(var i in cmonth){
+                    var flag=false;
+                    if(result[0].data3.length>0) {
+                        for(var all in result[0].data3){
+                            if(cmonth[i]==result[0].data3[all].cmonth){
+                                flag=true;
+                                _ary2=cmonth[i];
+                                break;
+                            }
+                        }
+                        if(flag){
+                            dingxi2Over[_ary2]=result[0].data3[all].allinvest3;
+                        }else{
+                            dingxi2Over[cmonth[i]]="0";
+                        }
+                        dingxi2_all.push(dingxi2Over[cmonth[i]]);
+                    }else{
+                        dingxi2_all.push("0");
+                    }
+                }
+                /*定息宝三个月*/
+                var dingxi3_all=[];
+                var dingxi3Over={};
+                var _ary4;
+                for(var i in cmonth){
+                    var flag=false;
+                    if(result[0].data4.length>0) {
+                        for(var all in result[0].data4){
+                            if(cmonth[i]==result[0].data4[all].cmonth){
+                                flag=true;
+                                _ary4=cmonth[i];
+                                break;
+                            }
+                        }
+                        if(flag){
+                            dingxi3Over[_ary4]=result[0].data4[all].allinvest4;
+                        }else{
+                            dingxi3Over[cmonth[i]]="0";
+                        }
+                        dingxi3_all.push(dingxi3Over[cmonth[i]]);
+                    }else{
+                        dingxi3_all.push("0");
+                    }
+                }
+                /*定息宝六个月*/
+                var dingxi6_all=[];
+                var dingxi6Over={};
+                var _ary5;
+                for(var i in cmonth){
+                    var flag=false;
+                    if(result[0].data5.length>0) {
+                        for(var all in result[0].data5){
+                            if(cmonth[i]==result[0].data5[all].cmonth){
+                                flag=true;
+                                _ary5=cmonth[i];
+                                break;
+                            }
+                        }
+                        if(flag){
+                            dingxi6Over[_ary5]=result[0].data5[all].allinvest5;
+                        }else{
+                            dingxi6Over[cmonth[i]]="0";
+                        }
+                        dingxi6_all.push(dingxi6Over[cmonth[i]]);
+                    }else{
+                        dingxi6_all.push("0");
+                    }
+                }
+                /*定息宝十二个月*/
+                var dingxi12_all=[];
+                var dingxi12Over={};
+                var _ary6;
+                for(var i in cmonth){
+                    var flag=false;
+                    if(result[0].data6.length>0) {
+                        for (var all in result[0].data6) {
+                            if (cmonth[i] == result[0].data6[all].cmonth) {
+                                flag = true;
+                                _ary6 = cmonth[i];
+                                break;
+                            }
+                        }
+                        if (flag) {
+                            dingxi12Over[_ary6] = result[0].data6[all].allinvest6;
+                        } else {
+                            dingxi12Over[cmonth[i]] = "0";
+                        }
+                        dingxi12_all.push(dingxi12Over[cmonth[i]]);
+                    }else{
+                        dingxi12_all.push("0");
+                    }
+                }
+                myChart.hideLoading();    //隐藏加载动画
+                myChart.setOption({        //加载数据图表
+                	formatDate:function(cmonths){
+                        if(cmonths.length!=8) return;
+                        return cmonths.substring(2,4)+'/'+cmonths.substring(4,6)+'/'+cmonths.substring(6,8);
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '10%',
+                        containLabel: true
+                    },
+                    xAxis : [
+                        {
+                            data :cmonth
+                        }
+                    ],
+                    series : [
+                        {
+                            data:huoli_all, /*活利宝*/
+                            itemStyle:{
+                                normal:{color:'#C1232B'}
+                            }
+                        },
+                        {
+                            data:dingxi_all, /*定息宝*/
+                            itemStyle:{
+                                normal:{color:'#E87C25'}
+                            }
+                        },
+                        {
+                            data:dingxi2_all, /*2个月*/
+                            itemStyle:{
+                                normal:{color:'#FCCE10'}
+                            }
+                        },
+                        {
+                            data:dingxi3_all, /*3个月*/
+                            itemStyle:{
+                                normal:{color:'#B5C334'}
+                            }
+                        },
+                        {
+                            data:dingxi6_all, /*6个月*/
+                            itemStyle:{
+                                normal:{color:'#27727B'}
+                            }
+                        },
+                        {
+                            data:dingxi12_all, /*12个月*/
+                            itemStyle:{
+                                normal:{color:'#60C0DD'}
+                            }
+                        }
+                    ]
+                });
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

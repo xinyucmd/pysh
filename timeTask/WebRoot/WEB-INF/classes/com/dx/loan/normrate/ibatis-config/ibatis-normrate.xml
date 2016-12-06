@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="normRateBean" type="com.dx.loan.normrate.bean.NormRateBean"/> 
+	<typeAlias alias="rateAdjustBean" type="com.dx.loan.normrate.bean.RateAdjustBean"/> 
+	
+	<resultMap class="normRateBean" id="normRateBeanResult">
+		 <result column="RATE_NO" property="rateNo"/>
+		 <result column="RATE_TYPE" property="rateType"/>
+		 <result column="RATE_VALUE" property="rateValue"/>
+		 <result column="BEG_DATE" property="begDate"/>
+		 <result column="END_DATE" property="endDate"/>
+		 <result column="ADJUST_DATE" property="adjustDate"/>
+		 <result column="MIN_TERM" property="minTerm"/>
+		 <result column="MAX_TERM" property="maxTerm"/>
+		 <result column="MIN_VALUE" property="minValue"/>
+		 <result column="MAX_VALUE" property="maxValue"/>
+	</resultMap>
+	
+	
+	<resultMap class="rateAdjustBean" id="rateAdjustBeanResult">
+		 <result column="RATE_NO" property="rateNo"/>
+		 <result column="RATE_TYPE" property="rateType"/>
+		 <result column="RATE_VALUE" property="rateValue"/>
+		 <result column="BEG_DATE" property="begDate"/>
+		 <result column="END_DATE" property="endDate"/>
+		 <result column="ADJUST_DATE" property="adjustDate"/>
+		 <result column="MIN_TERM" property="minTerm"/>
+		 <result column="MAX_TERM" property="maxTerm"/>
+		 <result column="MIN_VALUE" property="minValue"/>
+		 <result column="MAX_VALUE" property="maxValue"/>
+		 <result column="ID" property="id"/>
+	</resultMap>
+	
+	
+	
+	
+	<sql id="normRateBean_column">
+		<![CDATA[RATE_NO, 
+				 RATE_TYPE, 
+				 RATE_VALUE, 
+				 BEG_DATE, 
+				 END_DATE, 
+				 ADJUST_DATE, 
+				 MIN_TERM, 
+				 MAX_TERM, 
+				 MIN_VALUE, 
+				 MAX_VALUE]]>
+	</sql>
+	
+	<sql id="rateAdjustBean_column">
+		<![CDATA[RATE_NO, 
+				 RATE_TYPE, 
+				 RATE_VALUE, 
+				 BEG_DATE, 
+				 END_DATE, 
+				 ADJUST_DATE, 
+				 MIN_TERM, 
+				 MAX_TERM, 
+				 MIN_VALUE, 
+				 MAX_VALUE,
+				 ID]]>
+	</sql>
+	
+	<select id="getNormrateByNo" parameterClass="String" resultMap="normRateBeanResult">
+		select  
+		<include refid="normRateBean_column"/>    
+		<![CDATA[from loan_normrate where  RATE_NO=#rateNo#]]>
+	</select>
+	
+	
+	<select id="getRateAdjustList" parameterClass="String" resultMap="rateAdjustBeanResult">
+		SELECT  
+		<include refid="rateAdjustBean_column"/> 
+		FROM  LOAN_RATE_ADJUST_LOG   WHERE  RATE_NO=#rateNo#   
+	</select>
+	 
+	
+
+</sqlMap>

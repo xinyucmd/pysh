@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>微信贷-七夕活动</title>
+
+<style>
+	body { font-size: 14px; color: #666; font-family: "微软雅黑"; background-color:#F3F4F8; }
+	* { margin: 0; padding: 0; }
+	ul, ol { list-style: none; }
+	em, i { font-style: normal; }
+	img { border: none; vertical-align: middle; }
+	.clear { clear: both; }
+	.clearfix { zoom: 1; }
+	.clearfix:after { display: block; visibility: hidden; content: '.'; height: 0; clear: both; }
+	a { font-family: "微软雅黑"; text-decoration: none; color: #666; cursor: pointer; }
+	.activity{width:100%; height:auto; font-family:"微软雅黑";}
+	.activity .banner{ width:100%; height:709px; background:url(/activity_images/201501/banner.jpg) no-repeat center;}
+	.activity .banner1{ width:100%; height:362px; background:url(/activity_images/201501/banner1.jpg) no-repeat center;}
+	.activity .content_a{ width:100%; height:767px; background:url(/activity_images/201501/bg1.jpg) no-repeat center;}
+	.activity .content_a .main_a{ width:980px; margin:0 auto;}
+	.activity .content_a .main_a .top_bg { text-align:center; height:60px;}
+	.activity .content_a .main_a .con_box{  height:580px; background:#bceeff; border-radius:10px; margin-top:85px;}
+	.activity .content_a .main_a .con_box .box_a{ width:220px; height:410px; float:left; margin:0 12px;}
+	.activity .content_a .main_a .con_box .box_a p{ text-align:center;}
+	.font_18{font-size:18px; font-weight:bold; line-height:36px;}
+	.c34{ color:#db3434;}
+	.c35{ color:#1fadff;}
+	.mr_t{ margin-top:5px;}
+	.activity .content_b{ width:100%; height:1047px; background:url(/activity_images/201501/bg2.jpg) no-repeat top center; padding-top:100px;}
+	.activity .content_b .main_b{ width:980px; height:1015px; background:#bceeff; margin:0 auto; border-radius:10px;}
+	.w40{ width:340px; padding:0 30px;}
+	.fl{ float:left;}
+	.fr{ float:right;}
+	.font_20{ font-size:20px; color:#1c7ba9; font-weight:bold; letter-spacing:2px; line-height:36px;}
+	.activity .content_b .main_b em{ font-style:normal; color:#db3434;}
+	.activity .content_c{ width:100%; height:100%; background:#FFFFFF ; padding-top:80px;}
+	.activity .content_c .main_c{ width:980px; margin:0 auto;}
+	.activity .content_c .main_c .box_b{ height:103px; border-radius:8px; background: #FF44AA  ; font-size:22px; color:#1f1f1f; line-height:103px; text-align:center;margin-bottom:240px;}
+	.activity .content_c .main_c .box_b a{ color:#00abea; text-decoration:underline;}
+	.activity .content_c .main_c .con_text{  margin-left:20px;}
+	.activity .content_c .main_c .con_text h3{ font-size:40px; color:#00FFFF;margin-left:20%;}
+	.activity .content_c .main_c .con_text h4{ font-size:35px; color:#004860;}
+	.activity .content_c .main_c .con_text p{ font-size:25px; color:#FF00FF; line-height:44px;}
+	.activity .content_c .main_c .box_c{height:330px; border-radius:8px; background:#bceeff; font-size:20px; color:#1c7ba9; margin-bottom:50px; }
+	.activity .content_c .main_c .box_c  .box_table{ background:#FFB7DD; width:943px; height:119px; margin:40px 0 0 18px;}
+	.activity .content_c .main_c .box_c  .box_table ul{ width:943px; overflow:hidden; height:53px; line-height:53px;}
+	.activity .content_c .main_c .box_c  .box_table ul li{ float:left; width:235px; text-align:center;}
+	.activity .content_c .main_c .box_c p{ padding:20px 0 0 18px;}
+	.theme-popover-mask{z-index: 9998;position:fixed; top:0; left:0;width:100%;height:100%;background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; opacity:0.7;display:none}
+	.login_box{ width:455px; height:485px;  position:fixed;left:30%; top:0; z-index:9999; display:none; }
+	.login_box .login_box_title{ background:url(/activity_images/201501/c_img1.png) no-repeat center; height:247px; position:relative; z-index:10000; top:50px;}
+	.login_box_con{ background:#81e0ff; width:425px; height:295px; border-radius:8px; color:#1c7ba9; padding:30px 0 0 30px;}
+	.login_box_con ul{}
+	.login_box_con ul li{ height:45px; line-height:45px;margin-top:20px}
+	.login_box_con ul li label{ margin-right:20px; font-size:20px;}
+	.login_box_con a{ font-size:16px; color:#1c7ba9; margin-left:5px;}
+	.close{ background:url(/activity_images/201501/close_btn.png) no-repeat; right:-20px;  position:absolute; z-index:10001; height:36px; width:36px; cursor:pointer; margin-top:-10px;}
+	.big_input{ width:237px; height:44px;  border:none;border:solid 2px #19b4e2; font-size:20px; padding-left:10px; color:#1fa2cf; background:#fff;}
+	.center_input{ width:137px; height:44px;  border:none;border:solid 2px #19b4e2; font-size:20px; padding-left:10px; color:#1fa2cf; background:#fff;}
+	.btn_login{ font-size:24px; color:#fff; font-weight:bold; text-align:center; font-family:"微软雅黑"; letter-spacing:4px; line-height:50px;
+	width:272px; height:60px; background:url(/activity_images/201501/btn9.jpg) no-repeat; border:none; cursor:pointer;}
+	/*------------------头部-----------------*/	          
+.p_headerbox{ height:146px; border-top:solid 2px #C70009; width:100%; background-color:#fff;}
+.p_topbox{ height:42px; width:100%; background-color:#484f59;}
+.p_top{ width:980px;  padding-top:8px; margin:0 auto;}
+.p_topleft{ float:left;}
+.p_topleft span{ float:left;}
+.p_topleft span a{ vertical-align:bottom; margin:0 10px;}
+.p_topleft span a:hover{opacity:0.6; filter:alpha(opacity=60);}
+.p_topright{ float:right;}
+.p_topright span{ float:left; margin-left:30px; }
+.p_topright span a img{ vertical-align:text-bottom; *vertical-align:-2px;}
+.p_header{ width:980px; margin:0 auto; padding:30px 0;}
+.p_logo{  float:left;}
+.p_nav{ float:right; line-height:44px;}
+.p_nav a{ margin-left:75px; float:left; font-size:16px;}
+.p_nav a:hover,.p_nav a.hover{color:#bb1b21;}
+.f18{ font-size:18px;}
+</style>
+</head>
+<div id="wrap">
+<div class="reg">
+	<div class="activity">
+        <div class="content_c">
+        	<div class="main_c">
+                <div class="con_text">
+                <h3>关于微信贷七夕情人节活动的公告</h3>
+                <hr/><br>
+                    <p>情定七夕</p>
+			        <p>爱是唯一</p>
+			        <p>微信贷将浪漫进行到底！ 投资送豪礼，送给心爱的她（他），一年只限这一天！</p>
+			        <p>活动对象：</p>
+			        <p>本活动只针对当天投资用户</p>
+			        <p>活动时间：</p>
+			        <p>8月9号（七月初七）9点，发放情人节专属标 债权有限，如无专属标，此活动结束!</p><br>
+                    <h4>活动奖励</h4>
+                     <hr />
+                     <p>当天年化累计投资金额 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 活动奖励</p>
+                     <p>投资3万元  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1300元京东购物卡(折合现金1300元)</p>
+                     <p>投资6万元 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2799元飞利浦空气净化器（折合现金2600元）</p>
+                     <p>投资11万元  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5299元苹果6S 64G手机（折合现金5000元）</p>
+                     <p>投资15万元  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6988元苹果Air电脑（折合现金6900元）</p>
+                    <p>投资20万元  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  9288元苹果Pro电脑（折合现金9200元）</p>
+                	<br>
+                	<h4>活动规则</h4><hr />
+                    <p>1、本次活动只限投资标记为“情人节专属标”的定息宝A（年化利率9%）</p>
+                    <p>2、本次活动与八月官网累计投资奖励与邀请好友投资奖励不可共享，此活动为8月单独活动！即参加此活动，不能享受八月份累计投资送现金、邀请好友送现金的活动</p>
+                    <p>3、本次活动投资金额可以进行拆分获得对应奖品，如投资17万，可以获得6万+11万的两者奖励，投资40万，可以活动20万+20万的两者奖励！</p>
+                    <p>4、奖品可以折现，如不需要奖品，则可折合成奖品后对应的现金，现金在次月10号前，发放至用户微信贷账户中</p>
+                    <hr /><br/>
+                    <p>注：
+                    </p>
+                    <p>
+						1、客服将在本次活动结束后次日回访客户，如客户投资前不知晓本次活动，投资了指定七夕标，如告知不参加本次活动，即默认参加8月份官网活动
+                    </p>
+                     <p>
+						2、实物礼品将于活动结束后7个工作内与您确认接收事宜，届时保持电话畅通。
+                    </p>
+                    <br /><br/>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+ </div>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,34 @@
+body{ margin: 0; padding: 0;}
+.banner{ width: 100%;}
+.banner1{ height: 100px; width: 100%; background: url("../img/banner1.jpg") no-repeat center;}
+.banner2{ height: 100px; width: 100%; background: url("../img/banner2.jpg") no-repeat center;}
+.banner3{ height: 100px; width: 100%; background: url("../img/banner3.jpg") no-repeat center;}
+.banner4{ height: 100px; width: 100%; background: url("../img/banner4.jpg") no-repeat center;}
+.banner5{ height: 100px; width: 100%; background: url("../img/banner5.jpg") no-repeat center;}
+.banner6{ height: 100px; width: 100%; background: url("../img/banner6.jpg") no-repeat center;}
+.banner7{ height: 100px; width: 100%; background: url("../img/banner7.jpg") no-repeat center;}
+.section1{ height: 100px; width: 100%; background: url("../img/img1.jpg") no-repeat center;}
+.section2{ height: 100px; width: 100%; background: url("../img/img2.jpg") no-repeat center;}
+.section3{ height: 100px; width: 100%; background: url("../img/img3.jpg") no-repeat center;}
+.section4{ height: 100px; width: 100%; background: url("../img/img4.jpg") no-repeat center;}
+.section5{ height: 100px; width: 100%; background: url("../img/img5.jpg") no-repeat center;}
+.section6{ height: 100px; width: 100%; background: url("../img/img6.jpg") no-repeat center;}
+.section7{ height: 100px; width: 100%; background: url("../img/img7.jpg") no-repeat center;}
+.section8{ height: 100px; width: 100%; background: url("../img/img8.jpg") no-repeat center;}
+.section9{ height: 100px; width: 100%; background: url("../img/img9.jpg") no-repeat center;}
+.section10{ height: 100px; width: 100%; background: url("../img/img10.jpg") no-repeat center;}
+.section11{ height: 100px; width: 100%; background: url("../img/img11.jpg") no-repeat center;}
+.section12{ height: 100px; width: 100%; background: url("../img/img12.jpg") no-repeat center;}
+.section13{ height: 100px; width: 100%; background: url("../img/img13.jpg") no-repeat center;}
+.section14{ height: 100px; width: 100%; background: url("../img/img14.jpg") no-repeat center;}
+.section15{ height: 100px; width: 100%; background: url("../img/img15.jpg") no-repeat center;}
+.section16{ height: 100px; width: 100%; background: url("../img/img16.jpg") no-repeat center;}
+.section17{ height: 100px; width: 100%; background: url("../img/img17.jpg") no-repeat center;}
+.section18{ height: 100px; width: 100%; background: url("../img/img18.jpg") no-repeat center;}
+.section19{ height: 100px; width: 100%; background: url("../img/img19.jpg") no-repeat center;}
+.section20{ height: 100px; width: 100%; background: url("../img/img20.jpg") no-repeat center;}
+.section21{ height: 100px; width: 100%; background: url("../img/img21.jpg") no-repeat center;}
+.section22{ height: 100px; width: 100%; background: url("../img/img22.jpg") no-repeat center;}
+.section23{ height: 77px; width: 100%; background: url("../img/img23.jpg") no-repeat center;}
+
+

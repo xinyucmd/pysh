@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  	<package name="repay" namespace="/" extends="struts-default">
+        <action name="repay_*" class="com.dx.loan.repay.action.RepayAction" method="{1}">
+            <result name="repayList">WEB-INF/loan/repay/repayList.jsp</result>
+            <result name="repayDetail">WEB-INF/loan/repay/repayDetail.jsp</result>
+            <result name="repayFish">WEB-INF/loan/repay/repayFinsh.jsp</result>
+        </action>
+    </package>
+</struts>

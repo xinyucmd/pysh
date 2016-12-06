@@ -1,0 +1,93 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/include/taglib.jsp"%>
+<html>
+<head>
+<title>实名用量统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
+<meta http-equiv="description" content="This is my page" />
+<link href="../css/admin/admin_css.css" rel="stylesheet" type="text/css" />
+<link href="../css/admin/admin_custom_css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/script/jquery.shove-1.0.js"></script>
+<script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+<div id="right">
+  <div style="padding: 15px 10px 0px 10px;">
+	<div>
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="100" id="tomorrow"  class="main_alll_h2">
+					<a href="javascript:void(0);">实名用量</a>
+				</td>
+				<td>
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="padding-right: 10px; padding-left: 10px; padding-bottom: 10px; width: 1120px; padding-top: 10px; background-color: #fff;">
+		<form id="MsForm" action="queryMsDetailsList.do" method="post">
+			<table style="margin-bottom: 8px;" cellspacing="0" cellpadding="0" width="100%" border="0">
+				<tbody>
+					<tr>
+						<td> <span><label><input id="selectId1" type="radio"  name="selectName"  value="1"/>昨日</label></span>
+	        	             <span><label><input id="selectId2" type="radio"  name="selectName" value="2" />本周</label></span>
+	        	             <span><label><input id="selectId3" type="radio"  name="selectName"  value="3"/>本月</label></span>
+	        	             <span><label><input id="selectId4" type="radio"  name="selectName"  value="4"/>其他时间</label>
+	        	               <input id="timeStart" name="timeStart" class="Wdate" value="${timeStart}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})"/>&nbsp;&nbsp;
+									--
+							 <input id="timeEnd" name="timeEnd" class="Wdate" value="${timeEnd}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})"/>&nbsp;&nbsp;
+	                         </span>
+						     <input id="search" type="button" value="查找" name="search"/>&nbsp;&nbsp;
+	                     </td>
+			         </tr>
+				</tbody>
+		   </table>
+	    </form>
+	        <span id="divList"><img src="../images/admin/load.gif" class="load" alt="加载中..." /></span>
+		    <div>
+	     </div>
+     </div>
+  </div>
+</div>
+<script type="text/javascript">
+if('${status}'=='2'){
+	  var obj=$('#selectId2');
+	  obj.attr('checked','checked');
+  }else if('${status}'=='3'){
+	  var obj=$('#selectId3');
+	  obj.attr('checked','checked');
+  }else if('${status}'=='4'){
+	  var obj=$('#selectId4');
+	  obj.attr('checked','checked');
+  }else{
+	  var obj=$('#selectId1');
+	  obj.attr('checked','checked');
+  }
+$(function(){
+	initListInfo(param);		
+});	
+	
+$('#search').click(function(){
+	   param["pageBean.pageNum"]=1;
+	   initListInfo(param);
+});
+function initListInfo(praData){
+	praData["paramMap.timeStart"] = $("#timeStart").val();
+	praData["paramMap.timeEnd"] = $("#timeEnd").val();
+	praData["paramMap.selectName"] =$("input[type='radio']:checked").val();
+	$.shovePost("queryIdentifyDetailsList.do",praData,initCallBack);
+}
+function initCallBack(data){
+	$("#divList").html(data);
+}
+
+</script>
+<shove:page curPage="${pageBean.pageNum}" showPageCount="10" pageSize="${pageBean.pageSize }" theme="jsNumber" totalCount="${pageBean.totalNum}"></shove:page>
+</body>
+</html>

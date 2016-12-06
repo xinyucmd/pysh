@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="putout" location="0,0" size="0,0">
+    <action name="putout_*" location="0,0" size="0,0">
+      <result name="additiList">
+        <resourceEdge source="additiList" routing="0" target="additiList.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="repayList.jsp" path="WEB-INF/loan/repay/repayList.jsp" location="39,205" size="150,55" />
+  <webResource name="pay_Jsp.jsp" path="/pay_Jsp.jsp" location="345,30" size="150,55" />
+  <webResource name="additiList.jsp" path="WEB-INF/loan/putout/additiList.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

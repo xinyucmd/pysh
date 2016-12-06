@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>微信贷-注册成功</title>
+<meta content="target-densitydpi=device-dpi,width=640, maximum-scale=1, user-scalable=0" name="viewport" id="viewport">
+<link type="text/css" rel="stylesheet" href="/css/m/recommend/style.css">
+	<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body style="background:#e4f9ff;">
+<div id="wrap">
+	<div class="reg" style="background:#e4f9ff;">
+    	  <div class="succes_reg"></div>
+          <div class="download"><a href="/page/app/go_download.html"></a></div>
+          <div class="phone"></div>
+    </div> 
+ </div>

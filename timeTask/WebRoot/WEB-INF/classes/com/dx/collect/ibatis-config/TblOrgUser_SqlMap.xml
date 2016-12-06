@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+<!-- 不使用namespace是由于sql搜索定位会比较方便 -->
+<sqlMap>
+
+	<resultMap id="RM.TblOrgUser"
+		class="com.dx.collect.bean.TblOrgUser">
+		<result property="userid" column="USERID" />
+		<result property="username" column="USERNAME" />
+		<result property="passwordhash" column="PASSWORDHASH" />
+		<result property="diaplayname" column="DIAPLAYNAME" />
+		<result property="nick" column="NICK" />
+		<result property="job" column="JOB" />
+		<result property="sex" column="SEX" />
+		<result property="birthday" column="BIRTHDAY" />
+		<result property="mobile" column="MOBILE" />
+		<result property="businesstelephone" column="BUSINESSTELEPHONE" />
+		<result property="businesstelephone0"
+			column="BUSINESSTELEPHONE0" />
+		<result property="businesstelephone1"
+			column="BUSINESSTELEPHONE1" />
+		<result property="businessfax" column="BUSINESSFAX" />
+		<result property="hometelephone" column="HOMETELEPHONE" />
+		<result property="email" column="EMAIL" />
+		<result property="email0" column="EMAIL0" />
+		<result property="email1" column="EMAIL1" />
+		<result property="web" column="WEB" />
+		<result property="jabberid" column="JABBERID" />
+		<result property="msn" column="MSN" />
+		<result property="icq" column="ICQ" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="last_mod_date" column="LAST_MOD_DATE" />
+		<result property="pwd_inval_date" column="PWD_INVAL_DATE" />
+		<result property="id_no" column="ID_NO" />
+		<result property="op_sts" column="OP_STS" />
+		<result property="extend" column="EXTEND" />
+		<result property="seq" column="SEQ" />
+		<result property="brNo" column="BR_NO" />
+		<result property="roleNo" column="ROLE_NO" />
+	</resultMap>
+	<resultMap id="RM.TblOrgUser1"
+		class="com.dx.collect.bean.TblOrgUser">
+		<result property="userid" column="USERID" />
+		<result property="username" column="USERNAME" />
+		<result property="brNo" column="BR_NO" />
+		<result property="brName" column="BR_NAME" />
+		<result property="roleNo" column="ROLE_NO" />
+	</resultMap>
+	<resultMap id="RM.TblOrgUser2"
+		class="com.dx.collect.bean.TblOrgUser">
+		<result property="userid" column="USERID" />
+
+		<result property="brNo" column="BR_NO" />
+
+	</resultMap>
+	
+	<resultMap id="RM.TblOrgUser3"
+		class="com.dx.collect.bean.TblOrgUser">
+		<result property="username" column="USERNAME" />
+		<result property="diaplayname" column="DIAPLAYNAME" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="TblOrgUser.columns">
+		<![CDATA[
+        	USERID ,
+        	USERNAME ,
+        	PASSWORDHASH ,
+        	DIAPLAYNAME ,
+        	NICK ,
+        	JOB ,
+        	SEX ,
+        	BIRTHDAY ,
+        	MOBILE ,
+        	BUSINESSTELEPHONE ,
+        	BUSINESSTELEPHONE0 ,
+        	BUSINESSTELEPHONE1 ,
+        	BUSINESSFAX ,
+        	HOMETELEPHONE ,
+        	EMAIL ,
+        	EMAIL0 ,
+        	EMAIL1 ,
+        	WEB ,
+        	JABBERID ,
+        	MSN ,
+        	ICQ ,
+        	DESCRIPTION ,
+        	LAST_MOD_DATE ,
+        	PWD_INVAL_DATE ,
+        	ID_NO ,
+        	OP_STS ,
+        	EXTEND ,
+        	SEQ ,
+        	BR_NO, 
+        	ROLE_NO
+	    ]]>
+	</sql>
+
+	<insert id="TblOrgUser.insert">
+		<![CDATA[
+        INSERT INTO TBL_ORG_USER (
+        	USERID ,
+        	USERNAME ,
+        	PASSWORDHASH ,
+        	DIAPLAYNAME ,
+        	NICK ,
+        	JOB ,
+        	SEX ,
+        	BIRTHDAY ,
+        	MOBILE ,
+        	BUSINESSTELEPHONE ,
+        	BUSINESSTELEPHONE0 ,
+        	BUSINESSTELEPHONE1 ,
+        	BUSINESSFAX ,
+        	HOMETELEPHONE ,
+        	EMAIL ,
+        	EMAIL0 ,
+        	EMAIL1 ,
+        	WEB ,
+        	JABBERID ,
+        	MSN ,
+        	ICQ ,
+        	DESCRIPTION ,
+        	LAST_MOD_DATE ,
+        	PWD_INVAL_DATE ,
+        	ID_NO ,
+        	OP_STS ,
+        	EXTEND ,
+        	SEQ ,
+        	BR_NO, 
+        	ROLE_NO
+        ) VALUES (
+        	#userid# ,
+        	#username# ,
+        	#passwordhash# ,
+        	#diaplayname# ,
+        	#nick# ,
+        	#job# ,
+        	#sex# ,
+        	#birthday# ,
+        	#mobile# ,
+        	#businesstelephone# ,
+        	#businesstelephone0# ,
+        	#businesstelephone1# ,
+        	#businessfax# ,
+        	#hometelephone# ,
+        	#email# ,
+        	#email0# ,
+        	#email1# ,
+        	#web# ,
+        	#jabberid# ,
+        	#msn# ,
+        	#icq# ,
+        	#description# ,
+        	#last_mod_date# ,
+        	#pwd_inval_date# ,
+        	#id_no# ,
+        	#op_sts# ,
+        	#extend# ,
+        	#seq# ,
+        	#brNo#, 
+        	#roleNo#
+        )
+    ]]>
+		<selectKey resultClass="int" type="pre" keyProperty="userid">
+			SELECT TBL_ORG_USER_SEQ.nextval AS ID FROM SYS_GLOBAL
+		</selectKey>
+	</insert>
+	<!-- 机构合并时 更新信贷员机构号 -->
+	<update id="TblOrgUser.updateBrNo">
+		<![CDATA[
+        UPDATE TBL_ORG_USER SET
+	        BR_NO = #merge_br_no#
+        WHERE 
+	        BR_NO = #br_no# 
+    ]]>
+	</update>
+	<update id="TblOrgUser.update">
+		<![CDATA[
+        UPDATE TBL_ORG_USER SET
+	        USERNAME = #username# ,
+	        PASSWORDHASH = #passwordhash# ,
+	        DIAPLAYNAME = #diaplayname# ,
+	        NICK = #nick# ,
+	        JOB = #job# ,
+	        SEX = #sex# ,
+	        BIRTHDAY = #birthday# ,
+	        MOBILE = #mobile# ,
+	        BUSINESSTELEPHONE = #businesstelephone# ,
+	        BUSINESSTELEPHONE0 = #businesstelephone0# ,
+	        BUSINESSTELEPHONE1 = #businesstelephone1# ,
+	        BUSINESSFAX = #businessfax# ,
+	        HOMETELEPHONE = #hometelephone# ,
+	        EMAIL = #email# ,
+	        EMAIL0 = #email0# ,
+	        EMAIL1 = #email1# ,
+	        WEB = #web# ,
+	        JABBERID = #jabberid# ,
+	        MSN = #msn# ,
+	        ICQ = #icq# ,
+	        DESCRIPTION = #description# ,
+	        LAST_MOD_DATE = #last_mod_date# ,
+	        PWD_INVAL_DATE = #pwd_inval_date# ,
+	        ID_NO = #id_no# ,
+	        OP_STS = #op_sts# ,
+	        EXTEND = #extend# ,
+	        SEQ = #seq# ,
+	        BR_NO = #brNo#,
+        	ROLE_NO = #roleNo#
+        WHERE 
+	        USERID = #userid# 
+    ]]>
+	</update>
+
+	<delete id="TblOrgUser.delete">
+		<![CDATA[
+        DELETE FROM TBL_ORG_USER WHERE
+        USERID = #userid# 
+    ]]>
+	</delete>
+
+	<select id="TblOrgUser.getById" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		<![CDATA[
+	        FROM TBL_ORG_USER 
+	        WHERE 
+		        USERID = #userid# 
+	    ]]>
+	</select>
+
+	<select id="TblOrgUser.getByUsername" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		<![CDATA[
+	        FROM TBL_ORG_USER WHERE USERNAME = #username# AND OP_STS='1'
+	    ]]>
+	</select>
+
+	<sql id="TblOrgUser.findPage.where">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="userid">
+				USERID = #userid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="username">
+				USERNAME = #username#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="passwordhash">
+				PASSWORDHASH = #passwordhash#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diaplayname">
+				DIAPLAYNAME = #diaplayname#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nick">
+				NICK = #nick#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="job">
+				JOB = #job#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sex">
+				SEX = #sex#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mobile">
+				MOBILE = #mobile#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businesstelephone">
+				BUSINESSTELEPHONE = #businesstelephone#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businesstelephone0">
+				BUSINESSTELEPHONE0 = #businesstelephone0#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businesstelephone1">
+				BUSINESSTELEPHONE1 = #businesstelephone1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessfax">
+				BUSINESSFAX = #businessfax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hometelephone">
+				HOMETELEPHONE = #hometelephone#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="email">
+				EMAIL = #email#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="email0">
+				EMAIL0 = #email0#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="email1">
+				EMAIL1 = #email1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="web">
+				WEB = #web#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="jabberid">
+				JABBERID = #jabberid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="msn">
+				MSN = #msn#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="icq">
+				ICQ = #icq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				DESCRIPTION = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="last_mod_date">
+				LAST_MOD_DATE = #last_mod_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="pwd_inval_date">
+				PWD_INVAL_DATE = #pwd_inval_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="id_no">
+				ID_NO = #id_no#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="op_sts">
+				OP_STS = #op_sts#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="extend">
+				EXTEND = #extend#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="seq">
+				SEQ = #seq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brNo">
+				BR_NO = #brNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="roleNo">
+				(ROLE_NO = #roleNo# or ROLE_NO='R002')
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+	
+	
+	<sql id="TblOrgUser.findPage1.where">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="roleNo">
+				ROLE_NO = #roleNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="username">
+				USERNAME = #username#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diaplayname">
+				DIAPLAYNAME like '%'||#diaplayname#||'%'
+			</isNotEmpty>
+		</dynamic>
+		
+	</sql>
+	<sql id="TblOrgUser.findPage.where1">
+		<dynamic prepend="">
+			<isNotEmpty prepend="AND" property="userid">
+				USERID = #userid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="username">
+				USERNAME = #username#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="passwordhash">
+				PASSWORDHASH = #passwordhash#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diaplayname">
+				DIAPLAYNAME = #diaplayname#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nick">
+				NICK = #nick#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="job">
+				JOB = #job#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sex">
+				SEX = #sex#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mobile">
+				MOBILE = #mobile#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businesstelephone">
+				BUSINESSTELEPHONE = #businesstelephone#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businesstelephone0">
+				BUSINESSTELEPHONE0 = #businesstelephone0#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businesstelephone1">
+				BUSINESSTELEPHONE1 = #businesstelephone1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessfax">
+				BUSINESSFAX = #businessfax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hometelephone">
+				HOMETELEPHONE = #hometelephone#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="email">
+				EMAIL = #email#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="email0">
+				EMAIL0 = #email0#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="email1">
+				EMAIL1 = #email1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="web">
+				WEB = #web#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="jabberid">
+				JABBERID = #jabberid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="msn">
+				MSN = #msn#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="icq">
+				ICQ = #icq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				DESCRIPTION = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="last_mod_date">
+				LAST_MOD_DATE = #last_mod_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="pwd_inval_date">
+				PWD_INVAL_DATE = #pwd_inval_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="id_no">
+				ID_NO = #id_no#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="op_sts">
+				OP_STS = #op_sts#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="extend">
+				EXTEND = #extend#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="seq">
+				SEQ = #seq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brNo">
+				BR_NO  in  (select up_two from tbl_org_departments
+                 CONNECT by UP_ONE = PRIOR BR_NO
+                  START WITH BR_NO =#brNo#)
+			</isNotEmpty>
+			
+		</dynamic>
+	</sql>
+	<select id="TblOrgUser.getUserInfo" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM TBL_ORG_USER
+		WHERE ROLE_NO = #roleNo# AND BR_NO = #brNo# AND OP_STS = #op_sts# AND ROWNUM=1
+	</select>
+	
+	<select id="TblOrgUser.findPage.count" resultClass="int">
+		SELECT count(*) FROM TBL_ORG_USER
+		<include refid="TblOrgUser.findPage.where" />
+	</select>
+	<select id="TblOrgUser.findPage.count1" resultClass="int">
+		SELECT count(*) FROM TBL_ORG_USER
+		<include refid="TblOrgUser.findPage1.where" />
+	</select>
+	<select id="TblOrgUser.findRegHeadPage.count" resultClass="int">
+		SELECT count(*) FROM TBL_ORG_USER WHERE ROLE_NO='R003'
+		<include refid="TblOrgUser.findPage.where1" />
+	</select>
+	<sql id="TblOrgUser.findUserListByBrno.where">
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="username">
+				USERNAME = #username#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diaplayname">
+				DIAPLAYNAME = #diaplayname#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brNo">
+				BR_NO = #brNo#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+
+	<select id="TblOrgUser.findUserListByBrno.count" resultClass="int">
+		SELECT count(*) FROM TBL_ORG_USER
+		<include refid="TblOrgUser.findUserListByBrno.where" />
+	</select>
+	
+	<select id="TblOrgUser.findUserListByBrno" resultMap="RM.TblOrgUser3">
+		SELECT
+		username,diaplayname
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT
+			username,diaplayname
+			FROM TBL_ORG_USER
+			<include refid="TblOrgUser.findUserListByBrno.where" />
+		) m WHERE rownum &lt;#endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="TblOrgUser.getNameByUserId" resultMap="RM.TblOrgUser">
+		SELECT <include refid="TblOrgUser.columns"/>
+	        FROM TBL_ORG_USER WHERE USERNAME = #username#
+	</select>
+	<select id="TblOrgUser.findPage" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM TBL_ORG_USER
+		<include refid="TblOrgUser.findPage.where" />
+		) m WHERE rownum &lt;#endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	
+	<select id="TblOrgUser.findPage1" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM TBL_ORG_USER
+		<include refid="TblOrgUser.findPage1.where" />
+		) m WHERE rownum &lt;#endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	
+	
+	<select id="TblOrgUser.findRegHeadPage" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM TBL_ORG_USER  WHERE ROLE_NO='R003'
+		<include refid="TblOrgUser.findPage.where1" />
+		) m WHERE rownum &lt;#endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="TblOrgUser.findTbl" resultMap="RM.TblOrgUser1">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		,fun_getbrname(br_no) as br_name FROM ( SELECT m.*, rownum as
+		rnum FROM (SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM TBL_ORG_USER where BR_NO=#brno# ) m )
+	</select>
+	
+	
+	
+	<update id="TblOrgUser.update1">
+		<![CDATA[
+        UPDATE TBL_ORG_USER SET
+	             
+	        BR_NO = #brNo#
+   
+        WHERE 
+	        USERID = #userid# 
+    ]]>
+	</update>
+	
+	<select id="TblOrgUser.getTblorgUsersByRoleno" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM TBL_ORG_USER WHERE ROLE_NO=#roleNo#
+	</select>
+	<select id="TblOrgUser.getUserByBrNO" resultMap="RM.TblOrgUser">
+		SELECT
+		<include refid="TblOrgUser.columns" />
+		FROM TBL_ORG_USER
+		WHERE ROLE_NO = #roleNo# AND BR_NO = #br_no# AND OP_STS = #op_sts# AND ROWNUM=1
+	</select>
+	
+</sqlMap>
+

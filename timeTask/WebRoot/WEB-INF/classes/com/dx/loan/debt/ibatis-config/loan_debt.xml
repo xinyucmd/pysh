@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+  <resultMap id="loanDebtResult" class="com.dx.loan.debt.bean.DebtBean" >
+    <result column="DUE_NO" property="dueNo" jdbcType="VARCHAR" />
+    <result column="TERM_NO" property="termNo" jdbcType="VARCHAR" />
+    <result column="DEB_CAPITAL" property="debCapital" jdbcType="VARCHAR" />
+    <result column="DEB_INTST" property="debIntst" jdbcType="VARCHAR" />
+    <result column="DEB_CMPDINTST" property="debCmpdintst" jdbcType="VARCHAR" />
+    <result column="DEB_OVERINTST" property="debOverintst" jdbcType="VARCHAR" />
+    <result column="DEB_ACC_FEE" property="debAccFee" jdbcType="VARCHAR" />
+    
+    <result column="CIF_NO" property="cifNo" jdbcType="VARCHAR" />
+    <result column="BEG_DATE" property="begDate" jdbcType="VARCHAR" />
+    <result column="END_DATE" property="endDate" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="loanDebt_columns">
+   DUE_NO, 
+   TERM_NO,  
+   DEB_CAPITAL,      
+   DEB_INTST,    
+   DEB_CMPDINTST,    
+   DEB_OVERINTST, 
+   DEB_ACC_FEE,
+   CIF_NO,
+   BEG_DATE,
+   END_DATE
+  </sql>
+  
+  <!--获得欠款实体 -->
+  <select id="getLoanDebt" resultMap="loanDebtResult" parameterClass="com.dx.loan.debt.bean.DebtBean" >
+    SELECT
+    <include refid="loanDebt_columns" />    
+    FROM LOAN_DEBT
+    WHERE 1=1
+    <isNotNull prepend="AND" property="dueNo" >
+        DUE_NO = #dueNo#
+    </isNotNull>
+  </select>
+ 
+  <!-- 获得 期号小于当前期号且还没有还完款的欠款列表,现在这样查还存在问题,因为还完款的信息也还存在只是欠款金额为0 -->
+  <select id="getLoanDebtList"  resultMap="loanDebtResult">
+  	SELECT
+   	<include refid="loanDebt_columns"/>
+   	FROM LOAN_DEBT
+   	<dynamic prepend="WHERE">
+   		<isNotNull prepend="AND" property="dueNo" >
+        	 DUE_NO=#dueNo#
+      	</isNotNull>
+      	<isNotNull prepend="AND" property="termNo" >
+        	 TERM_NO=#termNo#
+      	</isNotNull>
+   	</dynamic>
+  </select>
+  
+  
+
+ <!-- 删除欠款实体 -->
+  <delete id="delLoanDebt" parameterClass="com.dx.loan.debt.bean.DebtBean" >
+     DELETE FROM LOAN_DEBT
+     WHERE 1=1
+    <isNotNull prepend="AND" property="dueNo" >
+        DUE_NO = #dueNo#
+    </isNotNull>
+  </delete>
+  
+  <!--保存欠款实体 -->   
+  <insert id="saveLoanDebt" parameterClass="com.dx.loan.debt.bean.DebtBean" >
+    INSERT INTO LOAN_DEBT (DUE_NO, 
+    					   TERM_NO, 
+    					   DEB_CAPITAL, 
+    					   DEB_INTST, 
+    					   DEB_CMPDINTST, 
+    					   DEB_OVERINTST,
+      					   DEB_ACC_FEE,
+      					   CIF_NO,
+      					   BEG_DATE,
+      					   END_DATE) VALUES (
+      					   #dueNo#, 
+      					   #termNo#, 
+      					   #debCapital#, 
+      					   #debIntst#,
+      					   #debCmpdintst#, 
+      					   #debOverintst#, 
+      					   #debAccFee#,
+      					   #cifNo#,
+      					   #begDate#,
+      					   #endDate#
+      					   )
+  </insert>
+  <!-- 更新欠款实体 -->
+  <update id="updateLoanDebt" >
+    UPDATE LOAN_DEBT
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="dueNo" >
+        DUE_NO = #dueNo#
+      </isNotNull>
+      <isNotNull prepend="," property="termNo" >
+        TERM_NO = #termNo#
+      </isNotNull>
+      <isNotNull prepend="," property="debCapital" >
+        DEB_CAPITAL = #debCapital#
+      </isNotNull>
+      <isNotNull prepend="," property="debIntst" >
+        DEB_INTST = #debIntst#
+      </isNotNull>
+      <isNotNull prepend="," property="debCmpdintst" >
+        DEB_CMPDINTST = #debCmpdintst#
+      </isNotNull>
+      <isNotNull prepend="," property="debOverintst" >
+        DEB_OVERINTST = #debOverintst#
+      </isNotNull>
+      <isNotNull prepend="," property="debAccFee" >
+        DEB_ACC_FEE = #debAccFee#
+      </isNotNull>
+    </dynamic>
+   	 WHERE  1=1
+    <isNotNull prepend="AND" property="dueNo" >
+        DUE_NO = #dueNo#
+      </isNotNull>
+  </update>
+ 
+</sqlMap>

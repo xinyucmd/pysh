@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <bean id="schedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="triggerInTime" />
+				<ref bean="cronReportTriggerDay"/>
+				<ref bean="cronReportTriggerMonth"/>
+				<ref bean="cronReportTriggerDebt"/>
+				<ref bean="JobSysBaseStatisTime"/>
+				<ref bean="JobBatchDoBonusTime"/>
+				<ref bean="cronReprotTriggerReward"/>
+				<ref bean="cronReprotTriggerBonus"/>
+				<ref bean="cronReprotTriggerOuterTask"/>
+				<ref bean="cronReportTriggerExamination"/>
+				<ref bean="JobTyjTaskTime"/>
+				<ref bean="JobEmployeeReymentTime"/>
+			    <ref bean="JobNovemberInvestAmountTime"/>
+			    <ref bean="JobDecemberInvestAmountTime"/>
+				
+			</list>
+		</property>
+		<property name="configLocation" value="classpath:quartz.properties" />
+	</bean>
+	<!-- 时时任务 -->
+	<bean id="triggerInTime" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="jobInTime" />
+		<property name="startDelay" value="300000" />
+		<property name="repeatInterval" value="300000" />
+	</bean>
+	<bean id="jobInTime" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobInTimeTask"></property>
+	</bean>
+	
+	<bean id="cronReprotTriggerReward" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobRewardTask"></property>
+		<property name="cronExpression">
+			<value>0 0 23 * * ?</value>
+		</property>
+	</bean>
+	<!--
+	<bean id="cronReprotTriggerReward" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobRewardTask"></property>
+		<property name="cronExpression">
+			<value>0 0/5 * * * ?</value>
+		</property>
+	</bean>
+	-->
+	<bean id="cronReprotTriggerBonus" class="org.springframework.scheduling.quartz.CronTriggerBean" >
+		<property name="jobDetail" ref="jobBonusTask"></property>
+		<property name="cronExpression">
+			<value>50 * * * * ?</value>
+		</property>
+	</bean>
+	 
+	<bean id="cronReprotTriggerOuterTask" class="org.springframework.scheduling.quartz.CronTriggerBean" >
+		<property name="jobDetail" ref="jobOuterTask"></property>
+		<property name="cronExpression">
+			<value>0 0/5 * * * ?</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="jobRewardTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobRewardTask"></property>
+	</bean>
+	
+	<bean id="jobBonusTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobBonusTask"></property>
+	</bean>
+	
+	<bean id="jobOuterTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobOuterTask"></property>
+	</bean>
+	
+    <!-- 每日凌晨0点0分0秒启动定时器 -->
+	<bean id="cronReportTriggerDay" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDayTask" />
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+    </bean>
+    <bean id="jobDayTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobDayTask"></property>
+	</bean>
+	
+	<!-- 每月1号凌晨0点0分0秒启动定时器 -->
+	<bean id="cronReportTriggerMonth" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobMonthTask" />
+		<property name="cronExpression">
+			<value>0 0 0 1 * ?</value>
+		</property>
+    </bean>
+    <bean id="jobMonthTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobMonthTask"></property>
+	</bean>
+	
+	<!-- 每日凌晨0点0分0秒启动定时器 -->
+	<bean id="cronReportTriggerDebt" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDebtTask" />
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+    </bean>
+    <bean id="jobDebtTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobDebtTask"></property>
+	</bean>
+	
+	<!-- 每日凌晨0点0分0秒启动定时器 -->
+	<bean id="JobSysBaseStatisTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobSysBaseStatis" />
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+    </bean>
+    <bean id="jobSysBaseStatis" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobSysBaseStatis"></property>
+	</bean>
+	
+	<!-- P处理过期红包  -每日凌晨0点0分0秒启动定时器-->
+	<bean id="JobBatchDoBonusTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobBatchDoBonus" />
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+    </bean>
+    <bean id="jobBatchDoBonus" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobBatchDoBonus"></property>
+	</bean>
+	
+	<!-- 每日23点0分0秒启动定时器 -->
+	<bean id="cronReportTriggerExamination" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobExaminationTask" />
+		<property name="cronExpression">
+			<value>0 0 23 * * ?</value>
+		</property>
+    </bean>
+    <bean id="jobExaminationTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobExaminationTask"></property>
+	</bean>
+	
+	<!-- 每日23点30分0秒启动定时器 -->
+	<bean id="JobTyjTaskTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobTyjTask" />
+		<property name="cronExpression">
+			<value>0 58 23 * * ?</value>
+		</property>
+    </bean>
+    <bean id="jobTyjTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobTyjTask"></property>
+	</bean>
+	
+	
+	<!-- 每月8号晚上10点15分开始处理员工还款 -->
+	<bean id="JobEmployeeReymentTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobEmployeeReymentTask" />
+		<property name="cronExpression">
+			<value>0 15 22 8 * ?</value>
+		</property>
+    </bean>
+    <bean id="jobEmployeeReymentTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobEmployeeRepayment"></property>
+	</bean>
+	
+	<!-- 每月1日6点 执行   -->
+	<bean id="JobNovemberInvestAmountTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobNovemberInvestAmountTask" />
+		<property name="cronExpression">
+			<value>0 0 6 1 * ?</value>
+		</property>
+    </bean>
+  
+    <bean id="jobNovemberInvestAmountTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobNovemberInvestAmountTask"></property>
+	</bean>
+	
+	<!-- 2015-12活动     -->
+	<bean id="JobDecemberInvestAmountTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDecemberInvestAmountTask" />
+		<property name="cronExpression">
+				<value>0 10 23 * * ?</value>
+		</property>
+    </bean>
+  
+    <bean id="jobDecemberInvestAmountTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.sp2p.task.JobDecemberInvestAmountTask"></property>
+	</bean>
+	
+</beans>

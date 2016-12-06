@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<!-- 不使用namespace是由于sql搜索定位会比较方便 -->
+<sqlMap>
+	<!-- 贷款后检查报告主表 -->
+	<typeAlias alias="AftChk" type="com.dx.collect.bean.AftChk" />
+
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.AftChk" class="AftChk">
+		<result property="chkId" column="CHK_ID" />
+		<result property="pactNo" column="PACT_NO" />
+		<result property="aftType" column="AFT_TYPE" />
+		<result property="cifNo" column="CIF_NO" />
+		<result property="cifName" column="CIF_NAME" />
+		<result property="chkDate" column="CHK_DATE" />
+		<result property="prdtNo" column="PRDT_NO" />
+		<result property="lnUse" column="LN_USE" />
+		<result property="begDate" column="BEG_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="expEndDate" column="EXP_END_DATE" />
+		<result property="termMon" column="TERM_MON" />
+		<result property="termDay" column="TERM_DAY" />
+		<result property="vouType" column="VOU_TYPE" />
+		<result property="ifUse" column="IF_USE" />
+		<result property="ifCarry" column="IF_CARRY" />
+		<result property="attitude" column="ATTITUDE" />
+		<result property="chkDesc" column="CHK_DESC" />
+		<result property="pactAmt" column="PACT_AMT" />
+		<result property="bal" column="BAL" />
+		<result property="intst" column="INTST" />
+		<result property="fivSts" column="FIV_STS" />
+		<result property="tel" column="TEL" />
+		<result property="aftChkType" column="AFT_CHK_TYPE" />
+		<result property="cifdesc1" column="CIFDESC1" />
+		<result property="cifdesc2" column="CIFDESC2" />
+		<result property="cifdesc3" column="CIFDESC3" />
+		<result property="cifdesc4" column="CIFDESC4" />
+		<result property="cifdesc5" column="CIFDESC5" />
+		<result property="voudesc1" column="VOUDESC1" />
+		<result property="voudesc2" column="VOUDESC2" />
+		<result property="voudesc3" column="VOUDESC3" />
+		<result property="voudesc4" column="VOUDESC4" />
+		<result property="means" column="MEANS" />
+		<result property="mangNo" column="MANG_NO" />
+		<result property="mangName" column="MANG_NAME" />
+		<result property="manager" column="MANAGER" />
+		<result property="managerName" column="MANAGER_NAME" />
+		<result property="brNo" column="BR_NO" />
+		<result property="opNo" column="OP_NO" />
+		<result property="txDate" column="TX_DATE" />
+		<result property="upDate" column="UP_DATE" />
+		<result property="filler" column="FILLER" />
+		<result property="ifChkEnd" column="IF_CHK_END" />
+		<result property="chkEndDesc" column="CHK_END_DESC" />
+		<result property="chk_list" column="CHK_LIST" />
+		<result property="aft_risk_lev" column="AFT_RISK_LEV" />
+		<result property="chk_result" column="CHK_RESULT" />
+		<result property="aft_classify" column="AFT_CLASSIFY" />
+		<result property="ifinto_collect" column="IFINTO_COLLECT" />
+		<result property="collect_method" column="COLLECT_METHOD" />
+		<result property="collect_reason" column="COLLECT_REASON" />
+		<result property="term_no" column="TERM_NO" />
+	</resultMap>
+
+	<!-- 贷后调查报告中需要的合同信息 -->
+	<resultMap id="RM.AftChkFromLnPact" class="AftChk">
+		<result property="cifNo" column="CIF_NO" />
+		<result property="cifName" column="CIF_NAME" />
+		<result property="pactNo" column="PACT_NO" />
+		<result property="pactAmt" column="PACT_AMT" />
+		<result property="prdtNo" column="PRDT_NO" />
+		<result property="begDate" column="BEG_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="vouType" column="VOU_TYPE" />
+	</resultMap>
+
+	<!-- 表字段 -->
+	<sql id="AftChk.columns">
+        <![CDATA[
+            CHK_ID,
+            PACT_NO,
+            AFT_TYPE,
+            CIF_NO,
+            CIF_NAME,
+            CHK_DATE,
+            PRDT_NO,
+            LN_USE,
+            BEG_DATE,
+            END_DATE,
+            EXP_END_DATE,
+            TERM_MON,
+            TERM_DAY,
+            VOU_TYPE,
+            IF_USE,
+            IF_CARRY,
+            ATTITUDE,
+            CHK_DESC,
+            PACT_AMT,
+            BAL,
+            INTST,
+            FIV_STS,
+            TEL,
+            AFT_CHK_TYPE,
+            CIFDESC1,
+            CIFDESC2,
+            CIFDESC3,
+            CIFDESC4,
+            CIFDESC5,
+            VOUDESC1,
+            VOUDESC2,
+            VOUDESC3,
+            VOUDESC4,
+            MEANS,
+            MANG_NO,
+            MANG_NAME,
+            MANAGER,
+            MANAGER_NAME,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            IF_CHK_END,
+            CHK_END_DESC,
+            CHK_LIST,
+            AFT_RISK_LEV,
+            CHK_RESULT,
+            AFT_CLASSIFY,
+            IFINTO_COLLECT,
+            COLLECT_METHOD,
+            COLLECT_REASON,
+            TERM_NO
+        ]]>
+	</sql>
+
+	<!-- 表新增 -->
+	<insert id="AftChk.insert">
+        <![CDATA[
+          INSERT INTO AFT_CHK(
+            CHK_ID,
+            PACT_NO,
+            AFT_TYPE,
+            CIF_NO,
+            CIF_NAME,
+            CHK_DATE,
+            PRDT_NO,
+            LN_USE,
+            BEG_DATE,
+            END_DATE,
+            EXP_END_DATE,
+            TERM_MON,
+            TERM_DAY,
+            VOU_TYPE,
+            IF_USE,
+            IF_CARRY,
+            ATTITUDE,
+            CHK_DESC,
+            PACT_AMT,
+            BAL,
+            INTST,
+            FIV_STS,
+            TEL,
+            AFT_CHK_TYPE,
+            CIFDESC1,
+            CIFDESC2,
+            CIFDESC3,
+            CIFDESC4,
+            CIFDESC5,
+            VOUDESC1,
+            VOUDESC2,
+            VOUDESC3,
+            VOUDESC4,
+            MEANS,
+            MANG_NO,
+            MANG_NAME,
+            MANAGER,
+            MANAGER_NAME,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            IF_CHK_END,
+            CHK_END_DESC,
+            CHK_LIST,
+            AFT_RISK_LEV,
+            CHK_RESULT,
+            AFT_CLASSIFY,
+            IFINTO_COLLECT,
+            COLLECT_METHOD,
+            COLLECT_REASON,
+            TERM_NO
+           ) 
+            VALUES(
+            #chkId#,
+            #pactNo#,
+            #aftType#,
+            #cifNo#,
+            #cifName#,
+            #chkDate#,
+            #prdtNo#,
+            #lnUse#,
+            #begDate#,
+            #endDate#,
+            #expEndDate#,
+            #termMon#,
+            #termDay#,
+            #vouType#,
+            #ifUse#,
+            #ifCarry#,
+            #attitude#,
+            #chkDesc#,
+            #pactAmt#,
+            #bal#,
+            #intst#,
+            #fivSts#,
+            #tel#,
+            #aftChkType#,
+            #cifdesc1#,
+            #cifdesc2#,
+            #cifdesc3#,
+            #cifdesc4#,
+            #cifdesc5#,
+            #voudesc1#,
+            #voudesc2#,
+            #voudesc3#,
+            #voudesc4#,
+            #means#,
+            #mangNo#,
+            #mangName#,
+            #manager#,
+            #managerName#,
+            #brNo#,
+            #opNo#,
+            #txDate#,
+            #upDate#,
+            #filler#,
+            #ifChkEnd#,
+            #chkEndDesc#,
+            #chk_list#,
+            #aft_risk_lev#,
+            #chk_result#,
+            #aft_classify#,
+            #ifinto_collect#,
+	#collect_method#,
+	#collect_reason#,
+	#term_no#
+            )
+        ]]>
+
+		<!-- 查询该表的序列值 -->
+		<selectKey resultClass="java.lang.String" type="pre"
+			keyProperty="chkId">
+			SELECT AFT_CHK_SEQ.nextval AS CHK_ID FROM DUAL
+		</selectKey>
+	</insert>
+
+
+	<!-- 表删除 -->
+	<delete id="AftChk.del">
+        <![CDATA[
+               DELETE FROM AFT_CHK
+                 WHERE
+               CHK_ID=#chkId#
+        ]]>
+	</delete>
+
+	<!-- 表修改 -->
+	<update id="AftChk.update">
+        <![CDATA[
+            UPDATE AFT_CHK set 
+               CHK_ID=#chkId#,
+               PACT_NO=#pactNo#,
+               AFT_TYPE=#aftType#,
+               CIF_NO=#cifNo#,
+               CIF_NAME=#cifName#,
+               CHK_DATE=#chkDate#,
+               PRDT_NO=#prdtNo#,
+               LN_USE=#lnUse#,
+               BEG_DATE=#begDate#,
+               END_DATE=#endDate#,
+               EXP_END_DATE=#expEndDate#,
+               TERM_MON=#termMon#,
+               TERM_DAY=#termDay#,
+               VOU_TYPE=#vouType#,
+               IF_USE=#ifUse#,
+               IF_CARRY=#ifCarry#,
+               ATTITUDE=#attitude#,
+               CHK_DESC=#chkDesc#,
+               PACT_AMT=#pactAmt#,
+               BAL=#bal#,
+               INTST=#intst#,
+               FIV_STS=#fivSts#,
+               TEL=#tel#,
+               AFT_CHK_TYPE=#aftChkType#,
+               CIFDESC1=#cifdesc1#,
+               CIFDESC2=#cifdesc2#,
+               CIFDESC3=#cifdesc3#,
+               CIFDESC4=#cifdesc4#,
+               CIFDESC5=#cifdesc5#,
+               VOUDESC1=#voudesc1#,
+               VOUDESC2=#voudesc2#,
+               VOUDESC3=#voudesc3#,
+               VOUDESC4=#voudesc4#,
+               MEANS=#means#,
+               MANG_NO=#mangNo#,
+               MANG_NAME=#mangName#,
+               MANAGER=#manager#,
+               MANAGER_NAME=#managerName#,
+               BR_NO=#brNo#,
+               OP_NO=#opNo#,
+               TX_DATE=#txDate#,
+               UP_DATE=#upDate#,
+               FILLER=#filler#,
+               IF_CHK_END=#ifChkEnd#,
+               CHK_END_DESC=#chkEndDesc#,
+               CHK_LIST=#chk_list#,
+               AFT_RISK_LEV=#aft_risk_lev#,
+              AFT_CLASSIFY =#aft_classify#,
+              IFINTO_COLLECT= #ifinto_collect#,
+			COLLECT_METHOD=	#collect_method#,
+			COLLECT_REASON=	#collect_reason# ,
+              TERM_NO=#term_no#
+            WHERE
+                CHK_ID=#chkId#
+        ]]>
+	</update>
+	<!-- 表修改 -->
+	<update id="AftChk.updateForChkId">
+        <![CDATA[
+            UPDATE AFT_CHK set 
+               CHK_RESULT=#chk_result#
+            WHERE
+                CHK_ID=#chkId#
+        ]]>
+	</update>
+
+	<!-- 表查询ById -->
+	<select id="AftChk.getById" resultMap="RM.AftChk">
+		SELECT
+		<include refid="AftChk.columns" />
+        <![CDATA[
+             FROM Aft_Chk
+         WHERE 
+             CHK_ID = #chkId# 
+        ]]>
+	</select>
+
+	<!-- 分页查询条件 -->
+	<sql id="AftChk.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="cifNo">
+				<isNotEmpty prepend="AND" property="cifNo">
+					CIF_NO=#cifNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cifName">
+				<isNotEmpty prepend="AND" property="cifName">
+					CIF_NAME=#cifName#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pactNo">
+				<isNotEmpty prepend="AND" property="pactNo">
+					PACT_NO=#pactNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="filler"><!-- filler里面装的是客户类型的值 -->
+				<isNotEmpty prepend="AND" property="filler">
+					substr(CIF_NO,1,1)=#filler#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="opNo">
+				<isNotEmpty prepend="AND" property="opNo">
+					OP_NO=#opNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="opNo">
+				<isNotEmpty prepend="AND" property="opNo">
+					OP_NO=#opNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="brNo">
+				<isNotEmpty prepend="AND" property="brNo">
+					BR_NO=#brNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="term_no">
+				<isNotEmpty prepend="AND" property="term_no">
+					TERM_NO=#term_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+
+	<!-- 分页查询记录数 -->
+	<select id="AftChk.findPage.count" resultClass="int">
+		SELECT count(*) FROM AFT_CHK
+		<include refid="AftChk.findPage.where" />
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="AftChk.findByPage" resultMap="RM.AftChk">
+		SELECT
+		<include refid="AftChk.columns" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="AftChk.columns" />
+		FROM AFT_CHK
+		<include refid="AftChk.findPage.where" />
+		) m
+		WHERE rownum &lt;#endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+
+	<!-- 根据合同号查询该合同是否存在首次贷后调查报告 -->
+	<select id="AftChk.IsExistFirstAftChk" resultClass="int">
+		SELECT
+		count(*) FROM AFT_CHK WHERE PACT_NO=#pactNo# AND AFT_TYPE='1'
+	</select>
+
+	<!-- 贷款后检查报告主表结束 -->
+
+
+
+
+	<!-- 表查询ByPactNo -->
+	<select id="LnPact.getLnPactByPactNoForAftChk" resultMap="RM.AftChkFromLnPact">
+		SELECT 
+        <![CDATA[
+        	 CIF_NO,
+        	 CIF_NAME,
+        	 PACT_NO,
+        	 PACT_AMT,
+        	 PRDT_NO,
+        	 BEG_DATE,
+        	 END_DATE,
+        	 VOU_TYPE
+        	 
+             FROM LN_PACT
+         WHERE 
+             PACT_NO = #pactNo# 
+        ]]>
+	</select>
+	<select id="AftChk.findByPact" resultMap="RM.AftChk">
+		SELECT *
+		FROM aft_chk
+		WHERE
+		PACT_NO = #pactNo# and term_no= #term_no#
+	</select>
+
+
+	<!-- 分页查询条件 -->
+	<sql id="LnPact.findPageForAftChk.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="cifNo">
+				<isNotEmpty prepend="AND" property="cifNo">
+					CIF_NO=#cifNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cifName">
+				<isNotEmpty prepend="AND" property="cifName">
+					CIF_NAME LIKE
+					'%'||#cifName#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pactNo">
+				<isNotEmpty prepend="AND" property="pactNo">
+					PACT_NO=#pactNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="icType"><!-- icType里面装的是客户类型的值 -->
+				<isNotEmpty prepend="AND" property="icType">
+					cif_no in (select
+					cif_no from cif_base where cif_type=#icType#)
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="mangNo">
+				<isNotEmpty prepend="AND" property="mangNo">
+					MANG_NO=#mangNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="mangBrno">
+				<isNotEmpty prepend="AND" property="mangBrno">
+					MANG_BRNO=#mangBrno#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="brNo">
+				<isNotEmpty prepend="AND" property="brNo">
+					BR_NO=#brNo#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="LnPact.findPageForAftChk.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT
+		<include refid="LnPact.findPageForAftChk.where" />
+	</select>
+	<!-- 合同表结束 -->
+	<!-- 根据产品号查询对应的业务品种类型 -->
+	<select id="AftChk.getLntypeWithPrdtNo" resultClass="String">
+		SELECT
+		LN_TYPE FROM PROD_BASE WHERE PRDT_NO=#parmprdtNo#
+	</select>
+	<select id="AftChk.getBrnoLev" resultClass="String">
+		SELECT BR_LEV FROM
+		TBL_ORG_DEPARTMENTS WHERE BR_NO=#brno#
+	</select>
+</sqlMap>

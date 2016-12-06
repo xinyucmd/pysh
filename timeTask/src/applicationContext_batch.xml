@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	
+	xsi:schemaLocation="  
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd  
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd  
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+		
+	 <!-- 方便外部bean调用spring管理的bean -->
+	 <bean class="com.dx.common.util.SpringFactory"     lazy-init="false"/>
+	 <!-- 系统参数初始化 -->
+	 <bean id="initserver" class="com.dx.init.SystemInit" init-method="init"> 
+		<property name="systemDateServices" ref="systemDateServices"></property> 
+	 </bean>
+	 
+	
+    	
+	<!-- 引入登录配置避免配置文件过大 -->
+		<!-- cxf  开始 -->
+		<!--  
+		<import resource="classpath:META-INF/cxf/cxf.xml"/>
+		-->
+		<!-- 
+    	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+		 -->
+		<!--  
+    	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+		-->
+		<!-- cxf  结束 -->
+		<import resource="com/dx/login/spring-config/*.xml"/>
+		<import resource="com/dx/loan/repay/spring-config/*.xml"/>
+		<import resource="com/dx/loan/normrate/spring-config/*.xml"/>
+		<import resource="com/dx/loan/putout/spring-config/*.xml"/>
+		<import resource="com/dx/loan/plan/spring-config/*.xml"/>
+		<import resource="com/dx/collect/spring-config/*.xml"/>
+		<!-- 日终计算 -->
+		<import resource="com/dx/loan/dayrate/spring-config/*.xml"/>
+		<!-- 系统日期  -->
+		<import resource="com/dx/back/systemdate/spring-config/*.xml"/>
+		<!-- 费用计算  -->
+		<import resource="com/dx/loan/fee/spring-config/*.xml"/>
+		
+		<!--欠款业务 -->
+		<import resource="com/dx/loan/debt/spring-config/*.xml"/>
+		
+		<!-- 信贷批量  -->
+		<import resource="app/batch/spring-config/*.xml"/>
+		
+		<import resource="com/dx/finance/voucher/spring-config/*.xml"/>
+		 <import resource="com/dx/payment/spring-config/*.xml"/>
+	<!-- aop日志功能 开始-->
+	  
+	<bean id="aopLog" class="com.dx.common.aoplog.AopLog"></bean>
+	
+	<aop:config>
+		<aop:aspect ref="aopLog" id="myLog">
+			<aop:pointcut id="pointcut"	expression="execution(* com.dx.*.dao.impl.*.*(..))" />
+			<aop:before pointcut-ref="pointcut" method="beforeAdvice"/>
+			<aop:after-throwing pointcut-ref="pointcut" method="exceptionAdvice" throwing="ex"/>  
+		</aop:aspect>
+	</aop:config>
+		
+	<!-- aop日志功能 结束 -->
+
+	<!-- 国际化支持开始 -->
+	<!--
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="resourse/messages" />
+	</bean>
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+		-->
+	<!-- 国际化支持结束 -->
+	
+	<!-- 配置数据局源开始 -->
+	 <!-- 数据库资源文件
+	 <context:property-placeholder location="classpath:resourse/oracle.properties"/>
+	 <context:property-placeholder location="classpath:resourse/sqlserver.properties"/>
+	  	-->
+	 <context:property-placeholder location="classpath:resources/oracle.properties"/>
+	 <!-- dbcp 配置开始 -->
+	 <!--  
+	<bean id = "dataSource"   class ="org.apache.commons.dbcp.BasicDataSource">  
+         <property name="driverClassName">  
+             <value>${jdbc.driverClassName}</value>  
+         </property>  
+         <property name="url">  
+             <value>${jdbc.url}</value> 
+         </property> 
+         <property name="username"> 
+             <value>${jdbc.userName}</value> 
+         </property> 
+         <property name="password"> 
+             <value>${jdbc.password}</value> 
+         </property> 
+         <property name="maxActive"> 
+             <value>${jdbc.maxActive}</value> 
+         </property> 
+         <property name="maxIdle"> 
+             <value>${jdbc.maxIdle}</value> 
+         </property> 
+     </bean>
+	-->
+	 <!-- dbcp 配置结束-->
+	 
+	 <bean id="dataSource"
+        class="com.mchange.v2.c3p0.ComboPooledDataSource"
+        destroy-method="close">
+        <property name="driverClass">
+           <value>${jdbc.driverClassName}</value>  
+        </property>
+        <property name="jdbcUrl">
+          <value>${jdbc.url}</value> 
+        </property>
+        <property name="user">
+            <value>${jdbc.userName}</value>
+        </property>
+        <property name="password">
+            <value>${jdbc.password}</value> 
+        </property>
+ 
+ <!--连接池中保留的最小连接数。-->
+        <property name="minPoolSize">
+            <value>5</value>
+        </property>
+ 
+ <!--连接池中保留的最大连接数。Default: 15 -->
+        <property name="maxPoolSize">
+            <value>30</value>
+        </property>
+ 
+<!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+        <property name="initialPoolSize">
+            <value>10</value>
+        </property>
+ 
+ <!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="maxIdleTime">
+            <value>60</value>
+        </property>
+ 
+ <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+        <property name="acquireIncrement">
+            <value>5</value>
+        </property>
+ 
+ <!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements
+  属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。
+  如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0-->
+        <property name="maxStatements">
+            <value>1000</value>
+        </property>
+ 
+ <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+        <property name="idleConnectionTestPeriod">
+            <value>60</value>
+        </property>
+ 
+ <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+        <property name="acquireRetryAttempts">
+            <value>30</value>
+        </property>
+ 
+ <!--获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常。但是数据源仍有效
+  保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试
+  获取连接失败后该数据源将申明已断开并永久关闭。Default: false-->
+        <property name="breakAfterAcquireFailure">
+            <value>true</value>
+        </property>
+ 
+ <!--因性能消耗大请只在需要的时候使用它。如果设为true那么在每个connection提交的
+  时候都将校验其有效性。建议使用idleConnectionTestPeriod或automaticTestTable
+  等方法来提升连接测试的性能。Default: false -->
+        <property name="testConnectionOnCheckout">
+            <value>false</value>
+        </property>
+    </bean>
+	 
+	 
+	<!-- 配置数据局源结束 -->
+	
+	<!-- jdbc模板配置开始 -->
+	<!--
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    -->
+	<!-- jdbc模板配置结束 -->
+	
+	
+		<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 事务拦截器 配置哪些方法是有那周事物传播属性-->
+    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager"/>
+     	<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">readOnly</prop>  
+			</props>
+		</property>
+	</bean>
+	<!-- 事务代理 对所有以ServiceImpl结尾的类使用事物-->
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+ 		<property name="beanNames">
+ 			<list>
+ 			  <value>*ServiceImpl</value>
+ 			</list>
+ 		</property>
+ 		<property name="interceptorNames">     
+           <list>
+               <value>transactionInterceptor</value>
+           </list>     
+       </property>
+ 	</bean>
+ 	<!-- ibatis 配置开始 -->
+ 
+ 		<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:sql-map-config.xml</value>
+		</property>
+		<property name="mappingLocations">
+		<list>
+			<value>classpath*:/com/dx/login/ibatis-config/*.xml</value>
+			<value>classpath*:/com/dx/loan/repay/ibatis-config/*.xml</value>
+			<value>classpath*:/com/dx/loan/normrate/ibatis-config/*.xml</value>
+			<value>classpath*:/com/dx/loan/putout/ibatis-config/*.xml</value>
+			<value>classpath*:/com/dx/loan/plan/ibatis-config/*.xml</value>
+			<value>classpath*:/com/dx/collect/ibatis-config/*.xml</value>
+			<!-- 日终计算 -->
+			<value>classpath*:/com/dx/loan/dayrate/ibatis-config/*.xml</value>
+			<!-- 系统日期 -->
+			<value>classpath*:/com/dx/back/systemdate/ibatis-config/*.xml</value>
+			<!-- 费用计算-->
+			<value>classpath*:/com/dx/loan/fee/ibatis-config/*.xml</value>
+			<!-- 欠款业务-->
+			<value>classpath*:/com/dx/loan/debt/ibatis-config/*.xml</value>
+			<!-- 还款习惯-->
+			<value>classpath*:/com/dx/loan/repaydetails/ibatis-config/*.xml</value>
+			<!-- 新核算-->
+			<value>classpath*:/com/dx/payment/ibatis-config/*.xml</value>
+		</list>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+ 		<!-- ibatis 配置结束-->
+ 	<!-- 定时任务demo配置 -->
+ 	<!-- 第一步声明一个定时任务,声明一个JobDetailBean,通过jobClass属性设置一个定时对象 -->
+	<!-- 日常批量类 -->
+ 	<bean id="dayRate" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.dx.timetask.EveryDayRate</value>
+		</property>
+	</bean> 
+	<!-- 新日常批量类 -->
+ 	<bean id="newDayRate" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.dx.timetask.NewEveryDayRate</value>
+		</property>
+	</bean>
+	<!-- 信贷批量 -->
+	<bean id="loanBath" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>app.batch.LoanBatch</value>
+		</property>
+	</bean> 
+		<!-- 修复还款计划批量类 -->
+ 	<bean id="repairPlan" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.dx.timetask.RepairPlan</value>
+		</property>
+	</bean>
+	
+	<!-- 修复本金利息 类-->
+	<bean id="repairData" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.dx.timetask.RepairData</value>
+		</property>
+	</bean> 
+	<!-- 修复罚息 类 -->
+	<bean id="repairOverInterestData" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.dx.timetask.RepairOverInterestData</value>
+		</property>
+	</bean>
+	
+	
+	
+	
+ 	<!-- 第二步 调度定时任务  0  42 16 ? * *   0/5 * * * * ? -->
+ 	<!-- 定时日常批量 -->
+ 	<bean id="helloCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="dayRate"/>
+		</property>
+		<property name="cronExpression"> 
+			<value>0  46 12 ? * *</value>
+		</property>
+	</bean>
+	 	<!-- 新定时日常批量 -->
+ 	<bean id="newHelloCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="newDayRate"/>
+		</property>
+		<property name="cronExpression"> 
+			<value>0/15 * * * * ?</value>
+		</property>
+	</bean>
+	 	<bean id="repairPlanTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="repairPlan"/>
+		</property>
+		<property name="cronExpression"> 
+			<value>0/15 * * * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 信贷批量开始 -->
+
+	<bean id="loanBathTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="loanBath"/>
+		</property>
+		<property name="cronExpression"> 
+			<value>0 20 09 ? * *</value>
+		</property>
+	</bean>
+
+	
+	<!-- 定时修复本金利息 -->
+	<!-- 
+	<bean id="repairDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="repairData"/>
+		</property>
+		<property name="cronExpression"> 
+			<value>0 20 09 ? * *</value>
+		</property>
+	</bean>
+	 -->
+	<!-- 定时修复罚息 -->
+	<!--  
+	<bean id="repairOverInterestDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="repairOverInterestData"/>
+		</property>
+		<property name="cronExpression"> 
+			<value>0 08 17 ? * *</value>
+		</property>
+	</bean>
+	-->
+	
+<!-- 触发定时任务 -->
+<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+   <property name="triggers">
+    <list>
+     <ref bean="helloCronTrigger"></ref> 
+    </list>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+   </property>
+</bean>
+ 	<!-- 定时任务demo配置 -->
+ </beans>

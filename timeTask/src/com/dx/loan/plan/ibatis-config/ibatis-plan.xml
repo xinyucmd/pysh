@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <resultMap id="planResult" class="com.dx.loan.plan.bean.PlanBean">
+        <result column="PACT_NO" property="pactNo"/>
+        <result column="DUE_NO" property="dueNo"/>
+        <result column="TERM_NO" property="termNo"/>
+        <result column="RETURN_CAPITAL" property="returnCapital"/>
+        <result column="RETURN_INTEREST" property="returnInterest"/>
+        <result column="BEG_Date" property="begDate"/>
+        <result column="END_DATE" property="endDate"/>
+        <result column="STATE" property="state"/>
+        <result column="DUE_BAL" property="dueBal"/>
+        <result column="DUE_AMT" property="dueAmt"/>
+        <result column="CIF_NO" property="cifNo"/>
+        <result column="ACC_FEE" property="accFee"/>
+        <result column="PERF_AMOUNT" property="perfAmount"/>
+       	<!-- 是否有欠款 0 没有 1有 -->
+        <result column="IS_DEBT" property="isDebt"/>
+    </resultMap>
+   <sql id="planResult_columns">
+   		<![CDATA[PACT_NO,
+   				 DUE_NO,
+   				 TERM_NO,
+   				 RETURN_CAPITAL,
+   				 RETURN_INTEREST,
+   				 BEG_DATE,
+   				 END_DATE,
+   				 STATE,
+   				 DUE_BAL,
+   				 DUE_AMT,
+   				 CIF_NO,
+   				 ACC_FEE,
+   				 IS_DEBT,
+   				 PERF_AMOUNT
+   				 ]]>
+   </sql>
+   
+    <select id="getNormalPlanList" parameterClass="String" resultMap="planResult"  >
+        select 
+        <include refid="planResult_columns"/>
+       	<![CDATA[
+        	from loan_ac_ln_mst t, loan_plan p
+        	where t.due_no = p.due_no
+   			and p.state = '0'
+   			and p.beg_date < #systemDate#
+   			and p.end_date >= #systemDate#
+        ]]>
+    </select>
+    
+    
+    
+    
+    <select id="getOverPlanList" resultMap="planResult">
+        select 
+        <include refid="planResult_columns"/>
+        <![CDATA[
+        	from loan_plan
+        	where STATE =3 order by to_number(term_no)
+        ]]>
+    </select>
+    
+    
+    <select id="getPlan"  resultMap="planResult" parameterClass="com.dx.loan.plan.bean.PlanBean">
+    	   SELECT 
+        <include refid="planResult_columns"/>
+        FROM LOAN_PLAN  
+        <dynamic  prepend="WHERE">
+	        
+	        <isNotNull prepend="," property="pactNo">  
+	    	 		PACT_NO=#pactNo#
+	    	 </isNotNull> 
+        	
+	        <isNotNull prepend="," property="dueNo">  
+	    	 		DUE_NO=#dueNo#
+	    	 </isNotNull> 
+        	
+        	<isNotNull  prepend="AND" property="state">
+	    	 		STATE=#state#
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND" property="isDebt">
+        		IS_DEBT=#isDebt#
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND" property="termNo">
+        		TERM_NO=#termNo#
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND" property="begDate">
+        		   <![CDATA[BEG_DATE<#begDate#]]>
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND" property="endDate">
+        		   <![CDATA[END_DATE>=#endDate#]]>
+        	</isNotNull>
+        	
+        	
+        </dynamic>
+    order by to_number(term_no)
+    </select>
+    
+    <!-- 批量插入还款计划 -->
+    <insert id="savePlanList" parameterClass="com.dx.loan.plan.bean.PlanBean">
+      	 INSERT INTO LOAN_PLAN  (PACT_NO,
+				   				 DUE_NO,
+				   				 TERM_NO,
+				   				 RETURN_CAPITAL,
+				   				 RETURN_INTEREST,
+				   				 BEG_DATE,
+				   				 END_DATE,
+				   				 STATE,
+				   				 DUE_BAL,
+				   				 DUE_AMT,
+				   				 CIF_NO,
+				   				 ACC_FEE,
+				   				 IS_DEBT,
+				   				 PERF_AMOUNT) VALUES 
+      	   <![CDATA[ 
+          	(#pactNo#,
+          	 #dueNo#,
+          	 #termNo#,
+          	 #returnCapital#,
+          	 #returnInterest#,
+          	 #begDate#,
+          	 #endDate#,
+          	 #state#,
+          	 #dueBal#,
+          	 #dueAmt#,
+          	 #cifNo#,
+          	 #accFee#,
+          	 #isDebt#,
+          	 #perfAmount#  	 
+          	 )
+      		]]> 
+	</insert> 
+    <!--查询截止到当前日期为止的所有还款计划 -->
+     <select id="getPlanBeans" resultMap="planResult" >
+	  select 
+        <include refid="planResult_columns"/>
+       	<![CDATA[
+        	from  loan_plan p
+        	where  p.state = '3'
+        	and p.end_date <=  #currDate# order by to_number(p.term_no)
+        ]]>
+    </select>
+     <!--查询截止到当前日期为止的所有还款计划 -->
+     <select id="getPlanBeanList" resultMap="planResult" >
+	  select 
+        <include refid="planResult_columns"/>
+       	<![CDATA[
+        	from  loan_plan p where p.due_no=#dueNo#
+        	  order by to_number(p.term_no)
+        ]]>
+    </select>
+        <select id="getRepayBeansOnSchedule" resultMap="planResult" >
+        select *
+   from loan_repay t, loan_plan p
+  where t.due_no = p.due_no
+    and t.term_no = p.term_no    
+    and t.occ_date=p.end_date
+    and t.return_capital+t.return_interest>=p.return_capital+p.return_interest
+		<isNotEmpty prepend="AND" property="dueNo">  
+		   t.DUE_NO=#dueNo#
+		</isNotEmpty>   
+	order by to_number(t.term_no);
+    </select>
+   <!-- 更新还款计划 --> 
+    <update id="updatePlan" parameterClass="com.dx.loan.plan.bean.PlanBean">
+    	<![CDATA[
+    		UPDATE LOAN_PLAN  
+    	]]>
+    	<dynamic prepend="SET">  
+    	
+    	<isNotNull prepend="," property="pactNo">  
+    	 		PACT_NO=#pactNo#
+    	 </isNotNull> 
+    	
+    	 <isNotNull prepend="," property="returnCapital">  
+    	 	RETURN_CAPITAL=#returnCapital#
+    	 </isNotNull> 
+    	 
+    	 <isNotNull prepend="," property="returnInterest">  
+    	 	RETURN_INTEREST=#returnInterest#
+    	 </isNotNull> 
+    	 
+    	  <isNotNull prepend="," property="state">  
+    	 	STATE=#state#
+    	 </isNotNull> 
+    	 
+    	  <isNotNull prepend="," property="dueBal">  
+    	 	DUE_BAL=#dueBal#
+    	 </isNotNull> 
+    	 
+    	  <isNotNull prepend="," property="dueAmt">  
+    	 	DUE_AMT=#dueAmt#
+    	 </isNotNull> 
+    	 
+    	   <isNotNull prepend="," property="isDebt">  
+    	 	IS_DEBT=#isDebt#
+    	 </isNotNull> 
+    	 
+    	 
+    	 </dynamic>  
+    	 WHERE   DUE_NO=#dueNo#  AND TERM_NO=#termNo#
+    </update>
+    
+    <!-- 批量更新还款计划 -->
+    
+    <update id="updatePlanList"  parameterClass="map">
+    	<![CDATA[
+    		UPDATE LOAN_PLAN      
+    	]]>
+    	<dynamic prepend="set">  
+          <isNotNull prepend="," property="state">            
+               STATE=#state#  
+           </isNotNull>  
+          <isNotNull prepend="," property="isDebt">            
+               IS_DEBT=#isDebt#  
+           </isNotNull>  
+      </dynamic>  
+    	 WHERE  DUE_NO=#dueNo#  
+        <iterate prepend="AND" property="planBeans" open="("     close=")"   conjunction="OR">
+                  TERM_NO=$planBeans[].termNo$ 
+        </iterate> 	
+    </update>
+    
+    
+    
+    <!-- 删除还款计划 -->
+    <delete  id="delPaln"  parameterClass="com.dx.loan.plan.bean.PlanBean">
+    	DELETE FROM  LOAN_PLAN WHERE 1=1
+    	<isNotEmpty prepend="AND" property="pactNo">  
+		   PACT_NO=#pactNo#
+		</isNotEmpty> 
+		
+		<isNotEmpty prepend="AND" property="dueNo">  
+		   DUE_NO=#dueNo#
+		</isNotEmpty> 
+		
+		<isNotEmpty prepend="AND" property="state">  
+		     STATE=#state#  
+		</isNotEmpty> 
+		
+		<isNotEmpty prepend="AND" property="begDate">  
+		   BEG_DATE=#begDate#
+		</isNotEmpty> 
+		
+		<isNotEmpty prepend="AND" property="endDate">  
+		   END_DATE=#endDate#
+		</isNotEmpty> 
+		
+	    <isNotEmpty prepend="AND" property="isDebt">  
+    	 	IS_DEBT=#isDebt#
+    	</isNotEmpty> 
+    </delete>
+    <select id="getOverduePlanList" resultMap="planResult" parameterClass="com.dx.loan.plan.bean.PlanBean">
+        select 
+        <include refid="planResult_columns"/>
+        from loan_plan   
+        <dynamic  prepend="WHERE">
+	        <isNotNull  prepend="AND" property="dueNo">
+	        		DUE_NO=#dueNo#
+	        </isNotNull>
+	        <isNotNull  prepend="AND" property="state">
+	        		state=#state#
+	        </isNotNull>
+        </dynamic>  order by to_number(term_no)
+    </select>
+</sqlMap>

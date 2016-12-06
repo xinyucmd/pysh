@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName" default-lazy-init="false">
+	
+<bean id="updateGlobalBO" class="app.batch.bo.UpdateGlobalBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+<bean id="updateCrXdBO" class="app.batch.bo.UpdateCrXdBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+<bean id="updateSelectDueBO" class="app.batch.bo.UpdateSelectDueBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+<bean id="fiveClassBo" class="app.batch.bo.FiveClassBo">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+<bean id="updateMonthBO" class="app.batch.bo.UpdateMonthBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+
+<bean id="rptTradeBO" class="app.batch.bo.RptTradeBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+
+<bean id="rptLoanBO" class="app.batch.bo.RptLoanstatBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+
+<bean id="sendMessageBO" class="app.batch.bo.SendMessageBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+<bean id="rptzjtxBO" class="app.batch.bo.RptzjtxBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+<bean id="updateDueBalBO" class="app.batch.bo.UpdateDueBalBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+
+<bean id="rptxydjBO" class="app.batch.bo.RptxydjBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+
+<bean id="rptwjflBO" class="app.batch.bo.RptwjflBO">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+</bean>
+
+<bean id="collectBO" class="app.batch.bo.CollectBO">
+	<property name="collectPolicyDAO"><ref bean="collectPolicyDAO"/></property>
+	<property name="collectionDAO"><ref bean="collectionDAO"/></property>
+	<property name="collectBrDAO"><ref bean="collectBrDAO"/></property>
+	<property name="repayDao"><ref bean="repayDao"/></property>
+	<property name="lnDueDao"><ref bean="lnDueDao"/></property>
+	<property name="tblOrgUserDAO"><ref bean="tblOrgUserDAO"/></property>
+</bean>
+</beans>
+

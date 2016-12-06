@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Account_Repay_Rel" type="com.dx.payment.bean.AccountRepayRel" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Account_Repay_Rel" class="Account_Repay_Rel">
+		<result property="id" column="ID" />
+		<result property="sub_no" column="SUB_NO" />
+		<result property="seq_no" column="SEQ_NO" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="due_no" column="DUE_NO" />
+		<result property="occure_date" column="OCCURE_DATE" />
+		<result property="account_no" column="ACCOUNT_NO"/>
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="account_repay_rel">
+        <![CDATA[
+              ID   		   ,
+              SUB_NO       ,
+			  SEQ_NO       ,
+			  PACT_NO      ,
+			  DUE_NO       ,
+			  OCCURE_DATE  	,
+			  ACCOUNT_NO
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="accountRepayRel.insert">
+        <![CDATA[
+          INSERT INTO ACCOUNT_REPAY_REL(
+              ID   		   ,
+              SUB_NO       ,
+			  SEQ_NO       ,
+			  PACT_NO      ,
+			  DUE_NO       ,
+			  OCCURE_DATE,
+			  ACCOUNT_NO
+           )VALUES(
+           	#id#,
+            #sub_no#,
+            #seq_no#,
+			#pact_no#,
+			#due_no#,
+			#occure_date#,
+			#account_no#
+            )
+        ]]>
+	</insert>
+	<!-- 表修改 -->
+	<update id="accountRepayRel.update">
+        <![CDATA[
+            UPDATE ACCOUNT_REPAY_REL set
+                 WHERE
+               ACCOUNT_NO = #account_no#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="accountRepayRel.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="account_no">
+				<isNotEmpty prepend="AND" property="account_no">
+					ACCOUNT_NO = #account_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="due_no">
+				<isNotEmpty prepend="AND" property="due_no">
+					due_no = #due_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="accountRepayRel.findPage.count" resultClass="int">
+		SELECT count(*) FROM ACCOUNT_REPAY_REL
+		<include refid="accountRepayRel.findPage.where" />
+	</select>
+	<!-- 分页查询记录数 -->
+	<select id="accountRepayRel.getSeqNo" resultClass="String">
+		SELECT ACCOUNT_REPAY_REL_SEQ.nextval FROM dual
+	</select>
+	<!-- 分页查询 -->
+	<select id="accountRepayRel.findByPage" resultMap="RM.Account_Repay_Rel">
+		SELECT
+		<include refid="account_repay_rel" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="account_repay_rel" />
+		FROM ACCOUNT_REPAY_REL
+		<include refid="accountRepayRel.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="accountRepayRel.accountRepayRel" resultMap="RM.Account_Repay_Rel">
+		 SELECT
+		<include refid="account_repay_rel" />
+		FROM ACCOUNT_REPAY_REL
+		<include refid="accountRepayRel.findPage.where" />
+	</select>
+	<select id="accountRepayRel.findByOpNo" resultMap="RM.Account_Repay_Rel">
+		SELECT
+		<include refid="account_repay_rel" />
+		FROM ACCOUNT_REPAY_REL
+		<include refid="accountRepayRel.findPage.where" />
+	</select>
+	<select id="account_repay_rel.getById" resultMap="RM.Account_Repay_Rel">
+		SELECT
+		<include refid="account_repay_rel" />
+		FROM ACCOUNT_REPAY_REL
+		WHERE
+		ACCOUNT_NO = #account_no#
+	</select>
+	
+</sqlMap>

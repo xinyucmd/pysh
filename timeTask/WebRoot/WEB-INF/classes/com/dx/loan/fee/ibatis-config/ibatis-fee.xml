@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="feeBean" type="com.dx.loan.fee.bean.FeeTypeBean"/> 
+	<typeAlias alias="feeOptionBean" type="com.dx.loan.fee.bean.FeeOptionBean"/> 
+	
+	<resultMap class="feeBean" id="feeBeanResult">
+		<result column="FEE_ID" property="feeId"/>
+    	<result column="FEE_NAME" property="feeName" />
+    	<result column="FEE_VALUE" property="feeValue" />
+    	<result column="FEE_EXPRESSION" property="feeExpression" />
+	</resultMap>
+	
+	
+	<resultMap class="feeOptionBean" id="feeOptionBeanResult">
+		<result column="FEE_OPTION_ID" property="feeOptionId"/>
+    	<result column="FEE_OPTION_NAME" property="feeOptionName" />
+	</resultMap>
+	
+	
+	
+	
+	<sql id="feeBean_column">
+		<![CDATA[FEE_ID,
+    			 FEE_NAME,
+    			 FEE_VALUE,
+    			 FEE_EXPRESSION
+    	]]>
+	</sql>
+	
+	<sql id="feeOptionBean_column">
+		<![CDATA[FEE_OPTION_ID, 
+				 FEE_OPTION_NAME 
+				 ]]>
+	</sql>
+	
+	<select id="getFeeTypeBean"  parameterClass="feeBean"  resultMap="feeBeanResult">
+		SELECT 
+		<include refid="feeBean_column"/>
+		FROM  LOAN_FEE	WHERE 1=1 
+		<isNotEmpty prepend="AND" property="feeId">  
+		   FEE_ID=#feeId#
+		</isNotEmpty> 
+		
+		<isNotEmpty prepend="AND" property="feeName">  
+		   FEE_NAME=#feeName#
+		</isNotEmpty> 
+		
+		<isNotEmpty prepend="AND" property="feeValue">  
+		   FEE_VALUE=#feeValue#
+		</isNotEmpty> 
+		
+		<isNotEmpty prepend="AND" property="feeExpression">  
+		   FEE_EXPRESSION=#feeExpression#
+		</isNotEmpty> 
+	</select>
+
+</sqlMap>

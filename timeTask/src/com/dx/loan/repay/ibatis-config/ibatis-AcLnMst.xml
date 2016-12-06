@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<resultMap id="AcLnMstResult" class="com.dx.loan.repay.bean.AcLnMstBean">
+		<result column="id" property="id" />
+		<result column="DUE_NO" property="dueNo" />
+		<result column="PACT_NO" property="pactNo" />
+		<result column="DUE_AMT" property="dueAmt" />
+		<result column="DUE_BEG_DATE" property="dueBegDate" />
+		<result column="DUE_END_DATE" property="dueEndDate" />
+		<result column="CIF_No" property="cifNo" />
+		<result column="EXT_DAYS" property="extDays" />
+		<result column="CONS_FEE" property="consFee" />
+		<result column="CONS_FEE_TYPE" property="consFeeType" />
+		<result column="DUE_STATE" property="dueState" />
+		<result column="EXP_FLAG" property="expFlag" />
+		<result column="DUE_BAL" property="dueBal" />
+		<result column="INNER_INTST" property="innerIntst" />
+		<result column="OUTER_INTST" property="outerIntst" />
+		<result column="FIVE_CLASS" property="fiveClass" />
+		<result column="FOUR_CLASS" property="fourClass" />
+		<result column="PACT_AMT" property="pactAmt" />
+		<result column="PACT_BEG_DATE" property="pactBegDate" />
+		<result column="PACT_END_DATE" property="pactEndDate" />
+		<result column="TERM_MON" property="termMon" />
+		<result column="TERM_DAY" property="termDay" />
+		<result column="LN_RATE" property="lnRate" />
+		<result column="Rate_Float" property="rateFloat" />
+		<result column="EXP_RATE" property="expRate" />
+		<result column="EXP_RATE_FLOAT" property="expRateFloat" />
+		<result column="CMPD_Rate_Float" property="cmpdRateFloat" />
+		<result column="CMPD_RATE" property="cmpdRate" />
+		<result column="OVER_RATE_FLOAT" property="overRateFloat" />
+		<result column="OVER_RATE" property="overRate" />
+		<result column="RATE_WAY" property="rateWay" />
+		<result column="RETURN_METHOD" property="returnMethod" />
+		<result column="PACT_KIND" property="pactKind" />
+		<result column="OCCUR_TYPE" property="occurType" />
+		<result column="FIXRATE_INTEREST" property="fixrateInterest" />
+		<result column="ISPRE_FIXRATE" property="ispreFixrate" />
+		<result column="CONSULT_AMT" property="consultAmt" />
+		<result column="MAIN_GUARAN" property="mainGuaran" />
+		<result column="GUARAN_TYPE" property="guaranType" />
+		<result column="PACT_NATURE" property="pactNature" />
+		<result column="PACT_USE" property="pactUse" />
+		<result column="PACT_USE_DESC" property="pactUseDesc" />
+		<result column="APPLYER_BANK_NAME" property="applyerBankName" />
+		<result column="APPLYER_BANK_NO" property="applyerBankNo" />
+		<result column="RECEIVER_BANK_NAME" property="receiverBankName" />
+		<result column="RECEIVER_BANK_NO" property="receiverBankNo" />
+		<result column="TEL_NO" property="telNo" />
+		<result column="ID_TYPE" property="idType" />
+		<result column="AUTH_ID" property="authId" />
+		<result column="IF_YT" property="ifYt" />
+		<result column="VOU_TYPE" property="vouType" />
+		<result column="PACT_STS" property="pactSts" />
+		<result column="SIGN_DATE" property="signDate" />
+		<result column="LN_TRADE_NO" property="lnTradeNo" />
+		<result column="PACT_BAL" property="pactBal" />
+		<result column="LOAN_KIND" property="loanKind" />
+		<result column="OCC_DATE" property="occDate" />
+		<result column="LN_TYPE" property="lnType" />
+		<result column="CUR_NO" property="curNo" />
+		<result column="LOAN_TYPE" property="loanType" />
+		<result column="RATE_NO" property="rateNo" />
+		<result column="IS_FORCE" property="isForce" />
+		<result column="IS_FIX" property="isFix" />
+		<result column="FIX_DATE" property="fixDate" />
+		<result column="IS_DELAY" property="isDelay" />
+		<result column="IS_ADVANCE" property="isAdvance" />
+		<!-- 履约保证金额 -->
+		<result column="PERF_AMOUNT" property="perfAmount" />
+		<!-- 履约保证金额收取百分比 -->
+		<result column="PERF_AMOUNT_PERC" property="perfAmountPerc" />
+		<result column="ACC_FEE" property="accFee" />
+		<!-- 上次交易日期 -->
+		<result column="LAST_RETURN_DATE" property="lastReturnDate" />
+		<result column="ADVACE_AMT" property="advaceAmt" />
+		<!-- 判断是否已经生成还款计划 -->
+		<result column="PLANFLAG" property="planflag" />
+		<!--历史补录已经偿还的本金 -->
+		<result column="HIS_AMT" property="hisAmt" />
+		<result column="BJBALANCE" property="bjbalance" />
+		<result column="RATECOMEBALANCE" property="ratecomebalance" />
+		<result column="BASE_FEE" property="baseFee" />
+		<result column="LAST_RATE" property="lastRate" />
+		<result column="SERFEERETURN_ID" property="serFeeReturnId" />
+		<result column="COLLECTFEE_ID" property="collectfeeId" />
+		<result column="SETTLE_MODEL" property="settleModel" />
+	</resultMap>
+	<sql id="AcLnMstResult_columns">
+   		<![CDATA[ID, 
+   				DUE_NO,
+   				PACT_NO, 
+   				DUE_AMT, 
+   				DUE_BEG_DATE, 
+   				DUE_END_DATE, 
+   				CIF_NO, 
+   				EXT_DAYS, 
+   				CONS_FEE,
+	            CONS_FEE_TYPE, 
+	            DUE_STATE, 
+	            EXP_FLAG, 
+	            DUE_BAL, 
+	            INNER_INTST, 
+	            OUTER_INTST, 
+	            FIVE_CLASS, 
+	            FOUR_CLASS, 
+	            PACT_AMT, 
+	            PACT_BEG_DATE, 
+	            PACT_END_DATE,
+	            TERM_MON, 
+	            TERM_DAY, 
+	            LN_RATE, 
+	            RATE_FLOAT, 
+	            EXP_RATE,
+	            EXP_RATE_FLOAT,
+	            CMPD_RATE_FLOAT, 
+	            CMPD_RATE, 
+	            OVER_RATE_FLOAT, 
+	            OVER_RATE, 
+	            RATE_WAY, 
+	            RETURN_METHOD, 
+	            PACT_KIND, 
+	            OCCUR_TYPE,
+	            FIXRATE_INTEREST, 
+	            ISPRE_FIXRATE, 
+	            CONSULT_AMT, 
+	            MAIN_GUARAN, 
+	            GUARAN_TYPE, 
+	            PACT_NATURE,
+	            PACT_USE, 
+	            PACT_USE_DESC, 
+	            APPLYER_BANK_NAME, 
+	            APPLYER_BANK_NO, 
+	            RECEIVER_BANK_NAME,
+	            RECEIVER_BANK_NO, 
+	            TEL_NO, 
+	            ID_TYPE,
+	            AUTH_ID, 
+	            IF_YT, 
+	            VOU_TYPE, 
+	            PACT_STS,
+	            SIGN_DATE, 
+	            LN_TRADE_NO, 
+	            PACT_BAL, 
+	            LOAN_KIND, 
+	            OCC_DATE, 
+	            LN_TYPE, 
+	            CUR_NO, 
+	            LOAN_TYPE, 
+	            RATE_NO,
+				IS_FORCE,
+				IS_FIX,
+				FIX_DATE,
+				IS_DELAY,
+				IS_ADVANCE,
+				PERF_AMOUNT,
+				PERF_AMOUNT_PERC,
+				ACC_FEE,
+				LAST_RETURN_DATE,
+				ADVACE_AMT,
+				PLANFLAG,
+				HIS_AMT,
+				RATECOMEBALANCE,
+				BJBALANCE,
+				BASE_FEE ,
+				LAST_RATE,
+				SERFEERETURN_ID,
+				COLLECTFEE_ID,SETTLE_MODEL
+	            ]]>
+	</sql>
+	<!-- 保存贷款主文件实体 -->
+	<insert id="saveAcLnMstBean" parameterClass="com.dx.loan.repay.bean.AcLnMstBean">
+      <![CDATA[INSERT INTO LOAN_AC_LN_MST (
+      		   ID, 
+      		   DUE_NO, 
+      		   PACT_NO, 
+      		   DUE_AMT, 
+      		   DUE_BEG_DATE, 
+      		   DUE_END_DATE, 
+      		   CIF_No,
+      		   EXT_DAYS, 
+      		   CONS_FEE, 
+      		   CONS_FEE_TYPE, 
+      		   DUE_STATE, 
+      		   EXP_FLAG, 
+      		   DUE_BAL, 
+			   INNER_INTST,
+			   OUTER_INTST,
+			   FIVE_CLASS,
+			   FOUR_CLASS,
+			   PACT_AMT,
+			   PACT_BEG_DATE,
+			   PACT_END_DATE,
+			   TERM_MON,
+			   TERM_DAY,
+			   LN_RATE,
+			   Rate_Float,
+			   EXP_RATE,
+			   CMPD_Rate_Float,
+			   OVER_RATE_FLOAT,
+			   RATE_WAY,
+			   RETURN_METHOD,
+			   PACT_KIND,
+			   OCCUR_TYPE,
+			   FIXRATE_INTEREST,
+			   ISPRE_FIXRATE,
+			   CONSULT_AMT,
+			   MAIN_GUARAN,
+			   GUARAN_TYPE,
+			   PACT_NATURE,
+			   PACT_USE,
+			   PACT_USE_DESC,
+			   APPLYER_BANK_NAME,
+			   APPLYER_BANK_NO,
+			   RECEIVER_BANK_NAME,
+			   RECEIVER_BANK_NO,
+			   TEL_NO,
+			   ID_TYPE,
+			   AUTH_ID,
+			   IF_YT,
+			   VOU_TYPE,
+			   PACT_STS,
+			   SIGN_DATE,
+			   LN_TRADE_NO,
+			   PACT_BAL,
+			   LOAN_KIND,
+			   OCC_DATE,
+			   LN_TYPE,
+			   CUR_NO,
+			   LOAN_TYPE,
+			   RATE_NO,
+			   IS_FORCE,
+			   IS_FIX,
+			   FIX_DATE ,
+			   IS_DELAY,
+			   IS_ADVANCE,
+			   PERF_AMOUNT,
+			   PERF_AMOUNT_PERC, 
+			   ACC_FEE,
+			   OVER_RATE,
+			   LAST_RETURN_DATE,
+			   CMPD_RATE,
+			   ADVACE_AMT,
+			   HIS_AMT,RATECOMEBALANCE,
+				BJBALANCE,LAST_RATE,
+				SERFEERETURN_ID,
+				COLLECTFEE_ID,SETTLE_MODEL) values (
+			   #id#,
+			   #dueNo#,
+			   #pactNo#,
+			   #dueAmt#,
+			   #dueBegDate#,
+			   #dueEndDate#,
+			   #cifNo#,
+			   #extDays#,
+			   #consFee#,
+			   #consFeeType#,
+			   #dueState#,
+			   #expFlag#,
+			   #dueBal#,
+			   #innerIntst#,
+			   #outerIntst#,
+			   #fiveClass#,
+			   #fourClass#,
+			   #pactAmt#,
+			   #pactBegDate#,
+			   #pactEndDate#,
+			   #termMon#,
+			   #termDay#,
+			   #lnRate#,
+			   #rateFloat#,
+			   #expRate#,
+			   #cmpdRateFloat#,
+			   #overRateFloat#,
+			   #rateWay#,
+			   #returnMethod#,
+			   #pactKind#,
+			   #occurType#,
+			   #fixrateInterest#,
+			   #ispreFixrate#,
+			   #consultAmt#,
+			   #mainGuaran#,
+			   #guaranType#,
+			   #pactNature#,
+			   #pactUse#,
+			   #pactUseDesc#,
+			   #applyerBankName#,
+			   #applyerBankNo#,
+			   #receiverBankName#,
+			   #receiverBankNo#,
+			   #telNo#,
+			   #idType#,
+			   #authId#,
+			   #ifYt#,
+			   #vouType#,
+			   #pactSts#,
+			   #signDate#,
+			   #lnTradeNo#,
+			   #pactBal#,
+			   #loanKind#,
+			   #occDate#,
+			   #lnType#,
+			   #curNo#,
+			   #loanType#,
+			   #rateNo#,
+			   #isForce#,
+			   #isFix#,
+			   #fixDate#,
+			   #isDelay#,
+			   #isAdvance#,
+			   #perfAmount#,
+			   #perfAmountPerc#,
+			   #accFee#,
+			   #overRate#,
+			   #lastReturnDate#,
+			   #cmpdRate#,
+			   #advaceAmt#,
+			   #hisAmt#,
+			   #ratecomebalance#,
+			   #bjbalance#,#lastRate#,#serFeeReturnId#,
+			   #collectfeeId#,#settleModel#
+			   )
+      ]]>
+	</insert>
+
+	<!-- 根据借据号更新贷款主文件 -->
+	<update id="updateAcLnMstBean" parameterClass="com.dx.loan.repay.bean.AcLnMstBean">
+		UPDATE LOAN_AC_LN_MST
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="id">
+				ID = #id#
+			</isNotNull>
+			<isNotNull prepend="," property="pactNo">
+				PACT_NO = #pactNo#
+			</isNotNull>
+			<isNotNull prepend="," property="dueAmt">
+				DUE_AMT = #dueAmt#
+			</isNotNull>
+			<isNotNull prepend="," property="dueBegDate">
+				DUE_BEG_DATE = #dueBegDate#
+			</isNotNull>
+			<isNotNull prepend="," property="dueEndDate">
+				DUE_END_DATE = #dueEndDate#
+			</isNotNull>
+			<isNotNull prepend="," property="cifNo">
+				CIF_No = #cifNo#
+			</isNotNull>
+			<isNotNull prepend="," property="extDays">
+				EXT_DAYS = #extDays#
+			</isNotNull>
+			<isNotNull prepend="," property="consFee">
+				CONS_FEE = #consFee#
+			</isNotNull>
+			<isNotNull prepend="," property="consFeeType">
+				CONS_FEE_TYPE = #consFeeType#
+			</isNotNull>
+			<isNotNull prepend="," property="dueState">
+				DUE_STATE = #dueState#
+			</isNotNull>
+			<isNotNull prepend="," property="expFlag">
+				EXP_FLAG = #expFlag#
+			</isNotNull>
+			<isNotNull prepend="," property="dueBal">
+				DUE_BAL = #dueBal#
+			</isNotNull>
+
+			<isNotNull prepend="," property="accTolFee">
+				ACC_TOL_FEE = #accTolFee#
+			</isNotNull>
+			<isNotNull prepend="," property="innerIntst">
+				INNER_INTST = #innerIntst#
+			</isNotNull>
+			<isNotNull prepend="," property="outerIntst">
+				OUTER_INTST = #outerIntst#
+			</isNotNull>
+			<isNotNull prepend="," property="fiveClass">
+				FIVE_CLASS = #fiveClass#
+			</isNotNull>
+			<isNotNull prepend="," property="settleModel">
+				SETTLE_MODEL =
+				#settleModel#
+			</isNotNull>
+			<isNotNull prepend="," property="fourClass">
+				FOUR_CLASS = #fourClass#
+			</isNotNull>
+			<isNotNull prepend="," property="pactAmt">
+				PACT_AMT = #pactAmt#
+			</isNotNull>
+			<isNotNull prepend="," property="pactBegDate">
+				PACT_BEG_DATE = #pactBegDate#
+			</isNotNull>
+			<isNotNull prepend="," property="pactEndDate">
+				PACT_END_DATE = #pactEndDate#
+			</isNotNull>
+
+			<isNotNull prepend="," property="termMon">
+				TERM_MON = #termMon#
+			</isNotNull>
+			<isNotNull prepend="," property="termDay">
+				TERM_DAY = #termDay#
+			</isNotNull>
+			<isNotNull prepend="," property="lnRate">
+				LN_RATE = #lnRate#
+			</isNotNull>
+			<isNotNull prepend="," property="rateFloat">
+				Rate_Float = #rateFloat#
+			</isNotNull>
+
+			<isNotNull prepend="," property="expRate">
+				EXP_RATE = #expRate#
+			</isNotNull>
+			<isNotNull prepend="," property="cmpdRateFloat">
+				CMPD_Rate_Float = #cmpdRateFloat#
+			</isNotNull>
+			<isNotNull prepend="," property="overRateFloat">
+				OVER_RATE_FLOAT = #overRateFloat#
+			</isNotNull>
+			<isNotNull prepend="," property="rateWay">
+				RATE_WAY = #rateWay#
+			</isNotNull>
+			<isNotNull prepend="," property="returnMethod">
+				RETURN_METHOD = #returnMethod#
+			</isNotNull>
+			<isNotNull prepend="," property="pactKind">
+				PACT_KIND = #pactKind#
+			</isNotNull>
+			<isNotNull prepend="," property="occurType">
+				OCCUR_TYPE = #occurType#
+			</isNotNull>
+			<isNotNull prepend="," property="fixrateInterest">
+				FIXRATE_INTEREST = #fixrateInterest#
+			</isNotNull>
+			<isNotNull prepend="," property="ispreFixrate">
+				ISPRE_FIXRATE = #ispreFixrate#
+			</isNotNull>
+			<isNotNull prepend="," property="consultAmt">
+				CONSULT_AMT = #consultAmt#
+			</isNotNull>
+			<isNotNull prepend="," property="mainGuaran">
+				MAIN_GUARAN = #mainGuaran#
+			</isNotNull>
+			<isNotNull prepend="," property="guaranType">
+				GUARAN_TYPE = #guaranType#
+			</isNotNull>
+			<isNotNull prepend="," property="pactNature">
+				PACT_NATURE = #pactNature#
+			</isNotNull>
+			<isNotNull prepend="," property="pactUse">
+				PACT_USE = #pactUse#
+			</isNotNull>
+			<isNotNull prepend="," property="pactUseDesc">
+				PACT_USE_DESC = #pactUseDesc#
+			</isNotNull>
+			<isNotNull prepend="," property="applyerBankName">
+				APPLYER_BANK_NAME = #applyerBankName#
+			</isNotNull>
+			<isNotNull prepend="," property="applyerBankNo">
+				APPLYER_BANK_NO = #applyerBankNo#
+			</isNotNull>
+			<isNotNull prepend="," property="receiverBankName">
+				RECEIVER_BANK_NAME = #receiverBankName#
+			</isNotNull>
+			<isNotNull prepend="," property="receiverBankNo">
+				RECEIVER_BANK_NO = #receiverBankNo#
+			</isNotNull>
+			<isNotNull prepend="," property="telNo">
+				TEL_NO = #telNo#
+			</isNotNull>
+			<isNotNull prepend="," property="idType">
+				ID_TYPE = #idType#
+			</isNotNull>
+			<isNotNull prepend="," property="authId">
+				AUTH_ID = #authId#
+			</isNotNull>
+			<isNotNull prepend="," property="ifYt">
+				IF_YT = #ifYt#
+			</isNotNull>
+			<isNotNull prepend="," property="vouType">
+				VOU_TYPE = #vouType#
+			</isNotNull>
+			<isNotNull prepend="," property="pactSts">
+				PACT_STS = #pactSts#
+			</isNotNull>
+			<isNotNull prepend="," property="signDate">
+				SIGN_DATE = #signDate#
+			</isNotNull>
+			<isNotNull prepend="," property="lnTradeNo">
+				LN_TRADE_NO = #lnTradeNo#
+			</isNotNull>
+			<isNotNull prepend="," property="pactBal">
+				PACT_BAL = #pactBal#
+			</isNotNull>
+			<isNotNull prepend="," property="loanKind">
+				LOAN_KIND = #loanKind#
+			</isNotNull>
+			<isNotNull prepend="," property="occDate">
+				OCC_DATE = #occDate#
+			</isNotNull>
+			<isNotNull prepend="," property="lnType">
+				LN_TYPE = #lnType#
+			</isNotNull>
+			<isNotNull prepend="," property="curNo">
+				CUR_NO = #curNo#
+			</isNotNull>
+			<isNotNull prepend="," property="loanType">
+				LOAN_TYPE = #loanType#
+			</isNotNull>
+			<isNotNull prepend="," property="rateNo">
+				RATE_NO = #rateNo#
+			</isNotNull>
+			<isNotNull prepend="," property="isForce">
+				IS_FORCE = #isForce#
+			</isNotNull>
+			<isNotNull prepend="," property="isFix">
+				IS_FIX = #isFix#
+			</isNotNull>
+
+			<isNotNull prepend="," property="fixDate">
+				FIX_DATE = #fixDate#
+			</isNotNull>
+
+			<isNotNull prepend="," property="isAdvance">
+				IS_ADVANCE = #isAdvance#
+			</isNotNull>
+
+			<isNotNull prepend="," property="perfAmount">
+				PERF_AMOUNT = #perfAmount#
+			</isNotNull>
+
+			<isNotNull prepend="," property="lastReturnDate">
+				LAST_RETURN_DATE = #lastReturnDate#
+			</isNotNull>
+
+			<isNotNull prepend="," property="advaceAmt">
+				ADVACE_AMT = #advaceAmt#
+			</isNotNull>
+
+			<isNotNull prepend="," property="planflag">
+				PLANFLAG = #planflag#
+			</isNotNull>
+
+
+			<isNotNull prepend="," property="lastRate">
+				LAST_RATE = #lastRate#
+			</isNotNull>
+
+			<isNotNull prepend="," property="serFeeReturnId">
+				SERFEERETURN_ID =
+				#serFeeReturnId#
+			</isNotNull>
+			<isNotNull prepend="," property="collectfeeId">
+				COLLECTFEE_ID =
+				#collectfeeId#
+			</isNotNull>
+		</dynamic>
+		where DUE_NO = #dueNo#
+	</update>
+
+
+
+
+	<select id="getAcLnMstBean" resultMap="AcLnMstResult"
+		parameterClass="com.dx.loan.repay.bean.AcLnMstBean">
+		SELECT
+		<include refid="AcLnMstResult_columns" />
+		FROM LOAN_AC_LN_MST 
+		WHERE 1 =1 
+		<isNotNull prepend="AND" property="dueNo">
+			DUE_NO = #dueNo#
+		</isNotNull>
+		<isNotNull prepend="AND" property="pactNo">
+			PACT_NO = #pactNo#
+		</isNotNull>
+		<isNotNull prepend="AND" property="dueState">
+			DUE_STATE = #dueState#
+		</isNotNull>
+
+		<isNotNull prepend="AND" property="expFlag">
+			EXP_FLAG = #expFlag#
+		</isNotNull>
+
+		<isNotNull prepend="AND" property="cifNo">
+			CIF_NO = #cifNo#
+		</isNotNull>
+
+
+	</select>
+	<select id="getAcLnMstBeanByDueNo" resultMap="AcLnMstResult"
+		parameterClass="String">
+		SELECT
+		<include refid="AcLnMstResult_columns" />
+		FROM LOAN_AC_LN_MST
+		WHERE DUE_NO = #dueno#
+	</select>
+
+	<!-- 贷后首次检查报告 -->
+	<select id="getAcLnMstBeansByReportPolicy" resultMap="AcLnMstResult"
+		parameterClass="com.dx.loan.repay.bean.AcLnMstBean">
+		SELECT
+		<include refid="AcLnMstResult_columns" />
+		FROM LOAN_AC_LN_MST
+		WHERE 1 =1 and main_guaran = #mainGuaran# and
+		floor(to_date(#dueEndDate#,'yyyy-MM-dd') -
+		to_date(due_beg_date,'yyyy-MM-dd')) = #dueBegDate#
+	</select>
+</sqlMap>

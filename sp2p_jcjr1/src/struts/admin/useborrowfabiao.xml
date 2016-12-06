@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="borroewfaManage" extends="admin-default">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>		
+		<!-- 申请后台发标用户 -->
+ <action name="borrowfabiao" class="BorrowfabiaoAction"
+			method="borrowfabiao">
+			<result>/WEB-INF/page/admin/borrowfa_index.jsp</result>
+	</action>
+	<action name="queryborrowfabiao" class="BorrowfabiaoAction"
+			method="queryborrowfabiao">
+			<result>/WEB-INF/page/admin/admin_borrowfa_index.jsp</result>
+	</action>
+	
+	<action name="queryfabiaoInfo" class="BorrowfabiaoAction"
+			method="queryfabiaoInfo">
+			<result>/WEB-INF/page/admin/userborrowcheak.jsp</result>
+	</action>
+	<action name="updatestate" class="BorrowfabiaoAction"
+			method="updatestate">
+	</action>
+	<!-- 删除单个 -->
+	<action name="deleteBorrowfaId" class="BorrowfabiaoAction"
+	 method="deleteBorrowfaId">
+	<result name="success" type="redirect">borrowfabiao.do</result>
+		</action>
+		<!-- 批量删除 -->
+	<action name="deleteBorrowfabiao" class="BorrowfabiaoAction"
+	 method="deleteBorrowfabiao">
+	<result name="success" type="redirect">borrowfabiao.do</result>
+		</action>
+	 <action name="exportinborrowfa" class="BorrowfabiaoAction"
+			method="exportinborrowfa">			
+	</action>
+        
+   		<action name="queryborrowfabiaohu" class="BorrowfabiaoAction" method="queryborrowfabiaohu">
+			<result name="success">/WEB-INF/page/admin/admin_borrowfa_index.jsp</result>
+        </action>
+		
+		<action name="queryfabiaohuInfo" class="BorrowfabiaoAction" method="queryfabiaohuInfo">
+			<result name="success">/WEB-INF/page/admin/borrowfa_index.jsp</result>
+        </action>
+		 
+        
+	</package>
+</struts>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="reconmmend" extends="login-default" namespace="/">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+        
+        <!-- 获取已推荐的人员信息 -->
+        <action name="toReconmmendInfo" class="recommendAction" method="toReconmmendInfo">
+        	<!-- <result name="success">/WEB-INF/page/front/wdzh-recommend-index.jsp</result> -->
+        	<result name="success">/WEB-INF/page/front/wdzh-recommend-list.jsp</result>
+        </action>
+        
+        <action name="queryReconmmendInfo" class="recommendAction" method="queryReconmmendInfo"></action>
+		<action name="toActivityPageLogin" class="recommendAction" method="toActivityPageLogin">
+        	<result name="success">/WEB-INF/page/activity/activity_page.jsp</result>
+        </action>
+        
+        <action name="queryRecommendUserInfo" class="recommendAction" method="queryRecommendUserInfo"></action>
+
+	</package>
+	
+	<package name="reconmmend_activity" extends="front-default" namespace="/">
+		<action name="toActivityPage" class="recommendAction" method="toActivityPage">
+        	<result name="success">/WEB-INF/page/activity/activity_page.jsp</result>
+        </action>
+        
+         <action name="toActivityReg" class="recommendAction" method="toActivityReg">
+        	<result name="success">/WEB-INF/page/activity/activity_reg.jsp</result>
+        </action>
+        
+        <action name="m" class="recommendAction" method="toMobile">
+        	<result name="success">/page/m/index_m.html</result>
+        </action>
+        
+       <action name="getDecryptUserInfo" class="recommendAction" method="getDecryptUserInfo"></action>
+       
+       <action name="checkFriendsHasChance" class="recommendAction" method="checkFriendsHasChance"></action>
+       
+       <action name="showQcode" class="recommendAction" method="getQcode"></action>
+       
+       <!-- 年终活动 -->
+       <action name="queryLogin" class="recommendAction" method="getSessionLogin"/>
+       
+       <action name="getMyInvestTop" class="recommendAction" method="getMyInvestTop"/>
+       
+       <action name="clearCache" class="recommendAction" method="clearCache"/>
+	</package>
+</struts>

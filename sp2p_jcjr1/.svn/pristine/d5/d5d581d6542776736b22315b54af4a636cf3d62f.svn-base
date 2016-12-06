@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>微信贷-微信个人账户</title>
+<meta content="target-densitydpi=device-dpi,width=640, maximum-scale=1, user-scalable=0" name="viewport" id="viewport">
+<link type="text/css" rel="stylesheet" href="/css/m/recommend/style.css">
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+<script src="/script/recommend/rye-jc-recommend-list.js"></script>
+<script src="/js/ZeroClipboard.js"></script>
+<link id="skin" rel="stylesheet" href="/css/jbox/Gray/jbox.css" /> 
+<link type="text/css" rel="stylesheet"  href="/new_css/bootstrap.css"/>
+<style>
+.theme-popover{ width:385px; height:380px; position:fixed; display:none;margin-top:20%;margin-left:-12%;z-index:9999; top:0; background:#fbfbfb; border-radius:8px; left:35%; border:solid 2px #dbdada; font-size:14px;}
+.close{ background:url(/images/recommend/close.jpg) no-repeat; top:5px;right:5px;  position:absolute; z-index:10001; height:27px; width:27px;}
+.theme-popover .tibo{ height:60px; line-height:60px; padding-left:20px;}
+.p-arrow{ background:url(../new_images/personal-icon.png) no-repeat; display:inline-block; width:35px; height:30px; position:relative; top:3px; right:3px;}
+.icon1{ background-position:0 0;font-size:24px;}
+.icon2{ background-position:0 -36px;font-size:30px;}
+.icon3{ background-position:0 -75px;}
+.icon4{ background-position:0 -111px;}
+.icon8{ background-position:0 -153px;}
+.icon9{ background-position:0 -190px;}
+.icon10{ background-position:0 -230px;}
+.icon12{ background-position:0 -266px;}
+.lne-centr-top .ul-one{ width:250px; padding-left:15px;*width:225px;}
+.lne-centr-top .ul-one  li{ line-height:33px; margin-top:20px;}
+.lne-centr-top .ul-one em{ color:#62abed;}
+.ul-line li{ border-right:solid 1px #c6c6c6;}
+.my-mode a .my-arrow{ background:url(../new_images/my-icon.png) no-repeat; width:50px; height:40px; display:inline-block; position:relative; top:10px;}
+.my-mode a .my-icon1{ background-position:-10px -5px;}
+.my-mode a .my-icon2{ background-position:-70px -5px;}
+.my-mode a .my-icon1:hover{ background-position:-10px -55px;}
+.my-mode a .my-icon2:hover{ background-position:-70px -55px;}
+.link-touch ul li{ width:100%; border: #c9c9c9; height:73px; line-height:73px; overflow:hidden; border-radius:5px; margin-top:25px;}
+li,a,h3 { font-size: 30px }
+h3 { font-size: 35px }
+em {font-size: 22px;font-family: "Microsoft YaHei";margin-left:200px;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div class="reg">
+<img src="/images/recommend/banner1.jpg" width="640" height="330">
+         <!--top-->
+        <div class="link-touch">
+          <h3>个人账户信息：</h3> 
+         <hr>
+              <ul class="items">
+                	<li><i class="p-arrow icon1"></i>可用余额：
+                	    <em id="usableAmountId"></em>元
+                	</li>
+                    <li><i class="p-arrow icon2"></i>冻结金额：
+                      <em id="freezeAmountId"></em>元
+                   </li>
+                </ul>
+                <ul class="items">
+                	<li>
+                	   <i class="p-arrow icon3">
+                	     </i>已收收益：
+                	     <em id="hasPayInterestId"> </em>元
+                	</li>
+                    <li>
+                      <i class="p-arrow icon4"></i>待收收益：
+                       <em id="forPayInterestId"></em>元
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <div class="lne-centr-con">
+            	<div style="background:#fff;padding-bottom:5px; margin-bottom:10px;margin-left:5%;">
+                    <div class="mg-height" style="margin-top:0; line-height:40px;">   
+                    </div>
+                    <div class="my-mode">
+                    	<h3>推荐人好友：</h3>
+                    	 <a href="javascript:;" class="theme-login"><i class="my-arrow my-icon1"></i>微信推广</a>
+                         <a href="#" id="img_cp_link" style="margin-left:200px;" data-clipboard-target="reconmmend_link"><i class="my-arrow my-icon2"></i>复制链接</a>
+                         <input type="hidden" id="reconmmend_link" value=""/>
+                    </div>
+                </div>
+             </div>
+             <div>
+	           <input  onclick="exit();" type="button" value="退出登录"   style="background:#1d9def;border-radius: 5px;color: #fff;cursor: pointer;font-size: 2em;height: 2em;line-height: 2em;text-align: center;width: 100%;">
+	         </div>
+             <div class="theme-popover">
+		        <div>
+		       	  	<p class="tibo" style="border-bottom:solid 1px #c9c9c9;" >分享到微信朋友圈</p>
+		            <p style="margin:15px 0; text-align:center;" id="imgCode"></p>
+		            <p class="tibo" style="border-top:solid 1px #c9c9c9;">打开微信使用"扫一扫"即可将网页分享到我的微信朋友圈。</p>
+		        </div>	
+	        <div class="theme-poptit"><a  title="关闭" class="close"></a></div>
+        </div>
+    </div>
+ </div>
+<input type="hidden" id="userId" value="${user.id}"/>
+<input type="hidden" id="userName" value=""/>
+<input type="hidden" id="reconmmend_link" value="${reconmmend_url}"/>
+<input type="hidden" id="reconmmend_url_code" value="${reconmmend_url_code}"/>
+</body>
+<script>  
+	var param = {};
+	var recommend = new Recommend(param);
+	var user = new MUser(param);
+	var pageNum = 1;
+	var totalPageNum = 1;
+	recommend.list(pageNum, 10);
+	var baseUrl = "http://www.jcbanking.com/page/recommend/reg.html";
+	// 加载二维码
+	user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$.post("/homeWX.do",param,function(data){
+						//账户余额
+						  if(data.accmountStatisMap.usableAmount!=''){
+							  $("#usableAmountId").html(data.accmountStatisMap.usableAmount);
+						  }else{
+						     $("#usableAmountId").html("0.00"); 
+						  }
+							//冻结金额
+						  if(data.accmountStatisMap.freezeAmount!=''){
+							  $("#freezeAmountId").html(data.accmountStatisMap.freezeAmount);
+						  }else{
+						     $("#freezeAmountId").html("0.00"); 
+						  }
+							//已收收益
+						  if(data.accmountStatisMap.hasPayInterest!=''){
+							  $("#hasPayInterestId").html(data.accmountStatisMap.hasPayInterest);
+						  }else{
+						     $("#hasPayInterestId").html("0.00"); 
+						  }
+						 //待收收益
+						  if(data.accmountStatisMap.forPayInterest!=''){
+							  $("#forPayInterestId").html(data.accmountStatisMap.forPayInterest);
+						  }else{
+						     $("#forPayInterestId").html("0.00"); 
+						  }
+						
+					});
+					$("#reconmmend_link").val("http://www.jcbanking.com/cellPhonereginit.do?refferee="+data.userName+"&src=1");
+					showCode(data);
+					return true;
+				}else{
+					alert('未登录');
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+	function exit(){
+		window.location.href="/page/recommend/login.html";
+	}
+	function showCode(data){
+		// 加载二维码
+		user.genQCode("imgCode", baseUrl+"?userName="+data.userName);
+	}
+	
+	function flushPage(){
+		$("#currentPage").empty();
+		$("#currentPage").append(pageNum);
+	}
+	
+	$("#backPage").click(function(){
+		if(pageNum == 1){
+			alert('已经是第一页了');
+			$("#backPage").attr("disabled","disabled");
+		}else{
+			pageNum -=1;
+			recommend.list(pageNum, 10);
+		}
+		
+		flushPage();
+	});
+	
+	$("#nextPage").click(function(){
+		if(pageNum == totalPageNum){
+			alert('没有更多数据了~！');
+		}else{
+			pageNum +=1;
+			recommend.list(pageNum, 10);
+		}
+		
+		flushPage();
+		
+	});
+	
+	// 定义一个新的复制对象
+	var clip = new ZeroClipboard($("#img_cp_link"), {
+	  moviePath: "/js/ZeroClipboard.swf"
+	} );
+
+	// 复制内容到剪贴板成功后的操作
+	clip.on( 'complete', function(client, args) {
+	  // alert("复制成功，复制内容为："+ args.text);
+		alert("复制成功,复制内容可直接粘贴!");
+	} );
+jQuery(document).ready(function($) {
+	        $('.theme-login').click(function(){
+	        	$('.theme-popover').show();
+	            $('.theme-popover').slideDown(200);
+	        })
+	        $('.theme-poptit .close').click(function(){
+				 $('.theme-popover').hide();
+	            $('.theme-popover').slideUp(200);
+	        })
+	    
+	    })
+</script>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微信贷-718投资人考察交流会</title>
+<link rel="stylesheet" href="css/style.css" />
+<script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+<script type="text/javascript" src="js/ZUMpE1SL7SpVbYFd8ecABA.js"></script>
+<style>
+.ui-nav-item{ font-size:15px; color:#ccc;  float:left;}
+.icon_app{ background:url(/images/app/ip.png) no-repeat; width:15px; height:15px; display:inline-block; position:relative; top:1px;}
+.fl{ float:left;}
+</style>
+</head>
+<body>
+<!--头部 begin-->
+<div class="p_headerbox index-main">
+    <div class="p_topbox">
+        <div class="p_top clearfix">
+            <div class="p_topleft"> <span>客服电话：<em class="f18">400-001-6007</em> （9:00-21:00）</span> </div>
+            <div class="p_topright"> 
+            	<div class="fl" style="margin-top:1px; margin-right:14px;">
+            	<a href="/page/app/download.html" class="ui-nav-item" target="_blank">
+            	<i class="icon_app"></i>移动客户端</a>
+                 <input type="hidden" id="islogin" value="ok"/>
+                 <span id="span_logind">
+				     <img src="/images/p_ico003.png" /><a href="/home.do" style="color:#f90; margin-right:10px;">我的微信贷</a><a href="/logout.do">退出</a>
+                     </span>
+				  <span id="span_no_login">
+					  <a href="/cellPhoneinit.do" style="color:#ff6960;"><img src="/images/p_ico003.png" /> 我要注册</a>
+					  <a href="/login.do"   style="color:#F90;"><img src="/images/p_ico004.png" /> 立即登录</a>
+				  </span>
+                   </div> 
+             </div>
+        </div>
+    </div>
+    <div class="p_header clearfix">
+        <div class="p_logo"><a href="index.jsp"><img src="/images/logo.png" /></a></div>
+        <div class="p_nav"><a class="hover" href="/index.jsp">首页</a><a href="/finance.do?m=1&type=4" id='我要投资'>我要投资</a><a href="/borrow.do" id='我要借款'>我要借款</a><a href="/capitalEnsure.do" id='安全中心'>安全中心</a><a href="/getMessageBytypeId.do?typeId=4" id='关于我们'>关于我们</a></div>
+    </div>
+</div>
+<!--------------------------头部 end--------------------------->
+<div class="content">
+	<div class="banner">
+    	<div class="banner-center clear">
+            <div style="opacity: 1; " class="fs" id="an1"><img class="scales" src="image/num.png" width="508" height="226"></div>
+			<div style="opacity: 1; " class="fs2" id="an2"><img class="scales" src="image/show.png" width="765" height="227"></div>
+    	</div>
+    </div>
+    <div class="play-one">
+    	<div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </div>
+    <div class="play-two">
+    	<div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </div>
+    <div class="play-three">
+    	<div class="play-three-con">
+            <div class="play-three-con-header">
+                    <div class="three-con">
+                        <h3><img src="image/tiele3.jpg"></h3>
+                        <ul>
+                            <li>讲座上，各位投资人认真聆听，同时积极的进行了提问</li>
+                            <li>在讲座环节，由微信贷副总经理连总对互联网金融行业的整体情况进行了简单的介绍和分析</li>
+                            <li>并详细介绍了微信贷的运营情况</li>
+                            <li>在提问环节，针对各位投资人提出的问题</li>
+                            <li>进行了详细的解答.....</li>
+                      </ul>
+                    </div>
+                    <div class="three-con-img">
+                    	<div><img src="image/main-9-bg.jpg" ></div>
+                        <div><img src="image/main-10-bg.jpg" ></div>
+                        <div><img src="image/main-11-bg.jpg" ></div>
+                        <div><img src="image/main-12-bg.jpg" ></div>
+                    </div>
+              </div>
+        </div>
+    </div>
+    <div class="play-four">
+		<div class="play-four-con">
+        	<div style="width:225px; margin:0 auto; padding-top:30px;"><img src="image/tiele4.jpg" ></div>
+   	  		<div><img src="image/main-13-bg.jpg" ></div>
+            <div><img src="image/main-14-bg.jpg"></div>
+            <div><img src="image/main-15-bg.jpg" ></div>
+            <div><img src="image/main-16-bg.jpg" ></div>
+  			<div><img src="image/main-17-bg.jpg" ></div>
+        </div>
+    </div>
+    <div class="play-five">
+    	<div class="play-five-con">
+        	<div style="width:171px; margin:0 auto; padding-top:50px;"><img src="image/tiele5.jpg" ></div>
+            <div><img src="image/main-18-bg.jpg" ></div>
+            <div><img src="image/main-19-bg.jpg" ></div>
+            <div><img src="image/main-20-bg.jpg" ></div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+var user;
+user = new MUser(param);
+jQuery(document).ready(function($) {
+	user.login_pc_check(function(data){
+		if(user.isNotBank(data)){
+			if(data.status == 1){
+				$("#span_no_login").hide();
+				$("#span_logind").show();
+			}else{
+				// 头部控制
+				$("#span_no_login").show();
+				$("#span_logind").hide();
+			}
+		}else{
+			alert('检查登录状态失败！');	
+		}
+	});
+	
+});
+</script>
+
+</html>

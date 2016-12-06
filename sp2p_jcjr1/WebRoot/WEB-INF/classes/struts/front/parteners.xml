@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="parteners_login" extends="login-default" namespace="/">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+        
+	</package>
+	
+	<package name="parteners" extends="front-default" namespace="/">
+		<!-- 广告商通用接口 -->
+		<action name="outer" class="partenersAction" method="outer"></action>
+		<!-- 希财网 -->
+	    <action name="queryInvestXc" class="dataProvidedAction" method="queryInvestXc"></action>
+	    <action name="queryUserXc" class="dataProvidedAction" method="queryUserXc"></action>
+		<!-- 米袋计划 -->
+		<action name="dataProvided" class="dataProvidedAction" method="dataProvided"></action>
+		<!-- 黄金投资网 -->
+		<action name="dataProvidedToJintou" class="dataProvidedAction" method="dataProvidedToJintou">
+			<result name="success">/WEB-INF/page/front/gold-invest.jsp</result>
+		</action>
+		<!-- 寻金会 -->
+		<action name="getinvestments" class="dataProvidedAction" method="dataProvidedToXunjinhui"></action>
+		<action name="getinvestmentsbydate" class="dataProvidedAction" method="dataProvidedToXunjinhui"></action>
+		<!-- 融360 -->
+		<action name="dataProvidedToRong360" class="dataProvidedAction" method="getborrowDataListTo360"></action>
+		<!-- 未来网贷 -->
+		<action name="dataProvidedToWeilaiwd" class="dataProvidedAction" method="dataProvidedToWeilaiwd"></action>
+		<!-- <action name="crLinshi" class="dataProvidedAction" method="crLinshi"></action> -->
+		<!-- 九盟 -->
+		<action name="querySbydate" class="dataProvidedAction" method="querySbydate"></action>
+	</package>
+</struts>

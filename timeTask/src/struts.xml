@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+ <!-- 开发模式
+ <constant name="struts.devMode" value="false"></constant>
+ <constant name="struts.xwork.chaining.copyErrors" value="true"></constant>
+ -->
+<!--国际化支持配置开始 -->
+ <constant name="struts.custom.i18n.resources" value="resources/title"></constant>  
+<!--国际化支持配置结束 -->
+
+<!--spring struts 集成开始 -->
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.objectFactory.spring.autoWire" value="name"/>
+	<!-- 自动注入总是有效 -->
+	<constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true" />
+<!--spring struts 集成结束 -->
+
+
+	<!-- 登录验证拦截器 start by haoxiaofeng 
+	<package name="struts-cms" abstract="true"	extends="struts-default">
+		<interceptors>
+			<interceptor name="authorityValidate"
+				class="com.dx.common.interceptor.AuthenticationInterceptor" />
+			<interceptor-stack name="cms-base-interceptors">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authorityValidate">
+					<param name="excludeMethods">
+						userLogin,userLogout
+					</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="cms-base-interceptors" />
+		<global-results>
+			<result name="noLogin">
+				noLogin.html
+			</result>
+		</global-results>
+	</package> -->
+	 
+	<!-- 登录验证拦截器 end by haoxiaofeng -->
+
+<!-- 
+	<package name="userlogon" namespace="/creditapp"
+		extends="struts-default">
+		<global-results>
+			<result name="invalid.token">
+				/creditapp/common/commitRepeat.jsp
+			</result>
+			<result name="commonException">
+				/creditapp/common/exception.jsp
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="commonException"
+				exception="java.lang.Exception">
+			</exception-mapping>
+		</global-exception-mappings>
+
+		<action name="cms" method="userLogin"
+			class="app.creditapp.action.TblOrgUserAction">
+			<result name="main">/creditapp/index.html</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="modifyPwd" method="toInput"
+			class="app.creditapp.action.TblOrgUserAction">
+			<result name="input">
+				/creditapp/sys/Sys_Op_InsertOrUpdate.jsp
+			</result>
+		</action>
+		<action name="logout" method="userLogout"
+			class="app.creditapp.action.TblOrgUserAction">
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="changePassWord" method="changePassWord"
+			class="app.creditapp.action.TblOrgUserAction">
+			<result name="changePassWordInfo">
+				/creditapp/common/changePassWordInfo.jsp
+			</result>
+		</action>
+	</package>
+	 -->
+	<include file="com/dx/login/struts-config/*.xml"></include>
+	<!-- 还款管理 -->
+	<include file="com/dx/loan/repay/struts-config/*.xml"></include>
+	<!-- 放款管理 -->
+	<include file="com/dx/loan/putout/struts-config/*.xml"></include>
+	<!-- 还款计划 -->
+	<include file="com/dx/loan/plan/struts-config/*.xml"></include>
+	<!-- 凭证管理
+	<include file="com/dx/finance/voucher/struts-config/*.xml"></include>
+	 -->
+</struts>

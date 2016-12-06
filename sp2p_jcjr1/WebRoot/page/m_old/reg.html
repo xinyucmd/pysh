@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>微信贷-注册</title>
+<meta content="target-densitydpi=device-dpi,width=640, maximum-scale=1, user-scalable=0" name="viewport" id="viewport">
+<link type="text/css" rel="stylesheet" href="/css/m/style.css">
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+</head>
+<body>
+
+<div id="header">
+<div class="reg-log"><a href="javascript:history.go(-1);"></a>注册用户</div>
+</div>
+<div id="wrap">
+	<div class="reg">
+    	  <div class="reg_bg"></div>
+          <form method="post">
+          <div class="link-touch">
+                <ul class="items">
+                    <li><label class="txt bp1">手机号</label>
+                    	<input id="ipt_mobileNo" class="input w4" type="text" value="请输入手机号码（接收电影票电子码）" 
+                    	onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''" 
+                    	onFocus="mFocus();" 
+                    	onBlur="mBlur();">
+                    </li>
+                    <li><label class="txt bp2">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                    <input class="input w3" type="text" id="ipt_pwd" value="请输入密码" 
+                    onmouseover="this.style.borderColor='#FF6600'" 
+                    onmouseout="this.style.borderColor=''" 
+                    onFocus="pwdFocus();" 
+                    onBlur="" />
+                    
+                    <input class="input w3" type="password" display="none" id="ipt_pwd_value" value="" 
+                    onmouseover="this.style.borderColor='#FF6600'" 
+                    onmouseout="this.style.borderColor=''"
+                    onBlur="pwdBlur();" />
+                    
+                    </li>
+                    <li><label class="txt bp3" >验证码</label>
+                    <input id="ipt_randomCode" type="hidden" value=""/>
+                    <input id="ipt_recivePhone" type="hidden" value=""/>
+                    <input id="ipt_mCode" class="input w1" type="text"  value="请输入验证码" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''" onFocus="if (value =='请输入验证码'){value =''}" onBlur="if (value ==''){value='请输入验证码'}">
+                    
+                    <input id="clickCode5" name="" class="w2" type="button"  value="点击获取验证码" /></li>   
+                    
+                    <li><label class="txt bp4" >推荐人用户名</label>
+                    	<input id="ipt_userName" class="input w3" type="text" value="输入推荐人用户名" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''" onFocus="if (value =='输入推荐人用户名'){value =''}" onBlur="if (value ==''){value='输入推荐人用户名'}"></li> 
+                        <li class="un-agree"><label class="txt bp5" ><input class="agree" name="agree" id="ckb_agree" style="display: none;" type="checkbox" /></label>
+						<span> <a href="serve.html">我已经阅读并同意会员注册及服务协议</a> </span></li>         
+                </ul>
+          </div>
+      <div class="reg_btn">
+          <div>
+            <input id="btn_register" name="" type="button" value="立即注册" onclick="regester();"  class="big_btn">
+         </div>
+      </div>
+      </form>
+    </div> 
+    </div>
+</body>
+
+<script>
+$(function(){
+	$(".bp5").click( function () {
+	if($('.agree').is(':checked')) {
+		$(".agree").attr("checked", false);
+	$(this).css({ "background-position": "0 -365px"});
+	}else{
+	$(".agree").attr("checked", true);
+	$(this).css({ "background-position": "0 -450px"});
+	}
+	});
+});
+
+var user = new MUser();
+
+var username = user.getCookie("userName");
+if(user.isNotBank(username)){
+	$("#ipt_userName").attr("value",username);
+}
+
+function mFocus(){
+	var pwd = $("#ipt_mobileNo").val();
+	if (pwd =='请输入手机号码（接收电影票电子码）'){
+		$("#ipt_mobileNo").attr("value","");
+	}
+}
+
+function mBlur(){
+	var pwd = $("#ipt_mobileNo").val();
+	var mobileNo = $("#ipt_mobileNo").val();
+	if (pwd ==''){
+		$("#ipt_mobileNo").attr("value","请输入手机号码（接收电影票电子码）");
+	}else{
+		user.requestMcodeWithEffec("ipt_mobileNo","clickCode5","ipt_randomCode","ipt_recivePhone",
+				function(msg){
+					//alert(msg)
+				},complete);
+	}
+}
+
+function complete(data){
+	if(data.error != -1){
+    	alert(data.msg);
+    	return;
+    }
+}
+
+function regester(){
+	var mobileNo = $("#ipt_mobileNo").val();
+	var pwd = $("#ipt_pwd_value").val();
+	var mCode = $("#ipt_mCode").val();
+	var recommendUserName = $("#ipt_userName").val();
+	if(pwd == ''){
+		alert("密码不能为空");
+		return;
+	}
+	
+	if($("#ckb_agree").attr("checked")!='checked'){
+		alert("您没有同意会员注册协议！");
+		return;
+	}
+	if(mCode=='' || mCode=='请输入验证码'){
+		alert("请输入手机验证码！");
+		return;
+	}
+	if(recommendUserName==''|| recommendUserName=='输入推荐人用户名'){
+		recommendUserName = '';
+	}
+	user.regester(mobileNo,pwd,mCode,$("#ipt_randomCode").val(),$("#ipt_recivePhone").val(),recommendUserName,complete_reg);
+}
+
+function complete_reg(data){
+	if(data.error != -1){
+    	alert(data.msg);
+    	return;
+    }else{
+    	var mobileNo = $("#ipt_mobileNo").val();
+    	var pwd = $("#ipt_pwd_value").val();
+    	if(user.login(mobileNo,pwd,complete_login));
+    }
+}
+
+function complete_login(data){
+	if(data.error != -1){
+		alert(data.msg);
+	}else{
+		if(user.isNotBank($("#ipt_userName").val()) && $("#ipt_userName").val()!='输入推荐人用户名'){
+			window.location.href='sucess_reg.html';
+		}else{
+			// window.location.href='sucess_reg_1.html';
+			window.location.href = 'attestation_1.html';
+		}
+	}
+}
+
+function pwdFocus(){
+	var pwd = $("#ipt_pwd");
+	var pwd_value = $("#ipt_pwd_value");
+	if (pwd.val() =='请输入密码'){
+		pwd_value.show();
+		pwd.hide();
+		
+		pwd_value.focus();
+	}
+}
+
+function pwdBlur(){
+	var pwd = $("#ipt_pwd");
+	var pwd_value = $("#ipt_pwd_value");
+	if (pwd_value.val() ==''){
+		pwd_value.hide();
+		pwd.show();
+	}
+}
+
+</script>

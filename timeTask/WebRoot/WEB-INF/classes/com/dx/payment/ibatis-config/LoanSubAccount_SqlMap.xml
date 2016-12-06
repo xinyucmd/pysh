@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Loan_Sub_Account" type="com.dx.payment.bean.LoanSubAccount" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Loan_Sub_Account" class="Loan_Sub_Account">
+		<result property="sub_no" column="SUB_NO" />
+		<result property="account_no" column="ACCOUNT_NO" />
+		<result property="account_type" column="ACCOUNT_TYPE" />
+		<result property="pay_type" column="PAY_TYPE" />
+		<result property="should_pay" column="SHOULD_PAY" />
+		<result property="pay" column="PAY" />
+		<result property="cut" column="CUT" />
+		<result property="account_chart" column="ACCOUNT_CHART" />
+		<result property="account_code" column="ACCOUNT_CODE" />
+		<result property="operation" column="OPERATION" />
+		<result property="status" column="STATUS" />
+		<result property="open_date" column="OPEN_DATE" />
+		<result property="open_op" column="OPEN_OP" />
+		<result property="close_date" column="CLOSE_DATE" />
+		<result property="close_op" column="CLOSE_OP" />
+		<result property="cmt" column="CMT" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="loan_sub_account">
+        <![CDATA[
+              SUB_NO        ,
+			  ACCOUNT_NO    ,
+			  ACCOUNT_TYPE  ,
+			  PAY_TYPE      ,
+			  SHOULD_PAY    ,
+			  PAY           ,
+			  CUT           ,
+			  ACCOUNT_CHART ,
+			  ACCOUNT_CODE  ,
+			  OPERATION     ,
+			  STATUS        ,
+			  OPEN_DATE     ,
+			  OPEN_OP       ,
+			  CLOSE_DATE    ,
+			  CLOSE_OP      ,
+			  CMT   
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="loanSubAccount.insert">
+        <![CDATA[
+          INSERT INTO LOAN_SUB_ACCOUNT(
+           	  SUB_NO        ,
+			  ACCOUNT_NO    ,
+			  ACCOUNT_TYPE  ,
+			  PAY_TYPE      ,
+			  SHOULD_PAY    ,
+			  PAY           ,
+			  CUT           ,
+			  ACCOUNT_CHART ,
+			  ACCOUNT_CODE  ,
+			  OPERATION     ,
+			  STATUS        ,
+			  OPEN_DATE     ,
+			  OPEN_OP       ,
+			  CLOSE_DATE    ,
+			  CLOSE_OP      ,
+			  CMT	
+           )VALUES(
+                #sub_no#,
+				#account_no#,
+				#account_type#,
+				#pay_type#,
+				#should_pay#,
+				#pay#,
+				#cut#,
+				#account_chart#,
+				#account_code#,
+				#operation#,
+				#status#,
+				#open_date#,
+				#open_op#,
+				#close_date#,
+				#close_op#,
+				#cmt#
+            )
+        ]]>
+	</insert>
+	<!-- 表修改 -->
+	<update id="loanSubAccount.update">
+        <![CDATA[
+            UPDATE LOAN_SUB_ACCOUNT set
+       ]]>
+		<isEmpty prepend="" property="should_pay">
+			should_pay=#should_pay#
+		</isEmpty>
+		<isEmpty prepend="," property="pay">
+			pay=#pay#
+		</isEmpty>
+		<isEmpty prepend="," property="account_chart">
+			account_chart=#account_chart#
+		</isEmpty>
+		<isEmpty prepend="," property="cut">
+			cut=#cut#
+		</isEmpty>
+		<isEmpty prepend="," property="account_code">
+			account_code=#account_code#
+		</isEmpty>
+		<isEmpty prepend="," property="status">
+			status=#status#
+		</isEmpty>
+		<isEmpty prepend="," property="status">
+			status=#status#
+		</isEmpty>
+		<isEmpty prepend="," property="open_date">
+			open_date=#open_date#
+		</isEmpty>
+		<isEmpty prepend="," property="open_op">
+			open_op=#open_op#
+		</isEmpty>
+		<isEmpty prepend="," property="close_date">
+			close_date=#close_date#
+		</isEmpty>
+		<isEmpty prepend="," property="cmt">
+			cmt=#cmt#
+		</isEmpty>
+          <![CDATA[    
+            
+                 WHERE
+               ACCOUNT_NO = #account_no#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="loanSubAccount.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="account_no">
+				<isNotEmpty prepend="AND" property="account_no">
+					ACCOUNT_NO =
+					#account_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="account_type">
+				<isNotEmpty prepend="AND" property="account_type">
+					account_type =
+					#account_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pay_type">
+				<isNotEmpty prepend="AND" property="pay_type">
+					pay_type = #pay_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="loanSubAccount.findPage.count" resultClass="int">
+		SELECT count(*) FROM LOAN_SUB_ACCOUNT
+		<include refid="loanSubAccount.findPage.where" />
+	</select>
+	<!-- 分页查询记录数 -->
+	<select id="loanSubAccount.getList" resultMap="RM.Loan_Sub_Account">
+		SELECT * FROM LOAN_SUB_ACCOUNT
+		<include refid="loanSubAccount.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="loanSubAccount.findByPage" resultMap="RM.Loan_Sub_Account">
+		SELECT
+		<include refid="loan_sub_account" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="loan_sub_account" />
+		FROM LOAN_SUB_ACCOUNT
+		<include refid="loanSubAccount.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="loanSubAccount.findByOpNo" resultMap="RM.Loan_Sub_Account">
+		SELECT
+		<include refid="loan_sub_account" />
+		FROM LOAN_SUB_ACCOUNT
+		<include refid="loanSubAccount.findPage.where" />
+	</select>
+	<select id="loan_sub_account.getById" resultMap="RM.Loan_Sub_Account">
+		SELECT
+		<include refid="loan_sub_account" />
+		FROM LOAN_SUB_ACCOUNT
+		WHERE
+		ACCOUNT_NO = #account_no#
+	</select>
+
+</sqlMap>

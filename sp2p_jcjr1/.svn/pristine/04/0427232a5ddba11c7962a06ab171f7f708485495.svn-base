@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微信贷-活动推广页面</title>
+<script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+<script src="/js/ZeroClipboard.js"></script>
+<style>
+	body { font-size: 14px; color: #666; font-family: "微软雅黑"; background-color:#fff2c5; }
+	* { margin: 0; padding: 0; }
+	ul, ol { list-style: none; }
+	em, i { font-style: normal; }
+	img { border: none; vertical-align: middle; }
+	.clear { clear: both; }
+	.clearfix { zoom: 1; }
+	.clearfix:after { display: block; visibility: hidden; content: '.'; height: 0; clear: both; }
+	a { font-family: "微软雅黑"; text-decoration: none; color: #666; cursor: pointer; }
+	.activity{ width:100%; height:auto; font-family:"微软雅黑";}
+	.activity .banner1{ width:100%; background:url(image/banner1.jpg) no-repeat center; height:280px;}
+	.activity .banner2{ width:100%; background:url(image/banner2.jpg) no-repeat center; height:208px;}
+	.activity .banner3{ width:100%; background:url(image/banner3.jpg) no-repeat center; height:139px;}
+	.activity .ac_bg1{ width:990px;height:640px; margin:60px auto 0;}
+	.activity .ac_bg1_top{ height:34px; background:url(image/bg_top.jpg) no-repeat; width:990px;}
+	.activity .ac_bg1_bottom{ height:34px; background:url(image/bg_bottom.jpg) no-repeat; width:990px; }
+	.activity .ac_bg1_con{ height:597px; width:990px;  }
+    .ac_bg1_con_left{ height:597px; width:6px; float:left; background:url(image/bg_left.jpg) no-repeat; }
+	.ac_bg1_con_right{ height:597px; width:6px; float:left; background:url(image/bg_right.jpg) no-repeat; }
+	.ac_bg1_con_cen{ height:597px; width:978px; float:left; background:#fff9e5; text-align:center; }
+	
+	.activity .ac_bg2{ width:990px;height:546px; margin:60px auto 0;}
+	.activity .ac_bg2_top{ height:34px; background:url(image/bg_top.jpg) no-repeat; width:990px;}
+	.activity .ac_bg2_bottom{ height:34px; background:url(image/bg_bottom.jpg) no-repeat; width:990px; }
+	.activity .ac_bg2_con{ height:480px; width:990px;  }
+    .ac_bg1_con_left2{ height:480px; width:6px; float:left; background:url(image/bg_left1.jpg) no-repeat; }
+	.ac_bg1_con_right2{ height:480px; width:6px; float:left; background:url(image/bg_right1.jpg) no-repeat; }
+	.ac_bg1_con_cen2{ height:480px; width:978px; float:left; background:#fff9e5; text-align:center; }
+	
+	.m1{ margin:25px 0 40px 0;}
+	.m2{ margin-bottom:80px;}
+	.m4{ position:relative; overflow:hidden; top:180px;}
+	.activity .ac_bg20{ width:100%;height:142px; background:url(img/bg19.jpg) no-repeat center; }
+	.activity .ac_bg20_con{ width:980px;height:142px; margin:0 auto; background:url(img/img16.jpg) no-repeat center;}
+	.activity .ac_bg20_con ul li{ float:left; width:390px;} 
+	.con_rule{ width:100%; background:#e8413e;font-family:"微软雅黑"; font-size:18px; color:#fff; padding-top:45px;}
+	.con_rule .con_list h3{ font-size:24px;}
+	.con_rule .con_list{ width:980px; margin:0 auto; }
+	.con_rule .con_list ul li{ line-height:46px;} 
+	.weixin{ width:295px; height:320px; background:url(image/ljimg1.jpg) no-repeat; float:left;}
+	.lianjie{ width:275px; height:320px; background:url(image/ljimg2.jpg) no-repeat; float:right;}
+	.theme-popover{ width:385px; height:380px; position:fixed; display:none; z-index:9999; top:0; background:#fbfbfb; border-radius:8px; left:35%; border:solid 2px #dbdada; font-size:14px;}
+	.close{ background:url(image/close.jpg) no-repeat; top:5px;right:5px;  position:absolute; z-index:10001; height:27px; width:27px;}
+	.theme-popover .tibo{ height:60px; line-height:60px; padding-left:20px;}
+	.login_box{ width:530px; height:677px; position:fixed; left:30%; top:0; display:none; z-index:9999;}
+	.thao{ height: 300px;left: 20px;overflow: hidden;position: relative;z-index:10000;}	
+	/*------------------头部-----------------*/	          
+	.p_headerbox{ height:146px; border-top:solid 2px #C70009; width:100%; background-color:#fff;}
+	.p_topbox{ height:42px; width:100%; background-color:#484f59;}
+	.p_top{ width:980px;  padding-top:8px; margin:0 auto;}
+	.p_topleft{ float:left;}
+	.p_topleft span{ float:left;}
+	.p_topleft span a{ vertical-align:bottom; margin:0 10px;}
+	.p_topleft span a:hover{opacity:0.6; filter:alpha(opacity=60);}
+	.p_topright{ float:right;}
+	.p_topright span{ float:left; margin-left:30px; }
+	.p_topright span a img{ vertical-align:text-bottom; *vertical-align:-2px;}
+	.p_header{ width:980px; margin:0 auto; padding:30px 0;}
+	.p_logo{  float:left;}
+	.p_nav{ float:right; line-height:44px;}
+	.p_nav a{ margin-left:75px; float:left; font-size:16px;}
+	.p_nav a:hover,.p_nav a.hover{color:#bb1b21;}
+	.f18{ font-size:18px;}
+</style>
+</head>
+<body>
+<!--头部 begin-->
+<div class="p_headerbox">
+    <div class="p_topbox">
+        <div class="p_top clearfix">
+            <div class="p_topleft"> <span>客服电话：<em class="f18">400-001-6007</em> （9:00-21:00）</span></div>
+            <div class="p_topright"> 
+            	<span id="span_logind">
+            		<img src="/activity_images/201501/p_ico003.png" width="13" height="16" /><a href="/home.do" style="color:#f90; margin-right:10px;">我的微信贷</a><span></span> <a href="/logout.do">退出</a>
+            	</span>
+            
+            	<span id="span_no_login">
+            		<a href="/login.do" style="color:#F90;"><img src="/activity_images/201501/p_ico003.png" /> 登录</a>
+            		<a href="/cellPhoneinit.do" style="color:#ff6960;"><img src="/activity_images/201501/p_ico004.png" /> 注册</a>
+            	</span> 
+            		
+            </div>
+        </div>
+    </div>
+    <div class="p_header clearfix">
+        <div class="p_logo"><a href="/index.jsp"><img src="/images/logo.png" /></a></div>
+        <div class="p_nav"><a href="/index.jsp">首页</a><a href="/finance.do?m=1&type=4">我要投资</a><a href="/borrow.do">我要借款</a><a href="/capitalEnsure.do">安全中心</a><a href="/getMessageBytypeId.do?typeId=4">关于我们</a></div>
+    </div>
+</div>
+<!--------------------------头部 end--------------------------->
+<div class="activity">
+	<div class="banner1"></div>
+    <div class="banner2"></div>
+    <div class="banner3"></div>
+	<div class="ac_bg1">
+            <div class="ac_bg1_top"></div>
+            <div class="ac_bg1_con">
+            	<div class="ac_bg1_con_left"></div>
+                <div class="ac_bg1_con_cen">
+                	<p class="m1"><img src="image/img1.jpg" width="263" height="66" /></p>
+                    <p class="m2"><img src="image/word1.jpg" width="587" height="80" /></p>
+                    <div>
+               	    	<img src="image/img5.jpg" width="277" height="134" />
+                        <img src="image/img6.jpg" width="277" height="134" style="margin:0 30px;" />
+                        <img src="image/img7.jpg" width="277" height="134" />
+                    </div>
+                    <div style="margin-top:60px;"><a href="/finance.do?m=1&type=4"><img src="image/btn.jpg" width="292" height="83" /></a></div>
+              </div>
+                <div class="ac_bg1_con_right"></div>
+            </div>
+            <div class="ac_bg1_bottom"></div>
+    </div>
+  <!--投资送大礼-->
+<div class="ac_bg1" style="margin-top:100px;">
+            <div class="ac_bg1_top"></div>
+            <div class="ac_bg1_con">
+            	<div class="ac_bg1_con_left"></div>
+                <div class="ac_bg1_con_cen">
+                	<p class="m1"><img src="image/img2.jpg" width="263" height="66" /></p>
+                    <p style="margin-bottom:50px;"><img src="image/word2.jpg" width="578" height="55" /></p>
+                    <div>
+               	    	<img src="image/jpimg1.jpg" width="133" height="228" /> 
+                        <img src="image/jpimg2.jpg" width="219" height="228" /> 
+                        <img src="image/jpimg3.jpg" width="174" height="228" /> 
+                    	<img src="image/jpimg4.jpg" width="378" height="231" />
+                  </div>
+                  <div style="margin-top:40px;"><a href="/finance.do?m=1&type=4"><img src="image/btn.jpg" width="292" height="83" /></a></div>
+              </div>
+                <div class="ac_bg1_con_right"></div>
+            </div>
+            <div class="ac_bg1_bottom"></div>
+    </div>
+ <!--结束-->
+ <!--推荐有惊喜-->
+    <div class="ac_bg2" style="margin-top:100px;">
+            <div class="ac_bg1_top"></div>
+            <div class="ac_bg2_con">
+            	<div class="ac_bg1_con_left2"></div>
+                <div class="ac_bg1_con_cen2">
+       	  	  	  <p class="m1"><img src="image/img2.jpg" width="263" height="66" /></p>
+                    <p style="margin-bottom:50px;"><img src="image/word3.jpg" width="582" height="56" /></p>
+                    <div>
+       	    	    	<img src="image/tabletext.jpg" width="522" height="205" />
+                    </div>
+              </div>
+                <div class="ac_bg1_con_right2"></div>
+            </div>
+            <div class="ac_bg1_bottom"></div>
+    </div>
+ <!--结束-->
+ <!--推荐好方法-->
+    <div class="ac_bg1">
+    	<p class="m1" style="text-align:center; margin-top:100px;"><img src="image/img4.jpg" width="263" height="66" /></p>
+        <div style="height:315px; width:750px; margin:80px auto;">
+        	<div class="weixin"><a href="javascript:;" class="theme-login m4">
+        	<img src="image/weixin.jpg" width="291" height="89" onclick="toLogin('code');"/></a>
+        	</div>
+            <div class="lianjie"><a class="m4">
+            <img id="img_cp_link" src="image/lianjie.jpg" width="271" height="89" data-clipboard-target="reconmmend_link"/></a>
+            <input type="hidden" id="reconmmend_link" value=""/>
+            </div>
+        </div>
+    </div>
+ <!--结束-->
+     <div class="con_rule">
+         <div class="con_list">
+                <h3>活动说明：</h3>
+                <ul>
+                    <li><span>1、</span>活动期间，新手注册完毕即可获得90元红包，完成充值后，再获10元现金奖励，共计100元。红包可用于三个月及以上期限标的投资，现金奖励可投资可提现</li>
+                    <li><span>2、</span>红包抵用比例为1:100， 单次投标10000元，可用100元红包，只需支付9900元。</li>
+                    <li><span>3、</span>累计投资金额按照年化来计算，投资1万元半年期产品，年化投资金额算作5000元。</li>
+                    <li><span>4、</span>投资送礼活动累计投资金额在活动结束后统计，统计完成后安排奖品发放。</li>
+                    <li><span>5、</span>推荐好友单次投资，好友可投资平台所有产品（不局限于加息的定息宝产品），推荐获得的年化返利奖励，将随好友投标收益进行分月返还。</li>
+                    <li><span>6、</span>	推荐投资的好友关系不局限于本次活动，之前已建立的好友关系仍然有效，推荐好友投资后即可在本次活动中享受推荐返利。</li>
+                    <li><span>7、</span>	用户参与投资，此次活动中的投资送大礼，和微信贷其它活动（如与九华医院合作活动）的奖品不可同时享受。</li>
+    			 	<li><span>8、</span>	活动奖品赠送的体检卡为北京九华健康体检卡，限北京地区使用。</li>
+     				<li><span>9、</span>活动时间：2015年4月28日——6月12日。</li>
+     				<li><span>10、</span>本次活动的最终解释权归微信贷所有。</li>
+                </ul>
+         </div>
+      </div>    
+</div>
+ <div class="theme-popover" id = "showCode">
+        <div>
+       	  	<p class="tibo" style="border-bottom:solid 1px #c9c9c9;" >分享到微信朋友圈</p>
+            <p style="margin:15px 0; text-align:center;" id="imgCode"></p>
+            <p class="tibo" style="border-top:solid 1px #c9c9c9;">打开微信使用"扫一扫"即可将网页分享到我的微信朋友圈。</p>
+        </div>	
+        <div class="theme-poptit"><a title="关闭" class="close"></a></div>
+    </div>
+    <script>
+		jQuery(document).ready(function($) {
+			$('.theme-login').click(function(){
+				$('.theme-popover').slideDown(200);
+			})
+			$('.theme-poptit .close').click(function(){
+				$('.theme-popover').slideUp(200);
+			})
+		
+		})
+</script>
+</body>
+<script>
+	var param = {};
+	var loginTarget = '';
+	var baseUrl = "http://www.jcbanking.com/page/recommend/reg.html";
+	var user;
+	jQuery(document).ready(function($) {
+		user = new MUser(param);
+		user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$("#span_no_login").hide();
+					$("#span_logind").show();
+					
+					// 设置复制链接的地址
+					$("#reconmmend_link").attr("value",baseUrl+"?userName="+data.userName);
+				}else{
+					// 头部控制
+					$("#span_no_login").show();
+					$("#span_logind").hide();
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+		
+	});
+	
+	// 登录
+	function login(){
+		var username = $("#username").attr("value");
+		var password = $("#ipt_pwd_value").attr("value");
+		var code = $("#code").attr("value");
+		var obj_btn_login = $("#btn_login");
+		var obj_img_code = $("#img_code");
+		user.login_pc(username, password, code, obj_btn_login, obj_img_code,function(data){
+			toLogin('');
+		},
+		function(data1){
+			clearForm();
+		}
+		);
+	}
+	
+	function flushCode(){
+		var obj_img_code = $("#img_code");
+		user.flushImgCode(obj_img_code);
+	}
+	
+	// 登录框
+	jQuery(document).ready(function($) {
+		$('.close').click(function(){
+			closeLogin();
+		});
+	});
+	
+	function toLogin(lt){
+		$("#div_box_b").hide();
+		loginTarget = lt;
+		user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$("#div_box_b").hide();
+					
+					// 显示二维码
+					if(loginTarget=='code'){
+						showCode(data);
+					}
+					
+					// 设置复制链接的地址
+					$("#reconmmend_link").attr("value",baseUrl+"?userName="+data.userName);
+					
+					processAfterLogin();
+					return true;
+				}else{
+					//showLogin();
+					//$("#div_box_b").show();
+					//$("#div_box_c").hide();
+					
+					// 头部控制
+					//$("#span_no_login").show();
+					//$("#span_logind").hide();
+					
+					window.location.href = "/login.do";
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+	}
+	
+	function showCode(data){
+		// 加载二维码
+		user.genQCode("imgCode", baseUrl+"?userName="+data.userName);
+		$("#showCode").show();
+	}
+	
+	function closeCode(){
+		$("#showCode").hide();
+	}
+	
+	function processAfterLogin(){
+		$("#div_box_b").hide();
+		$("#div_box_c").show();
+		
+		// 头部控制
+		$("#span_no_login").hide();
+		$("#span_logind").show();
+		closeLogin();
+	}
+	
+	function clearForm(){
+		$("#code").attr("value","");
+		$("#btn_login").attr("value","");
+		$("#img_code").attr("value","");
+	}
+	
+	function showLogin(){
+		$('.theme-popover-mask').fadeIn(100);
+		$('.login_box').slideDown(200);
+		// 刷新图片验证码
+	    flushCode();
+	}
+	
+	function closeLogin(){
+		$('.theme-popover-mask').fadeOut(100);
+		$('.login_box').slideUp(200);
+	}
+	
+	
+	// 定义一个新的复制对象
+	var clip = new ZeroClipboard($("#img_cp_link"), {
+	  moviePath: "/js/ZeroClipboard.swf"
+	} );
+	
+	// 复制内容到剪贴板成功后的操作
+	clip.on( 'complete', function(client, args) {
+		user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$("#div_box_b").hide();
+					//alert("复制成功，复制内容为："+ args.text);
+					alert("复制成功,复制内容可直接粘贴!");
+					return true;
+				}else{
+					//showLogin();
+					//$("#div_box_b").show();
+					//$("#div_box_c").hide();
+					
+					// 头部控制
+					//$("#span_no_login").show();
+					//$("#span_logind").hide();
+					
+					window.location.href = "/login.do";
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+	} );
+	
+</script>
+
+</html>

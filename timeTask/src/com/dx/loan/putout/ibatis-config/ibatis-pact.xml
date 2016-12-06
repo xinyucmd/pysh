@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="pactBean" type="com.dx.loan.putout.bean.PactBean"/> 
+	<resultMap id="pactBeanResult" class="pactBean">
+        <result column="PACT_NO" property="pactNo" />
+        <result column="CIF_NO" property="cifNo" />
+        <result column="PACT_AMT" property="pactAmt" />
+        <result column="BEG_DATE" property="begDate" />
+        <result column="END_DATE" property="endDate" />
+        <result column="TERM_MON" property="termMon" />
+        <result column="TERM_DAY" property="termDay" />
+        <result column="LN_RATE" property="lnRate" />
+        <result column="Rate_Float" property="rateFloat" />
+        <result column="FINE_RATE" property="fineRate" />
+        <result column="EXP_RATE" property="expRate" />
+        <result column="EXP_RATE_FLOAT" property="expRateFloat" />
+        <result column="CMPD_Rate_Float" property="cmpdRateFloat" />
+        <result column="OVER_RATE_FLOAT" property="overRateFloat" />
+        <result column="RATE_WAY" property="rateWay" />
+        <result column="RETURN_METHOD" property="returnMethod" />
+        <result column="PACT_KIND" property="pactKind" />
+        <result column="OCCUR_TYPE" property="occurType" />
+        <result column="FIXRATE_INTEREST" property="fixrateInterest" />
+        <result column="ISPRE_FIXRATE" property="ispreFixrate" />
+        <result column="CONSULT_AMT" property="consultAmt" />
+        <result column="MAIN_GUARAN" property="mainGuaran" />
+        <result column="GUARAN_TYPE" property="guaranType" />
+        <result column="PACT_NATURE" property="pactNature" />
+        <result column="PACT_USE" property="pactUse" />
+        <result column="PACT_USE_DESC" property="pactUseDesc" />
+        <result column="APPLYER_BANK_NAME" property="applyerBankName" />
+        <result column="APPLYER_BANK_NO" property="applyerBankNo" />
+        <result column="RECEIVER_BANK_NAME" property="receiverBankName" />
+        <result column="RECEIVER_BANK_NO" property="receiverBankNo" />
+        <result column="TEL_NO" property="telNo" />
+        <result column="INFO_OP_TYPE" property="infoOpType" />
+        <result column="ID_TYPE" property="idType" />
+        <result column="AUTH_ID" property="authId" />
+        <result column="IF_YT" property="ifYt" />
+        <result column="VOU_TYPE" property="vouType" />
+        <result column="PACT_STS" property="pactSts" />
+        <result column="SIGN_DATE" property="signDate" />
+        <result column="LN_TRADE_NO" property="lnTradeNo" />
+        <result column="BAL" property="bal" />
+        <result column="LOAN_KIND" property="loanKind" />
+        <result column="OCC_DATE" property="occDate" />
+        <result column="LN_TYPE" property="lnType" />
+        <result column="CUR_NO" property="curNo" />
+        <result column="LOAN_TYPE" property="loanType" />
+        <result column="RATE_NO" property="rateNo" />
+    </resultMap>
+	<sql id="pactBean_column">
+    	<![CDATA[PACT_NO,
+    			CIF_NO,
+    			PACT_AMT,
+    			BEG_DATE,
+    			END_DATE,
+    			TERM_MON,
+    			TERM_DAY,
+		    	LN_RATE,
+		    	RATE_FLOAT,
+		    	FINE_RATE,
+		    	EXP_RATE,
+		    	EXP_RATE_FLOAT,
+		    	CMPD_RATE_FLOAT,
+		    	CMPD_RATE,
+		    	OVER_RATE_FLOAT,
+		    	OVER_RATE,
+		    	FINE_RATE_FLOAT,
+		    	FINE_RATE,
+		    	RATE_WAY,
+		    	RETURN_METHOD,
+		    	PACT_KIND,
+		    	OCCUR_TYPE,
+		    	FIXRATE_INTEREST,
+		    	ISPRE_FIXRATE,
+		    	CONSULT_AMT,
+		    	MAIN_GUARAN,
+		    	GUARAN_TYPE,
+		    	PACT_NATURE,
+		    	PACT_USE,
+		    	PACT_USE_DESC,
+		    	APPLYER_BANK_NAME,
+		    	APPLYER_BANK_NO,
+		    	RECEIVER_BANK_NAME,
+		    	RECEIVER_BANK_NO,
+		    	TEL_NO,INFO_OP_TYPE,
+		    	ID_TYPE,
+		    	AUTH_ID,
+		    	IF_YT,
+		    	VOU_TYPE,
+		    	PACT_STS,
+		    	SIGN_DATE,
+		    	LN_TRADE_NO,
+		    	BAL,
+		    	LOAN_KIND,
+		    	OCC_DATE,
+		    	LN_TYPE,
+		    	CUR_NO,
+		    	LOAN_TYPE,
+		    	RATE_NO]]>
+    </sql>
+    <insert id="savePactBean">
+   		<![CDATA[INSERT INTO LOAN_PACT(
+   				 PACT_NO, 
+   				 CIF_NO, 
+   				 PACT_AMT, 
+   				 BEG_DATE, 
+   				 END_DATE, 
+   				 TERM_MON, 
+   				 TERM_DAY, 
+   				 LN_RATE, 
+   				 RATE_FLOAT, 
+   				 FINE_RATE, 
+   				 EXP_RATE, 
+   				 EXP_RATE_FLOAT,
+   				 CMPD_RATE_FLOAT, 
+   				 OVER_RATE_FLOAT, 
+   				 RATE_WAY, 
+   				 RETURN_METHOD, 
+   				 PACT_KIND, 
+   				 OCCUR_TYPE, 
+   				 FIXRATE_INTEREST, 
+   				 ISPRE_FIXRATE, 
+   				 CONSULT_AMT, 
+   				 MAIN_GUARAN, 
+   				 GUARAN_TYPE, 
+   				 PACT_NATURE, 
+   				 PACT_USE, 
+   				 PACT_USE_DESC, 
+   				 APPLYER_BANK_NAME, 
+   				 APPLYER_BANK_NO, 
+   				 RECEIVER_BANK_NAME, 
+   				 RECEIVER_BANK_NO, 
+   				 TEL_NO, 
+   				 INFO_OP_TYPE, 
+   				 ID_TYPE, 
+   				 AUTH_ID, 
+   				 IF_YT, 
+   				 VOU_TYPE, 
+   				 PACT_STS, 
+   				 SIGN_DATE, 
+   				 LN_TRADE_NO, 
+   				 BAL, 
+   				 LOAN_KIND, 
+   				 OCC_DATE, 
+   				 LN_TYPE, 
+   				 CUR_NO, 
+   				 LOAN_TYPE, 
+   				 RATE_NO) 
+   				 VALUES(
+   				 #pactNo#, 
+   				 #cifNo#, 
+   				 #pactAmt#, 
+   				 #begDate#, 
+   				 #endDate#, 
+   				 #termMon#, 
+   				 #termDay#, 
+   				 #lnRate#, 
+   				 #rateFloat#, 
+   				 #fineRate#, 
+   				 #expRate#, 
+   				 #expRateFloat#, 
+   				 #cmpdRateFloat#, 
+   				 #overRateFloat#, 
+   				 #rateWay#, 
+   				 #returnMethod#, 
+   				 #pactKind#, 
+   				 #occurType#, 
+   				 #fixrateInterest#, 
+   				 #ispreFixrate#, 
+   				 #consultAmt#, 
+   				 #mainGuaran#, 
+   				 #guaranType#, 
+   				 #pactNature#, 
+   				 #pactUse#, 
+   				 #pactUseDesc#, 
+   				 #applyerBankName#, 
+   				 #applyerBankNo#, 
+   				 #receiverBankName#, 
+   				 #receiverBankNo#, 
+   				 #telNo#, 
+   				 #infoOpType#, 
+   				 #idType#, 
+   				 #authId#, 
+   				 #ifYt#, 
+   				 #vouType#, 
+   				 #pactSts#, 
+   				 #signDate#, 
+   				 #lnTradeNo#, 
+   				 #bal#, 
+   				 #loanKind#, 
+   				 #occDate#, 
+   				 #lnType#, 
+   				 #curNo#, 
+   				 #loanType#, 
+   				 #rateNo# )
+   		 		 ]]>
+    </insert>
+    
+    
+	<!-- 根据借据号获得合同实体 -->
+	<select id="getPactById" resultMap="pactBeanResult" parameterClass="String">
+        SELECT <include refid="pactBean_column"/>
+        <![CDATA[FROM LOAN_PACT  WHERE PACT_NO = #pactNo#]]>
+    </select>
+    
+    <!-- 获得放款确认列表 -->
+    <select id="getConfList" resultMap="pactBeanResult">
+    	SELECT 
+    	<include refid="pactBean_column"/>
+    	<![CDATA[FROM LOAN_PACT  WHERE PACT_STS ='3']]>
+    </select>
+    
+    <!-- 获得合同补录列表 -->
+     <select id="getAdditiList" resultMap="pactBeanResult">
+     	SELECT 
+    	<include refid="pactBean_column"/>
+    	<![CDATA[
+    		FROM LOAN_PACT  WHERE PACT_STS <'3'
+    		ORDER BY $orderByCol$  $orderByVal$  LIMIT $pageSizeStart$,$pageSize$
+    	]]>
+     </select>
+
+     <!-- 获得合同补录总条数 -->
+     <select id="getAdditiListSize" resultClass="java.lang.String"> 
+    	<![CDATA[
+    		SELECT count(*) from LOAN_PACT where pact_sts<'3'
+    	]]>	
+    </select>
+    
+    <!-- 更新合同实体 -->
+    <update id="updatePactBean">
+    <![CDATA[
+    		UPDATE LOAN_PACT SET 
+    		PACT_AMT=#pactAmt#
+    	]]>
+    	<isNotEmpty prepend="," property="cifNo">  
+    	 	CIF_NO=#cifNo#
+    	 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="begDate">  
+    	 	BEG_DATE=#begDate#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="endDate">  
+    	 	END_DATE=#endDate#
+    	 </isNotEmpty> 
+    	
+    	 <isNotEmpty prepend="," property="termMon">  
+    	 	TERM_MON=#termMon#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="termDay">  
+    	 	TERM_DAY=#termDay#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="lnRate">  
+    	 	LN_RATE=#lnRate#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="rateFloat">  
+    	 	RATE_FLOAT=#rateFloat#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="fineRate">  
+    	 	FINE_RATE=#fineRate#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="expRate">  
+    	 	EXP_RATE=#expRate#
+    	 </isNotEmpty> 
+     	 <isNotEmpty prepend="," property="cmpdRateFloat">  
+    	 	CMPD_RATE_FLOAT=#cmpdRateFloat#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="overRateFloat">  
+    	 	OVER_RATE_FLOAT=#overRateFloat#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="rateWay">  
+    	 	RATE_WAY=#rateWay#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="returnMethod">  
+    	 	RETURN_METHOD=#returnMethod#
+    	 </isNotEmpty> 
+    	   <isNotEmpty prepend="," property="pactKind">  
+    	 	PACT_KIND=#pactKind#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="occurType">  
+    	 	OCCUR_TYPE=#occurType#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="fixrateInterest">  
+    	 	FIXRATE_INTEREST=#fixrateInterest#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="ispreFixrate">  
+    	 	ISPRE_FIXRATE=#ispreFixrate#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="consultAmt">  
+    	 	CONSULT_AMT=#consultAmt#
+    	 </isNotEmpty> 
+    	   <isNotEmpty prepend="," property="mainGuaran">  
+    	 	MAIN_GUARAN=#mainGuaran#
+    	 </isNotEmpty> 
+    	   <isNotEmpty prepend="," property="guaranType">  
+    	 	GUARAN_TYPE=#guaranType#
+    	 </isNotEmpty> 
+    	   <isNotEmpty prepend="," property="pactNature">  
+    	 	PACT_NATURE=#pactNature#
+    	 </isNotEmpty> 
+    	    <isNotEmpty prepend="," property="pactUse">  
+    	 	PACT_USE=#pactUse#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="pactUseDesc">  
+    	 	PACT_USE_DESC=#pactUseDesc#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="applyerBankName">  
+    	 	APPLYER_BANK_NAME=#applyerBankName#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="applyerBankNo">  
+    	 	APPLYER_BANK_NO=#applyerBankNo#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="receiverBankName">  
+    	 	RECEIVER_BANK_NAME=#receiverBankName#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="receiverBankNo">  
+    	 	RECEIVER_BANK_NO=#receiverBankNo#
+    	 </isNotEmpty> 
+    	   <isNotEmpty prepend="," property="telNo">  
+    	 	TEL_NO=#telNo#
+    	 </isNotEmpty> 
+    	 <isNotEmpty prepend="," property="infoOpType">  
+    	 	INFO_OP_TYPE=#infoOpType#
+    	 </isNotEmpty> 
+    	  <isNotEmpty prepend="," property="idType">  
+    	 	ID_TYPE=#idType#
+    	 </isNotEmpty>
+   	 	  <isNotEmpty prepend="," property="authId">  
+    	 	AUTH_ID=#authId#
+    	 </isNotEmpty>
+    	   <isNotEmpty prepend="," property="ifYt">  
+    	 	IF_YT=#ifYt#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="vouType">  
+    	 	VOU_TYPE=#vouType#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="pactSts">  
+    	 	PACT_STS=#pactSts#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="signDate">  
+    	 	SIGN_DATE=#signDate#
+    	 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="lnTradeNo">  
+    	 	LN_TRADE_NO=#lnTradeNo#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="bal">  
+    	 	BAL=#bal#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="loanKind">  
+    	 	LOAN_KIND=#loanKind#
+    	 </isNotEmpty>
+    	   <isNotEmpty prepend="," property="occDate">  
+    	 	OCC_DATE=#occDate#
+    	 </isNotEmpty>
+    	   <isNotEmpty prepend="," property="lnType">  
+    	 	LN_TYPE=#lnType#
+    	 </isNotEmpty>
+    	   <isNotEmpty prepend="," property="curNo">  
+    	 	CUR_NO=#curNo#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="loanType">  
+    	 	LOAN_TYPE=#loanType#
+    	 </isNotEmpty>
+    	   <isNotEmpty prepend="," property="rateNo">  
+    	 	RATE_NO=#rateNo#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="expRateFloat">  
+    	 	EXP_RATE_FLOAT=#expRateFloat#
+    	 </isNotEmpty>
+    	   <isNotEmpty prepend="," property="cmpdRate">  
+    	 	CMPD_RATE=#cmpdRate#
+    	 </isNotEmpty>
+    	  <isNotEmpty prepend="," property="overRate">  
+    	 	OVER_RATE=#overRate#
+    	 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="fineRateFloat">  
+    	 	FINE_RATE_FLOAT=#fineRateFloat#
+    	 </isNotEmpty>
+    		WHERE  PACT_NO=#pactNo#
+    </update>
+</sqlMap>

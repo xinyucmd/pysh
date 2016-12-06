@@ -1,0 +1,186 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@include file="/include/taglib.jsp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  	<head>
+	    <jsp:include page="/include/head.jsp"></jsp:include>
+	    <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+	    <jsp:include page="/include/common.jsp"></jsp:include>
+	    <link id="skin" rel="stylesheet" href="css/jbox/Gray/jbox.css" /> 
+	</head>
+<body>
+<!-- 引用头部公共部分 -->
+<jsp:include page="/include/top.jsp"></jsp:include>	
+
+<div class="wrap" style="padding-top:10px;">
+<div class="lne_cent">
+	<%@include file="/include/left.jsp" %>
+	     <div class="lne_centr">    
+            <div class="lne-centr-con" style="margin-top:10px;">
+            	<div style="background:#fff;padding-bottom:5px; margin-bottom:10px;">
+                	<div class="myhome_tit tab_meun">
+                        <ul>
+                            <li class="on" onclick="jumpUrl('toRewardInfo.do');" style="width:120px; width:115px\9;">现金奖励</li>
+					        <li onclick="jumpUrl('myBonus.do');" style="width:120px; width:115px\9;">红包奖励</li>
+<!-- 					        <li onclick="jumpUrl('mySixBonus.do');" style="width:120px; width:115px\9;">6.24红包</li>
+ -->					        <li onclick="jumpUrl('myTyj.do');" style="width:120px; width:115px\9;">我的体验金</li>
+					        <li onclick="jumpUrl('rewardRules.do');" style="border-right:none; width:120px; width:115px\9;">奖励规则</li>
+                            <li onclick="jumpUrl('activityCi.do');" style="border-right:none; width:120px; width:115px\9;">复投奖励</li>
+                        </ul>
+                    </div> 
+                </div>
+		
+		
+		      <div class="tab_content">
+                    <div class="lne-centr-con-content">
+                     <div class="mg-height" style="overflow:hidden;">
+                        <form action="toRewardInfo.do" id="searchForm" method="post">
+                        	<div class="form-group" style="width:690px;">
+                              <label>奖励时间</label>
+                                <input id="selectId7" type="radio"  name="paramMap.reward_time" value="-7" />最近7天
+	        					<input id="selectId30" type="radio"  name="paramMap.reward_time"  value="-30" />最近1月
+	        	    			<input id="selectId1" type="radio" name="paramMap.reward_time" value="-1" />其他时间:
+								<input type="text" id="timeStart"  name="paramMap.timeStart" value="${paramMap.timeStart }" class="form-control form-xs Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})"/>
+								到
+								<input type="text" id="timeEnd"  name="paramMap.timeEnd" value="${paramMap.timeEnd }" class="form-control form-xs Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})"/>
+                            </div>
+                            <div class="form-group" style="display:inline-block; width:190px\9;">
+                              <label >奖励类型</label>
+                                  <s:select cssClass="form-control" id="rewardType" name = "paramMap.rewardType" list="#{-1:'--请选择--',1:'注册奖励',2:'投资奖励',3:'推荐注册奖励',4:'累计推荐注册奖励',5:'推荐单次投资奖励',6:'累计推荐单次投资奖励'}"></s:select>
+                            </div>
+                             <div class="form-group" style="display:inline-block; margin:0 5px;width:200px\9; float:left\9;">
+                              <label>关联用户名</label>
+                               <input id="rewardLink" name="paramMap.rewardLink" value="${paramMap.rewardLink }" type="text" maxlength="200" class="form-control input-sm"/>
+                            </div>
+                            <input type="button" class="btn btn-primary btn-lg" value="搜 索" id="search"/ style="position:relative; top:-4px\9;">
+                          </form>
+                    </div> 
+		            <div class="lne-centr-top" style="border-bottom:solid 10px #f6f6f6 ;">
+                            <ul class="ul-one ul-line">
+                                <li>奖励总额：<em><s:if test="#request.rewardStatisMap.sumReward > 0">${rewardStatisMap.sumReward}</s:if><s:else>0.00</s:else></em>元</li>
+                                <li>推荐注册奖励：<em><s:if test="#request.rewardStatisMap.recomReward > 0">${rewardStatisMap.recomReward}</s:if><s:else>0.00</s:else></em>元</li>
+                            </ul>
+                            <ul class="ul-one ul-line" style="width:280px;">
+                                <li>注册奖励：<em><s:if test="#request.rewardStatisMap.regReward > 0">${rewardStatisMap.regReward}</s:if><s:else>0.00</s:else></em>元</li>
+                                <li>推荐单次注册奖励：<em><s:if test="#request.rewardStatisMap.onceInvestReward > 0">${rewardStatisMap.onceInvestReward}</s:if><s:else>0.00</s:else></em>元</li>
+                            </ul>
+                             <ul class="ul-one" style="width:220px;">
+                                <li>投资奖励：<em><s:if test="#request.rewardStatisMap.investReward > 0">${rewardStatisMap.investReward}</s:if><s:else>0.00</s:else></em>元</li>
+                            </ul>
+                     </div>
+		            <table border="0" cellspacing="0" cellpadding="0" class="table-con">
+							<tr>
+								<th>序号</th>
+								<th>奖励金额</th>
+								<th>奖励来源</th>
+								<th>奖励时间</th>
+								<th>关联用户名</th>
+							</tr>
+							<s:if test="pageBean.page==null || pageBean.page.size==0">
+							   <tr align="center">
+								  <td colspan="5">暂无数据</td>
+							   </tr>
+							</s:if>
+							<s:else>
+								<s:set name="counts" value="#request.pageNum"/>
+								<s:iterator value="pageBean.page" var="bean" status="s">
+									<s:if test="%{#bean.reward_type != 6}">
+									<tr>
+										<td><s:property value="#s.count+#counts"/></td>
+										<td>${bean.rewardAmount}</td>
+										<td>
+											<s:if test="%{#bean.reward_type == 1}">注册奖励</s:if>
+											<s:elseif test="%{#bean.reward_type == 2}">投资奖励</s:elseif>
+											<s:elseif test="%{#bean.reward_type == 3}">推荐注册奖励</s:elseif>
+											<s:elseif test="%{#bean.reward_type == 4}">累计推荐注册奖励</s:elseif>
+											<s:elseif test="%{#bean.reward_type == 5}">推荐单次投资奖励</s:elseif>
+											 
+											<s:else></s:else>
+				    					</td>
+										<td>${bean.rewardTime}</td>
+										<td>
+											<s:if test="%{#bean.reward_type == 3 || #bean.reward_type == 5}">
+												<s:if test="%{#bean.reward_link == -1}"></s:if>
+												<s:else>${bean.reward_link}</s:else>
+											</s:if>
+											<s:else></s:else>
+				    					</td>
+									</tr>
+									</s:if>
+								</s:iterator>
+							</s:else>						
+						</table> 
+						 
+						 <div class="s_foot-page">
+                                 <p>
+								     <shove:page url="toRewardInfo.do" curPage="${pageBean.pageNum}" showPageCount="5" pageSize="${pageBean.pageSize }" theme="number" totalCount="${pageBean.totalNum}">
+								    	<s:param name="timeStart">${paramMap.timeStart}</s:param>
+								    	<s:param name="timeEnd">${paramMap.timeEnd}</s:param>
+								    	<s:param name="rewardLink">${paramMap.rewardLink}</s:param>
+								    	<s:param name="rewardType">${paramMap.rewardType}</s:param>
+								     </shove:page>
+								  </p>
+						</div>            	
+					 
+				  </div>
+			 </div>
+		</div>
+    </div>
+</div>
+</div>
+<!-- 引用底部公共部分 -->     
+<jsp:include page="/include/footer.jsp"></jsp:include>
+<script type="text/javascript" src="script/nav-zh.js"></script>
+<script type="text/javascript" src="css/popom.js"></script>
+<script type="text/javascript" src="script/jquery.shove-1.0.js"></script>
+<script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="script/jbox/jquery.jBox-2.3.min.js"></script>
+<script type="text/javascript" src="script/jbox/jquery.jBox-zh-CN.js"></script>
+<script>
+$(function(){
+	 $(".lne_l3 > ul >li").removeClass("clicked");
+	 $('#li_4').addClass('clicked');
+//dqzt(2)
+     $('#li_10').addClass('on');
+	 $('#search').click(function(){
+	 	if($("#timeStart").val() >$("#timeEnd").val()){
+	      	alert("开始日期不能大于结束日期");
+	      	return;
+		}
+		$("#pageNum").val(1);
+	 	$("#searchForm").submit();
+     });
+     
+     $("#jumpPage").click(function(){
+		if($("#timeStart").val() >$("#timeEnd").val()){
+	      	alert("开始日期不能大于结束日期");
+	      	return;
+		}
+	 	var curPage = $("#curPageText").val();
+	 	if(isNaN(curPage)){
+			alert("输入格式不正确!");
+			return;
+		}
+	 	$("#pageNum").val(curPage);
+	 	$("#searchForm").submit();
+	});
+     //单选框
+     var reward_time = '${reward_time}';
+     if(-1 == reward_time){
+    	 $("#selectId1").attr('checked', 'true');
+     }else if(-7 == reward_time){
+    	 $("#selectId7").attr('checked', 'true');
+     }else if(-30 == reward_time){
+    	 $("#selectId30").attr('checked', 'true');
+     }else{
+    	 
+     }
+});
+
+function jumpUrl(obj){
+    window.location.href=obj;
+}
+
+</script>
+</body>
+</html>

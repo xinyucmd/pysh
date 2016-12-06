@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<typeAlias alias="custRepayDetails" type="app.batch.entity.CustRepayDetails" />
+
+	<resultMap id="RM.custRepayDetails" class="custRepayDetails">
+		<result column="ID" property="id" />
+		<result column="DUE_NO" property="due_no" />
+		<result column="OVER_DAYS" property="over_days" />
+		<result column="TERM_NO" property="term_no" />
+		<result column="TERM_AMT" property="term_amt" />
+		<result column="TERM_DATE" property="term_date" />
+	</resultMap>
+	<sql id="custRepayDetails.columns">
+		<![CDATA[
+        	ID,
+		    DUE_NO,
+		    OVER_DAYS,
+		    TERM_NO,
+		    TERM_AMT,
+		    TERM_DATE
+	    ]]>
+	</sql>
+	<insert id="insertCustRepayDetails">
+		<!-- <selectKey resultClass="String" keyProperty="id" type="pre"> <![CDATA[ 
+			SELECT CUST_REPAY_DETAILS_SEQ.NEXTVAL AS ID FROM DUAL ]]> </selectKey> -->   
+    <![CDATA[
+    INSERT INTO CUST_REPAY_DETAILS (
+    ID,
+    DUE_NO,
+    OVER_DAYS,
+    TERM_NO,
+    TERM_AMT,
+    TERM_DATE
+    ) 
+    VALUES(
+    #id#,
+    #due_no#,
+    #over_days#,
+    #term_no#,
+    #term_amt#,
+    #term_date#
+    )
+    ]]>
+		<selectKey resultClass="java.lang.String" type="pre"
+			keyProperty="id">
+			SELECT CUST_REPAY_DETAILS_SEQ.nextval AS CIF_NO FROM
+			SYS_GLOBAL
+		</selectKey>
+	</insert>
+	<update id="custRepayDetails.update">
+		<![CDATA[
+	    UPDATE CUST_REPAY_DETAILS SET
+        	OVER_DAYS = #over_days#,
+        	TERM_AMT = #term_amt#,
+        	TERM_DATE=#term_date#
+	        WHERE 
+		        DUE_NO = #due_no# and TERM_NO= #term_no#
+	    ]]>
+	</update>
+	<!-- 查找库中是否有同一借据同一期的数据list -->
+	<select id="custRepayDetailsList" resultMap="RM.custRepayDetails">
+		SELECT * FROM CUST_REPAY_DETAILS where  DUE_NO = #due_no# and TERM_NO= #term_no#
+	</select>
+</sqlMap>

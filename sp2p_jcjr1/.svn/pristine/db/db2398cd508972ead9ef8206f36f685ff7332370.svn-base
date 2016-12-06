@@ -1,0 +1,374 @@
+package com.shove.web.action;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+
+import net.sf.json.JSONObject;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
+import com.shove.web.util.JSONUtils;
+import com.sp2p.constants.IConstants;
+
+
+
+
+/**
+ * @version Sep 15, 2011 4:30:49 PM
+ * @declaration 公用Action
+ */
+public class CommonAction extends BaseAction{
+
+	private static final long serialVersionUID=1L;
+	
+	public static final String CHECK_CODE_SPLIT="@126@";
+	
+	public static final Map<String,String> CHCK_CODE_MAP = new HashMap<String, String>();
+	public static final Map<String,String> CHCK_CODE_CH_MAP = new HashMap<String, String>();
+	
+	static {
+		CHCK_CODE_MAP.put("=", "=");
+		CHCK_CODE_MAP.put("+", "+");
+		CHCK_CODE_MAP.put("-", "-");
+		CHCK_CODE_MAP.put("?", "?");
+		CHCK_CODE_CH_MAP.put("1", "1");
+		CHCK_CODE_CH_MAP.put("2", "2");
+		CHCK_CODE_CH_MAP.put("3", "3");
+		CHCK_CODE_CH_MAP.put("4", "4");
+		CHCK_CODE_CH_MAP.put("5", "5");
+		CHCK_CODE_CH_MAP.put("6", "6");
+		CHCK_CODE_CH_MAP.put("7", "7");
+		CHCK_CODE_CH_MAP.put("8", "8");
+		CHCK_CODE_CH_MAP.put("9", "9");
+	}
+	private char[] codeSequence = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',  
+			           'K', 'L', 'M', 'N',  'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',  
+			           'X', 'Y', 'Z',  '1', '2', '3', '4', '5', '6', '7', '8', '9' };  
+
+	public static void main(String[] args) {
+		System.out.println(CHCK_CODE_MAP.get("?"));
+	}
+	
+	public String getImageCodeUrl(){
+		Map<String,String> resultMap= generateCheckCode();
+		JSONObject obj=new JSONObject();
+		// 生成随机类
+		String sRand =resultMap.get("CHECK_CODE")+CHECK_CODE_SPLIT+resultMap.get("VERIFY_CODE");
+		
+		try {
+			// 加密处理
+			sRand=com.shove.security.Encrypt.encrypt3DES(sRand,
+					IConstants.PASS_KEY);
+			obj.put("url", "shoveeims/imageCodeApp.do?code4="+sRand+"&date="+new Date().getTime());
+			obj.put("code4", sRand);
+			JSONUtils.printObject(obj);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 
+		return null;
+	}
+	
+	public String getImageCodeUrlSample(){
+		Map<String,String> resultMap= generateCheckCode();
+		JSONObject obj=new JSONObject();
+		// 生成随机类
+		String sRand =resultMap.get("CHECK_CODE")+CHECK_CODE_SPLIT+resultMap.get("VERIFY_CODE");
+		
+		try {
+			// 加密处理
+			sRand=com.shove.security.Encrypt.encrypt3DES(sRand,
+					IConstants.PASS_KEY);
+			obj.put("url", "shoveeims/imageCodeSample.do?code4="+sRand+"&date="+new Date().getTime());
+			obj.put("code4", sRand);
+			JSONUtils.printObject(obj);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private Map<String,String> generateCheckCode() {  
+        Random random=new Random();  
+        int intTemp;  
+        int intFirst=random.nextInt(10);  
+        int intSec=random.nextInt(10);  
+        String checkCode="";  
+        int result=0;  
+        switch (random.nextInt(6)) {  
+            case 0:  
+                if (intFirst < intSec) {  
+                    intTemp=intFirst;  
+                    intFirst=intSec;  
+                    intSec=intTemp;  
+                }  
+                checkCode=intFirst+"-"+intSec+"=?";  
+                result=intFirst-intSec;  
+                break;  
+            case 1:  
+                if (intFirst < intSec) {  
+                    intTemp=intFirst;  
+                    intFirst=intSec;  
+                    intSec=intTemp;  
+                }  
+                checkCode=intFirst+"-?="+(intFirst-intSec);  
+                result=intSec;  
+                break;  
+            case 2:  
+                if (intFirst < intSec) {  
+                    intTemp=intFirst;  
+                    intFirst=intSec;  
+                    intSec=intTemp;  
+                }  
+                checkCode="?-"+intSec+"="+(intFirst-intSec);  
+                result=intFirst;  
+                break;  
+            case 3:  
+                checkCode=intFirst+"+"+intSec+"=?";  
+                result=intFirst+intSec;  
+                break;  
+            case 4:  
+                checkCode=intFirst+"+?="+(intFirst+intSec);  
+                result=intSec;  
+                break;  
+            case 5:  
+                checkCode="?+"+intSec+"="+(intFirst+intSec);  
+                result=intFirst;  
+                break;  
+        }
+        
+        Map<String,String> resultMap=new HashMap<String, String>();
+        resultMap.put("VERIFY_CODE", String.valueOf(result));
+        resultMap.put("CHECK_CODE", checkCode);
+        return resultMap;  
+    }
+	
+	
+	/**
+	 * 生成验证码
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public String imageCodeSample() throws IOException {
+		String code4=request.getString("code4");
+		
+		code4=com.shove.security.Encrypt.decrypt3DES(code4,
+				IConstants.PASS_KEY).split(CHECK_CODE_SPLIT)[0];
+		
+		if(code4==null || code4.equals("")){
+			System.out.println("===================传入验证码异常（空）");
+			return null;
+		}
+		// 在内存中创建图象
+		int width=100, height=20;
+		BufferedImage image=new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_RGB);
+		// 获取图形上下文
+		Graphics g=image.getGraphics();
+		// 生成随机类
+		Random random=new Random();
+		// 设定背景色
+		g.setColor(getRandColor(230, 255));
+		g.fillRect(0, 0, 100, 25);
+		// 设定字体
+		g.setFont(new Font("Arial", Font.CENTER_BASELINE | Font.ITALIC, 18));
+		// 产生0条干扰线，
+		g.drawLine(0, 0, 0, 0);
+		// 取随机产生的认证码(4位数字)
+		for (int i=0; i < code4.length(); i++) {
+			String rand=code4.substring(i, i+1);
+			
+			// 将认证码显示到图象中
+			g.setColor(getRandColor(100, 150));// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
+//			if(CHCK_CODE_MAP.get(rand)!=null){
+//				rand = CHCK_CODE_MAP.get(rand);
+//			}
+//			
+//			if(CHCK_CODE_CH_MAP.get(rand)!=null){
+//				rand = CHCK_CODE_CH_MAP.get(rand);
+//			}
+			g.setFont(new Font("宋体", Font.BOLD, 15));
+			g.drawString(rand, 12 * i+10, 16);
+		}
+		  for(int i=0;i<(random.nextInt(5)+5);i++){  
+		        g.setColor(new Color(random.nextInt(255)+1,random.nextInt(255)+1,random.nextInt(255)+1));  
+		        g.drawLine(random.nextInt(100),random.nextInt(30),random.nextInt(100),random.nextInt(30));  
+	    }   
+		// 图象生效
+		g.dispose();
+		ServletOutputStream responseOutputStream=response().getOutputStream();
+		// 输出图象到页面
+		ImageIO.write(image, "JPEG", responseOutputStream);
+		// 以下关闭输入流！
+		responseOutputStream.flush();
+		responseOutputStream.close();
+		// 获得页面key值
+		return null;
+	}
+	
+	/**
+	 * 移动app生成验证码
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public String imageCodeApp() throws IOException {
+		String code4=request.getString("code4");
+		
+		code4=com.shove.security.Encrypt.decrypt3DES(code4,
+				IConstants.PASS_KEY).split(CHECK_CODE_SPLIT)[0];
+		
+		if(code4==null || code4.equals("")){
+			System.out.println("===================传入验证码异常（空）");
+			return null;
+		}
+		// 在内存中创建图象
+		int width=100, height=20;
+		BufferedImage image=new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_RGB);
+		// 获取图形上下文
+		Graphics g=image.getGraphics();
+		// 生成随机类
+		Random random=new Random();
+		// 设定背景色
+		g.setColor(getRandColor(230, 255));
+		g.fillRect(0, 0, 100, 25);
+		// 设定字体
+		g.setFont(new Font("Arial", Font.CENTER_BASELINE | Font.ITALIC, 18));
+		// 产生0条干扰线，
+		g.drawLine(0, 0, 0, 0);
+		// 取随机产生的认证码(4位数字)
+		for (int i=0; i < code4.length(); i++) {
+			String rand=code4.substring(i, i+1);
+			
+			// 将认证码显示到图象中
+			g.setColor(getRandColor(100, 150));// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
+			if(CHCK_CODE_MAP.get(rand)!=null){
+				rand = CHCK_CODE_MAP.get(rand);
+			}
+			
+			if(CHCK_CODE_CH_MAP.get(rand)!=null){
+				rand = CHCK_CODE_CH_MAP.get(rand);
+			}
+			g.setFont(new Font("宋体", Font.BOLD, 15));
+			g.drawString(rand, 12 * i+10, 16);
+		}
+		  for(int i=0;i<(random.nextInt(5)+5);i++){  
+		        g.setColor(new Color(random.nextInt(255)+1,random.nextInt(255)+1,random.nextInt(255)+1));  
+		        g.drawLine(random.nextInt(100),random.nextInt(30),random.nextInt(100),random.nextInt(30));  
+	    }   
+		// 图象生效
+		g.dispose();
+		ServletOutputStream responseOutputStream=response().getOutputStream();
+		// 输出图象到页面
+		ImageIO.write(image, "JPEG", responseOutputStream);
+		// 以下关闭输入流！
+		responseOutputStream.flush();
+		responseOutputStream.close();
+		// 获得页面key值
+		return null;
+	}
+	/**
+	 * 生成验证码
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public String imageCode() throws IOException {
+		// 在内存中创建图象
+		int width=100, height=20;
+		BufferedImage image=new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_RGB);
+		// 获取图形上下文
+		Graphics g=image.getGraphics();
+		// 生成随机类
+		Random random=new Random();
+		// 设定背景色
+		g.setColor(getRandColor(230, 255));
+		g.fillRect(0, 0, 100, 25);
+		// 设定字体
+		g.setFont(new Font("Arial", Font.CENTER_BASELINE | Font.ITALIC, 18));
+		// 产生0条干扰线，
+		g.drawLine(0, 0, 0, 0);
+		// 取随机产生的认证码(4位数字)
+		String sRand="";
+		for (int i=0; i <6; i++) {
+//			String rand=String.valueOf(random.nextInt(10));
+			 String rand = String.valueOf(codeSequence[random.nextInt(codeSequence.length)]);
+			sRand += rand;
+			// 将认证码显示到图象中
+			g.setColor(getRandColor(100, 150));// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
+			g.drawString(rand, 15 * i+6, 16);
+		}
+		  for(int i=0;i<(random.nextInt(5)+5);i++){  
+		        g.setColor(new Color(random.nextInt(255)+1,random.nextInt(255)+1,random.nextInt(255)+1));  
+		        g.drawLine(random.nextInt(100),random.nextInt(30),random.nextInt(100),random.nextInt(30));  
+	    }   
+		String pageId=StringEscapeUtils.escapeHtml(request.getString("pageId"));
+		String key=pageId+"_checkCode";
+		// 将验证码存入页面KEY值的SESSION里面
+		session().setAttribute(key, sRand);
+		// 图象生效
+		g.dispose();
+		ServletOutputStream responseOutputStream=response().getOutputStream();
+		// 输出图象到页面
+		ImageIO.write(image, "JPEG", responseOutputStream);
+		// 以下关闭输入流！
+		responseOutputStream.flush();
+		responseOutputStream.close();
+		// 获得页面key值
+		return null;
+	}
+	
+	/**
+	 * 检测验证码是否过期
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public String codeIsExpired() throws IOException {
+		String pageId=request.getString("pageId");
+		String codes=(String) request().getSession().getAttribute(
+				pageId+"_checkCode");
+		if (org.apache.commons.lang.StringUtils.isBlank(codes)) {
+			JSONUtils.printStr("1");
+		}
+		return null;
+	}
+
+	/**
+	 * 给定范围获得随机颜色
+	 * 
+	 * @param fc
+	 * @param bc
+	 * @return
+	 */
+	Color getRandColor(int fc, int bc) {
+		Random random=new Random();
+		if (fc > 255)
+			fc=255;
+		if (bc > 255)
+			bc=255;
+		int r=fc+random.nextInt(bc-fc);
+		int g=fc+random.nextInt(bc-fc);
+		int b=fc+random.nextInt(bc-fc);
+		return new Color(r, g, b);
+	}
+	
+	public String message(){
+		request().setAttribute("title", request.getString("title"));
+		return SUCCESS;
+	}
+}

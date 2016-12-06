@@ -1,0 +1,25 @@
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+body { font-family:'Microsoft YaHei', Helvetica, Tahoma; height: 100%; color: #667279; font-size:1em; line-height: 1.25em; background:#fff; padding:0; margin:0;}
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, a, textarea, input, button, span, em, strong, img, div { -webkit-touch-callout:none; -webkit-tap-highlight-color:rgba(0, 0, 0, 0.3)}
+address, cite, dfn, em, var,b,sub,sup { font-style: normal }
+code, kbd, pre, samp { font-family: courier new, courier, monospace }
+h1, h2, h3, h4, h5, h6, button, input, select, textarea { font-size: 100% }
+input,textarea,select{ font-family:"Microsoft YaHei",Helvetica,Arial,Verdana,sans-serif; outline:0; border:none;-webkit-appearance:button;}
+fieldset, img { border: 0 }
+ul, ol { list-style: none }
+table { border-collapse: collapse; border-spacing: 0 }
+input{ outline: 0; border:none; }
+img { /*vertical-align: middle ; width:100%; height:auto; display:block;*/}
+a{color:#3a3a3a;text-decoration:none;}
+/*layout*/
+#wrap{ overflow:hidden;margin: 0 auto; width: 640px; min-height: 100%; background:#fff; padding-bottom:30px;}
+/*注册*/
+.header{ height:95px; background:#2aabfe; line-height:95px; text-align:center; color:#fff; font-size:32px; position:relative; width:640px;}
+.header a{ position:absolute; top:10px; left:20px;}
+.logo{ background: url(../images/red-logo.jpg) no-repeat center; height:167px; margin:85px 0 65px 0;}
+.rule-con{ overflow:hidden; padding:0 40px;}
+/*.rule-con ul{ margin:0; padding:0;}
+.rule-con ul li{ margin-top:25px; font-size:25px; color:#252525; font-family:"微软雅黑"; line-height:70px;}*/
+.rule-con p{font-size:28px; color:#252525; font-family:"微软雅黑"; line-height:50px; margin:0;}
+.rule-con h3{ font-size:34px; color:#252525; font-family:"微软雅黑";}
+

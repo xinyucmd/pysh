@@ -1,0 +1,249 @@
+<%@page import="com.sun.org.apache.xml.internal.serialize.Printer"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@include file="/include/taglib.jsp" %>
+<link rel="shortcut icon" href="favicon.ico">
+
+<script type="text/javascript" src="/script/m/jquery.rye-core-1.0.js"></script>
+
+<script type="text/javascript">
+
+//初始化
+function switchCode_top(){
+	var timenow = new Date();
+		$("#codeNum_top").attr("src","/${sitemap.adminUrl}/imageCode.do?pageId=userlogin&d="+timenow);
+	};
+//===验证数据
+$(document).ready(function(){
+		//===========input失去焦点
+		     $("form :input").blur(function(){
+		       //email
+	                 if($(this).is("#email")){   
+		            if(this.value==""){   
+		                $("#s_email").attr("class", "formtips onError");
+		                $("#s_email").html("*请输入用户名或邮箱地址");
+		            }else if(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(this.value)){ //判断用户输入的是否是邮箱地址
+		            	checkRegister('email');
+		            }else if((/^1[3,5,8]\d{9}$/.test(this.value))){
+		                checkRegister('cellphone');
+		            }else{ 
+		            	checkRegister('userName');
+		            	  $("#s_email").attr("class", "formtips");
+		            }   
+		        }  
+		     //password
+		   	   if($(this).attr("id")=="password"){
+		   	    pwd=this.value; 
+		     if(this.value==""){
+		      	$("#s_password").attr("class", "formtips onError");
+		        $("#s_password").html("*请輸入您的密码");  
+		     }else if(this.value.length<6){ 
+		      	$("#s_password").attr("class", "formtips onError");
+		      $("#s_password").html("*密码长度为6-20个字符"); 
+		     }else{
+		     $("#s_password").html(""); 
+		      	$("#s_password").attr("class", "formtips");
+		     }
+		   }
+		   
+		   	  //验证码
+		   	   if($(this).attr("id")=="code_top"){
+		     if(this.value==""){
+		     $("#s_code").attr("class", "formtips onError");
+		      $("#s_code").html("*请输入验证码"); 
+		     }else{   
+		        		$("#s_code").attr("class", "formtips");
+		                $("#s_code").html(""); 
+		            } 
+		   }
+		       
+		      });
+    });
+
+
+
+function checkRegister(str){
+   var param = {};
+   	if(str == "userName"){
+			param["paramMap.email"]  = "";
+			param["paramMap.userName"] = $("#email").val();
+		}else if(str=="email"){
+			param["paramMap.email"] = $("#email").val();
+			param["paramMap.userName"] = "";
+		}else{
+			param["paramMap.email"] = "";
+			param["paramMap.userName"] = "";
+			param["paramMap.cellphone"] = $("#email").val();
+		}
+		$.post("ajaxCheckLog.do",param,function(data){
+		    $("#email_").hide();
+           if(data == 2 && str == "userName"){
+              $("#s_email").html("*无效用户！");
+           }else if(data == 3 && str == "userName"){
+              $("#s_email").html("*该用户还没激活！");
+              //add by houli
+              $("#email_").show();
+           }else if(data == 4&& str == "userName"){
+           	$("#s_email").attr("class", "formtips");
+         	$("#s_email").html("");
+           }
+           if(data == 0 && str == "email"){
+              $("#s_email").html("*无效邮箱！");
+           }else if(data == 1 && str == "email"){
+              $("#s_email").html("*该邮箱用户还没激活！");
+              //add by houli
+              $("#email_").show();
+           }else if(data == 4&& str == "email"){
+           	$("#s_email").attr("class", "formtips");
+         	$("#s_email").html("");
+           } 
+	          if(data == 5 && str == "cellphone"){
+              $("#s_email").html("*用户不存在！");
+           }else if(data == 4 && str == "cellphone"){
+             $("#s_email").html("");
+           }
+		});
+		
+}
+
+function login(){
+	 $(this).attr('disabled',true);
+	 $('#btn_login').attr('value','登录中...');
+       var param = {};
+		param["paramMap.pageId"] = "userlogin";
+		param["paramMap.email"] = $("#email").val();
+		param["paramMap.password"] = $("#password").val();
+		param["paramMap.code"] = $("#code").val();
+		param["paramMap.afterLoginUrl"]="${afterLoginUrl}";
+      $.post("logining.do",param,function(data){
+     		if(data == 1){
+				   window.location.href='index.jsp';
+			}else if (data == 2) {
+			     $('#btn_login').attr('value','登录');
+				alert("验证码错误!");
+               switchCode();
+                $("#btn_login").attr('disabled',false); 
+			} else if (data == 3) {
+				 $('#btn_login').attr('value','登录');
+               alert("用户名或密码错误!");
+                switchCode();
+                $("#btn_login").attr('disabled',false); 
+			} else if (data == 4) {
+				$('#btn_login').attr('value','登录');
+				$("#s_email").attr("class", "formtips onError");
+				alert("该用户已被禁用!");
+				 switchCode();
+                $("#btn_login").attr('disabled',false); 
+			} else if (data == 5) {
+				 $('#btn_login').attr('value','登录');
+					$("#s_email").attr("class", "formtips onError");
+					 switchCode();
+	                $("#s_email").html("*该用户已被限制登录，请于三小时以后登录！"); 
+	                 $("#btn_login").attr('disabled',false); 
+			}else if (data == 7) {
+				$('#btn_login').attr('value','登录');
+				$("#s_email").attr("class", "formtips onError");
+				alert("*该用户账号出现异常，请速与管理员联系！");
+               switchCode(); 
+               $("#btn_login").attr('disabled',false); 
+			}
+      });
+
+	};
+
+	$("#code").bind('keyup', function(event){
+		   if (event.keyCode=="13"){
+		      login();  
+		   }
+		});	
+	$("#email").focus(function(){
+		$("#email").val("");
+	});
+	$("#code").focus(function(){
+		$("#code").val("");
+	});
+	
+	function switchCode(){
+			var timenow = new Date();
+			$("#codeNum").attr("src","${sitemap.adminUrl}/imageCode.do?pageId=userlogin&d="+timenow);
+		}
+	
+	
+	function loadPage(){
+		window.location.href='index.jsp';
+	}
+	
+</script>
+<style>
+.ui-nav-item{ font-size:15px; color:#ccc;  float:left;}
+.icon_app{ background:url(/images/app/ip.png) no-repeat; width:15px; height:15px; display:inline-block; position:relative; top:1px;}
+.fl{ float:left;}
+</style>
+<!--头部 begin-->
+<!--网站顶部top-->
+<div class="header-top">
+	<div class="container-top">
+        	<div class="header-time">
+            	<i class="top-iphone"><span style="margin-left:22px;">客服电话：400-001-6007</span></i>
+               
+            </div>
+            <div class="header-app">
+            	<ul>
+                	<li><a href="/page/app/download.html" class="drop">移动客户端</a>
+                    	<div class="dropdown">
+                        	<div class="erweima"></div>
+                            <div class="web-app">
+                            	<a href="/page/app/download.html" class="ios"></a>
+                                <a href="/page/app/download.html" class="android"></a>
+                                <p>一机在手，想投就投</p>
+                            </div>
+                        </div>
+                    </li>
+                     <s:if	 test="#session.user !=null">
+                     <input type="hidden" id="islogin" value="ok"/>
+                      <li style="margin:0 15px;"><a href="home.do" style="color:#4dbeff; text-decoration:none; font-size:15px;"><img src="/new_images/s-people.jpg" style="position:relative; top:-2px; margin-right:1px;">我的微信贷</a></li>                   
+                    <li><a href="logout.do">退出</a> </li> 
+                     </s:if>
+                     <s:else>
+                       <li style=" margin:0 15px;"><a href="login.do">立即登录</a></li>
+                       <li><a href="cellPhonereginit.do">我要注册</a></li> 
+                     </s:else>
+                	
+                   
+                   
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+    </div>
+</div>
+<!--logo和菜单-->
+ <div class="navbar-wrapper stuckMenu">
+    <div class="navbar">
+       <div class="logo fl"  onclick="loadPage()"><a href="###" title="微信贷"></a></div>
+             <div class="top_nav fr">
+                <ul class="group" id="example-one">
+                     <li id="index_li"><a href="index.jsp?nav=index_li">首 页</a></li>
+                     <li id="finance_li"><a href="finance.do?m=1&type=4&nav=finance_li">我要投资</a></li>
+                     <li id="borrow_li"><a href="borrow.do?nav=borrow_li">我要借款</a></li>
+                     <li id="newPerson_li"><a href="newPerson.do?nav=newPerson_li">新手指引</a></li>
+                     <li id="abount_li"><a href="getMessageBytypeId.do?typeId=4&nav=abount_li">关于我们</a>
+                     </li>  
+                     <li style="left: 10px;" id="magic-line"></li>                  
+                 </ul>             
+              </div>         
+         </div>             
+     </div>
+<!--------------------------头部 end--------------------------->
+<script>
+	var _param = {};
+	var br = new BaseRye(_param);
+	var nav = br.getUrlParam("nav");
+	if(nav != '' && nav!=undefined && nav != 'none' && nav != 'undefined'){
+		// 非首页
+	}else{
+		nav = 'index_li';
+	}
+	
+	//alert(nav);
+	$("#"+nav).addClass("current_page_item");
+
+</script>

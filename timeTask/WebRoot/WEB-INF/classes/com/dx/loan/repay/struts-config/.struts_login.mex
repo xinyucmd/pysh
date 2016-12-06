@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="accp" location="10,10" size="280,210">
+    <action name="AccpAction_*" location="65,47" size="150,62">
+      <result name="detail">
+        <resourceEdge source="detail" routing="0" target="{1}_Detail.jsp" />
+      </result>
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="{1}_Detail.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="{1}_Detail.jsp" path="/creditapp/acc/accp/{1}_Detail.jsp" location="355,30" size="150,55" />
+</Struts2Diagram>
+

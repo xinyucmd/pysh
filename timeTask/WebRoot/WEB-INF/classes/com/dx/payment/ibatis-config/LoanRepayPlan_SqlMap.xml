@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="LoanRepayPlan" type="com.dx.payment.bean.LoanRepayPlan" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.LoanRepayPlan" class="LoanRepayPlan">
+		<result property="cif_no" column="CIF_NO" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="due_no" column="DUE_NO" />
+		<result property="term" column="TERM" />
+		<result property="return_capital" column="RETURN_CAPITAL" />
+		<result property="capital" column="CAPITAL" />
+		<result property="return_interest" column="RETURN_INTEREST" />
+		<result property="interest" column="INTEREST" />
+		<result property="other" column="OTHER" />
+		<result property="return_other" column="RETURN_OTHER" />
+		<result property="beg_date" column="BEG_DATE" />
+		<result property="end_date" column="END_DATE" />
+		<result property="if_settle" column="IF_SETTLE" />
+		<result property="settle_date" column="SETTLE_DATE" />
+		<result property="sms_send" column="SMS_SEND" />
+		<result property="cmd" column="CMD" />
+		<result property="create_date" column="CREATE_DATE" />
+		<result property="update_date" column="UPDATE_DATE" />
+		<result property="perf_amount" column="PERF_AMOUNT" />
+		<result property="return_perf" column="RETURN_PERF" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="LoanRepayPlan">
+        <![CDATA[
+			CIF_NO,
+			PACT_NO,		
+			DUE_NO,		
+			TERM,		
+			RETURN_CAPITAL,			
+			CAPITAL,			
+			RETURN_INTEREST,			
+			INTEREST,			
+			OTHER,			
+			RETURN_OTHER,	
+			BEG_DATE,
+			END_DATE,			
+			IF_SETTLE,	
+			SETTLE_DATE,
+			SMS_SEND,	
+			CMD,		
+			CREATE_DATE,
+			UPDATE_DATE,
+			PERF_AMOUNT,
+			RETURN_PERF
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="LoanRepayPlan.insert">
+        <![CDATA[
+          INSERT INTO Loan_Repay_Plan(
+			CIF_NO,
+			PACT_NO,		
+			DUE_NO,		
+			TERM,		
+			RETURN_CAPITAL,			
+			CAPITAL,			
+			RETURN_INTEREST,			
+			INTEREST,			
+			OTHER,			
+			RETURN_OTHER,	
+			BEG_DATE,
+			END_DATE,			
+			IF_SETTLE,	
+			SETTLE_DATE,
+			SMS_SEND,	
+			CMD,		
+			CREATE_DATE,
+			UPDATE_DATE,
+			PERF_AMOUNT,
+			RETURN_PERF
+           )VALUES(
+			#cif_no#,
+			#pact_no#,
+			#due_no#,
+			#term# ,
+			#return_capital#,
+			#capital#,
+			#return_interest#,
+			#interest#   ,
+			#other#,
+			#return_other#,
+			#beg_date#,
+			#end_date#,
+			#if_settle#,
+			#settle_date#,
+			#sms_send#,
+			#cmd#,
+			#create_date#,
+			#update_date#,
+			#perf_amount#,
+			#return_perf#
+            )
+        ]]>
+	</insert>
+	<!-- 表修改 -->
+	<update id="LoanRepayPlan.update">
+        <![CDATA[
+            UPDATE Loan_Repay_Plan set
+             ]]>
+		<isEmpty prepend="" property="if_settle">
+			IF_SETTLE=#if_settle#
+		</isEmpty>
+		<isEmpty prepend="," property="settle_date">
+			SETTLE_DATE=#settle_date#
+		</isEmpty>
+		<isEmpty prepend="," property="update_date">
+			UPDATE_DATE=#update_date#
+		</isEmpty>
+		<isEmpty prepend="," property="capital">
+			CAPITAL=#capital#
+		</isEmpty>
+		<isEmpty prepend="," property="return_capital">
+			return_capital=#return_capital#
+		</isEmpty>
+		<isEmpty prepend="," property="interest">
+			interest=#interest#
+		</isEmpty>
+		<isEmpty prepend="," property="return_interest">
+			return_interest=#return_interest#
+		</isEmpty>
+		<isEmpty prepend="," property="other">
+			other=#other#
+		</isEmpty>
+		<isEmpty prepend="," property="return_other">
+			return_other=#return_other#
+		</isEmpty>
+		<isEmpty prepend="," property="return_perf">
+			return_perf=#return_perf#
+		</isEmpty>
+		<isEmpty prepend="," property="perf_amount">
+			perf_amount=#perf_amount#
+		</isEmpty>
+		<isEmpty prepend="," property="sms_send">
+			sms_send=#sms_send#
+		</isEmpty>
+		<isEmpty prepend="," property="create_date">
+			create_date=#create_date#
+		</isEmpty>
+		<isEmpty prepend="," property="cmd">
+			cmd=#cmd#
+		</isEmpty>
+		<dynamic prepend="WHERE">
+			<isEmpty prepend="and" property="account_no">
+				account_no=#account_no#
+			</isEmpty>
+			<isEmpty prepend="and" property="term">
+				term=#term#
+			</isEmpty>
+		</dynamic>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="LoanRepayPlan.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="due_no">
+				<isNotEmpty prepend="AND" property="due_no">
+					due_no = #due_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="term">
+				<isNotEmpty prepend="AND" property="term">
+					term = #term#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="if_settle">
+				<isNotEmpty prepend="AND" property="if_settle">
+					IF_SETTLE =
+					#if_settle#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="end_date">
+				<isNotEmpty prepend="AND" property="end_date">
+					<![CDATA[  
+						to_date(END_DATE,'yyyy-mm-dd') <= to_date(#end_date#,'yyyy-mm-dd') 
+					]]>
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="LoanRepayPlan.findPage.count" resultClass="int">
+		SELECT count(*) FROM Loan_Repay_Plan
+		<include refid="LoanRepayPlan.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="LoanRepayPlan.findByPage" resultMap="RM.LoanRepayPlan">
+		SELECT
+		<include refid="LoanRepayPlan" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="LoanRepayPlan" />
+		FROM Loan_Repay_Plan
+		<include refid="LoanRepayPlan.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="LoanRepayPlan.findByOpNo" resultMap="RM.LoanRepayPlan">
+		SELECT
+		<include refid="LoanRepayPlan" />
+		FROM Loan_Repay_Plan
+		<include refid="LoanRepayPlan.findPage.where" />
+	</select>
+	<select id="LoanRepayPlan.getById" resultMap="RM.LoanRepayPlan">
+		SELECT
+		<include refid="LoanRepayPlan" />
+		FROM Loan_Repay_Plan
+		WHERE
+		ACCOUNT_NO = #account_no#
+	</select>
+	<select id="LoanRepayPlan.viewPlan" resultMap="RM.LoanRepayPlan">
+		SELECT
+		<include refid="LoanRepayPlan" />
+		FROM Loan_Repay_Plan
+		<include refid="LoanRepayPlan.findPage.where" />
+	</select>
+	<select id="getLoanRepayPlan" resultMap="RM.LoanRepayPlan">
+		SELECT
+		<include refid="LoanRepayPlan" />
+		FROM Loan_Repay_Plan
+		 <dynamic  prepend="WHERE">
+	        <isNotNull prepend="," property="pact_no">  
+	    	 		PACT_NO=#pact_no#
+	    	 </isNotNull> 
+        	
+	        <isNotNull prepend="," property="due_no">  
+	    	 		DUE_NO=#due_no#
+	    	 </isNotNull> 
+        	
+        	<isNotNull  prepend="AND" property="if_settle">
+	    	 		if_settle=#if_settle#
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND" property="term">
+        		term=#term#
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND" property="beg_date">
+        		   <![CDATA[beg_date<#beg_date#]]>
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND" property="end_date">
+        		   <![CDATA[end_date>=#end_date#]]>
+        	</isNotNull>
+        	
+        	
+        </dynamic>
+    order by to_number(term)
+	</select>
+</sqlMap>

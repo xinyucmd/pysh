@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Collect_Br" type="com.dx.collect.bean.CollectBr" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Collect_Br" class="Collect_Br">
+		<result property="id" column="ID" />	 				
+		<result property="op_no" column="OP_NO" />	 							
+		<result property="br_no" column="BR_NO" />	
+		<result property="op_name" column="OP_NAME" />
+		<result property="br_name" column="BR_NAME" /> 												
+		<result property="cif_type" column="CIF_TYPE" />
+	    <result property="collect_type" column="COLLECT_TYPE" />
+	    <result property="type" column="TYPE" />
+		<result property="del_flg" column="DEL_FLG" /> 						
+ 		<result property="createDate" column="CREATE_DATE" />							
+		<result property="updateDate" column="UPDATE_DATE" />
+	</resultMap>
+	<resultMap id="RM.Collect_Br1" class="Collect_Br">
+		<result property="op_no" column="OP_NO" />
+		<result property="op_name" column="OP_NAME" />	 							
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="collect_br">
+        <![CDATA[
+            ID	 						,					
+			OP_NO	 					,									
+			BR_NO	 					,	
+			OP_NAME,
+			BR_NAME,													
+			CIF_TYPE 				,		
+			COLLECT_TYPE,									
+			DEL_FLG 					,	
+			TYPE,							
+			CREATE_DATE	 		,											
+			UPDATE_DATE		
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="CollectBr.insert">
+        <![CDATA[
+          INSERT INTO COLLECTOR_BR(
+           ID	 						,					
+			OP_NO	 					,									
+			BR_NO	 					,	
+			OP_NAME,
+			BR_NAME,														
+			CIF_TYPE 				,
+			COLLECT_TYPE,											
+			DEL_FLG 					,
+			TYPE,								
+			CREATE_DATE	 		,											
+			UPDATE_DATE		
+           )VALUES(
+            #id#,
+			#op_no#,
+			#br_no#,
+			#op_name#,
+			#br_name#,
+			#cif_type#,
+			#collect_type#,
+			0,
+			#type#,
+			#createDate#,
+			#updateDate#
+            )
+        ]]>
+         <!-- 查询该表的序列值 -->
+        <selectKey resultClass="java.lang.String" type="pre" keyProperty="id" >
+			SELECT COLLECTOR_BR_SEQ.nextval AS id FROM DUAL
+      	</selectKey>
+	</insert>
+	<!-- 表删除 -->
+	<delete id="CollectBr.del">
+        <![CDATA[
+               UPDATE COLLECTOR_BR set
+               DEL_FLG = 1
+                 WHERE
+               ID = #id#
+        ]]>
+	</delete>
+	<!-- 表修改 -->
+	<update id="CollectBr.update">
+        <![CDATA[
+            UPDATE COLLECTOR_BR set
+              OP_NO	=#op_no#,      							
+					BR_NO	=#br_no#,     
+					BR_NAME  =#br_name#, 												
+					CIF_TYPE =#cif_type#,   									
+					UPDATE_DATE =#updateDate#
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="CollectBr.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="br_no">
+				<isNotEmpty prepend="AND" property="br_no">
+					BR_NO = #br_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="del_flg">
+				<isNotEmpty prepend="AND" property="del_flg">
+					DEL_FLG = #del_flg#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="collect_type">
+				<isNotEmpty prepend="AND" property="collect_type">
+					COLLECT_TYPE = #collect_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="type">
+				<isNotEmpty prepend="AND" property="type">
+					TYPE = #type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<select id="collectbrlist.findByPage" resultMap="RM.Collect_Br">
+		SELECT
+		<include refid="collect_br" />
+		FROM COLLECTOR_BR
+		<include refid="CollectBr.findPage.where" />
+	</select>
+	
+	<select id="collect_br.getById" resultMap="RM.Collect_Br">
+		SELECT 
+		<include refid="collect_br" />
+			FROM COLLECTOR_BR
+		WHERE
+	        ID = #id#
+	</select>
+	
+	<select id="collect_br.getMng" resultMap="RM.Collect_Br1">
+		SELECT 
+		distinct a.OP_NO,a.op_name
+			FROM COLLECTOR_BR a, tbl_org_user b
+		WHERE
+	        a.BR_NO = #br_no#
+	        and a.op_no = b.username
+	        and b.role_no = 'R043'
+	        and a.collect_type = '2'
+	</select>
+	
+	<select id="collect_br.getTelMng" resultMap="RM.Collect_Br1">
+		SELECT 
+		distinct a.OP_NO,a.op_name
+			FROM COLLECTOR_BR a, tbl_org_user b
+		WHERE
+	        a.BR_NO = #br_no#
+	        and a.op_no = b.username
+	        and b.role_no = 'R043'
+	        and a.collect_type = '1'
+	        and a.DEL_FLG = '0'
+	</select>
+</sqlMap>

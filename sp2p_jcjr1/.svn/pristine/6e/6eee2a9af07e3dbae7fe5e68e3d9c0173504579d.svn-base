@@ -1,0 +1,24 @@
+.invest-ac {width: 100%;min-width: 1400px;}
+.invest-ac img, .content-ac {width: 100%;min-width: 1400px;}
+
+.ac-9-btn1 {background: url(../images/9-invitebtn1.png) no-repeat;width: 266px;height: 63px;display: block;margin: 0 auto;}
+.ac-9-btn2 {background: url(../images/9-invitebtn2.png) no-repeat;width: 266px;height: 63px;display: block;margin: 0 auto;}
+
+.ac-9-bg1 {background: url(../images/9-invest1.jpg) center center no-repeat;width: 100%;height: 500px;}
+.ac-9-bg2 {background: url(../images/9-invest2.jpg) center center no-repeat;width: 100%;height: 274px;}
+.ac-9-bg3 {background: url(../images/9-invest3.jpg) center center no-repeat;width: 100%;height: 597px;}
+.ac-9-bg4 {background: url(../images/9-invest4.jpg) center center no-repeat;width: 100%;height: 206px;}
+.ac-9-bg5 {background: url(../images/9-invest5.jpg) center center no-repeat;width: 100%;height: 494px;}
+.ac-9-bg6 {background: url(../images/9-invest6.jpg) center center no-repeat;width: 100%;height: 629px;}
+.ac-9-bg7 {background: url(../images/9-invest7.jpg) center center no-repeat;width: 100%;height: 406px;}
+
+/**八月十五活动**/
+.ac-815-btn1 {background: url(../images/invitebtn815-1.png) no-repeat;width: 417px;height: 82px;display: block;margin: 0 auto;}
+.ac-815-bg1 {background: url(../images/invest815-1.jpg) center center no-repeat;width: 100%;height: 500px;}
+.ac-815-bg2 {background: url(../images/invest815-2.jpg) center center no-repeat;width: 100%;height: 700px;}
+.ac-815-bg3 {background: url(../images/invest815-3.jpg) center center no-repeat;width: 100%;height: 700px;}
+.ac-815-bg4 {background: url(../images/invest815-4.jpg) center center no-repeat;width: 100%;height: 750px;}
+.ac-815-bg5 {background: url(../images/invest815-5.jpg) center center no-repeat;width: 100%;height: 750px;}
+.ac-815-bg6 {background: url(../images/invest815-6.jpg) center center no-repeat;width: 100%;height: 440px;}
+.ac-815-bg7 {background: url(../images/invest815-7.jpg) center center no-repeat;width: 100%;height: 440px;}
+.ac-815-bg8 {background: url(../images/invest815-8.jpg) center center no-repeat;width: 100%;height: 427px;padding-top: 100px;}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>微信贷-认证成功</title>
+      <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta content="target-densitydpi=device-dpi,width=640,maximum-scale=1, user-scalable=0"  name="viewport" id="viewport">
+	<link type="text/css" rel="stylesheet" href="/css/m/style.css">
+	<script src="/js/jquery-1.8.3.min.js"></script>
+	<script src="/script/m/jquery.rye-core-1.0.js"></script>
+	<script src="/script/m/rye.jc-core-1.0.js"></script>
+	<script src="/script/m/rye.user-1.0.js"></script>
+	
+	<script type="text/javascript">
+		var user = new MUser();
+		function goHome(){
+			user.goHome();
+		}
+	</script>
+</head>
+<body>
+
+<div id="header">
+    <div class="reg-log"><a href="javascript:history.go(-1);"></a>认证成功</div>
+</div>
+<div id="wrap">
+    	  <div class="att_top">
+  				<img src="/images/m/img5.jpg" class="img3">
+           		<p><span>最高15%投资收益</span><span style="margin-left:30px;">100%本息保障</span></p>
+                <p><span style=" margin:0 25px 0 -70px;">7年信贷服务经验 </span><span>覆盖全国服网络</span></p>
+           </div>
+      	  <div style="background:#fff; overflow:hidden;">
+          	<div style="padding:80px 0 30px 0;"><img src="/images/m/img4.jpg"></div>
+          	<div class="reg_text" style="color:#175fa5;">24小时内 微信贷将<em style="color:#f1c83b;">《一步之遥》</em>电影片<br/>电子码发到您的注册手机上</div>
+          	<div class="yellow_btn" style="margin:150px auto 50px ;"><img src="/images/m/yellow_icon.jpg" onclick="goHome();" width="46" height="28" class="img8"><a href="javascript:goHome();">去微信贷官网看看</a></div>
+          </div>
+</div>
+<script type="text/javascript"> 
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://"); 
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5f4e6cc92182a9237eadbebba00f6e33' type='text/javascript'%3E%3C/script%3E")); 
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+	<title>微信贷-注册送百元现金红包</title>
+	<meta content="target-densitydpi=device-dpi,width=640, maximum-scale=1, user-scalable=0" name="viewport" id="viewport">
+	<link type="text/css" rel="stylesheet" href="/css/m/recommend/style.css">
+	<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+	<script src="/script/m/jquery.rye-core-1.0.js"></script>
+	<script src="/script/m/rye.jc-core-1.0.js"></script>
+	<script src="/script/m/rye.user-1.0.js"></script>
+</head>
+<body>
+
+<div id="wrap">
+<div class="reg">
+	<img src="/images/recommend/banner.jpg" width="640" height="380">
+          <form method="post">
+          <div class="link-touch">
+                <ul class="items">
+                    <li><label class="txt bp1"></label>
+                    	<input id="ipt_mobileNo" class="input w4" type="text" value="请输入手机号码" 
+                    	onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''" />
+                    </li>
+                    <li><label class="txt bp2"></label>
+                    	<input class="input w3" type="text" id="ipt_pwd" value="请输入密码" 
+	                    onmouseover="this.style.borderColor='#FF6600'" 
+	                    onmouseout="this.style.borderColor=''" onfocus="pwdFocus()"/>
+	                    
+	                    <input class="input w3" type="password" display="none" id="ipt_pwd_value" value="" 
+	                    onmouseover="this.style.borderColor='#FF6600'" 
+	                    onmouseout="this.style.borderColor=''"
+	                    onBlur="pwdBlur();" />
+                    </li>
+                    <li><label class="txt bp3" ></label>
+                    	<input id="ipt_userName" class="input w3"  disabled="disabled" type="text" value="推荐人用户名/手机号" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''" onFocus="if (value =='推荐人用户名/手机号'){value =''}" onBlur="if (value ==''){value='推荐人用户名/手机号'}"/>
+                    </li> 
+                     
+                     <li style="border:none;">
+                       <input id="pic_mCode" class="input w1" type="text" 
+	                       value="请输入图片验证码" 
+	                       onmouseover="this.style.borderColor='#FF6600'" 
+	                       onmouseout="this.style.borderColor=''" 
+                       /> 
+                       <img title="点击更换验证码"
+											style="cursor: pointer; margin-left:20px; position:relative; top:10px;" id="codeNum" width="150" height="50" 
+											onclick="javascript:switchCode()" /> &nbsp;&nbsp; 
+					  <a href="javascript:void()" onclick="switchCode()" class="change"></a>
+					</li>
+                    
+                    <li style="border:none;">
+                    <input id="ipt_mCode" class="input w1" type="text"  value="请输入手机验证码" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor=''" onFocus="if (value =='请输入手机验证码'){value =''}" onBlur="if (value ==''){value='请输入手机验证码'}"/>
+                    
+                    <span id = "clickCodeMSpan">
+                    	<input id="clickCode5" name="" class="w2 center_btn"  style="width:268px; height:70px; border-radius:5px; border:none; color:#fff; font-size:30px;  margin-left:20px; cursor:pointer;"type="button"  value="点击获取验证码"  onclick="clickCodes()"/>
+                    </span>
+                    <span id = "clickCodeN" style="display: none">
+                     <input id="clickCodeN" name="" class="w2 center_btn" type="button"  value="手机验证码发送成功" />
+                    </span>
+                    
+                    <input id="ipt_randomCode" type="hidden" value=""/>
+                    <input id="ipt_recivePhone" type="hidden" value=""/>
+                    <input id="recommend_src" type="hidden" value="2"/>
+                    <input id="point" type="hidden" value="0"/>
+                    <input id="bonus_able" type="hidden" value="0"/>
+                    </li>   
+                    <!--    <li class="un-agree">
+                    	<label id="lbl" class="txt bp5" ><input name="agree" id="ckb_agree" style="display: none;" type="checkbox" checked="checked"/></label>
+						<span> <a href="serve.html">我已经阅读并同意会员注册及服务协议</a> </span>
+                     </li>  -->
+                     
+                           <li class="un-agree"><label class="txt bp5" >
+                           <input class="agree" name="agree" id="ckb_agree" style="display: none;" type="checkbox" checked="checked"/>
+                           </label>
+						<span> 
+						<!-- <a href="serve.html" style="font-weight:bold;">我已经阅读并同意会员<em style="font-style:normal; color:#1eb3d3;">《注册及服务协议》</em></a>
+						 -->
+						我已经阅读并同意会员<em style="font-style:normal; color:#1eb3d3;">《注册及服务协议》</em>
+						
+						 </span></li>             
+                </ul>
+          </div>
+      <div class="reg_btn">
+          <div>
+            <input id="btn_register" name="" onclick="regester();" type="button" value="立即注册"  class="big_btn" style=" border-radius: 5px;color: #fff;cursor: pointer;font-size: 2em;
+    			height: 2em;line-height: 2em;text-align: center;width: 100%;">
+         </div>
+      </div>
+      </form>
+      <div class="logo"></div>
+    </div> 
+    </div>
+    
+<script>
+		var user = new MUser();
+		var username = user.getUrlParam("userName");
+		if(user.isNotBank(username)){
+			$("#ipt_userName").attr("value",username);
+		}
+		var point = user.getUrlParam("point");
+		$("#point").attr("value",point);
+
+		// 刷新验证码
+		switchCode();
+		
+		// 绑定事件
+		bindInputEvent();
+		
+		
+		function switchCode(){
+			var timenow = new Date();
+			$("#codeNum").attr("src","/shoveeims/imageCode.do?pageId=userappreg&d="+timenow);
+		}
+		
+		function bindInputEvent(){
+			// 手机号
+			$("#ipt_mobileNo").bind("focus",function(){
+				if ($("#ipt_mobileNo").attr("value") =='请输入手机号码'){
+					$("#ipt_mobileNo").attr("value",'');
+				}
+			});
+                
+			$("#ipt_mobileNo").blur(function(){
+				if ($("#ipt_mobileNo").attr("value") ==''){
+					alert("请输入手机号！");
+					$("#ipt_mobileNo").attr("value",'请输入手机号码');
+				}else{
+					var mobileNo = $("#ipt_mobileNo").val();
+					if(!user.validMobile(mobileNo)){
+						alert("手机号不合法！");
+					}
+				}
+			});
+			
+			
+			// 密码
+			$("#ipt_pwd").bind("focus",function(){
+				var pwd = $("#ipt_pwd");
+				var pwd_value = $("#ipt_pwd_value");
+				if (pwd.val() =='请输入密码'){
+					pwd_value.show();
+					pwd.hide();
+					pwd_value.focus();
+				}
+			});
+                
+			$("#ipt_pwd_value").blur(function(){
+				if($("#ipt_pwd_value").attr("value").length<6){
+					alert("密码长度不能小于6位");
+					return;
+				}
+				
+				var pwd = $("#ipt_pwd");
+				var pwd_value = $("#ipt_pwd_value");
+				if (pwd_value.val() ==''){
+					pwd_value.hide();
+					pwd.show();
+				}
+				
+			});
+			
+			
+			// 图片验证码
+			$("#pic_mCode").bind("focus",function(){
+				var mobileNo = $("#ipt_mobileNo").val();
+				
+				if ($("#pic_mCode").attr("value") =='请输入图片验证码'){
+					$("#pic_mCode").attr("value",'');
+				}
+			});
+                
+			$("#pic_mCode").blur(function(){
+				if ($("#pic_mCode").attr("value") ==''){
+					alert("请输入图片验证码");
+					$("#pic_mCode").attr("value",'请输入图片验证码');
+				}
+			});
+			
+		}
+		
+		
+		$(function(){
+			$(".bp5").click( function () {
+				if($('.agree').is(':checked')) {
+					$(".agree").attr("checked", false);
+					$(this).css({ "background": "url(/images/recommend/uncheck.jpg) no-repeat"});
+				}else{
+					$(".agree").attr("checked", true);
+					$(this).css({ "background": "url(/images/recommend/check.jpg) no-repeat"});
+				}
+			});
+		});
+		
+		function clickCodes(){
+			var pic_mCode = $("#pic_mCode").val();
+			
+			var pic_mCode = $("#pic_mCode").val();
+			var mobileNo = $("#ipt_mobileNo").val();
+			var pwd = $("#ipt_pwd_value").val();
+			var recommendUserName = $("#ipt_userName").val();
+			
+			if(!MUser.prototype.isNotBank(mobileNo) || mobileNo == '请输入手机号码'){
+				alert("手机号不能为空！");
+				return;
+			}
+			
+			if(!MUser.prototype.isNotBank(pwd)){
+				alert("密码不能为空！");
+				return;
+			}
+			
+			if(!MUser.prototype.isNotBank(pic_mCode) || pic_mCode == '请输入图片验证码'){
+				alert("图片验证码不能为空！");
+				return;
+			}
+			
+			user.requestMcodeWithEffec(
+					"ipt_mobileNo",
+					"clickCode5",
+					"ipt_randomCode",
+					"ipt_recivePhone",
+					pic_mCode);
+		}
+		
+		function regester(){
+			var pic_mCode = $("#pic_mCode").val();
+			var mobileNo = $("#ipt_mobileNo").val();
+			var pwd = $("#ipt_pwd_value").val();
+			var mCode = $("#ipt_mCode").val();
+			var recommendUserName = $("#ipt_userName").val();
+			
+			if ($("#ipt_mobileNo").attr("value") =='请输入手机号码'){
+				alert('请输入手机号码');
+				return;
+			}
+			
+			if ($("#pic_mCode").attr("value") =='请输入图片验证码'){
+				alert('请输入图片验证码');
+				return;
+			}
+			
+			if ($("#ipt_mCode").attr("value") =='请输入手机验证码'){
+				alert('请输入手机验证码');
+				return;
+			}
+			
+			if(recommendUserName == "推荐人用户名/手机号"){
+				recommendUserName = "";
+			}
+			
+			//recommend_src 推荐来源
+		   user.regesterAny(mobileNo,pwd,mCode,$("#ipt_randomCode").val(),$("#ipt_recivePhone").val(),recommendUserName,complete_reg,$("#recommend_src").val(),$("#point").val(),pic_mCode);
+		}
+		
+		function complete_reg(data){
+			$("#btn_register").attr("value","立即注册");
+			$("#btn_register").removeAttr("disabled");
+			$("#btn_register").attr("class","big_btn");
+			if(data.error != -1){
+		    	alert(data.msg);
+		    	return;
+		    }else{
+		    	window.location.href = '/page/recommend/succes_reg.html';
+		    }
+		}
+		
+		
+		
+		function pwdFocus(){
+			var pwd = $("#ipt_pwd");
+			var pwd_value = $("#ipt_pwd_value");
+			if (pwd.val() =='请输入密码'){
+				pwd_value.show();
+				pwd.hide();
+				
+				pwd_value.focus();
+			}
+		}
+		
+		function pwdBlur(){
+			var pwd = $("#ipt_pwd");
+			var pwd_value = $("#ipt_pwd_value");
+			if (pwd_value.val() ==''){
+				pwd_value.hide();
+				pwd.show();
+			}
+		}
+	
+	</script>
+    
+</body>
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  	<package name="putout" namespace="/" extends="struts-default">
+        <action name="putout_*" class="com.dx.loan.putout.action.PutOutAction" method="{1}">
+            <result name="additiList">WEB-INF/loan/putout/additiList.jsp</result>
+            <result name="pactAddit">WEB-INF/loan/putout/pactAddit.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页</title>
+<script src="js/jquery.min.js"></script>
+	<style>
+        ul li{ list-style:none;}
+    /*	.lne_cent{width:800px; height:auto; display:block; position:absolute; left:15%; top:10%;font-size: 14px; color: #666; font-family: "微软雅黑";}*/
+     /*	.weixin{ background:#c7c7c7; width:32px; height:26px; border-radius:2px; float:left; margin-left:10px;}
+        .weixin img{ position:relative; top:3px; left:5px;}*/
+        .p_text{  line-height:26px; margin-top:20px; font-size:12px;}
+        .p_con{ overflow:hidden; width:650px; margin-top:10px; margin-left:30px;}
+    /*	.p_con ul{ background:#f1f1f1; padding:12px 0; overflow:hidden; margin:5px 0;}*/
+        .p_con .item1 li{ float:left; width:130px; text-align:center;}
+        .p_con .item2 li{ float:left; width:160px; text-align:center;}
+        .p_con h5{ font-size:14px;}
+        .p_con h4{ font-size:14px; color:#ff6960; margin-top:8px; text-align:center;}
+        .p_po{width:690px;margin:20px auto; }
+        .p_list{ width:650px;  margin:20px auto;}
+        table { border-collapse: collapse; }
+        .zh_table{line-height:30px;	}	
+        .zh_table th{border:1px solid #ddd; background-color:#f9f9f9;font-weight:normal;text-align:center; color:#666; height:40px; width:92px; }
+        .zh_table td{border:1px solid #ddd;text-align:center; color:#666; font-size:14px; border-top:none; width:92px; }
+        .p_con_left{ float:left; width:500px;}
+        .p_con_left ul{ width:500px; padding:0; overflow:hidden;}
+        .p_con_left ul li{ float:left; width:230px; font-weight:bold; color:#666; font-family:"微软雅黑";}
+        .p_con_left ul li a{ color:#03F; font-size:12px;}
+        .p_con_right{  width:500px; overflow:hidden;}
+        .weixin{ float:left;}
+        .lianjie{ float:left; margin-left:50px;}
+        .theme-popover{ width:385px; height:380px; position:fixed; display:none; z-index:9999; top:0; background:#fbfbfb; border-radius:8px; left:35%; border:solid 2px #dbdada; font-size:14px;}
+        .close{ background:url(image/close.jpg) no-repeat; top:5px;right:5px;  position:absolute; z-index:10001; height:27px; width:27px;}
+        .theme-popover .tibo{ height:60px; line-height:60px; padding-left:20px;}
+        .load_con{ width:100%; height:200%; position:absolute; background:#fff; filter:alpha(opacity=30);  -moz-opacity:0.3;  -khtml-opacity: 0.3;  opacity: 0.3; top:0; }
+    </style>
+	<script>
+    jQuery(document).ready(function($) {
+        $('.theme-login').click(function(){
+            $('.theme-popover').slideDown(200);
+        })
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover').slideUp(200);
+        })
+    
+    })
+    </script>
+</head>
+<body>
+<div class="ne_wdzh"></div>
+<div class="lne_cent">
+	<div class="p_po">
+	<div class="lne_centr" style="background:#fff; padding:20px  0 50px 30px; width:710px; position:relative; z-index:1000;">
+     <div class="p_con">
+      		<div class="p_con_left">
+            	<ul>
+                	<li>我的好友：<font>15</font>人</li><li>已认证的好有个数：<font>10</font>人</li>
+                </ul>
+            </div>
+            <div class="p_con_right">
+            	<div class="weixin"><a href="javascript:;" class="theme-login"><img src="images/1111.png" width="176" height="49" /></a></div> 
+                <div class="lianjie"><a href="#"><img src="images/lianjie.png" width="176" height="49" /></a></div> 
+        	</div>
+        </div>
+     <div class="p_list">
+         	<p style="font-weight:bold; font-size:16px; color:#666;">我的好友</p>
+         <div><table width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top:10px;" class="zh_table" id="tab_list">
+                         <tr>
+                         	 <th>序号</th>
+                             <th>用户名</th>
+                             <th>真实姓名</th>
+                             <th>注册时间</th>
+                             <th>身份认证</th>
+                             <th>好友来源</th>
+                             <th>是否投资</th>
+                         </tr>
+                         <table id="tab_list" cellspacing="0" cellpadding="0"
+						width="100%" border="0" class="zh_table">
+                        	<tr>
+                            	<td>1</td>
+                                <td>zhangsan</td>
+                                <td>张三</td>
+                                <td>15-03-10</td>
+                                <td>是</td>
+                                <td>复制链接</td>
+                                <td>是</td>
+                            </tr>
+                 		</table>            
+              </table>
+         </div>
+     </div>	  
+</div>
+</div>
+</div>
+    <div class="theme-popover">
+        <div>
+       	  	<p class="tibo" style="border-bottom:solid 1px #c9c9c9;" >分享到微信朋友圈</p>
+            <p style="margin:15px 0; text-align:center;"><img src="image/weixin.jpg" width="218" height="219" /></p>
+            <p class="tibo" style="border-top:solid 1px #c9c9c9;">打开微信使用"扫一扫"即可将网页分享到我的微信朋友圈。</p>
+        </div>	
+        <div class="theme-poptit"><a href="javascript:;" title="关闭" class="close"></a></div>
+    </div>
+     <div class="load_con" id="loading"><span><img src="../images/admin/load.gif" class="load" alt="加载中..."  style="position:absolute; top:25%; left:50%;"/></span></div>
+</body>
+</html>

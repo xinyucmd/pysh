@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="favicon.ico" />
+<title> 微信贷手机客户端下载 </title>
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<style>
+.appdown{ height:auto; min-width:980px;}
+.appdown .app_banner{ height:483px; width:100%; position:relative; background:url(/images/app/banner.jpg) no-repeat center;}
+.appdown .app_banner .app_items{ width:980px; position:relative; margin:0 auto;}
+.appdown .app_banner .app_items a{ display:block;  position:absolute; }
+.appdown .app_items .iph{ height:53px; width:215px;  left:30px; top:314px;}
+.appdown .app_items .and{ height:53px; width:215px;  left:30px; top:242px;}
+.appdown .app_items .wxin{ left:282px; top:242px; width:141px; height:141px;}
+.appdown .app_con{ height:736px; width:100%; position:relative;}
+.app_btm1{ width:100%; height:251px; background:url(/images/app/bg1.jpg) no-repeat center;}
+.app_btm2{ width:100%; height:255px; background:url(/images/app/bg2.jpg) no-repeat center;}
+.app_btm3{ width:100%; height:230px; background:url(/images/app/bg3.jpg) no-repeat center;}
+.appdown .app_main{ width:100%; height:745px; position:relative; background:#98c7f3;}
+.app_btm4{ width:980px; margin:0 auto; background:url(/images/app/bg4.jpg) no-repeat center 72px; height:672px;}
+.ui-nav-item{ font-size:15px; color:#ccc;  float:left;}
+.icon_app{ background:url(/images/app/ip.png) no-repeat; width:15px; height:15px; display:inline-block; position:relative; top:1px;}
+.fl{ float:left;}
+</style>
+<link type="text/css" rel="stylesheet"  href="/new_css/bootstrap.css"/>
+<link type="text/css" rel="stylesheet"  href="/new_css/style.css"/>
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+
+<script>
+
+var param = {};
+var user = new MUser(param);
+jQuery(document).ready(function($) {
+	user.login_pc_check(function(data){
+		if(user.isNotBank(data)){
+			if(data.status == 1){
+				$("#span_no_login").hide();
+				$("#span_logind").show();
+			}else{
+				
+				// 头部控制
+				$("#span_no_login").show();
+				$("#span_logind").hide();
+			}
+		}else{
+			alert('检查登录状态失败！');	
+		}
+	});
+	
+});
+</script>
+</head>
+<body>
+<!--网站顶部top-->
+<div class="header-top">
+	<div class="container-top">
+        	<div class="header-time">
+            	<i class="top-iphone"><span style="margin-left:22px;">客服电话：010-56276198</span></i>
+               
+            </div>
+            <div class="header-app">
+            	<ul>
+                	<li><a href="/page/app/download.html" class="drop">移动客户端</a>
+                    	<div class="dropdown">
+                        	<div class="erweima"></div>
+                            <div class="web-app">
+                            	<a href="/page/app/download.html" class="ios"></a>
+                                <a href="/page/app/download.html" class="android"></a>
+                                <p>一机在手，相投就投</p>
+                            </div>
+                        </div>
+                    </li>
+            	<span id="span_logind">
+            		<input type="hidden" id="islogin" value="ok"/>
+                    <li style="margin:0 15px;">
+	                    <a href="/home.do" style="color:#4dbeff; text-decoration:none; font-size:15px;">
+	                    <img src="/new_images/s-people.jpg" style="position:relative; top:-2px; margin-right:1px;">我的微信贷</a>
+                    </li>                   
+                    <li><a href="/logout.do">退出</a> </li>
+            		
+            	</span>
+            
+            	<span id="span_no_login">
+            		<li style=" margin:0 15px;"><a href="/login.do">立即登录</a></li>
+                       <li><a href="/cellPhonereginit.do">我要注册</a></li> 
+                </span> 
+                
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+    </div>
+</div>
+<!--------------------------头部 end--------------------------->
+<!--主体内容-->
+<div class="appdown">
+	<div class="app_banner">
+          <div class="app_items">
+          <a class="iph" href="https://itunes.apple.com/us/app/wei-xin-dai/id963602491?l=zh&ls=1&mt=8" target="_blank"></a>
+            <a class="and" href="http://www.jcbanking.com/jcbankingv2_0.apk" target="_blank"></a>
+            <a class="wxin">
+            	<img src="/images/app/jcbankingv1_0.png" alt="微信扫描" />
+            </a>
+            
+            
+          </div>
+  </div>
+    <div class="app_con">
+    	<div class="app_btm1"></div>
+        <div class="app_btm2"></div>
+        <div class="app_btm3"></div>
+  </div>
+  <div class="app_main">
+  		<div class="app_btm4"></div>
+  </div>
+</div>
+</body>
+</html>

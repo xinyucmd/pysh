@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Loan_Repay_His" type="com.dx.payment.bean.LoanRepayHis" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Loan_Repay_His" class="Loan_Repay_His">
+		<result property="type" column="TYPE" />
+		<result property="seq_no" column="SEQ_NO" />
+		<result property="amount" column="AMOUNT" />
+		<result property="create_date" column="CREATE_DATE" />
+		<result property="update_date" column="UPDATE_DATE" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="loan_repay_his">
+        <![CDATA[
+              TYPE       ,
+			  SEQ_NO       ,
+			  AMOUNT      ,
+			  CREATE_DATE       ,
+			  UPDATE_DATE  	
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="loanRepayHis.insert">
+        <![CDATA[
+          INSERT INTO LOAN_REPAY_HIS(
+              TYPE       ,
+			  SEQ_NO       ,
+			  AMOUNT      ,
+			  CREATE_DATE       ,
+			  UPDATE_DATE  	
+           )VALUES(
+            #type#,
+            #seq_no#,
+			#amount#,
+			#create_date#,
+			#update_date#
+            )
+        ]]>
+	</insert>
+	<!-- 表修改 -->
+	<update id="loanRepayHis.update">
+        <![CDATA[
+            UPDATE LOAN_REPAY_HIS set
+            	
+            	
+            	
+                 WHERE
+               ACCOUNT_NO = #account_no#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="loanRepayHis.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="account_no">
+				<isNotEmpty prepend="AND" property="account_no">
+					ACCOUNT_NO = #account_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="seq_no">
+				<isNotEmpty prepend="AND" property="seq_no">
+					seq_no = #seq_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="loanRepayHis.findPage.count" resultClass="int">
+		SELECT count(*) FROM LOAN_REPAY_HIS
+		<include refid="loanRepayHis.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="loanRepayHis.findByPage" resultMap="RM.Loan_Repay_His">
+		SELECT
+		<include refid="loan_repay_his" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="loan_repay_his" />
+		FROM LOAN_REPAY_HIS
+		<include refid="loanRepayHis.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="loanRepayHis.findByOpNo" resultMap="RM.Loan_Repay_His">
+		SELECT
+		<include refid="loan_repay_his" />
+		FROM LOAN_REPAY_HIS
+		<include refid="loanRepayHis.findPage.where" />
+	</select>
+	<select id="loan_repay_his.getById" resultMap="RM.Loan_Repay_His">
+		SELECT
+		<include refid="loan_repay_his" />
+		FROM LOAN_REPAY_HIS
+		WHERE
+		ACCOUNT_NO = #account_no#
+	</select>
+	<select id="loanRepayHis.viewHis" resultMap="RM.Loan_Repay_His">
+		SELECT
+		<include refid="loan_repay_his" />
+		FROM LOAN_REPAY_HIS
+		<include refid="loanRepayHis.findPage.where" />
+	</select>
+</sqlMap>

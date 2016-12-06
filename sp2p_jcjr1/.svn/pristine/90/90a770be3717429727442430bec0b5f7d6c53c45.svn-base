@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Iconos -->
+    <link rel="stylesheet" href="../css/app/css/style.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+	<div>
+	<!-- Contenedor -->
+	<ul id="accordion" class="accordion">
+		<li>
+			<div class="link"><i>●</i>如何成为微信贷的注册用户？</div>
+			<ul class="submenu">
+				<li>请先在微信贷网站进行注册、认证，然后登录您的账户，点击"我要投资"，选择合适的理财计划或借款项目进行投资，并按照提示进行操作即可。</li>
+			</ul>
+		</li>
+		<li>
+			<div class="link"><i>●</i>为什么要进行实名认证？</div>
+			<ul class="submenu">
+				<li>实名认证的目的是为了确认投资人的身份以及保证投资借款合同的有效性与合法性。同时我们也会通过实名认证验证您设置的提现银行账户是否属于您本人。为了确保您的资金安全，您需要在首次投资前进行实名认证。</li>
+			</ul>
+		</li>
+		<li>
+			<div class="link"><i>●</i>为什么手机认证时收不到短信验证码，如何处理？</div>
+			<ul class="submenu">
+				<li><span>(1) 请确认手机是否安装短信拦截或过滤软件;</span>
+　　					<span>(2) 请确认手机是否能够正常接收短信(信号问题、欠费、停机等);</span>
+　　					<span>(3) 短信收发过程中可能会存在延迟，请耐心等待;</span>
+　　					<span>(4) 您还可以联系客服，寻求帮助(400-001-6007)。</span>
+　				</li>
+			</ul>
+		</li>
+		<li>
+        <div class="link"><i>●</i>忘记登录密码怎么办？如何找回？</div>
+			<ul class="submenu">
+				<li>忘记登录密码：点击登录页面密码栏右侧的"忘记密码"，可通过手机和邮箱找回密码。<br/>
+
+　　通过手机找回密码，第一步：请输入账号绑定的手机号码和系统的验证码;第二步：点击"获取验证码"，输入手机收到的验证码;第三步：输入新的登录密码，即完成新密码的设置，可以用新的密码进行登录。<br/>
+
+　　通过邮箱找回密码，第一步：输入账号绑定的邮箱地址和系统的验证码，系统会给您的邮箱发送一封确认邮件;第二步：请登录到您的邮箱进行验证;第三步：邮箱验证完成后，输入新的登录密码，即完成新密码的设置，可以用新的密码进行登录。 </li>
+			</ul>
+		</li>
+        <li>
+        <div class="link"><i>●</i>如何修改绑定手机号？</div>
+			<ul class="submenu">
+				<li>登录个人账户，在账户管理-基本信息中，点击手机号码右侧的"修改按钮"进入到"手机变更申请"页面，在该页面输入新的手机号码、手机验证码及变更原因，点击"手机变更"，后台管理人员会在一个工作日之内完成您手机号的变更审核。</li>
+			</ul>
+		</li>
+	</ul>
+  </div>
+  <script src="../js/app/js/jquery.js"></script>
+  <script src="../js/app/js/index.js"></script>
+</body>
+</html>

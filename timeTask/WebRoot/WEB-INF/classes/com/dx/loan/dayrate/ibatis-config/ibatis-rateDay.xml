@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <resultMap id="RateDayResult" class="com.dx.loan.dayrate.bean.RatedayBean">
+        <result column="DUE_NO" property="dueNo"/>
+        <result column="ID" property="id"/>
+        <result column="TERM_NO" property="termNo"/>
+        <result column="OCCURE_DATE" property="occureDate"/>
+        <result column="INTEREST" property="interest"/>
+        <result column="CAPITAL" property="capital"/>
+        <result column="OVER_INTEREST" property="overInterest"/>
+        <result column="CMPD_INTEREST" property="cmpdInterest"/>
+        <result column="STATE" property="state"/>
+        <result column="PACT_NO" property="pactNo"/>
+        <result column="ACC_FEE" property="accFee"/>
+        <result column="CSF" property="csf"/>
+        <result column="BASE_INTEREST" property="baseInterest"/>
+        <result column="BASE_ACC_FEE" property="baseAccFee"/>
+    </resultMap>
+    
+   	<sql id="RateDayResult_columns">
+   		<![CDATA[DUE_NO,
+   		 		 ID,
+   		 		 TERM_NO,
+   		 		 OCCURE_DATE,
+   		 		 INTEREST,
+   		 		 CAPITAL,
+   		 		 OVER_INTEREST,
+   		 		 CMPD_INTEREST,
+   		 		 STATE,
+   		 		 PACT_NO,
+   		 		 ACC_FEE,
+   		 		 BASE_INTEREST,
+   		 		 BASE_ACC_FEE,
+   		 		 CSF
+   		 		 ]]>
+   	</sql>
+   	
+   	<insert id="saveRateDayBean">
+   		<![CDATA[
+   				 INSERT INTO  LOAN_RATEDAY(
+   				 DUE_NO,
+   		 		 ID,
+   		 		 TERM_NO,
+   		 		 OCCURE_DATE,
+   		 		 INTEREST,
+   		 		 CAPITAL,
+   		 		 OVER_INTEREST,
+   		 		 CMPD_INTEREST,
+   		 		 STATE,
+   		 		 PACT_NO,
+   		 		 ACC_FEE,
+   		 		 BASE_INTEREST,
+   		 		 BASE_ACC_FEE,
+   		 		 CSF
+   		 		 )VALUES(
+   		 		  #dueNo#,
+            	  #id#,
+            	  #termNo#,
+            	  #occureDate#,
+            	  #interest#,
+            	  #capital#,
+            	  #overInterest#,
+           	 	  #cmpdInterest#,
+            	  #state#,
+            	  #pactNo#,
+            	  #accFee#,
+            	  #baseInterest#,
+            	  #baseAccFee#,
+            	  #csf#
+   		 		 )
+   		 		 ]]>
+   	</insert>
+   	<!-- 获得日终列表 -->
+    <select id="getRateDay" resultMap="RateDayResult"   parameterClass="com.dx.loan.dayrate.bean.RatedayBean">
+        select 
+        <include refid="RateDayResult_columns" />
+        <![CDATA[
+        	FROM LOAN_RATEDAY
+        	WHERE 1=1 
+         ]]>
+          <isNotEmpty prepend="AND" property="dueNo">    
+        	DUE_NO =#dueNo# 
+    	</isNotEmpty>  
+    	
+    	 <isNotEmpty prepend="AND" property="occureDate">    
+        	OCCURE_DATE =#occureDate# 
+    	</isNotEmpty>  
+    	
+    	 <isNotEmpty prepend="AND" property="state">    
+        	STATE =#state# 
+    	</isNotEmpty>
+    	
+    	 <isNotEmpty prepend="AND" property="termNo">    
+        	TERM_NO =#termNo# 
+    	</isNotEmpty>
+    </select>
+    
+    
+     <select id="getOverPlans" resultMap="RateDayResult"   parameterClass="com.dx.loan.dayrate.bean.RatedayBean">
+   		 SELECT 
+         <include refid="RateDayResult_columns" />
+        FROM 	LOAN_RATEDAY
+        <dynamic prepend="WHERE">
+        	<isNotNull  prepend="AND"  property="dueNo">
+        		DUE_NO=#dueNo#
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND"  property="termNo">
+	        	<![CDATA[
+	        	TERM_NO<#termNo#
+	        	]]>
+        	</isNotNull>
+        	
+        	<isNotNull  prepend="AND"  property="state">
+	        	STATE=#state#
+        	</isNotNull>
+        </dynamic>
+    
+    </select>
+    
+    
+    <!-- 获得为还完款且期号小于当前期的日终列表 -->
+     <select id="getRateDayList" resultMap="RateDayResult"   parameterClass="com.dx.loan.dayrate.bean.RatedayBean">
+        	SELECT 
+        	<include refid="RateDayResult_columns" />
+        	FROM LOAN_RATEDAY
+        	<dynamic prepend="where">
+        	
+        	<isNotNull prepend="AND"  property="dueNo">
+        		DUE_NO =#dueNo#
+        	</isNotNull>
+        	
+        	<isNotNull prepend="AND"  property="state">
+        		 STATE =#state# 
+        	</isNotNull>
+        	
+        	<isNotNull prepend="AND"  property="termNo">
+        		<![CDATA[TERM_NO <#termNo#]]>
+        	</isNotNull>
+        	
+        	<isNotNull prepend="AND"  property="occureDate">
+        		<![CDATA[
+        		occure_date >#occureDate#
+        		]]>
+        	</isNotNull>
+        	
+        	
+        	
+        	</dynamic>
+    </select>
+    
+    
+    <update  id="updateRateDay" parameterClass="com.dx.loan.dayrate.bean.RatedayBean">
+        	UPDATE LOAN_RATEDAY  
+        <dynamic prepend="SET">
+         	<isNotEmpty prepend="," property="interest">    
+        		INTEREST=#interest# 
+    		</isNotEmpty>  
+    	
+    	  	<isNotEmpty prepend="," property="state">    
+        		STATE=#state# 
+    		</isNotEmpty>  
+    	
+    	 	<isNotEmpty prepend="," property="capital">    
+        		CAPITAL=#capital# 
+    		</isNotEmpty>  
+    	
+    	  	<isNotEmpty prepend="," property="overInterest">    
+        		OVER_INTEREST=#overInterest# 
+    		</isNotEmpty>  
+    	 	<isNotEmpty prepend="," property="cmpdInterest">    
+        	CMPD_INTEREST=#cmpdInterest#
+    		</isNotEmpty> 
+    	 </dynamic>
+    	 
+    	<dynamic prepend="where">
+    		<isNotNull prepend="AND"  property="dueNo">
+        		DUE_NO =#dueNo#
+        	</isNotNull>
+        	
+        	<isNotNull prepend="AND"  property="termNo">
+        		TERM_NO=#termNo# 
+        	</isNotNull>
+        	
+        	<isNotNull prepend="AND"  property="occureDate">
+        		OCCURE_DATE=#occureDate#  
+        	</isNotNull>
+    	</dynamic>
+    </update>
+    
+    <update id="upLn">
+    update  ln_due  set over_days = #days# where  due_no = #dueNo# 
+    </update>
+    
+    <update id="upFive">
+    update  risk_five  set over_days = #days# where  due_no = #dueNo# 
+    </update>
+    
+    
+    
+</sqlMap>

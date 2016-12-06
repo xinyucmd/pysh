@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="favicon.ico"/>
+<title>微信贷手机客户端下载</title>
+
+<script>
+		function fBrowserRedirect(){
+			 var sUserAgent = navigator.userAgent.toLowerCase();
+			 var isIphone = sUserAgent.match(/iphone/i) == "iphone";
+			 var isAndroid = sUserAgent.match(/android/i) == "android";
+			 if(isIphone){
+				 window.location.href = "https://itunes.apple.com/us/app/wei-xin-dai/id963602491?l=zh&ls=1&mt=8"; 
+			 }
+			 if(isAndroid){ 
+				 window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.jcjrbanking"; 
+			 }
+		}
+		fBrowserRedirect();
+</script>
+</head>
+<body>
+
+</body>
+</html>

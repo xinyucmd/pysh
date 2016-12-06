@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+ <package name="informationapp" extends="injectionInterceptor-0" namespace="/app">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+    <action name="queryLianlianPayResult" class="myInformationAppAction" method="queryLianlianPayResult"></action>
+
+    </package>
+	<package name="myInformationapp" extends="app-default" namespace="/app">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>	
+		
+		<action name="queryBaseData" class="myInformationAppAction"
+			method="queryBaseData">
+		</action>
+		
+		<!-- whb 连连支付 -->
+		<action name="queryLianlianPay" class="myInformationAppAction" method="queryLianlianPay"></action>
+		<action name="queryLianlianPaySave" class="myInformationAppAction" method="queryLianlianPaySave"></action>
+		
+		<!-- whb 我的推荐 -->
+		<action name="toRecommendInfo" class="myInformationAppAction" method="toRecommendInfo"></action>
+		<action name="toRewardInfo" class="myInformationAppAction" method="toRewardInfo"></action>
+		<action name="getBonusInfo" class="myInformationAppAction" method="getBonusInfo"></action>
+		
+		<!-- whb 重置交易密码 -->
+		<action name="forgetdealpwd" class="myInformationAppAction"
+			method="forgetdealpwd">
+		</action>
+		<action name="reUserDealpwd" class="myInformationAppAction"
+			method="reUserDealpwd">
+		</action>
+		<!-- whb 变更手机 -->
+		<action name="boundcellphone" class="myInformationAppAction"
+			method="boundcellphone">
+		</action>
+		<action name="updatecellphone" class="homeInfoSettingAppAction"
+			method="addChangeBindingMobile">
+		</action>
+		
+		<action name="addInformationDetail" class="myInformationAppAction"
+			method="updateUserBaseData">			
+		</action>
+		
+		<action name="addWorkDetail" class="myInformationAppAction"
+			method="updateUserWorkData">			
+		</action>
+		
+		<action name="queryWorkInit" class="myInformationAppAction"
+			method="queryWorkInit">	
+		</action>
+		
+		<action name="queryBasicInit" class="myInformationAppAction"
+			method="queryBasicInit">	
+		</action>
+		
+		<action name="updatexgmm" class="myInformationAppAction"
+			method="updatePassword">	
+		</action>
+		<!-- <action name="boundcellphone" class="myInformationAppAction"
+			method="updatexgmm">	
+		</action> -->
+		<action name="szform" class="myInformationAppAction"
+			method="szform">	
+		</action>
+		<action name="yhbound" class="myInformationAppAction"
+			method="updatexgmm">	
+		</action>
+		
+				<!-- 添加邮箱 -->
+		<action name="addEmails" class="myInformationAppAction" method="addEmails">
+		</action>
+		 		<!-- 邮箱管理 left menu -->
+		<action name="emailManagerInit" class="myInformationAppAction"
+			method="emailManagerInit">
+		</action>
+				 		<!-- 邮箱管理 left menu -->
+		<action name="SendUserEmailSet" class="myInformationAppAction"
+			method="SendUserEmailSet">
+		</action>
+		<!-- 得到省市资料 -->
+		<action name="getProCity" class="myInformationAppAction"
+			method="getProCity">
+		</action>
+	</package>
+</struts>

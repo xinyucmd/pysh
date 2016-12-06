@@ -1,0 +1,78 @@
+.topdiv{
+height:95px;
+width:100%;
+}
+.logo{
+	width:337px;
+	height:95px;
+	left:0px;
+	top:0px;
+	background:url(../images/main/top_LOGO.jpg) no-repeat;
+}
+.firstMenu{
+	position:absolute;
+	top:0px;
+	left:337px;
+	background:url(../images/main/top_bg.jpg) repeat-x;
+	height:95px;
+}
+.bottomShadow{
+	height:12px;
+	width:100%;
+	background:url(../images/main/top_yinying.jpg) repeat-x;
+}
+
+.middlediv{
+width:100%;
+}
+.leftMenu{
+	position:absolute;
+	left:0px;
+	top:107px;
+	width:220px;
+	background:url(../images/main/left_menu_bg.jpg) repeat-y;
+}
+
+
+.mainframe{
+position:absolute;
+left:220px;
+top:137px;
+width:200px;
+height:212px;
+}
+
+.bottomdiv{
+height:30px;
+width:100%;
+background:#f012bc;
+}
+
+.nve{
+position:absolute;
+left:220px;
+width:58px;
+height:30px;
+background:url(../images/main/position_left.jpg) no-repeat;
+}
+
+.nve1{
+position:absolute;
+left:278px;
+width:9px;
+height:30px;
+background:url(../images/main/position_center.jpg) repeat-x;
+}
+
+
+.nve2{
+position:absolute;
+left:278px; 
+width:7px;
+height:30px;
+background:url(../images/main/position_right.jpg) no-repeat;
+}
+
+
+
+

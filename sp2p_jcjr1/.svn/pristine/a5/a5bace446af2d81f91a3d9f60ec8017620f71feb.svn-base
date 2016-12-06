@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>微信贷-查看好友关系</title>
+     <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta content="target-densitydpi=device-dpi,width=640,maximum-scale=1, user-scalable=0"  name="viewport" id="viewport">
+	<link type="text/css" rel="stylesheet" href="/css/m/style.css">
+    <script src="/js/jquery-1.8.3.min.js"></script>
+	<script src="/script/m/jquery.rye-core-1.0.js"></script>
+	<script src="/script/m/rye.jc-core-1.0.js"></script>
+	<script src="/script/m/rye.user-1.0.js"></script>
+    <script>
+        $(function(){
+            $(".list_content p").toggle(
+                    function () {
+                        $(this).html('点击关闭');
+                        $('.list_main').css("height",'auto');
+                    },
+                    function () {
+                        $(this).html('点击展开');
+                        $('.list_main').css("height",'180');
+                    }
+            );
+        });
+    </script>
+</head>
+<body>
+
+<div id="wrap">
+   <div class="yq_con">
+   		<ul>
+        	<li><i class="le_sp1">我的好友：</i><span><font id="beRecommendCount"></font></span>人</li>
+            <li><i class="le_sp2">已&nbsp;认&nbsp;证：</i><span><font id="beRecommendIdCount"></font></span>人</li>
+            <li><i class="le_sp2">已&nbsp;投&nbsp;资：</i><span><font id="beRecommendInvstCount"></font></span>人</li>
+            
+        </ul>
+        <ul>
+        	<li><i class="le_sp1">邀请奖励：</i><span><font id="cashAmountTotal"></font></span>元</li>
+            <li><i class="le_sp1">投资佣金：</i><span><font id="invstBrokerageTotal"></font></span>元</li>
+            <li><i class="le_sp2">邀&nbsp;请&nbsp;券：</i><span><font id="availableRecommendCount"></font></span>张</li>
+        </ul>
+   </div>
+	<div class="yq_list">
+       		<div class="list_title_bg"><img src="/images/m/admin_lg_bg.jpg"></div>
+            <div class="list_content">
+                <div class="list_title">
+                    <ul>
+                        <li>用户名</li>
+                        <li>身份认证</li>
+                        <li>奖励</li>
+                    </ul>
+                </div>
+                <div class="list_main" id="friend_content">   
+                </div>
+                <p style="text-align: center; color: #0b345d; font-size:1.6em;">点击展开</p>
+         </div>
+  </div>
+        <div class="login_btn">
+            <p>
+            	<input type="hidden" id="reconmmend_link" value=""/>
+            	<input id="img_cp_link" name="" type="button" class="login_input" value="再次邀请" style="font-size:2em;">
+            </p>
+        </div>
+</div>
+<script type="text/javascript"> 
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://"); 
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5f4e6cc92182a9237eadbebba00f6e33' type='text/javascript'%3E%3C/script%3E")); 
+</script>
+</body>
+<script type="text/javascript" src="/js/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="/js/ZeroClipboard.js"></script>
+<script>
+	var _param={};
+	var user = new MUser();
+	user.isLogin("admin_lo.html",function(userId){
+		if(user.isNotBank(userId)){
+			initPage(userId);
+		}
+	});
+	
+	function initPage(userId){
+		var url = "/app/queryReconmmendInfo.do";
+		_param["info"] = '{"userId":"'+userId+'","type":"1"}';
+		
+		user.httpPost(url,_param,complete,function(msg){alert(msg)});
+	}
+	
+	function complete(data){
+		$("#reconmmend_link").val(data.reconmmend_url);
+		var rsb = data.recommendBase;
+		var rs = data.recommnedSummary;
+		settingSummary(rsb,rs);
+		
+		var tr_list_o = $("#friend_content");
+		tr_list_o.empty();
+		var strHtml = "";
+		for(var i=0;i<data.result.length;i++){
+			var o = data.result[i];
+			strHtml +="<ul>";
+			strHtml +="<li>"+o.username+"</li>";
+			if(o.authentication==1){
+				strHtml +="<li><img src='/images/m/admin_lg_icon1.jpg'  class='img1' /></li>";
+			}else{
+				strHtml +="<li><img src='/images/m/admin_lg_icon2.jpg'  class='img1'/></li>";
+			}
+			if(o.cashAmountTotal>0){
+				strHtml +="<li><img src='/images/m/admin_lg_img1.jpg'  class='img2'/></li>";
+			}else{
+				strHtml +="<li><img src='/images/m/admin_lg_img2.jpg'  class='img2'/></li>";
+			}
+			strHtml +="</ul>";
+		}
+		tr_list_o.append(strHtml);
+	}
+	
+	function settingSummary(rsb,rs){
+		// 设置汇总数据
+		if(rsb!=null && rsb!= 'undefined' && rsb!=undefined){
+			$("#availableRecommendCount").append(rsb.availableRecommendCount);
+		}else{
+			$("#availableRecommendCount").append("0");
+		}
+		
+		if(rs!=null && rs!= 'undefined' && rs!=undefined){
+	    	$("#start_time").append(rs.start_time);
+	    	$("#end_time").append(rs.end_time);
+	    	$("#beRecommendCount").append(rs.beRecommendCount);
+	    	$("#beRecommendInvstCount").append(rs.beRecommendInvstCount);
+	    	$("#beRecomendInvstAmountTotal").append(rs.beRecomendInvstAmountTotal);
+	    	$("#cashAmountTotal").append(rs.cashAmountTotal);
+	    	$("#invstBrokerageTotal").append(rs.invstBrokerageTotal);
+	    	$("#brokerageAmountTotal").append(rs.brokerageAmountTotal);
+	    	$("#beRecommendIdCount").append(rs.beRecommendIdCount);
+		}else{
+			$("#start_time").append("0");
+	    	$("#end_time").append("0");
+	    	$("#beRecommendCount").append("0");
+	    	$("#beRecommendInvstCount").append("0");
+	    	$("#beRecomendInvstAmountTotal").append("0");
+	    	$("#cashAmountTotal").append("0");
+	    	$("#invstBrokerageTotal").append("0");
+	    	$("#brokerageAmountTotal").append("0");
+	    	$("#beRecommendIdCount").append("0");
+		}
+		
+	}
+	
+	$("#img_cp_link").click(function(){
+		var rl = $("#reconmmend_link").val();
+		window.location.href=rl;
+	});
+	
+	// 定义一个新的复制对象
+	//var clip = new ZeroClipboard($("#img_cp_link"), {
+	//  moviePath: "/js/ZeroClipboard.swf"
+	//} );
+
+	// 复制内容到剪贴板成功后的操作
+	//clip.on( 'complete', function(client, args) {
+	//   alert("复制成功："+ args.text);
+	//} );
+
+</script>
+</html>

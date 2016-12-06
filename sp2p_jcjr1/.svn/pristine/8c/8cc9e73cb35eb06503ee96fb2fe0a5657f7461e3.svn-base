@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="bonus" extends="login-default" namespace="/">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>    
+		
+		<!-- whb 我的奖励—现金奖励 -->
+        <action name="toRewardInfo" class="bonusAction" method="toRewardInfo">
+        	<result name="success">/WEB-INF/page/front/rewardinfo.jsp</result>
+        </action>
+        <action name="rewardRules" class="bonusAction" method="rewardRules">
+        	<result name="success">/WEB-INF/page/front/reward-rules.jsp</result>
+        </action>
+        
+		<action name="myBonus" class="bonusAction" method="myBonus">
+        	<result name="success">/WEB-INF/page/front/wdzh-recommend-red-paper.jsp</result>
+        </action>
+        <action name="queryBonusInfo" class="bonusAction" method="getBonusInfo"></action>
+        <!-- 6.24红包 -->
+		<action name="mySixBonus" class="bonusAction" method="mySixBonus">
+        	<result name="success">/WEB-INF/page/front/wdzh-recommend-red-paper.jsp</result>
+        </action>
+         <!-- 我的体验金 -->
+        <action name="myTyj" class="bonusAction" method="myTyj">
+        	<result name="success">/WEB-INF/page/front/myTyj.jsp</result>
+        </action>
+        
+         <action name="activityCi" class="bonusAction" method="activityCi">
+        	<result name="success">/WEB-INF/page/front/activityCi.jsp</result>
+        </action>
+		
+	</package>
+	
+	<package name="bonus-default" extends="injectionInterceptor-0" namespace="/">
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+	
+        <action name="saveBouns" class="bonusAction" method="saveBouns"></action>
+        <action name="getBouns" class="bonusAction" method="getBouns"></action>
+        
+	</package>
+	
+	
+</struts>

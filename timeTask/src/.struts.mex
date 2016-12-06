@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <webResource name="index.html" path="/creditapp/index.html" location="344,10" size="150,55" />
+  <webResource name="login.jsp" path="/login.jsp" location="929,185" size="150,55" />
+  <webResource name="Sys_Op_InsertOrUpdate.jsp" path="/creditapp/sys/Sys_Op_InsertOrUpdate.jsp" location="598,290" size="150,55" />
+  <webResource name="changePassWordInfo.jsp" path="/creditapp/common/changePassWordInfo.jsp" location="29,570" size="150,55" />
+  <webResource name="main.jsp" path="/main.jsp" location="0,0" size="0,0" />
+  <include file="*.xml" location="0,0" size="0,0" />
+</Struts2Diagram>
+

@@ -1,0 +1,8 @@
+*{margin: 0;padding: 0;}
+html,body,div,span,img,td,th,tr,tbody,thead,body{margin: 0;padding: 0;}
+html,body{width: 100%;}
+body{background-color: #ffffff;}
+table{width:100%;border-collapse:collapse;border-spacing:0;padd:expression(this.cellPadding=0);border:0;}
+div{width: 100%;border:none;}
+
+div>img{display:block;width: 100%;}

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页</title>
+<style>
+	body { font-size: 14px;  font-family: "微软雅黑"; background-color:#fff8e5; }
+	* { margin: 0; padding: 0; }
+	ul, ol { list-style: none; }
+	em, i { font-style: normal; }
+	img { border: none; vertical-align: middle; }
+	.clear { clear: both; }
+	.clearfix { zoom: 1; }
+	.clearfix:after { display: block; visibility: hidden; content: '.'; height: 0; clear: both; }
+	a { font-family: "微软雅黑"; text-decoration: none; color: #666; cursor: pointer; }
+	.activity{ width:100%; height:auto; font-family:"微软雅黑";}
+	.activity .banner1{ width:1215px; height:86px; margin:0 auto;}
+	.activity .banner2{ width:1215px; height:285px; margin:0 auto;}
+	.activity .banner3{ width:1215px; height:108px; margin:0 auto;}
+	.activity .main{ width:1215px; margin:0 auto; }
+	.top_bg{ height:166px; background:url(img/top_bg.jpg) no-repeat;}
+	.con{margin:0 auto; height:2118px;}
+	.left_bg{ width:147px; background:url(img/left_bg.jpg) no-repeat right; height:2118px; float:left;}
+	.right_bg{ width:167px; background:url(img/right_bg.jpg) no-repeat left; height:2118px; float:right;}
+	.content{ width:900px; float:left; height:2118px;FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#fefaf6,endColorStr=#fef8ec); /*IE*/
+background:-moz-linear-gradient(top,#fefaf6,#fef8ec);/*火狐*/
+background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#fefaf6), to(#fef8ec));/*谷歌*/ font-size:18px; }
+	.bottom_bg{ height:78px; background:url(img/bottom_bg.jpg) no-repeat;}
+	.title_bg1{ background:url(img/icon.png) no-repeat;  height:95px; width:504px; margin:0 auto; position:relative; top:60px;}
+	.text_1{ margin:0 35px 0 40px; padding:20px 15px 35px 15px; color:#000; line-height:36px;}
+	.text_2{ margin:0 35px 20px 40px;}
+	.title_bg2{ height:95px; background:url(img/icon.png) no-repeat; width:504px; margin:0 auto; background-position:0 -98px; }
+	.title_bg3{ height:95px; background:url(img/icon.png) no-repeat; width:504px; margin:0 auto; background-position:0 -193px; }
+	.title_bg4{ height:95px; background:url(img/icon.png) no-repeat; width:504px; margin:0 auto; background-position:0 -288px; }
+	.title_bg5{ height:95px; background:url(img/icon.png) no-repeat; width:504px; margin:0 auto; background-position:0 -400px; }
+	.text_img{ }
+	.text_main{ line-height:36px; width:420px; }
+	.fl{ float:left;}
+	.fr{ float:right;}
+	.show_img{}
+	
+	/*------------------头部-----------------*/	          
+	.p_headerbox{ height:146px; border-top:solid 2px #C70009; width:100%; background-color:#fff;}
+	.p_topbox{ height:42px; width:100%; background-color:#484f59;}
+	.p_top{ width:980px;  padding-top:8px; margin:0 auto;}
+	.p_topleft{ float:left;}
+	.p_topleft span{ float:left;}
+	.p_topleft span a{ vertical-align:bottom; margin:0 10px;}
+	.p_topleft span a:hover{opacity:0.6; filter:alpha(opacity=60);}
+	.p_topright{ float:right;}
+	.p_topright span{ float:left; margin-left:30px; }
+	.p_topright span a img{ vertical-align:text-bottom; *vertical-align:-2px;}
+	.p_header{ width:980px; margin:0 auto; padding:30px 0;}
+	.p_logo{  float:left;}
+	.p_nav{ float:right; line-height:44px;}
+	.p_nav a{ margin-left:75px; float:left; font-size:16px;}
+	.p_nav a:hover,.p_nav a.hover{color:#bb1b21;}
+	.f18{ font-size:18px;}
+</style>
+
+<script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+
+</head>
+<body>
+<!--头部 begin-->
+<div class="p_headerbox">
+    <div class="p_topbox">
+        <div class="p_top clearfix">
+            <div class="p_topleft"> <span>客服电话：<em class="f18">400-001-6007</em> （9:00-21:00）</span></div>
+            <div class="p_topright"> 
+            	<span id="span_logind">
+            		<img src="/activity_images/201501/p_ico003.png" width="13" height="16" /><a href="/home.do" style="color:#f90; margin-right:10px;">我的微信贷</a><span></span> <a href="/logout.do">退出</a>
+            	</span>
+            
+            	<span id="span_no_login">
+            		<a href="/login.do" style="color:#F90;"><img src="/activity_images/201501/p_ico003.png" /> 登录</a>
+            		<a href="/cellPhoneinit.do" style="color:#ff6960;"><img src="/activity_images/201501/p_ico004.png" /> 注册</a>
+            	</span> 
+            		
+            </div>
+        </div>
+    </div>
+    <div class="p_header clearfix">
+        <div class="p_logo"><a href="/index.jsp"><img src="/images/logo.png" /></a></div>
+        <div class="p_nav"><a href="/index.jsp">首页</a><a href="/finance.do?m=1&type=4">我要投资</a><a href="/borrow.do">我要借款</a><a href="/capitalEnsure.do">安全中心</a><a href="/getMessageBytypeId.do?typeId=4">关于我们</a></div>
+    </div>
+</div>
+<!--------------------------头部 end--------------------------->
+<div class="activity">
+	<div class="banner1"><img src="img/banner1.jpg" width="1215" height="86" /></div>
+    <div class="banner2"><img src="img/banner2.jpg" width="1215" height="285" /></div>
+<div class="main">
+    	<div class="top_bg">
+        	<div class="title_bg1"></div>
+        </div>
+<div class="con">
+        	<div class="left_bg"></div>
+            <div class="content">
+            	<div class="text_1">
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015年5月24日，微信贷投资人考察交流会正式举办。此次活动分为两部分，第一部分邀请投资人到公司总部进行考察，并进行微信贷之九重风控体系理财讲座；第二部分为投资人答谢交流宴会，邀请投资人参加会餐并进一步交流。
+                </div>	
+              <div class="text_2">
+               	<div class="title_bg2"></div>
+				<div style="padding:18px 0 30px 0; overflow:hidden;">
+                    	<div class="text_img fl"><img src="img/big_img1.jpg" width="378" height="255" /></div>
+                        <div class="text_main fr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;活动当天上午，投资人早早的来到了微信贷总部，在完成了签到手续后，正式开始了此次活动的第一个环节——九重风控体系理财讲座环节，由平台风控部工作人员对微信贷的风控体系进行了细致的讲解。讲座结束后，投资人积极的进行了讨论和提问，并对平台提出了意见和建议，微信贷风控部员工也为大家进行了耐心的讲解和解答。</div>
+                    </div>
+                    <div class="show_img">
+               	  		<img src="img/small_img1.jpg" width="252" height="172" />
+                        <img src="img/small_img2.jpg" width="252" height="172" style="margin:0 28px;" />
+                        <img src="img/small_img3.jpg" width="252" height="172" /> 
+                   </div>
+              </div>
+              <div class="text_2">
+               	<div class="title_bg3"></div>
+				<div style="padding:18px 0 30px 0; overflow:hidden;">
+                    	<div class="text_img fr"><img src="img/big_img2.jpg" width="378" height="255" /></div>
+                        <div class="text_main fl" style="line-height:48px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;讲座结束后，在工作人员的带领下，全体投资人对微信贷公司的工作环境进行了考察。干净整洁的办公区，窗明几净的工作环境，进一步加深了投资人对平台的认识。简短的参观过后，全体人员进行了合影留念，将这值得留念的时刻记录下来。</div>
+                    </div>
+                    <div class="show_img">
+               	  		<img src="img/small_img4.jpg" width="252" height="172" />
+                        <img src="img/small_img5.jpg" width="252" height="172" style="margin:0 28px;" />
+                        <img src="img/small_img6.jpg" width="252" height="172" /> 
+                   </div>
+              </div>
+              <div class="text_2">
+               	<div class="title_bg4"></div>
+				<div style="padding:18px 0 30px 0; overflow:hidden;">
+                    	<div class="text_img fl"><img src="img/big_img3.jpg" width="378" height="255" /></div>
+                        <div class="text_main fr" style="line-height:42px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一部分活动结束后，大家来到旋转餐厅开始了交流、聚餐活动。就餐的旋转餐厅环境优雅，美食丰富多样。喷香的料理、鲜美的海鲜、爽口的蔬果和精致的甜品…在丰盛的美食面前，大家都食指大动，一边品尝美味佳肴，一边交流着参加活动的感想以及理财经验。</div>
+                    </div>
+                    <div class="show_img">
+               	  		<img src="img/small_img7.jpg" width="252" height="172" />
+                        <img src="img/small_img8.jpg" width="252" height="172" style="margin:0 28px;" />
+                        <img src="img/small_img9.jpg" width="252" height="172" /> 
+                   </div>
+              </div>
+              <div class="text_2">
+               	<div class="title_bg5"></div>
+				<div style="padding:18px 0 30px 0; overflow:hidden; line-height:30px;">
+                    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;会餐交流结束后，微信贷投资人考察交流会终于圆满结束，微信贷全体工作人员感谢各位投资人的参加。在今后平台将继续推出更加丰富的线上、线下活动，欢迎投资人关注平台动态，参加我们的活动！让我们下次活动再见！
+                    </div>
+                    
+              </div>
+            </div>
+            <div class="right_bg"></div>
+        </div>
+    <div class="bottom_bg"></div>
+    </div>
+</div>
+</body>
+
+<script>
+
+	var user;
+	jQuery(document).ready(function($) {
+		user = new MUser(param);
+		user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$("#span_no_login").hide();
+					$("#span_logind").show();
+				}else{
+					// 头部控制
+					$("#span_no_login").show();
+					$("#span_logind").hide();
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+		
+	});
+
+</script>
+
+</html>

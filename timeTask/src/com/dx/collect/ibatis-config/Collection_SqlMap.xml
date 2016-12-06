@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Collection1" type="com.dx.collect.bean.Collection" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Collection" class="Collection1">
+		<result property="id" column="ID" />	 				
+		<result property="pact_no" column="PACT_NO" />	 							
+		<result property="due_no" column="DUE_NO" />	
+		<result property="cif_no" column="CIF_NO" />
+		<result property="collector" column="COLLECTOR" /> 	
+		<result property="share_no" column="SHARE_NO" /> 
+		<result property="stage" column="STAGE" /> 
+		<result property="over_flg" column="OVER_FLG" /> 
+		<result property="start_time" column="START_TIME" /> 
+		<result property="prolonged" column="PROLONGED" /> 
+		<result property="policy" column="POLICY" /> 
+		<result property="cif_name" column="CIF_NAME" /> 
+		<result property="op_name" column="OP_NAME" /> 
+		<result property="br" column="BR" /> 
+		<result property="share_name" column="SHARE_NAME" /> 
+ 		<result property="createDate" column="CREATE_DATE" />							
+		<result property="updateDate" column="UPDATE_DATE" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="t_collection">
+        <![CDATA[
+            ID	 						,					
+			PACT_NO	 					,									
+			DUE_NO	 					,	
+			CIF_NO,
+			COLLECTOR,													
+			SHARE_NO 				,	
+			STAGE,										
+			OVER_FLG 					,	
+			START_TIME,							
+			PROLONGED,
+			POLICY,
+			CIF_NAME,
+			OP_NAME,
+			BR,
+			SHARE_NAME,
+			CREATE_DATE	 		,											
+			UPDATE_DATE		
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="t_collection.insert">
+        <![CDATA[
+          INSERT INTO COLLECTION(
+           ID	 						,					
+			PACT_NO	 					,									
+			DUE_NO	 					,	
+			CIF_NO,
+			COLLECTOR,													
+			SHARE_NO 				,	
+			STAGE,										
+			OVER_FLG 					,		
+			START_TIME,			
+			POLICY,
+			CIF_NAME,
+			OP_NAME,
+			BR,
+			SHARE_NAME,
+			CREATE_DATE	 		,											
+			UPDATE_DATE		
+           )VALUES(
+            #id#,
+			#pact_no#,
+			#due_no#,
+			#cif_no#,
+			#collector#,
+			#share_no#,
+			#stage#,
+			0,
+			#start_time#,
+			#policy#,
+			#cif_name#,
+			#op_name#,
+			#br#,
+			#share_name#,
+			#createDate#,
+			#updateDate#
+            )
+        ]]>
+         <!-- 查询该表的序列值 -->
+        <selectKey resultClass="java.lang.String" type="pre" keyProperty="id" >
+			SELECT COLLECTION_SEQ.nextval AS id FROM DUAL
+      	</selectKey>
+	</insert>
+	<!-- 表删除 -->
+	<delete id="t_collection.del">
+        <![CDATA[
+               UPDATE COLLECTION set
+               OVER_FLG = 1
+                 WHERE
+               ID = #id#
+        ]]>
+	</delete>
+	<!-- 表修改 -->
+	<update id="t_collection.update">
+        <![CDATA[
+            UPDATE COLLECTION set
+               		SHARE_NO = #share_no#,							
+					UPDATE_DATE =#updateDate#
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<update id="t_collection.update1">
+        <![CDATA[
+            UPDATE COLLECTION set
+               		PROLONGED = #prolonged#,
+					UPDATE_DATE =#updateDate#
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<update id="t_collection.changestage">
+        <![CDATA[
+            UPDATE COLLECTION set
+            		COLLECTOR = #collector#,
+            		OP_NAME = #op_name#,
+               		STAGE = #stage#,
+               		START_TIME = #start_time#,
+               		SHARE_NO = #share_no#,
+               		SHARE_NAME = #share_name#,
+					UPDATE_DATE =#updateDate#
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<update id="t_collection.changeop">
+        <![CDATA[
+            UPDATE COLLECTION set
+               		COLLECTOR = #collector#,
+					UPDATE_DATE =#updateDate#
+                 WHERE
+               ID = #id#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="t_collection.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO = #pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="collector">
+					COLLECTOR = #collector#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="stage">
+				<isNotEmpty prepend="AND" property="stage">
+					STAGE = #stage#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="collector">
+				<isNotEmpty prepend="AND" property="collector">
+					COLLECTOR = #collector# OR SHARE_NO = #collector#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="t_collection.findPage.count" resultClass="int">
+		SELECT count(*) FROM COLLECTION
+		<include refid="t_collection.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="t_collection.findByPage" resultMap="RM.Collection">
+		SELECT
+		<include refid="t_collection" />
+		FROM COLLECTION
+		WHERE OVER_FLG = 0
+	</select>
+	
+	<select id="t_collection.getById" resultMap="RM.Collection">
+		SELECT 
+		<include refid="t_collection" />
+ 		FROM COLLECTION
+		WHERE
+               ID = #id#
+	</select>
+</sqlMap>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="CollectFee_Policy" type="com.dx.collect.bean.CollectFeePolicy" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.CollectFee_Policy" class="CollectFee_Policy">
+		<result property="id" column="ID" />
+		<result property="product" column="PRDT_NO" />
+		<result property="location" column="LOCATION" />
+		<result property="locationName" column="LOCATION_NAME" />
+		<result property="overdays" column="OVERDAYS" />
+		<result property="baseRate" column="BASE_RATE" />
+		<result property="overRate" column="OVER_RATE" />
+		<result property="addRate" column="ADD_RATE" />
+		<result property="startTime" column="START_DATE" />
+		<result property="endTime" column="END_DATE" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="updateDate" column="UPDATE_DATE" />
+		<result property="delFlg" column="DEL_FLG" />
+		<result property="defFlg" column="DEF_FLG" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="collectFeePolicy.columns">
+		<![CDATA[
+            ID,
+			PRDT_NO,
+			LOCATION,
+			LOCATION_NAME,
+			OVERDAYS,
+			BASE_RATE,
+			OVER_RATE,
+			ADD_RATE,
+			START_DATE,
+			END_DATE,
+			CREATE_DATE,
+			UPDATE_DATE,
+			DEL_FLG,
+			DEF_FLG
+        ]]>
+	</sql>
+
+	<!-- 新增 -->
+	<insert id="collectFeePolicy.insert">
+		<![CDATA[
+          INSERT INTO COLLECT_FEE_POLICY(
+            ID,
+			PRDT_NO,
+			LOCATION,
+			LOCATION_NAME,
+			OVERDAYS,
+			BASE_RATE,
+			OVER_RATE,
+			ADD_RATE,
+			START_DATE,
+			END_DATE,
+			CREATE_DATE,
+			DEL_FLG,
+			DEF_FLG
+           )VALUES(
+           	#id#,
+			#product#,
+			#location#,
+			#locationName#,
+			#overdays#,
+			#baseRate#,
+			#overRate#,
+			#addRate#,
+			#startTime#,
+			#endTime#,
+			#createDate#,
+			0,
+			#defFlg#
+            )
+        ]]>
+		<!-- 查询该表的序列值 -->
+			<selectKey resultClass="java.lang.String" type="pre" keyProperty="id" >
+			SELECT COLLECT_FEE_POLICY_SEQ.NEXTVAL AS ID FROM DUAL
+			</selectKey>
+	</insert> 
+	<!-- 删除 -->
+		<delete id="collectFeePolicy.del">
+		<![CDATA[
+		UPDATE COLLECT_FEE_POLICY set
+		DEL_FLG = 1
+		WHERE
+		ID = #id#
+		]]>
+		</delete>
+	<!-- 更新 -->
+		<update id="collectFeePolicy.update">
+		<![CDATA[
+		UPDATE COLLECT_FEE_POLICY set
+			OVERDAYS = #overdays#,
+			BASE_RATE=#baseRate#,
+			OVER_RATE=#overRate#,
+			ADD_RATE=#addRate#,
+			UPDATE_DATE=#updateDate#
+		WHERE
+		ID = #id#
+		]]>
+		</update>
+	
+		<!-- 表查询ById -->
+		<select id="collectFeePolicy.getById" resultMap="RM.CollectFee_Policy">
+			SELECT
+			<include refid="collectFeePolicy.columns" />
+			<![CDATA[
+             FROM COLLECT_FEE_POLICY
+         WHERE 
+             ID = #id#
+             AND DEL_FLG = 0
+        ]]>
+		</select>
+		
+		<!-- 分页查询条件-->
+		<sql id="collectFeePolicy.findPage.where">
+			<dynamic prepend="where">
+				<isPropertyAvailable property="product">
+					<isNotEmpty prepend="AND" property="product">
+						PRDT_NO = #product#
+					</isNotEmpty>
+				</isPropertyAvailable>
+				<isPropertyAvailable property="delFlg">
+					<isNotEmpty prepend="AND" property="delFlg">
+						DEL_FLG = #delFlg#
+					</isNotEmpty>
+				</isPropertyAvailable>
+			</dynamic>
+		</sql>
+		<!-- 分页查询记录数-->
+		<select id="collectFeePolicy.findPage.count" resultClass="int">
+			SELECT count(*) FROM COLLECT_FEE_POLICY
+			<include refid="collectFeePolicy.findPage.where" />
+		</select>
+		<!-- 分页查询 -->
+		<select id="collectFeePolicy.findByPage" resultMap="RM.CollectFee_Policy">
+			SELECT
+			<include refid="collectFeePolicy.columns" />
+			FROM ( SELECT m.*, rownum as rnum FROM (SELECT
+			<include refid="collectFeePolicy.columns" />
+			FROM COLLECT_FEE_POLICY
+			<include refid="collectFeePolicy.findPage.where" />
+			) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+		</select>
+	
+</sqlMap>

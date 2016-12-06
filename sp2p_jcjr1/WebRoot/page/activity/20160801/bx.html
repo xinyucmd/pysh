@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>投资</title>
+<!-- Bootstrap -->
+<link href="/page/activity/20160801/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+<link href="/page/activity/20160801/css/base.css" rel="stylesheet">
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+</head>
+  <body>
+      
+      <div class="hunt-ac">
+          <div class="top"></div>
+          <div class="box">
+              <div class="nmgv text-center">
+                  <div class="alert-ac">
+                      <a class="close-ac" ></a>
+                      <a class="start-ac" onclick="queryBox();"></a>
+                  </div>
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+                  <img class="hunt-box" src="/page/activity/20160801/images/nmgv.png" />
+              </div>
+              <a class="hunt-btn" href="javascript:;" onclick="touzi()"></a>
+              <div class="info"></div>
+              <a class="hunt-btn" href="javascript:;" onclick="touzi()"></a>
+          </div>
+          
+      </div>
+      
+
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+            $('.hunt-box').click(function(){
+                $('.alert-ac').fadeIn();
+                
+            });
+            $('.close-ac').click(function(){
+                $('.alert-ac').fadeOut();
+            });
+        })
+        
+/**
+ * 寻找宝箱
+ */
+function queryBox(){
+
+				$.post("/searchBox.do", "", function(data) {
+					if (data.msg == '先登录') {
+						alert("请先登录系统！");
+						window.location.href= "/login.do";
+						return null;
+					}
+					if (data.msg == 0) {
+						alert("您还没有投资.");
+						window.location.href= "/finance.do?m=1&type=4&nav=finance_li";
+						return null;
+					}
+					if (data.msg == 1) {
+						alert("抽奖次数已用完！");
+						return null;
+					} 
+					if (data.msg == 2) {
+						alert("抱歉！本次活动只针对八月份注册用户！");
+						return null;
+					} 
+					if (data.msg == 3) {
+						alert("抱歉，您所投金额未达标！");
+						window.location.href= "/finance.do?m=1&type=4&nav=finance_li";
+						return null;
+					} 
+					else {
+						alert(data.msg);
+						return null;
+					}
+
+				});
+		
+
+	}
+//我要投资
+function  touzi(){
+	window.location.href= "/finance.do?m=1&type=4&nav=finance_li";
+}
+</script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

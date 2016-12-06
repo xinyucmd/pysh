@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+     <package name="companyLoan" extends="admin-default" >
+		<global-results>
+			<result name="error">/500.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		
+        <action name="toCompanyLoanList" class="companyLoanAction" method="toCompanyLoanList">
+			<result name="success">/WEB-INF/page/admin/company-loan-index.jsp</result>
+		</action>
+
+		<action name="toCopanyAdd" class="companyLoanAction" method="toCopanyAdd">
+			<result name="success">/WEB-INF/page/admin/companyLoan_add.jsp</result>
+		</action>
+		
+		<!-- 小贷公司 -->
+		<action name="queryAllCompanyLoan" class="companyLoanAction" method="queryAllCompanyLoan"></action>
+		<action name="addCompnayLoan" class="companyLoanAction" method="addCompnayLoan"></action>
+		
+		<action name="toAdminUserPhoneRegInit" class="companyLoanAction" method="toAdminUserPhoneRegInit">
+		     <result name="success">/WEB-INF/page/admin/company_loan_admin_user_phone_reg_index.jsp</result>   
+		</action>
+		<action name="adminUsercellPhoneregsinit" class="companyLoanAction" method="adminUsercellPhoneregsinit"></action>
+		<action name="adminUderphoneCheck" class="companyLoanAction" method="adminUderphoneCheck"></action>
+		<action name="adminUsersendSMSNew" class="companyLoanAction" method="adminUsersendSMSNew"></action>
+		<action name="loanAdminUserCellreginfo" class="companyLoanAction" method="loanAdminUserCellreginfo"></action>
+		<action name="adminUserRemoveSessionCode" class="companyLoanAction" method="adminUserRemoveSessionCode"></action>
+		<action name="queryAdminUserPage" class="companyLoanAction" method="queryAdminUserPage"></action>
+		<action name="updateAdminUser" class="companyLoanAction" method="updateAdminUser"></action>
+		<action name="queryLoanCompanyById" class="companyLoanAction" method="queryLoanCompanyById"></action>
+		<action name="updateCompnayLoanData" class="companyLoanAction" method="updateCompnayLoanData"></action>
+		<action name="findLoanCompanyAdminUserById" class="companyLoanAction" method="findLoanCompanyAdminUserById"></action>
+		<action name="findLoanCompanyAdminUserByLoanId" class="companyLoanAction" method="findLoanCompanyAdminUserByLoanId"></action>
+		<action name="loadMortgPic" class="companyLoanAction" method="loadMortgPic"></action>
+		<action name="deleteCompanyLoan" class="companyLoanAction" method="deleteCompanyLoan"></action>
+		<action name="updateAdminUserCheck" class="companyLoanAction" method="updateAdminUserCheck"></action>
+		<action name="userGroupRegUser" class="companyLoanAction" method="userGroupRegUser"></action>
+		
+		<!-- whb 删除图片 -->
+		<action name="deleteCompnayImgData" class="companyLoanAction" method="deleteCompnayImgData"></action>
+		 
+		<!-- 担保公司 -->
+		<action name="queryAllCompanyBonding" class="companyBondingAction" method="queryAllCompanyBonding"/>
+		<action name="addCompnayBonding" class="companyBondingAction" method="addCompnayBonding"/>
+		<action name="ajaxQueryCompanyBondingById" class="companyBondingAction" method="ajaxQueryCompanyBondingById"/>
+		<action name="findAllBondingCompanyByLoadId" class="companyBondingAction" method="findAllBondingCompanyByLoadId"/>
+		<action name="updateBondingCompanyData" class="companyBondingAction" method="updateBondingCompanyData"></action>
+		
+		<!-- 小贷公司 和 担保公司关系 -->
+		<action name="addCompnayLoanBonding" class="compnayLoanBondingAction" method="addCompnayLoanBonding"/>
+		<action name="queryCompnayLoanBondingPage" class="compnayLoanBondingAction" method="queryCompnayLoanBondingPage"/>
+		
+		<!-- 渠道费用金额 -->
+		<action name="queryChannelCostInit" class="companyLoanAction" method="queryChannelCostInit">
+		     <result name="success">/WEB-INF/page/admin/company_channel_cost_index.jsp</result>   
+		</action>
+		<action name="findChannelCostRecodeByContions" class="companyLoanAction" method="findChannelCostRecodeByContions"/>
+		
+		<!-- 营销账户  -->
+		<action name="queryYxUserRegInit" class="companyLoanAction" method="queryYxUserRegInit">
+		     <result name="success">/WEB-INF/page/admin/yx_user_reg_index.jsp</result>   
+		</action>
+		<action name="regYxUser" class="companyLoanAction" method="regYxUser"></action>
+		<action name="queryUserYxPage" class="companyLoanAction" method="queryUserYxPage"></action>
+		<action name="updateUserYxTell" class="companyLoanAction" method="updateUserYxTell"></action>
+		 
+    </package>
+    </struts>
+

@@ -1,0 +1,17 @@
+一  testResource
+	
+	1 功能: 该类主要演示如何加载系统的配置文件,统一加载系统配置文件的格式
+	
+	2 使用步骤:
+		2.1 引入包:
+		mport java.util.Properties;
+		import org.springframework.core.io.support.PropertiesLoaderUtils;
+	  	2.2 加载属性文件(默认加载classes 目录项的文件)
+	  	 Properties props = PropertiesLoaderUtils.loadAllProperties("resources/mysql.properties"); 
+	  	2.3
+	  	读取属性的值:
+	  	props.getProperty("jdbc.driverClassName")); 
+	  	 
+
+
+

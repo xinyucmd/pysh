@@ -1,0 +1,18 @@
+#该文件事系统级别的基础样式文件不允许个人随意添加和修改 
+#该文件主要定义系统一般常用标签的样式 
+
+html ,body,form ,div ,input,textarea,ul,li,dl,dt,dd,fieldset,th,td,select,p{
+	margin-top:0px;
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	padding-top:0px;
+	padding-right:0px;
+	padding-bottom:0px;
+	padding-left:0px;
+}
+
+html, body{
+	width:100%;
+	height:100%;
+}

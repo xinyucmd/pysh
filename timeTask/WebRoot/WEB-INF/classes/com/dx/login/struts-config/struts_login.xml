@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  	<package name="userLogin" namespace="/" extends="struts-default">
+		<default-interceptor-ref name="defaultStack" />
+            <action name="login_*" class="com.dx.login.action.LoginAction" method="{1}">
+            	<result name="success">WEB-INF/main.jsp</result>
+            	<result name="ok">WEB-INF/main1.jsp</result>
+        	</action>
+        	<!-- 
+            <action name="getTlrctList" class="com.dx.login.action.LoginAction" method="getTlrctList">
+            <result name="ok">WEB-INF/main.jsp</result>
+        	</action>
+        	 -->        	
+    </package>
+</struts>

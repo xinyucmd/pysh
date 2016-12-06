@@ -1,0 +1,17 @@
+.invest-ac {width: 100%;}
+.invest-ac img, .content-ac {width: 100%;min-width: 1200px;}
+.invest-ac .ac-invite {background: url(/page/activity/20160801/images/ac-invite.png) no-repeat;width: 539px;height: 101px;display: block;margin: -137px auto 0;position: relative;top: -80px;}
+.invest-ac .ac-manage {background: url(/page/activity/20160801/images/ac-manage.png) no-repeat;width: 510px;height: 101px;display: block;margin: -136px auto 0;position: relative;top: -55px;}
+
+.hunt-ac {width: 100%;}
+.hunt-ac .top {background: url(/page/activity/20160801/images/hunttop.jpg) center center no-repeat;width: 100%;min-width: 1200px; height: 560px;}
+.hunt-ac .box {background: url(/page/activity/20160801/images/bg.png) center center no-repeat;width: 100%;min-width: 1200px; height: 2658px;padding-top: 160px;}
+.hunt-ac .box .nmgv {background: url(/page/activity/20160801/images/huntbox.png) center center no-repeat;width: 1153px; height: 911px;margin:0 auto;padding-top: 186px;}
+.hunt-ac .box .nmgv .alert-ac {background: url(/page/activity/20160801/images/chect-ac.png) no-repeat;width: 1038px;height: 707px;position: absolute;margin: -20px 0 0 60px;display: none;}
+.hunt-ac .box .nmgv .alert-ac .close-ac {display: block;width: 52px;height: 52px;position: relative;top:180px;left: 702px;cursor:pointer;}
+.hunt-ac .box .nmgv .alert-ac .start-ac {display: block;width: 238px;height: 64px;position: relative;top: 460px;left: 398px;cursor:pointer;}
+.hunt-ac .box .nmgv img {margin: 0 58px 40px;}
+.hunt-ac .box .nmgv img { cursor: url("/page/activity/20160801/images/finger.ico"), default;}
+.hunt-ac .box .info {background: url(/page/activity/20160801/images/huntinfo.png) center center no-repeat;width: 1153px; height: 750px;margin:0 auto;}
+.hunt-ac .box .hunt-btn {background: url(/page/activity/20160801/images/hunt-manage.png) no-repeat;width: 411px;height: 98px;display: block;margin: 70px auto 110px;}
+

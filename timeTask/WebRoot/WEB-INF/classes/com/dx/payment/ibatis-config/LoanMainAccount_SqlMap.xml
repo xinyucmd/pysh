@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Loan_Main_Account" type="com.dx.payment.bean.LoanMainAccount" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Loan_Main_Account" class="Loan_Main_Account">
+		<result property="cif_no" column="CIF_NO" />
+		<result property="cif_name" column="CIF_NAME" />
+		<result property="account_no" column="ACCOUNT_NO" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="due_no" column="DUE_NO" />
+		<result property="account_type" column="ACCOUNT_TYPE" />
+		<result property="redo_type" column="REDO_TYPE" />
+		<result property="over_days" column="OVER_DAYS" />
+		<result property="open_date" column="OPEN_DATE" />
+		<result property="open_op" column="OPEN_OP" />
+		<result property="start_time" column="START_TIME" />
+		<result property="end_time" column="END_TIME" />
+		<result property="status" column="STATUS" />
+		<result property="cmt" column="CMT" />
+		<result property="close_date" column="CLOSE_DATE" />
+		<result property="close_op" column="CLOSE_OP" />
+		<result property="over_amt" column="OVER_PAY" />
+		<result property="pay_type" column="PAY_TYPE" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="loan_main_account">
+        <![CDATA[
+              ACCOUNT_NO   ,
+			  CIF_NO       ,
+			  CIF_NAME     ,
+			  PACT_NO      ,
+			  DUE_NO       ,
+			  ACCOUNT_TYPE ,
+			  REDO_TYPE    ,
+			  STATUS       ,
+			  OPEN_DATE    ,
+			  OPEN_OP      ,
+			  CLOSE_DATE   ,
+			  CLOSE_OP     ,
+			  START_TIME   ,
+			  END_TIME     ,
+			  OVER_DAYS    ,
+			  CMT  	,
+			  OVER_PAY,
+			  PAY_TYPE
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="loanMainAccount.insert">
+        <![CDATA[
+          INSERT INTO LOAN_MAIN_ACCOUNT(
+           	  ACCOUNT_NO   ,
+			  CIF_NO       ,
+			  CIF_NAME     ,
+			  PACT_NO      ,
+			  DUE_NO       ,
+			  ACCOUNT_TYPE ,
+			  REDO_TYPE    ,
+			  STATUS       ,
+			  OPEN_DATE    ,
+			  OPEN_OP      ,
+			  CLOSE_DATE   ,
+			  CLOSE_OP     ,
+			  START_TIME   ,
+			  END_TIME     ,
+			  OVER_DAYS    ,
+			  CMT 	,OVER_PAY,
+			  PAY_TYPE
+           )VALUES(
+            #account_no#,
+            #cif_no#,
+			#cif_name#,
+			#pact_no#,
+			#due_no#,
+			#account_type#,
+			#redo_type#,
+			#status#,
+			#open_date#,
+			#open_op#,
+			#close_date#,
+			#close_op#,
+			#start_time#,
+			#end_time#,
+			#over_days#,
+			#cmt#,
+			#over_amt#,
+			#pay_type#
+            )
+        ]]>
+	</insert>
+	<!-- 表修改 -->
+	<update id="loanMainAccount.update">
+       <![CDATA[
+            UPDATE LOAN_MAIN_ACCOUNT set ACCOUNT_NO = #account_no#]]>
+            <isNotEmpty prepend="," property="over_amt">
+					OVER_PAY = #over_amt#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="status">
+					status = #status#
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="close_op">
+					close_op = #close_op#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="close_date">
+					close_date = #close_date#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="over_days">
+					over_days = #over_days#
+			</isNotEmpty>
+             <![CDATA[     WHERE
+               ACCOUNT_NO = #account_no#
+        ]]>
+	</update>
+	<!-- 分页查询条件 -->
+	<sql id="loanMainAccount.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="due_no">
+				<isNotEmpty prepend="AND" property="due_no">
+					due_no = #due_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO = #pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="account_type">
+				<isNotEmpty prepend="AND" property="account_type">
+					ACCOUNT_TYPE = #account_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="account_no">
+				<isNotEmpty prepend="AND" property="account_no">
+					account_no = #account_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="status">
+				<isNotEmpty prepend="AND" property="status">
+					STATUS = #status#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="redo_type">
+				<isNotEmpty prepend="AND" property="redo_type">
+					REDO_TYPE = #redo_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pay_type">
+				<isNotEmpty prepend="AND" property="pay_type">
+					pay_type = #pay_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="over_flg">
+				<isNotEmpty prepend="AND" property="over_flg">
+					OVER_FLG = #over_flg#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="bal">
+				<isNotEmpty prepend="AND" property="bal">
+					 <![CDATA[  
+					BAL <= #bal#
+					 ]]>  
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="startTime">
+					<isNotEmpty prepend="AND" property="startTime">  
+        				START_TIME >= #startTime#  
+    				</isNotEmpty>  
+    			</isPropertyAvailable>
+				<isPropertyAvailable property="endTime">
+    				<isNotEmpty prepend="AND" property="endTime">  
+       				 <![CDATA[  
+        				END_TIME <= #endTime#  
+       				 ]]>  
+    				</isNotEmpty>  
+				</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数 -->
+	<select id="loanMainAccount.findPage.count" resultClass="int">
+		SELECT count(*) FROM LOAN_MAIN_ACCOUNT
+		<include refid="loanMainAccount.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="loanMainAccount.findByPage" resultMap="RM.Loan_Main_Account">
+		SELECT
+		<include refid="loan_main_account" />
+		FROM (
+		SELECT m.*, rownum as rnum
+		FROM
+		(SELECT
+		<include refid="loan_main_account" />
+		FROM LOAN_MAIN_ACCOUNT
+		<include refid="loanMainAccount.findPage.where" />
+		) m
+		WHERE rownum &lt; #endNum#
+		)
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="loanMainAccount.findByOpNo" resultMap="RM.Loan_Main_Account">
+		SELECT
+		<include refid="loan_main_account" />
+		FROM LOAN_MAIN_ACCOUNT
+		<include refid="loanMainAccount.findPage.where" />
+	</select>
+	<select id="loanMainAccount.getById" resultMap="RM.Loan_Main_Account">
+		SELECT
+		<include refid="loan_main_account" />
+		FROM LOAN_MAIN_ACCOUNT
+		WHERE
+		ACCOUNT_NO = #account_no#
+	</select>
+		<select id="viewMainAccount" resultMap="RM.Loan_Main_Account">
+		SELECT
+		<include refid="loan_main_account" />
+		FROM LOAN_MAIN_ACCOUNT
+		<include refid="loanMainAccount.findPage.where" />
+	</select>
+</sqlMap>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <resultMap id="systemDateBean" class="com.dx.back.systemdate.bean.SystemDateBean">
+        <result column="LAST_DATE" property="lastDate"/>
+        <result column="NOW_DATE" property="nowDate"/>
+    </resultMap>
+  
+   <!-- 获得系统日期 -->
+    <select id="getSytstemDate"  resultMap="systemDateBean"  >
+     select to_char(to_date(LST_DATE, 'yyyymmdd'), 'yyyy-mm-dd') AS LAST_DATE,
+        to_char(to_date(SYS_DATE, 'yyyymmdd'), 'yyyy-mm-dd') AS NOW_DATE
+   from SYS_GLOBAL
+            
+    </select>
+    
+   <!-- 更新系统日期 --> 
+    <update id="updateSystemDate" parameterClass="com.dx.back.systemdate.bean.SystemDateBean">
+    	<![CDATA[
+    		UPDATE SYS_GLOBAL SET 
+    		 LST_DATE =  #lastDate#,
+    		 SYS_DATE =  #nowDate#
+    	]]>
+    </update>
+</sqlMap>

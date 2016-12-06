@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Ln_Pact" type="com.dx.collect.bean.ZcLnPact" />
+	<!-- 列表查询返回字段 -->
+	<resultMap id="RM.Ln_Pact" class="Ln_Pact">
+		<result property="app_no" column="APP_NO" />
+		<result property="cif_no" column="CIF_NO" />
+		<result property="cif_name" column="CIF_NAME" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="cur_no" column="CUR_NO" />
+		<result property="pact_amt" column="PACT_AMT" />
+		<result property="bal" column="BAL" />
+		<result property="pact_type" column="PACT_TYPE" />
+		<result property="sub_prdt_no" column="SUB_PRDT_NO" />
+		<result property="prdt_no" column="PRDT_NO" />
+		<result property="occur_type" column="OCCUR_TYPE" />
+		<result property="cap_type" column="CAP_TYPE" />
+		<result property="time_type" column="TIME_TYPE" />
+		<result property="term_mon" column="TERM_MON" />
+		<result property="term_day" column="TERM_DAY" />
+		<result property="sign_date" column="SIGN_DATE" />
+		<result property="chn_date" column="CHN_DATE" />
+		<result property="beg_date" column="BEG_DATE" />
+		<result property="end_date" column="END_DATE" />
+		<result property="base_rate" column="BASE_RATE" />
+		<result property="ln_rate" column="LN_RATE" />
+		<result property="float_type" column="FLOAT_TYPE" />
+		<result property="float_ratio" column="FLOAT_RATIO" />
+		<result property="over_rate" column="OVER_RATE" />
+		<result property="fine_rate" column="FINE_RATE" />
+		<result property="cmpd_rate" column="CMPD_RATE" />
+		<result property="repay_type" column="REPAY_TYPE" />
+		<result property="ic_type" column="IC_TYPE" />
+		<result property="vou_type" column="VOU_TYPE" />
+		<result property="ln_use" column="LN_USE" />
+		<result property="exp_flag" column="EXP_FLAG" />
+		<result property="fair_flag" column="FAIR_FLAG" />
+		<result property="fair_pact_no" column="FAIR_PACT_NO" />
+		<result property="put_out_amt" column="PUT_OUT_AMT" />
+		<result property="pay_type" column="PAY_TYPE" />
+		<result property="pact_sts" column="PACT_STS" />
+		<result property="app_brno" column="APP_BRNO" />
+		<result property="app_op_no" column="APP_OP_NO" />
+		<result property="app_date" column="APP_DATE" />
+		<result property="mang_brno" column="MANG_BRNO" />
+		<result property="mang_no" column="MANG_NO" />
+		<result property="acc_brno" column="ACC_BRNO" />
+		<result property="br_no" column="BR_NO" />
+		<result property="op_no" column="OP_NO" />
+		<result property="tx_date" column="TX_DATE" />
+		<result property="up_date" column="UP_DATE" />
+		<result property="filler" column="FILLER" />
+		<result property="if_chk_end" column="IF_CHK_END" />
+		<result property="old_end_date" column="OLD_END_DATE" />
+		<result property="if_cross" column="IF_CROSS" />
+		<result property="cross_city" column="CROSS_CITY" />
+		<result property="cross_section" column="CROSS_SECTION" />
+		<result property="special_permit" column="SPECIAL_PERMIT" />
+		<result property="special_reason" column="SPECIAL_REASON" />
+		<result property="chargestr" column="CHARGESTR" />
+		<result property="active" column="ACTIVE" />
+		<result property="active_name" column="ACTIVE_NAME" />
+		<result property="return_sts" column="RETURN_STS" />
+	</resultMap>
+
+	<resultMap id="RM.Ln_Pact_" class="Ln_Pact">
+		<result property="cif_name" column="CIF_NAME" />
+		<result property="pact_no" column="PACT_NO" />
+		<result property="pact_amt" column="PACT_AMT" />
+		<result property="prdt_no" column="PRDT_NO" />
+		<result property="br_no" column="BR_NO" />
+		<result property="mang_no" column="MANG_NO" />
+		<result property="bal" column="BAL" />
+		<result property="acc_no" column="ACC_NO" />
+	</resultMap>
+	<!-- 表字段 -->
+	<sql id="ln_pact.columns">
+		<![CDATA[
+            APP_NO,
+            CIF_NO,
+            CIF_NAME,
+            PACT_NO,
+            CUR_NO,
+            PACT_AMT,
+            BAL,
+            PACT_TYPE,
+            SUB_PRDT_NO,
+            PRDT_NO,
+            OCCUR_TYPE,
+            CAP_TYPE,
+            TIME_TYPE,
+            TERM_MON,
+            TERM_DAY,
+            SIGN_DATE,
+            CHN_DATE,
+            BEG_DATE,
+            END_DATE,
+            BASE_RATE,
+            LN_RATE,
+            FLOAT_TYPE,
+            FLOAT_RATIO,
+            OVER_RATE,
+            FINE_RATE,
+            CMPD_RATE,
+            REPAY_TYPE,
+            IC_TYPE,
+            VOU_TYPE,
+            LN_USE,
+            EXP_FLAG,
+            FAIR_FLAG,
+            FAIR_PACT_NO,
+            PAY_TYPE,
+            PACT_STS,
+            APP_BRNO,
+            APP_OP_NO,
+            APP_DATE,
+            MANG_BRNO,
+            MANG_NO,
+            ACC_BRNO,
+            PUT_OUT_AMT,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            IF_CHK_END,
+            OLD_END_DATE,
+            IF_CROSS,
+            CROSS_CITY,
+            CROSS_SECTION,
+            CITY_NAME,
+            SECTION_NAME,
+            SPECIAL_PERMIT,
+       SPECIAL_REASON,
+       CHARGESTR,
+       ACTIVE,
+       ACTIVE_NAME,
+       RETURN_STS
+        ]]>
+	</sql>
+	<!-- 表新增 -->
+	<insert id="LnPact.insert">
+		<![CDATA[
+          INSERT INTO LN_PACT(
+            APP_NO,
+            CIF_NO,
+            CIF_NAME,
+            PACT_NO,
+            CUR_NO,
+            PACT_AMT,
+            BAL,
+            PACT_TYPE,
+            SUB_PRDT_NO,
+            PRDT_NO,
+            OCCUR_TYPE,
+            CAP_TYPE,
+            TIME_TYPE,
+            TERM_MON,
+            TERM_DAY,
+            SIGN_DATE,
+            CHN_DATE,
+            BEG_DATE,
+            END_DATE,
+            BASE_RATE,
+            LN_RATE,
+            FLOAT_TYPE,
+            FLOAT_RATIO,
+            OVER_RATE,
+            FINE_RATE,
+            CMPD_RATE,
+            REPAY_TYPE,
+            IC_TYPE,
+            VOU_TYPE,
+            LN_USE,
+            EXP_FLAG,
+            FAIR_FLAG,
+            FAIR_PACT_NO,
+            PAY_TYPE,
+            PACT_STS,
+            PUT_OUT_AMT,
+            APP_BRNO,
+            APP_OP_NO,
+            APP_DATE,
+            MANG_BRNO,
+            MANG_NO,
+            ACC_BRNO,
+            BR_NO,
+            OP_NO,
+            TX_DATE,
+            UP_DATE,
+            FILLER,
+            IF_CHK_END,
+            OLD_END_DATE
+           )VALUES(
+            #app_no#,
+            #cif_no#,
+            #cif_name#,
+            #pact_no#,
+            #cur_no#,
+            #pact_amt#,
+            #bal#,
+            #pact_type#,
+            #sub_prdt_no#,
+            #prdt_no#,
+            #occur_type#,
+            #cap_type#,
+            #time_type#,
+            #term_mon#,
+            #term_day#,
+            #sign_date#,
+            #chn_date#,
+            #beg_date#,
+            #end_date#,
+            #base_rate#,
+            #ln_rate#,
+            #float_type#,
+            #float_ratio#,
+            #over_rate#,
+            #fine_rate#,
+            #cmpd_rate#,
+            #repay_type#,
+            #ic_type#,
+            #vou_type#,
+            #ln_use#,
+            #exp_flag#,
+            #fair_flag#,
+            #fair_pact_no#,
+            #pay_type#,
+            #pact_sts#,
+            #put_out_amt#,
+            #app_brno#,
+            #app_op_no#,
+            #app_date#,
+            #mang_brno#,
+            #mang_no#,
+            #acc_brno#,
+            #br_no#,
+            #op_no#,
+            #tx_date#,
+            #up_date#,
+            #filler#,
+            #if_chk_end#,
+            #old_end_date#
+            )
+        ]]>
+	</insert>
+	<!-- 表删除 -->
+	<delete id="LnPact.del">
+		<![CDATA[
+               DELETE FROM LN_PACT
+                 WHERE
+              PACT_NO=#pact_no#
+        ]]>
+	</delete>
+	<!-- 表修改 -->
+	<update id="LnPact.update">
+		<![CDATA[
+            UPDATE LN_PACT set
+               APP_NO=#app_no#,
+               CIF_NO=#cif_no#,
+               CIF_NAME=#cif_name#,
+               PACT_NO=#pact_no#,
+               CUR_NO=#cur_no#,
+               PACT_AMT=#pact_amt#,
+               BAL=#bal#,
+               PACT_TYPE=#pact_type#,
+               SUB_PRDT_NO=#sub_prdt_no#,
+               PRDT_NO=#prdt_no#,
+               OCCUR_TYPE=#occur_type#,
+               CAP_TYPE=#cap_type#,
+               TIME_TYPE=#time_type#,
+               TERM_MON=#term_mon#,
+               TERM_DAY=#term_day#,
+               SIGN_DATE=#sign_date#,
+               CHN_DATE=#chn_date#,
+               BEG_DATE=#beg_date#,
+               END_DATE=#end_date#,
+               BASE_RATE=#base_rate#,
+               LN_RATE=#ln_rate#,
+               FLOAT_TYPE=#float_type#,
+               FLOAT_RATIO=#float_ratio#,
+               OVER_RATE=#over_rate#,
+               FINE_RATE=#fine_rate#,
+               CMPD_RATE=#cmpd_rate#,
+               REPAY_TYPE=#repay_type#,
+               IC_TYPE=#ic_type#,
+               VOU_TYPE=#vou_type#,
+               LN_USE=#ln_use#,
+               PUT_OUT_AMT = #put_out_amt#,
+               EXP_FLAG=#exp_flag#,
+               FAIR_FLAG=#fair_flag#,
+               FAIR_PACT_NO=#fair_pact_no#,
+               PAY_TYPE=#pay_type#,
+               PACT_STS=#pact_sts#,
+               APP_BRNO=#app_brno#,
+               APP_OP_NO=#app_op_no#,
+               APP_DATE=#app_date#,
+               MANG_BRNO=#mang_brno#,
+               MANG_NO=#mang_no#,
+               ACC_BRNO=#acc_brno#,
+               BR_NO=#br_no#,
+               OP_NO=#op_no#,
+               TX_DATE=#tx_date#,
+               UP_DATE=#up_date#,
+               FILLER=#filler#,
+               IF_CHK_END=#if_chk_end#,
+               OLD_END_DATE=#old_end_date#
+            WHERE
+               PACT_NO=#pact_no#
+        ]]>
+	</update>
+	<!-- 表查询ById -->
+	<select id="LnPact.getById" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		<![CDATA[
+             FROM Ln_Pact
+         WHERE 
+            PACT_NO=#pact_no#
+        ]]>
+	</select>
+
+	<!-- 通过合同号查询贷款产品类型 -->
+	<select id="LnPact.findLnTypebyPactNo" resultClass="String">
+		select ln_type 
+		<![CDATA[
+		from prod_base where prdt_no = (select TRIM(prdt_no)
+		from ln_pact where pact_no = #pact_no#)
+        ]]>
+	</select>
+	<!-- 分页查询条件 -->
+	<sql id="LnPact.findPage.where">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					CIF_NO=#cif_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME LIKE
+					'%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_sts">
+				<isNotEmpty prepend="AND" property="pact_sts">
+					PACT_STS=#pact_sts#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO=#prdt_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<!-- br_no必须放在最后位置 -->
+			<isPropertyAvailable property="br_no">
+				<isNotEmpty prepend="AND" property="br_no">
+					t.br_no = a.br_no
+					START WITH ( t.br_no = #br_no# or t.up_one=#br_no# or
+					t.up_two=#br_no# )
+					CONNECT BY PRIOR t.br_no = t.up_one
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!--担保品中察看合同 -->
+	<select id="lnpactlist.listBylist" resultMap="RM.Ln_Pact">
+		SELECT * FROM ( SELECT m.*, rownum as rnum FROM (SELECT a.* FROM
+		LN_PACT a,gage_rel b WHERE b.pact_no=a.pact_no
+		<isPropertyAvailable property="cif_no">
+			<isNotEmpty prepend="AND" property="cif_no">
+				a.cif_no=#cif_no#
+			</isNotEmpty>
+		</isPropertyAvailable>
+		<isPropertyAvailable property="gage_id">
+			<isNotEmpty prepend="AND" property="gage_id">
+				b.gage_id=#gage_id#
+			</isNotEmpty>
+		</isPropertyAvailable>
+		) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+
+	<!--担保品中察看合同 分页查询记录 -->
+	<select id="LnPact.listPage.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT a,gage_rel b WHERE
+		b.pact_no=a.pact_no
+		<isPropertyAvailable property="cif_no">
+			<isNotEmpty prepend="AND" property="cif_no">
+				a.cif_no=#cif_no#
+			</isNotEmpty>
+		</isPropertyAvailable>
+		<isPropertyAvailable property="gage_id">
+			<isNotEmpty prepend="AND" property="gage_id">
+				b.gage_id=#gage_id#
+			</isNotEmpty>
+		</isPropertyAvailable>
+	</select>
+
+	<select id="lnpactlist.findBylist" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM LN_PACT WHERE CIF_NO=#cif_no#
+	</select>
+	<!-- 分页查询记录数 -->
+	<select id="LnPact.findPage.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT a,tbl_org_departments t
+		<include refid="LnPact.findPage.where" />
+	</select>
+	<!-- 分页查询 -->
+	<select id="lnpactlist.findByPage" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT a.* FROM LN_PACT
+		a,tbl_org_departments t
+		<include refid="LnPact.findPage.where" />
+		) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+
+	<!-- 未补录合同分页查询条件 -->
+	<sql id="lnpactlist.listUnPactByPage.where">
+		<dynamic prepend="AND">
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					CIF_NO like '%'||#cif_no#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME LIKE '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+
+			<isPropertyAvailable property="acc_no">
+				<isNotEmpty prepend="AND" property="acc_no">
+					ACC_NO like '%'||#acc_no#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+
+	<!--登录机构级别为1的未补录合同分页查询 -->
+	<select id="LnPact.findPage.count1" resultClass="int">
+		SELECT count(*) FROM LN_PACT where pact_sts='9'
+		<include refid="lnpactlist.listUnPactByPage.where" />
+	</select>
+	<select id="lnpactlist.listUnPactByPage1" resultMap="RM.Ln_Pact_">
+		select cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,bal,acc_no
+		from(select
+		m.*,rownum as rnum from( select
+		cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,nvl(bal,0) as
+		bal,acc_no from ln_pact where
+		pact_sts='9'
+		<include refid="lnpactlist.listUnPactByPage.where" />)m
+		where rownum &lt; #endNum# )
+		WHERE rnum &gt;= #startNum#
+	</select>
+	<!--登录机构级别为2的未补录合同分页查询 -->
+	<select id="LnPact.findPage.count2" resultClass="int">
+		SELECT count(*)
+		FROM LN_PACT where pact_sts='9' and br_no
+		in(select br_no from
+		tbl_org_departments where up_one =#brno#)
+	</select>
+	<select id="lnpactlist.listUnPactByPage2" resultMap="RM.Ln_Pact_">
+		select cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,bal from(select
+		m.*,rownum as rnum from( select
+		cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,nvl(bal,0) as bal from
+		ln_pact where
+		pact_sts='9' and br_no in(select br_no from
+		tbl_org_departments where up_one =#brno#)
+		<include refid="lnpactlist.listUnPactByPage.where" />
+		)m where rownum &lt;
+		#endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<!--登录机构级别为3的未补录合同分页查询 -->
+	<select id="LnPact.findPage.count3" resultClass="int">
+		SELECT count(*)
+		FROM LN_PACT where pact_sts='9' and br_no
+		in(select br_no from
+		tbl_org_departments where up_two =#brno#)
+	</select>
+	<select id="lnpactlist.listUnPactByPage3" resultMap="RM.Ln_Pact_">
+		select cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,nvl(bal,0) as
+		bal from(select
+		m.*,rownum as rnum from( select
+		cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,nvl(bal,0) from
+		ln_pact where
+		pact_sts = '9' and br_no in(select br_no from
+		tbl_org_departments where up_two =#brno#)
+		<include refid="lnpactlist.listUnPactByPage.where" />)m
+		where rownum &lt;
+		#endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<!--登录机构级别为4的未补录合同分页查询 -->
+	<select id="LnPact.findPage.count4" resultClass="int">
+		SELECT count(*)
+		FROM LN_PACT where pact_sts='9'
+	</select>
+	<select id="lnpactlist.listUnPactByPage4" resultMap="RM.Ln_Pact_">
+		select cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,nvl(bal,0)as
+		bal from(select
+		m.*,rownum as rnum from( select
+		cif_name,br_no,pact_no,pact_amt,prdt_no,mang_no,nvl(bal,0) from
+		ln_pact where
+		pact_sts='9'
+		<include refid="lnpactlist.listUnPactByPage.where" />)m
+		where rownum &lt; #endNum# ) WHERE rnum &gt;=
+		#startNum#
+	</select>
+
+	<!-- 添加业务移交明细时查询对应的合同信息， -->
+	<select id="LnPact.yeMove_findPage.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT a WHERE BAL>0
+		<dynamic prepend="and">
+			<isPropertyAvailable property="mang_no">
+				<isNotEmpty prepend="AND" property="mang_no">
+					a.MANG_NO=#mang_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</select>
+	<!-- 添加业务移交明细时查询对应的合同信息 -->
+	<select id="LnPact.yeMove_findPage" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT
+		<include refid="ln_pact.columns" />
+		FROM LN_PACT a WHERE BAL>0
+		<dynamic prepend="and">
+			<isPropertyAvailable property="mang_no">
+				<isNotEmpty prepend="AND" property="mang_no">
+					a.MANG_NO=#mang_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+
+		</dynamic>
+		and pact_no not in (select pact_no from LN_PACT_MOVE_LIST ) ) m
+		WHERE
+		rownum &lt;#endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+
+
+	
+	<!-- 分页查询条件 -->
+	<sql id="LnPact.findPage.whereBal">
+		<dynamic prepend="where">
+			<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_no">
+				<isNotEmpty prepend="AND" property="cif_no">
+					CIF_NO=#cif_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME=#cif_name#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_sts">
+				<isNotEmpty prepend="AND" property="pact_sts">
+					PACT_STS=#pact_sts#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO=#prdt_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="bal">
+				<isNotEmpty prepend="AND" property="bal">
+					((pact_sts = '1'and
+					pact_amt >0) or (pact_sts
+					in('2','3') and pact_amt - put_out_amt
+					>0))
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<!-- br_no必须放在最后位置 -->
+			<isPropertyAvailable property="br_no">
+				<isNotEmpty prepend="AND" property="br_no">
+					t.br_no = a.br_no
+					START WITH ( t.br_no = #br_no# or t.up_one=#br_no# or
+					t.up_two=#br_no# )
+					CONNECT BY PRIOR t.br_no = t.up_one
+				</isNotEmpty>
+			</isPropertyAvailable>
+		</dynamic>
+	</sql>
+	<!-- 分页查询记录数余额大于0的 -->
+	<select id="LnPact.findPage.countBal" resultClass="int">
+		SELECT count(*) FROM LN_PACT a,tbl_org_departments t
+		<include refid="LnPact.findPage.whereBal" />
+	</select>
+	<select id="LnPact.getCountBySts.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT 
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =#br_no#) 
+		and return_sts=#return_sts#
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO not in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+	</select>
+	<select id="LnPact.getCountByStsWwd.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT 
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =substr(#br_no#,0,4)||'00') 
+		and return_sts=#return_sts#
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO  in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+	</select>
+	<select id="lnpactlist.findBySts" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT * FROM LN_PACT
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =#br_no#) 
+		and return_sts=#return_sts#
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO not in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+		) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="lnpactlist.findByStsWwd" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT * FROM LN_PACT
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =substr(#br_no#,0,4)||'00') 
+		and return_sts=#return_sts#
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO  in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+		) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="LnPact.getCountByStsIn.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT 
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =#br_no#) 
+		and return_sts in $return_sts$
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO not in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+	</select>
+	<select id="LnPact.getCountByStsInWwd.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT 
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =substr(#br_no#,0,4)||'00') 
+		and return_sts in $return_sts$
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO  in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+	</select>
+	<select id="lnpactlist.findByStsIn" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT * FROM LN_PACT
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =#br_no#) 
+		and return_sts  in $return_sts$  
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO not in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+		) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="lnpactlist.findByStsInWwd" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT * FROM LN_PACT
+		where br_no in (select br_no from tbl_org_departments CONNECT by UP_ONE = PRIOR BR_NO START WITH BR_NO =substr(#br_no#,0,4)||'00') 
+		and return_sts  in $return_sts$  
+		<isPropertyAvailable property="pact_no">
+				<isNotEmpty prepend="AND" property="pact_no">
+					PACT_NO=#pact_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="cif_name">
+				<isNotEmpty prepend="AND" property="cif_name">
+					CIF_NAME like '%'||#cif_name#||'%'
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="pact_type">
+				<isNotEmpty prepend="AND" property="pact_type">
+					PACT_TYPE=#pact_type#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="app_no">
+				<isNotEmpty prepend="AND" property="app_no">
+					APP_NO=#app_no#
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="prdt_no">
+				<isNotEmpty prepend="AND" property="prdt_no">
+					PRDT_NO  in $prdt_no$
+				</isNotEmpty>
+			</isPropertyAvailable>
+		) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<!--合作项目查看贷款 ln_pact与apply_Base表关联 -->
+	<select id="lnpactconapplyBase.findByPage" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT a.* FROM LN_PACT
+		a,Apply_Base t WHERE a.app_no=t.app_no and t.item_no=#lnitem_no#
+		) m
+		WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<select id="LnPact.findByPage_applyBase.count" resultClass="int">
+		SELECT count(*) FROM LN_PACT a,Apply_Base t WHERE
+		a.app_no=t.app_no and
+		t.item_no=#lnitem_no#
+	</select>
+
+	<!-- 分页查询分页查询记录数余额大于0的 -->
+	<select id="lnpactlist.findByPageBal" resultMap="RM.Ln_Pact">
+		SELECT
+		<include refid="ln_pact.columns" />
+		FROM ( SELECT m.*, rownum as rnum FROM (SELECT a.* FROM LN_PACT
+		a,tbl_org_departments t
+		<include refid="LnPact.findPage.whereBal" />
+		) m WHERE rownum &lt; #endNum# ) WHERE rnum &gt;= #startNum#
+	</select>
+	<!-- 表修改 -->
+	<update id="LnPact.updateapplp">
+		<![CDATA[
+            UPDATE LN_PACT set
+               LN_RATE=#ln_rate#,
+               PACT_AMT=#pact_amt#,
+               ACC_FEE=#acc_fee#,
+               TERM_MON=#term_mon#,
+               INF_FEE=#inf_fee#,
+               LV_FEE=#lv_fee#,
+               SPARE_AMT=#spare_amt#,
+               PUT_OUT_AMT=#put_out_amt#
+            WHERE
+               PACT_NO=#pact_no#
+        ]]>
+	</update>
+	<update id="LnPact.updateReturnSts">
+		<![CDATA[
+            UPDATE LN_PACT set
+            RETURN_STS=#return_sts#
+            WHERE
+               PACT_NO=#pact_no#
+        ]]>
+	</update>
+</sqlMap>

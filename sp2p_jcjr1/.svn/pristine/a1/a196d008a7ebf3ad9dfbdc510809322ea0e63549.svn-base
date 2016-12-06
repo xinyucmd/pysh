@@ -1,0 +1,58 @@
+package com.shove.util;
+
+import com.sp2p.constants.IConstants;
+
+/**
+ * 短信接口，对短信接口地址进行拼接，提供公用
+ * 
+ * @author Administrator
+ * 
+ */
+public class SMSUtil {
+	
+	public static final String uri = "http://sdk4report.eucp.b2m.cn:8080/sdk/SDKService?wsdl";
+	/**   
+	 * @MethodName: sendSMS  
+	 * @Param: SMSUtil  
+	 * @Author: gang.lv
+	 * @Date: 2013-5-30 下午04:04:13
+	 * @Return:    
+	 * @Descb: 发送短信
+	 * @Throws:
+	*/
+	public static String sendSMS(String userName, String password, String content,
+			String phone,String randomCode) {
+		try {
+			if(randomCode != null){
+				content += randomCode;
+			}
+			content = "【微信贷】" + content;
+			System.out.println("content=="+content);
+			if(IConstants.ISDEMO.equals("2")){
+				int i = sendMSM(userName, password, content, phone);
+				if(i == 0){
+					return "Sucess";
+				}else{
+					return "Fail";
+				}
+			}else{
+				return "Fail";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Fail";
+		} 
+	}
+	
+	public static int sendMSM(String userName, String password, String content, String phone) throws Exception{
+		
+		Client client = new Client(userName, password);
+		int i = client.sendSMS(new String[] {phone}, content, "",5);
+		System.out.println(i);		
+		return i;
+	}
+	public static void main(String[] args) {
+		sendSMS("6SDK-EMY-6688-KFSRM", "JCJRBANKING", "你好", "13410404321", "0792");
+	}
+}

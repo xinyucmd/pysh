@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta name="viewport" content="target-densitydpi=device-dpi" >
+	<meta charset="utf-8">
+	<title>微信贷大转盘活动</title>
+	<script type="text/javascript" src="js/jquery-1.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="/script/jquery.shove-1.0.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+	
+	
+	<script>
+		jQuery(document).ready(function($) {
+			$('.theme-login').click(function(){
+				$('.theme-popover').slideDown(200);
+			})
+			$('.theme-poptit .close').click(function(){
+				$('.theme-popover').slideUp(200);
+			})
+		})
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			var isClick = false;
+			var $plateBtn = $('#plateBtn');
+			var $result = $('#result');
+			var $resultTxt = $('#resultTxt');
+			var $resultBtn = $('#resultBtn');
+			$plateBtn.bind("click",startRo);
+
+			function startRo(){
+				if(isClick === false){
+					isClick = true;
+				}else{
+					return;
+				}
+				// var data = [0, 1, 2, 3, 4, 5, 6, 7];
+				var data = [1,2,3,4];
+				data = data[Math.floor(Math.random()*data.length)];
+				switch(data){
+					//case 0:
+					//	rotateFunc(0,360,'恭喜你中了 <em>1000元</em>',1000);
+					//	break;
+					case 0:
+						rotateFunc(1,45,'恭喜你中了 <em>10元</em>',10);
+						break;
+					case 1:
+						rotateFunc(2,90,'恭喜你中了 <em>100元</em>',100);
+						break;
+					case 2:
+						rotateFunc(3,135,'恭喜你中了 <em>30元</em>',30);
+						break;
+					//case 4:
+					//	rotateFunc(4,180,'恭喜你中了 <em>500元</em>',500);
+					//	break;
+					case 3:
+						rotateFunc(5,225,'恭喜你中了 <em>20元</em>',20);
+						break;
+					//case 6:
+					//	rotateFunc(6,270,'恭喜你中了 <em>200元</em>',200);
+					//	break;
+					case 4:
+						rotateFunc(7,315,'恭喜你中了 <em>50元</em>',50);
+						break;
+				}
+
+			}
+
+			var rotateFunc = function(awards,angle,text,money){  //awards:奖项，angle:奖项对应的角度
+				$plateBtn.stopRotate();
+				$plateBtn.rotate({
+					angle: 0,
+					duration: 8000,
+					animateTo: angle + 2880,  //angle是图片上各奖项对应的角度，2880是让指针固定旋转8圈
+					callback: function(){
+						if(money <=100){
+							$("#money").attr("value",money);
+							$resultTxt.html(text);
+							$result.show();
+						}else{
+							$plateBtn.trigger("click");
+						}
+					}
+				});
+			};
+
+			$resultBtn.click(function(){
+				$result.hide();
+			});
+		});
+
+
+		/*
+		 *	保存红包
+		 */
+		function saveBouns(){
+			var money = $("#money").val();
+			// 保存金额
+			var param = {};
+			param["bonus_able"] = money;
+			$.shovePost("/saveBouns.do",param,function(data){
+				if(data != null && data>=0){
+					// 跳转到注册页
+					if(IsPC()){
+						window.location.href = "/cellPhonereginit.do";
+					}else{
+						window.location.href = "/page/recommend/reg.html";
+					}
+				}
+			});
+
+		}
+
+		function IsPC() {
+			var userAgentInfo = navigator.userAgent;
+			var Agents = ["Android", "iPhone",
+				"SymbianOS", "Windows Phone",
+				"iPad", "iPod"];
+			var flag = true;
+			for (var v = 0; v < Agents.length; v++) {
+				if (userAgentInfo.indexOf(Agents[v]) > 0) {
+					flag = false;
+					break;
+				}
+			}
+
+			if(isWeiXin()){
+				flag = false;
+			}
+
+			return flag;
+		}
+
+		function isWeiXin(){
+			var ua = window.navigator.userAgent.toLowerCase();
+			if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+	</script>
+		
+	
+	
+</head>
+<body>
+	<div class="banner1"></div>
+	<div class="banner2"></div>
+	<div class="banner3"></div>
+	<div class="banner4">
+		<div class="banner4_con">
+			<div class="plate">
+				<a style="transform: rotate(0deg); transform-origin: 50% 50% 0px;" id="plateBtn" href="javascript:" title="开始抽奖">开始抽奖</a>
+			</div>
+			<div style="display: none;" id="result">
+				<p id="resultTxt">恭喜你中了 <em></em></p>
+				<a id="resultBtn" href="javascript:" title="关闭"><img src="image/close.png"></a>
+				<a href="javascript:saveBouns();" class="btn btn-sm bg-primary">立即领取</a>
+				<input id="money" type="hidden"/>
+			</div>
+
+		</div>
+	</div>
+	<div class="banner5">
+		<div style="margin: 0 auto; background-color:#7C122D; border-radius: 30px; border:#B9153F 8px solid; height: 17px; width: 96%; max-width: 100%;"></div>
+		<div class="banner5_con">
+			<div style="border-top:dashed 3px #922742; width:auto; max-width: 100%;"></div>
+			<ul style="width: 90%; max-width: 100%; margin:0 auto; height: 100%;">
+				<li><a>1、新用户共有 <i>2</i> 次抽奖机会，分别是注册前、实名后。<small>（注册和实名认证各拥有一次抽奖机会）</small>。</a></li>
+				<li><a>2、进入页面后即可参加第一次抽奖，获取红包金额，注册后即可领取，实名后进行第二次抽奖，获取红包金额。</a></li>
+				<li><a>3、用户使用红包可按<i>1：50</i>比例进行投资，红包的使用期限为1个月。</a></li>
+				<li><a>4、此活动红包成功注册或认证后将实时发至个人账户，请登录个人账户（我的奖励里面的6.24红包）查收。</a></li>
+				<li><a>5、本活动规则解释权归微信贷所有，微信贷有权根据运营实际情况做出调整。</a></li>
+			</ul>
+			<div style="border-top:dashed 3px #922742; width:auto; max-width: 100%;"></div>
+			<div class="action">
+			   <a href="/cellPhoneinit.do">
+					<img src="image/icon1.png" >立即注册
+               </a>
+               <a href="javascript:;" class="theme-login">
+                 	<img src="image/icon2.png"  >微信扫描
+               </a>
+			   <a href="/finance.do?m=1&type=4">
+                  	<img src="image/icon3.png" >立即投资 
+               </a>
+			</div>
+		</div>
+	</div>
+
+	<div class="theme-popover">
+		<div>
+			<p class="tibo" style="border-bottom:solid 1px #c9c9c9;" >分享到微信朋友圈</p>
+			<p style="margin:15px 0; text-align:center;"><img src="image/liantu.png"></p>
+			<p class="tibo" style="border-top:solid 1px #c9c9c9;">打开微信使用"扫一扫"即可将网页分享到我的微信朋友圈。</p>
+		</div>
+		<div class="theme-poptit"><a title="关闭" class="close"></a></div>
+	</div>
+</body>
+</html>

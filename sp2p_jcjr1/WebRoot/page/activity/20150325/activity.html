@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微信贷-活动推广页面</title>
+<script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+<script src="/script/m/jquery.rye-core-1.0.js"></script>
+<script src="/script/m/rye.jc-core-1.0.js"></script>
+<script src="/script/m/rye.user-1.0.js"></script>
+<script src="/js/ZeroClipboard.js"></script>
+<style>
+	body { font-size: 14px; color: #666; font-family: "微软雅黑"; background-color:#F3F4F8; }
+	* { margin: 0; padding: 0; }
+	ul, ol { list-style: none; }
+	em, i { font-style: normal; }
+	img { border: none; vertical-align: middle; }
+	.clear { clear: both; }
+	.clearfix { zoom: 1; }
+	.clearfix:after { display: block; visibility: hidden; content: '.'; height: 0; clear: both; }
+	a { font-family: "微软雅黑"; text-decoration: none; color: #666; cursor: pointer; }
+	.activity{ width:100%; height:auto; font-family:"微软雅黑";}
+	.activity .banner1{ width:100%; background:url(img/banber1.jpg) no-repeat center; height:294px;}
+	.activity .banner2{ width:100%; background:url(img/banber2.jpg) no-repeat center; height:375px;}
+	.activity .ac_bg1{ width:100%;height:150px; background:url(img/bg1.jpg) no-repeat center;}
+	.activity .ac_bg1_con{ width:980px;height:150px; margin:0 auto;}
+	.activity .ac_bg2{ width:100%;height:155px; background:#53e1ac; }
+	.activity .ac_bg2_con{ width:980px;height:155px; margin:0 auto;}
+	.activity .ac_bg3{ width:100%;height:151px; background:url(img/bg2.jpg) no-repeat center; }
+	.activity .ac_bg3_con{ width:980px;height:151px; margin:0 auto;}
+	.activity .ac_bg4{ width:100%;height:225px; background:url(img/bg3.jpg) no-repeat center; }
+	.activity .ac_bg4_con{ width:980px;height:225px; margin:0 auto; background:url(img/bg4.jpg) no-repeat center;}
+	.btn_big{ width:255px; height:70px; border:none; cursor:pointer; position:relative; left:385px; top:80px;}
+	.btn_big_a{ width:255px; height:70px; border:none; cursor:pointer; background:url(img/btn2.jpg) no-repeat; position:relative; left:352px; top:52px;}
+	.activity .ac_bg5{ width:100%;height:82px; background:url(img/bg5.jpg) no-repeat center; }
+	.activity .ac_bg6{ width:100%;height:159px; background:url(img/bg6.jpg) no-repeat center; }
+	.activity .ac_bg6_con{ width:980px;height:159px; margin:0 auto;}
+	.activity .ac_bg7{ width:100%;height:123px; background:#53e1ac; }
+	.activity .ac_bg7_con{ width:980px;height:123px; margin:0 auto;}
+	.activity .ac_bg8{ width:100%;height:129px; background:url(img/bg7.jpg) no-repeat center; }
+	.activity .ac_bg8_con{ width:980px;height:129px; margin:0 auto;}
+	.activity .ac_bg9{ width:100%;height:174px; background:url(img/bg8.jpg) no-repeat center; }
+	.activity .ac_bg9_con{ width:980px;height:174px; margin:0 auto;}
+	.activity .ac_bg10{ width:100%;height:204px; background:url(img/bg9.jpg) no-repeat center; }
+	.activity .ac_bg10_con{ width:980px;height:204px; margin:0 auto;}
+	.activity .ac_bg11{ width:100%;height:140px; background:url(img/bg11.jpg) no-repeat center; }
+	.activity .ac_bg11_con{ width:980px;height:140px; margin:0 auto;}
+	.activity .ac_bg12{ width:100%;height:172px; background:url(img/bg12.jpg) no-repeat center; }
+	.activity .ac_bg12_con{ width:980px;height:172px; margin:0 auto;}
+	.activity .ac_bg13{ width:100%;height:189px; background:url(img/bg13.jpg) no-repeat center; }
+	.activity .ac_bg13_con{ width:980px;height:189px; margin:0 auto;}
+	.activity .ac_bg14{ width:100%;height:174px; background:url(img/bg14.jpg) no-repeat center; }
+	.activity .ac_bg14_con{ width:980px;height:174px; margin:0 auto;}
+	.activity .ac_bg15{ width:100%;height:165px; background:#53e1ac; }
+	.activity .ac_bg15_con{ width:980px;height:165px; margin:0 auto;}
+	.activity .ac_bg16{ width:100%;height:107px; background:url(img/bg15.jpg) no-repeat center; }
+	.activity .ac_bg16_con{ width:980px;height:107px; margin:0 auto;}
+	.activity .ac_bg17{ width:100%;height:190px; background:url(img/bg16.jpg) no-repeat center; }
+	.activity .ac_bg17_con{ width:980px;height:190px; margin:0 auto; background:url(img/bg10.jpg) no-repeat center;}
+	.activity .ac_bg18{ width:100%;height:114px; background:url(img/bg17.jpg) no-repeat center; }
+	.activity .ac_bg19{ width:100%;height:173px; background:url(img/bg18.jpg) no-repeat center; }
+	.activity .ac_bg19_con{ width:980px;height:173px; margin:0 auto;}
+	.activity .ac_bg20{ width:100%;height:142px; background:url(img/bg19.jpg) no-repeat center; }
+	.activity .ac_bg20_con{ width:980px;height:142px; margin:0 auto; background:url(img/img16.jpg) no-repeat center;}
+	.activity .ac_bg20_con ul li{ float:left; width:390px;} 
+	.activity .ac_bg21{ width:100%;height:220px; background:url(img/bg20.jpg) no-repeat center; }
+	.con_rule{ width:100%; height:600px; background:#2cc089;font-family:"微软雅黑"; font-size:20px; color:#064f33; padding-top:55px;}
+	.con_rule .con_list h3{ font-size:24px;}
+	.con_rule .con_list{ width:980px; margin:0 auto; }
+	.con_rule .con_list ul li{ line-height:46px;} 
+	.weixin{ margin:20px 0 0 50px;}
+	.link{ margin:20px 0 0 150px;}
+	.theme-popover{ width:385px; height:380px; position:fixed; display:none; z-index:9999; top:0; background:#fbfbfb; border-radius:8px; left:35%; border:solid 2px #dbdada; font-size:14px;}
+	.close{ background:url(img/close.jpg) no-repeat; top:5px;right:5px;  position:absolute; z-index:10001; height:27px; width:27px;}
+	.close2{ background:url(img/close2.jpg) no-repeat; top:5px;right:5px;  position:absolute; z-index:10001; height:25px; width:25px;}
+	.theme-popover .tibo{ height:60px; line-height:60px; padding-left:20px;}
+	.login_box{ width:530px; height:677px; position:fixed; left:30%; top:0; display:none; z-index:9999;}
+	.login_box .login_content{  }
+	.thao{ height: 300px;left: 20px;overflow: hidden;position: relative;z-index:10000;}
+	.login_content ul{ margin:0;}
+	.login_content ul li{ height:50px; margin-bottom:30px; line-height:50px; margin-left:40px; }
+	.login_content label{ padding:10px; margin-left:20px; font-size:20px; color:#0d6d0a;}
+	.login_content i{ border-right:1px solid #afafaf; padding:5px 1px; margin:0 8px;}
+	.login_content a{ color:#0d6d0a; font-size:18px;}
+	.login_content .login_user_input{  border:none; color:#0d6d0a; font-size:20px;  background:url(img/input_btn.jpg) no-repeat; height:46px; line-height:46px; padding-left:10px;}
+	.w1{ width:274px;}
+	.w2{ width:150px; background:url(img/s_btn.jpg) no-repeat;}
+	.login_content .login_user_btn{ width:272px; height:58px; line-height:58px; border:none;cursor:pointer; background:url(img/login_btn.jpg) no-repeat; }
+	.theme-popover-mask{z-index: 9998;position:fixed;top:0;left:0;width:100%;height:100%;background:url(img/bg_big.png) repeat;  display:none}	
+	.l_reg{ position:relative; left:100px;}
+	.w_password{ position:relative; left:200px;}
+	/*------------------头部-----------------*/	          
+.p_headerbox{ height:146px; border-top:solid 2px #C70009; width:100%; background-color:#fff;}
+.p_topbox{ height:42px; width:100%; background-color:#484f59;}
+.p_top{ width:980px;  padding-top:8px; margin:0 auto;}
+.p_topleft{ float:left;}
+.p_topleft span{ float:left;}
+.p_topleft span a{ vertical-align:bottom; margin:0 10px;}
+.p_topleft span a:hover{opacity:0.6; filter:alpha(opacity=60);}
+.p_topright{ float:right;}
+.p_topright span{ float:left; margin-left:30px; }
+.p_topright span a img{ vertical-align:text-bottom; *vertical-align:-2px;}
+.p_header{ width:980px; margin:0 auto; padding:30px 0;}
+.p_logo{  float:left;}
+.p_nav{ float:right; line-height:44px;}
+.p_nav a{ margin-left:75px; float:left; font-size:16px;}
+.p_nav a:hover,.p_nav a.hover{color:#bb1b21;}
+.f18{ font-size:18px;}
+</style>
+<script>
+jQuery(document).ready(function($) {
+	$('.theme-poptit .close2').click(function(){
+		$('.login_box').slideUp(200);
+		$('.theme-popover-mask').slideUp(200);
+	})
+
+})
+</script>
+</head>
+<body>
+<!--头部 begin-->
+<div class="p_headerbox">
+    <div class="p_topbox">
+        <div class="p_top clearfix">
+            <div class="p_topleft"> <span>客服电话：<em class="f18">400-001-6007</em> （9:00-21:00）</span></div>
+            <div class="p_topright"> 
+            
+            	<span id="span_logind">
+            		<img src="/activity_images/201501/p_ico003.png" width="13" height="16" /><a href="/home.do" style="color:#f90; margin-right:10px;">我的微信贷</a><span></span> <a href="/logout.do">退出</a>
+            	</span>
+            
+            	<span id="span_no_login">
+            		<a href="/login.do" style="color:#F90;"><img src="/activity_images/201501/p_ico003.png" /> 登录</a>
+            		<a href="/cellPhoneinit.do" style="color:#ff6960;"><img src="/activity_images/201501/p_ico004.png" /> 注册</a>
+            	</span> 
+            		
+            </div>
+        </div>
+    </div>
+    <div class="p_header clearfix">
+        <div class="p_logo"><a href="/index.jsp"><img src="/activity_images/201501/logo.png" /></a></div>
+        <div class="p_nav"><a href="/index.jsp">首页</a><a href="/finance.do?m=1&type=4">我要投资</a><a href="/borrow.do">我要借款</a><a href="/capitalEnsure.do">安全中心</a><a href="/getMessageBytypeId.do?typeId=4">关于我们</a></div>
+    </div>
+</div>
+<!--------------------------头部 end--------------------------->
+<div class="activity">
+	<div class="banner1"></div>
+    <div class="banner2"></div>
+    <div class="ac_bg1">
+            <div class="ac_bg1_con"><img src="img/img1.jpg" width="976" height="150" /></div>
+    </div>
+    <div class="ac_bg2">
+            <div class="ac_bg2_con"><img src="img/img2.jpg" width="976" height="155" /></div>
+    </div>
+    <div class="ac_bg3">
+            <div class="ac_bg3_con"><img src="img/img3.jpg" width="976" height="151" /></div>
+    </div>
+    <div class="ac_bg4">
+            <div class="ac_bg4_con">
+            <!-- 
+             <input name="" type="button"  class="btn_big"/>
+             -->
+             <a href="/cellPhoneinit.do" class="btn_big"><img src="img/btn1.jpg" width="255" height="70" /></a>
+            </div>
+  	</div>
+    <div class="ac_bg5"></div>
+	<div class="ac_bg6">
+            <div class="ac_bg6_con"><img src="img/img4.jpg" width="976" height="159" /></div>
+    </div>
+    <div class="ac_bg7">
+            <div class="ac_bg7_con"><img src="img/img5.jpg" width="976" height="123" /></div>
+    </div>
+    <div class="ac_bg8">
+            <div class="ac_bg8_con"><img src="img/img6.jpg" width="977" height="129" /></div>
+    </div>
+    <div class="ac_bg9">
+            <div class="ac_bg9_con"><img src="img/img7.jpg" width="976" height="174" /></div>
+    </div>
+    <div class="ac_bg10">
+            <div class="ac_bg10_con"><img src="img/img8.jpg" width="976" height="204" /></div>
+    </div>
+    <div class="ac_bg11">
+            <div class="ac_bg11_con"><img src="img/img9.jpg" width="976" height="140" /></div>
+    </div>
+     <div class="ac_bg12">
+            <div class="ac_bg12_con"><img src="img/img10.jpg" width="976" height="172" /></div>
+    </div>
+    <div class="ac_bg13">
+            <div class="ac_bg13_con"><img src="img/img11.jpg" width="976" height="189" /></div>
+    </div>
+    <div class="ac_bg14">
+            <div class="ac_bg14_con"><img src="img/img12.jpg" width="976" height="174" /></div>
+    </div>
+     <div class="ac_bg15">
+            <div class="ac_bg15_con"><img src="img/img13.jpg" width="976" height="165" /></div>
+    </div>
+    <div class="ac_bg16">
+            <div class="ac_bg16_con"><img src="img/img14.jpg" width="976" height="107" /></div>
+    </div>
+    <div class="ac_bg17">
+            <div class="ac_bg17_con"><a href="/finance.do?m=1&type=4" class="btn_big_a"><img src="img/btn2.jpg" width="256" height="67" /></a></div>
+    </div>
+     <div class="ac_bg18"></div>
+     <div class="ac_bg19">
+            <div class="ac_bg19_con"><img src="img/img15.jpg" width="976" height="173" /></div>
+    </div>
+    <div class="ac_bg20">
+            <div class="ac_bg20_con">
+            	<ul>
+                	<li class="weixin"><a href="javascript:;" class="theme-login"><img src="img/icon1.jpg" width="334" height="110" onclick="toLogin('code');"/></a></li>
+                     <li class="link"><a href="javascript:"><img id="img_cp_link"
+                    	src="img/icon2.jpg" width="317" height="105"
+                      	data-clipboard-target="reconmmend_link"/></a></li> 
+                </ul>
+            </div>
+    </div>
+     <div class="ac_bg21"></div>
+     <div class="con_rule">
+         <div class="con_list">
+                <h3>活动说明：</h3>
+                <ul>
+                    <li><span>1、</span>红包抵用比例为1:100， 单次投标10000元，只需支付9900元。</li>
+                    <li><span>2、</span>红包一次性未花完，余额可留作下次使用，若100元红包本次使用60，剩余40可下次使用。</li>
+                    <li><span>3、</span>注册所得红包可用于三个月及以上期限标的投资，推荐及投资所得红包可用于六个月及以上期限标的投资，现金奖励可投资可提现。</li>
+                    <li><span>4、</span>推荐好友单次投资获得的年化返利奖励，将随好友投标收益进行分月返还。</li>
+                    <li><span>5、</span>	推荐投资的好友关系不局限于本次活动，之前已建立的好友关系仍然有效，推荐好友投资后即可在本次活动中享受推荐返利。</li>
+                    <li><span>6、</span>	所有红包有效期为60天，过期失效。</li>
+                    <li><span>7、</span>	若活动奖金池现金或红包发放完毕，活动将自动截止。</li>
+                    <li><span>8、</span>	活动时间：2015年03月25日-2015年04月25日。</li>
+                    <li><span>9、</span>	本次活动的最终解释权归微信贷所有。</li>
+                </ul>
+         </div>
+      </div>    
+</div>
+<form method="post">
+<div class="login_box">
+  <div class="login_content">
+  <p><img src="img/login_bg.jpg" width="550" height="97" /></p>
+  <div style="background:#d2f2a9; height:360px; width:550px; padding:30px 0 10px 0; ">
+  	 <ul>
+			<li class="user_bg1">
+           		<label class="bg1">用户名</label>
+            	<input name="paramMap.email" id="username" type="text" class="login_user_input w1" />    
+            </li>
+                
+             <li class="user_bg1">
+             	<label class="bg2">密&nbsp;&nbsp;&nbsp;码</label>
+             	<input name="paramMap.password" id="ipt_pwd_value"  type="password" class="login_user_input w1" />
+             </li>
+             
+        		<li class="user_bg2" style="margin-left:140px;">
+        			<input id="code" name="" type="text" class="login_user_input w2" />
+        			<img  title="点击更换验证码" style="cursor: pointer; margin-left:10px;" id="img_code" width="120" height="40" onclick="javascript:flushCode()" />
+     		</li>
+            <li style="line-height:0; margin-bottom:0;"><a href="/cellPhoneinit.do" class="l_reg">立即注册</a><a href="/forgetpassword.do" class="w_password">忘记密码？</a></li>
+            <li style="line-height:0; margin-left:130px;">
+    	<input id="btn_login" name="btn_login" type="button" class="login_user_btn" onclick="login();"/>
+    	</li>
+      </ul>
+    </div>
+  </div>
+  <div class="theme-poptit"><a href="javascript:;" title="关闭" class="close2"></a></div>
+</div>
+
+<input type="hidden" id="reconmmend_link" value=""/>
+
+</form>
+<div class="theme-popover-mask"></div>
+    <div class="theme-popover" id = "showCode">
+        <div>
+       	  	<p class="tibo" style="border-bottom:solid 1px #c9c9c9;" >分享到微信朋友圈</p>
+            <p style="margin:15px 0; text-align:center;" id="imgCode"></p>
+            <p class="tibo" style="border-top:solid 1px #c9c9c9;">打开微信使用"扫一扫"即可将网页分享到我的微信朋友圈。</p>
+        </div>	
+        <div class="theme-poptit"><a href="javascript:closeCode();" title="关闭" class="close"></a></div>
+    </div>
+</body>
+
+<script>
+	var param = {};
+	var loginTarget = '';
+	var baseUrl = "http://www.jcbanking.com/page/recommend/reg.html";
+	var user;
+	jQuery(document).ready(function($) {
+		user = new MUser(param);
+		user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$("#span_no_login").hide();
+					$("#span_logind").show();
+					
+					// 设置复制链接的地址
+					$("#reconmmend_link").attr("value",baseUrl+"?userName="+data.userName);
+				}else{
+					// 头部控制
+					$("#span_no_login").show();
+					$("#span_logind").hide();
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+		
+	});
+	
+	// 登录
+	function login(){
+		var username = $("#username").attr("value");
+		var password = $("#ipt_pwd_value").attr("value");
+		var code = $("#code").attr("value");
+		var obj_btn_login = $("#btn_login");
+		var obj_img_code = $("#img_code");
+		user.login_pc(username, password, code, obj_btn_login, obj_img_code,function(data){
+			toLogin('');
+		},
+		function(data1){
+			clearForm();
+		}
+		);
+	}
+	
+	function flushCode(){
+		var obj_img_code = $("#img_code");
+		user.flushImgCode(obj_img_code);
+	}
+	
+	// 登录框
+	jQuery(document).ready(function($) {
+		$('.close').click(function(){
+			closeLogin();
+		});
+	});
+	
+	function toLogin(lt){
+		loginTarget = lt;
+		user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$("#div_box_b").hide();
+					
+					// 显示二维码
+					if(loginTarget=='code'){
+						showCode(data);
+					}
+					
+					// 设置复制链接的地址
+					$("#reconmmend_link").attr("value",baseUrl+"?userName="+data.userName);
+					
+					processAfterLogin();
+					return true;
+				}else{
+					//showLogin();
+					//$("#div_box_b").show();
+					//$("#div_box_c").hide();
+					
+					// 头部控制
+					//$("#span_no_login").show();
+					//$("#span_logind").hide();
+					
+					window.location.href = "/login.do";
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+	}
+	
+	function showCode(data){
+		// 加载二维码
+		user.genQCode("imgCode", baseUrl+"?userName="+data.userName);
+		$("#showCode").show();
+	}
+	
+	function closeCode(){
+		$("#showCode").hide();
+	}
+	
+	function processAfterLogin(){
+		$("#div_box_b").hide();
+		$("#div_box_c").show();
+		
+		// 头部控制
+		$("#span_no_login").hide();
+		$("#span_logind").show();
+		closeLogin();
+	}
+	
+	function clearForm(){
+		$("#code").attr("value","");
+		$("#btn_login").attr("value","");
+		$("#img_code").attr("value","");
+	}
+	
+	function showLogin(){
+		$('.theme-popover-mask').fadeIn(100);
+		$('.login_box').slideDown(200);
+		// 刷新图片验证码
+	    flushCode();
+	}
+	
+	function closeLogin(){
+		$('.theme-popover-mask').fadeOut(100);
+		$('.login_box').slideUp(200);
+	}
+	
+	
+	// 定义一个新的复制对象
+	var clip = new ZeroClipboard($("#img_cp_link"), {
+	  moviePath: "/js/ZeroClipboard.swf"
+	} );
+	
+	// 复制内容到剪贴板成功后的操作
+	clip.on( 'complete', function(client, args) {
+		user.login_pc_check(function(data){
+			if(user.isNotBank(data)){
+				if(data.status == 1){
+					$("#div_box_b").hide();
+					//alert("复制成功，复制内容为："+ args.text);
+					alert("复制成功,复制内容可直接粘贴!");
+					return true;
+				}else{
+					//showLogin();
+					//$("#div_box_b").show();
+					//$("#div_box_c").hide();
+					
+					// 头部控制
+					//$("#span_no_login").show();
+					//$("#span_logind").hide();
+					
+					window.location.href = "/login.do";
+				}
+			}else{
+				alert('检查登录状态失败！');	
+			}
+		});
+	} );
+	
+</script>
+
+</html>

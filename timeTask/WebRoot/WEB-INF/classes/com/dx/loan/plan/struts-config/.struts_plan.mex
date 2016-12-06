@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="repay" location="10,10" size="280,140">
+    <action name="repay_*" location="65,47" size="150,62">
+      <result name="repayList">
+        <resourceEdge source="repayList" routing="0" target="repayList.jsp" />
+      </result>
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="pay_Jsp.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="repayList.jsp" path="WEB-INF/loan/repay/repayList.jsp" location="39,205" size="150,55" />
+  <webResource name="pay_Jsp.jsp" path="/pay_Jsp.jsp" location="345,30" size="150,55" />
+</Struts2Diagram>
+

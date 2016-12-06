@@ -1,0 +1,387 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/include/taglib.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
+<meta http-equiv="description" content="This is my page" />
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<link href="../../css/admin/admin_css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/jquery.shove-1.0.js"></script>
+<script language="javascript" type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
+<link href="../script/pagination.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery.pagination.js"></script>
+<style>
+	body { font-size: 14px;  font-family: "微软雅黑";}
+	* { margin: 0; padding: 0; }
+	ul, ol { list-style: none; }
+	em, i { font-style: normal; }
+	img { border: none; vertical-align: middle; }
+	.clear { clear: both; }
+	.clearfix { zoom: 1; }
+	.clearfix:after { display: block; visibility: hidden; content: '.'; height: 0; clear: both; }
+	a { font-family: "微软雅黑"; text-decoration: none; color: #666; cursor: pointer; }
+	#right{ overflow:hidden; width:auto; margin-top:10px;}
+	.right_title{}
+	.right_title .cen_input{border: 1px solid #d9d9d9; height: 22px; line-height: 22px;}
+	.right_title .cen_btn{border: 1px solid #d9d9d9; height: 24px; line-height: 22px; width:60px; margin:0 10px; cursor:pointer;}
+	.right_title span{ margin-left:10px;}
+   .zh_table td {border: 1px solid #ddd;text-align: center; width:12.5%; height:22px; line-height:22px;}
+   .zh_table1_1 td {border: 1px solid #ddd;text-align: center; width:10%; height:40px; line-height:40px;}
+   .zh_table1_1 th {background-color: #e8ecef;border: 1px solid #ddd;font-weight: normal;height: 40px;text-align: center; width:10%;}
+</style>
+<script>
+jQuery(document).ready(function() {
+	$('#theme-login').click(function(){
+		$('#div_check').slideToggle();
+	})
+	$('#div_check').dblclick(function(){
+		$('#theme-login').click();
+	})
+})
+</script>
+<script type="text/javascript">
+   
+  function sysBaseStatisInitContions(){
+	 var obj=document.getElementById("selectId4");
+	 if(obj.checked){
+	 var startTime = $('#startTime').val();
+	 var  endTime = $('#endTime').val();
+	 if(startTime==''){
+		 alert('请选择时间范围');
+		 return;
+	 }
+	 if(endTime==''){
+		 alert('请选择时间范围');
+		 return;
+	 }
+	 if(endTime<startTime){
+		 alert('时间范围不合法');
+		 return;
+	 }
+  }
+	$('#sysBaseForm').submit();
+  }
+   
+</script>
+</head>
+
+<body>
+
+	<div id="right">
+	<div style="padding: 15px 10px 0px 10px;">
+				<div>
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="100" id="today" height="28"  class="main_alll_h2">
+								<a href="sysBaseStatisInit.do">用户统计</a>
+							</td>
+							<td width="2">
+								&nbsp;
+							</td>
+							<td width="100" id="tomorrow"  class="xxk_all_a">
+								<a href="investAll.do">投资统计</a>
+							</td>
+							<td width="2">
+								&nbsp;
+							</td>
+							 <td width="100" id="tomorrow"  class="xxk_all_a">
+								<a href="giveBiao.do">发标统计</a>
+							</td> 
+							<td>
+								&nbsp;
+							</td>
+							<td width="100" id="tomorrow"  class="xxk_all_a">
+								<a href="touBiao.do">投标统计</a>
+							</td> 
+							<td width="2">
+								&nbsp;
+							</td>
+							<td width="100" id="tomorrow"  class="xxk_all_a">
+								<a href="RepayMentList.do?repayStatus=1">待收统计</a>
+							</td>
+							<td width="2">
+								&nbsp;
+							</td>
+							<td width="100" id="tomorrow"  class="xxk_all_a">
+								<a href="withdrawAll.do">提现统计</a>
+							</td>
+							<td width="2">
+								&nbsp;
+							</td>
+							<td width="100" id="tomorrow"  class="xxk_all_a">
+								<a href="RepayMentList.do?repayStatus=2">还款统计</a>
+							</td>
+							<td>
+								&nbsp;
+							</td>
+						</tr>
+					</table>
+					</div>
+    	<div class="right_title">
+    	    <form id="sysBaseForm" action="sysBaseStatisInit.do" method="post">
+	        	<span><label><input id="selectId1" type="radio"  name="selectName"  value="1"/>昨日</label></span>
+	        	<span><label><input id="selectId2" type="radio"  name="selectName" value="2" />本周</label></span>
+	        	<span><label><input id="selectId3" type="radio"  name="selectName"  value="3"/>本月</label></span>
+	        	
+	        	<span>
+	        	      <label><input id="selectId4" type="radio" name="selectName" value="4"/>其他时间</label>
+	        	      <input id="startTime" name="startTime" value="${startTime}" type="text" class="cen_input" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})"/>至
+	        	      <input id="endTime" name="endTime" value="${endTime}" type="text" class="cen_input" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'readOnly'})"/>
+	           </span>
+	           <input name="" type="button"  value="查找" class="cen_btn" onclick="sysBaseStatisInitContions()"/>
+	           <span id="showEorrs"></span>
+	       </form>
+        </div>
+        <div style="width:1200px; margin-top:20px;">
+        	<table class="zh_table" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top:10px;">
+                <tbody>
+                    <tr>
+                        <td>累计用户注册<br/>（个）</td>
+                        <td style="color:#ff0000">${allUuerSum }</td>
+                         <td>新增注册用户<br/>（个）</td>
+                        <td style="color:#ff0000">${newRegUser }</td>
+                    </tr>
+                    <tr>
+                    <td>累计投资用户<br/>（个）</td>
+                        <td style="color:#ff0000">${allInvestUser }</td>
+                       
+                        <td>新增投资用户<br/>（个）</td>
+                        <td style="color:#ff0000">${newInvestUser }</td>
+                    </tr>
+                     <tr>
+                        <td>累计安卓注册<br/>（个）</td>
+                        <td>${allAuerSum }</td>
+                         <td>新增安卓注册用户<br/>（个）</td>
+                        <td>${newARegUser }</td>
+                    </tr>
+                    <tr>
+                    <td>累计苹果注册用户<br/>（个）</td>
+                        <td>${allIuerSum }</td>
+                       
+                        <td>新增苹果注册用户<br/>（个）</td>
+                        <td>${newIRegUser }</td>
+                    </tr>
+                      <tr>
+                    <td>累计PC端注册用户<br/>（个）</td>
+                        <td>${allPuerSum }</td>
+                       
+                        <td>新增PC端注册用户<br/>（个）</td>
+                        <td>${newPRegUser }</td>
+                    </tr>
+                </tbody>
+           </table>	
+        </div>
+		    <table id="zh_table1_Id" class="zh_table1_1" width="100%" cellspacing="0" cellpadding="0" border="0">
+                 
+		    </table>
+        </div>
+        <div><div id="Pagination" class="paging" style="margin:20px 0 0 500px; overflow:hidden;"></div></div>
+    </div>
+<script type="text/javascript">
+    if('${status}'=='2'){
+  	  var obj=$('#selectId2');
+  	  obj.attr('checked','checked');
+    }else if('${status}'=='3'){
+  	  var obj=$('#selectId3');
+  	  obj.attr('checked','checked');
+    }else if('${status}'=='4'){
+  	  var obj=$('#selectId4');
+  	  obj.attr('checked','checked');
+    }else{
+  	  var obj=$('#selectId1');
+  	  obj.attr('checked','checked');
+    }
+    
+    function excel(){
+   	 
+        var v = 1;
+        var obj1=document.getElementById("selectId1");
+        if(obj1.checked){
+        	v = 1;
+        }
+        var obj2=document.getElementById("selectId2");
+        if(obj2.checked){
+        	v = 2;
+        }
+        var obj3=document.getElementById("selectId3");
+        if(obj3.checked){
+        	v = 3;
+        }
+        var obj4=document.getElementById("selectId4");
+        if(obj4.checked){
+        	v = 4;
+        }
+        if(v==4){
+        	 var startTime = $('#startTime').val();
+        	 var  endTime = $('#endTime').val();
+        	 if(startTime==''){
+        		 alert('请选择时间范围');
+        		 return;
+        	 }
+        	 if(endTime==''){
+        		 alert('请选择时间范围');
+        		 return;
+        	 }
+        	 if(endTime<startTime){
+        		 alert('时间范围不合法');
+        		 return;
+        	 }
+        }
+       
+		 var startTime = $('#startTime').val();
+		 var endTime = $('#endTime').val();
+        window.location.href="sysBaseStatisExcel.do?selectName="+v+"&startTime="+startTime+"&endTime="+endTime;
+       
+   }
+    
+    function excelDetail(){
+    	 
+         var v = 1;
+         var obj1=document.getElementById("selectId1");
+         if(obj1.checked){
+         	v = 1;
+         }
+         var obj2=document.getElementById("selectId2");
+         if(obj2.checked){
+         	v = 2;
+         }
+         var obj3=document.getElementById("selectId3");
+         if(obj3.checked){
+         	v = 3;
+         }
+         var obj4=document.getElementById("selectId4");
+         if(obj4.checked){
+         	v = 4;
+         }
+         if(v==4){
+         	 var startTime = $('#startTime').val();
+         	 var  endTime = $('#endTime').val();
+         	 if(startTime==''){
+         		 alert('请选择时间范围');
+         		 return;
+         	 }
+         	 if(endTime==''){
+         		 alert('请选择时间范围');
+         		 return;
+         	 }
+         	 if(endTime<startTime){
+         		 alert('时间范围不合法');
+         		 return;
+         	 }
+         }
+        
+		 var startTime = $('#startTime').val();
+		 var endTime = $('#endTime').val();
+         window.location.href="sysBaseStatisExcelDetail.do?selectName="+v+"&startTime="+startTime+"&endTime="+endTime;
+        
+    }
+     
+    //初始化分页变量
+    var pageNum = 0; 
+    var pageSize = 10; 
+    var totalNum = 0;
+    //翻页调用  
+    function PageCallback(pageNum, jq) {             
+    	querySysBaseStatisDetail(pageNum);
+    }
+    function querySysBaseStatisDetail(pageNum){
+    	            $('#div_check').show();
+    	            var v = 1;
+    	            var obj1=document.getElementById("selectId1");
+    	            if(obj1.checked){
+    	            	v = 1;
+    	            }
+    	            var obj2=document.getElementById("selectId2");
+    	            if(obj2.checked){
+    	            	v = 2;
+    	            }
+    	            var obj3=document.getElementById("selectId3");
+    	            if(obj3.checked){
+    	            	v = 3;
+    	            }
+    	            var obj4=document.getElementById("selectId4");
+    	            if(obj4.checked){
+    	            	v = 4;
+    	            }
+    	            if(v==4){
+    	            	 var startTime = $('#startTime').val();
+    	            	 var  endTime = $('#endTime').val();
+    	            	 if(startTime==''){
+    	            		 alert('请选择时间范围');
+    	            		 return;
+    	            	 }
+    	            	 if(endTime==''){
+    	            		 alert('请选择时间范围');
+    	            		 return;
+    	            	 }
+    	            	 if(endTime<startTime){
+    	            		 alert('时间范围不合法');
+    	            		 return;
+    	            	 }
+    	            }
+    			    var param={};
+    			    param["selectName"] = v;
+    			    param["startTime"] = $('#startTime').val();
+    			    param["endTime"] = $('#endTime').val();
+    			   
+    			    param["pageNum"] = pageNum+1;
+    			    param["pageSize"] = pageSize;
+			    	 
+    			    $.ajax({
+    				    type: "post",
+    				    url: "sysBaseStatisDetail.do",
+    				    dataType: "json",
+    				    data:param,
+    				    success: function (data) {
+    				    	
+    				    	var tr_list_o = $("#zh_table1_Id");
+    				   	    tr_list_o.empty();
+    				    	
+    				    	totalNum = data.totalNum;
+    				    	$("#Pagination").pagination(totalNum, {  
+    				    	    callback: PageCallback, 
+    				    	    maxentries:4,
+    				    	    prev_text: '上一页',  
+    				    	    next_text: '下一页',  
+    				    	    items_per_page: pageSize,  //每页显示条目数
+    				    	    num_display_entries: 6,//连续分页主体部分分页条目数  
+    				    	    current_page: pageNum,//当前页索引  
+    				    	    num_edge_entries: 2//两侧首尾分页条目数  
+    				    	}); 
+    				    	
+    				    	if(data.result != null && data.result != undefined && data.result != ''){
+    					    	var strHtml = "";
+    				    		for(var i=0;i<data.result.length;i++){
+    					    		var o = data.result[i];
+    					    		strHtml +="<tr>";
+    					    		strHtml +="<td align='center'>"+(i+1)+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_date_f+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_reg_user_sum+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_invest_user_sum+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_cz_money+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_tx_money+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_tz_money+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_org_moey+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_upline_moeny+"</td>";
+    			                    strHtml +="<td align='center'>"+o.s_downline_money+"</td>";
+    								strHtml +="</tr>";
+    					    	}
+    				    		tr_list_o.append(strHtml);
+    				    	} 
+    				    },
+    				    error: function (XMLHttpRequest, textStatus, errorThrown) {
+    				       alert(errorThrown);
+    				    }
+    				}); 
+    }
+</script>
+</body>
+</html>
